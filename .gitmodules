@@ -52,3 +52,6 @@
 [submodule "misc/ntangle"]
 	path = misc/ntangle
 	url = https://github.com/OrgTangle/ntangle.git
+[submodule "elisp/emacs-leuven-theme"]
+	path = elisp/emacs-leuven-theme
+	url = https://github.com/yuravg/emacs-leuven-theme

@@ -12,6 +12,10 @@
     ;; (setq-default fci-handle-truncate-lines nil) ; Do not truncate lines in fci mode
 
     (setq fci-rule-width 1)
+    (setq-default fci-rule-use-dashes t)
+    (setq-default fci-dash-pattern 1.0)
+    (setq-default fci-rule-color "grey85")
+    (setq-default fci-rule-column 96)
 
     (defconst modi/fci-mode-hooks '(verilog-mode-hook
                                     emacs-lisp-mode-hook

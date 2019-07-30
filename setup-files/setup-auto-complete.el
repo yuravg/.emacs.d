@@ -18,7 +18,10 @@
     (bind-keys
      :map ac-menu-map
      ("C-n" . ac-next)
-     ("C-p" . ac-previous))
+     ("C-p" . ac-previous)
+     ("C-s" . ac-isearch)
+     ("C-j" . ac-complete))
+
     (ac-config-default)))
 
 

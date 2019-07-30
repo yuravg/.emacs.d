@@ -368,6 +368,7 @@ need Org version to be at least 9.x.")
 (require 'setup-personal nil :noerror)
 
 ;; YuraVG:
+(require 'setup-cc)
 (require 'setup-bat)
 (require 'setup-autopair)
 (require 'setup-aggressive-indent)

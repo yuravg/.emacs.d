@@ -170,6 +170,7 @@ need Org version to be at least 9.x.")
     ;; YuraVG:
     autopair
     aggressive-indent
+    google-translate
     powershell
     bitbake
     )
@@ -374,6 +375,7 @@ need Org version to be at least 9.x.")
 (require 'setup-bat)
 (require 'setup-autopair)
 (require 'setup-aggressive-indent)
+(require 'setup-google-translate)
 (require 'setup-powershell)
 (require 'setup-bitbake)
 

@@ -16,8 +16,10 @@ saved desktop at startup:
 ")
 
     (setq desktop-base-file-name (concat "emacs_" emacs-version-short
+                                         "_" (>=e "25.0" (system-name) system-name)
                                          ".desktop"))
     (setq desktop-base-lock-name (concat "emacs_" emacs-version-short
+                                         "_" (>=e "25.0" (system-name) system-name)
                                          ".desktop.lock"))
 
     ;; Wed Jul 20 09:36:15 EDT 2016 - kmodi

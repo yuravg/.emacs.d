@@ -22,6 +22,10 @@
       (dolist (hook modi/aggressive-indent-mode-hooks)
         (remove-hook hook #'aggressive-indent-mode)))
 
+    ;; Mark the `aggressive-indent-mode' as safe so that it can be
+    ;; set in `.dir-locals.el' files or set in Local Variables.
+    (add-to-list 'safe-local-variable-values '(aggressive-indent-mode))
+
     (modi/turn-on-aggressive-indent-mode)))
 
 

@@ -193,6 +193,10 @@ If the buffer major-mode is `clojure-mode', run `cider-load-buffer'."
   :load-path "elisp/misc"
   :commands (fontawesome-choose))
 
+;; http://github.com/larstvei/try
+(use-package try
+  :commands (try))
+
 ;; Tue Jul 30 13:49:35 EDT 2019 - kmodi
 ;; Commenting out the below as I do not think they are needed.
 ;; Or rather, I need to better understand if and how these settings

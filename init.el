@@ -168,6 +168,7 @@ need Org version to be at least 9.x.")
 
     ;; YuraVG:
     autopair
+    aggressive-indent
     )
   "A list of packages to ensure are installed at launch")
 
@@ -368,6 +369,7 @@ need Org version to be at least 9.x.")
 ;; YuraVG:
 (require 'setup-bat)
 (require 'setup-autopair)
+(require 'setup-aggressive-indent)
 
 ;; The `setup-misc' must be the last package to be required except for
 ;; `setup-desktop'.

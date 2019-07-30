@@ -129,5 +129,48 @@
      ("ft" . modi/deadgrep-search-files-by-type)
      ("fg" . modi/deadgrep-search-files-by-glob))))
 
+;; https://github.com/dajva/rg.el
+(use-package rg
+  :config
+  (progn
+    (defvar yura/rg-truncate-lines t "Variable `truncate-lines' for `rg-mode'.")
+
+    (defun yura/rg-toggle-truncate-lines ()
+      "Toggle `yura/rg-truncate-lines'."
+      (interactive)
+      (progn
+        (setq yura/rg-truncate-lines
+              (if (bound-and-true-p yura/rg-truncate-lines)
+                  nil t))
+        (message "Truncate line (rg-mode): %s" yura/rg-truncate-lines)))
+
+    (defun yura/toggle-truncate-lines-rg-mode-hook ()
+      (setq truncate-lines yura/rg-truncate-lines))
+    (add-hook 'rg-mode-hook #'yura/toggle-truncate-lines-rg-mode-hook)
+
+    (defhydra hydra-rg (:color blue
+                        :hint nil)
+      "
+[rg mode]
+  _s_/_t_: search literal                  _d_: directory              _T_: toggle truncate
+    ^^_r_: search regexp                   _f_: file pattern           _l_: list searches
+    ^^_c_: toogle case insensitive         _i_: toggle ignore          _S_: save search result
+"
+      ("s" rg-rerun-change-literal)
+      ("t" rg-rerun-change-literal)
+      ("r" rg-rerun-change-regexp)
+      ("c" rg-rerun-toggle-case)
+      ("d" rg-rerun-change-dir)
+      ("f" rg-rerun-change-files)
+      ("i" rg-rerun-toggle-ignore)
+      ("T" yura/rg-toggle-truncate-lines)
+      ("S" rg-save-search-as-name)
+      ("l" rg-list-searches)
+      ("q" nil "cancel" :color blue))
+
+    (bind-keys
+     :map rg-mode-map
+     ("?" . hydra-rg/body))))
+
 
 (provide 'setup-rg)

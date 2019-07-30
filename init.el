@@ -178,6 +178,7 @@ need Org version to be at least 9.x.")
     try
     dockerfile-mode
     docker
+    rg
     )
   "A list of packages to ensure are installed at launch")
 

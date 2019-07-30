@@ -172,6 +172,7 @@ need Org version to be at least 9.x.")
     aggressive-indent
     google-translate
     list-environment
+    highlight-indent-guides
     powershell
     bitbake
     rust-mode
@@ -384,6 +385,7 @@ need Org version to be at least 9.x.")
 (require 'setup-aggressive-indent)
 (require 'setup-google-translate)
 (require 'setup-list-environment)
+(require 'setup-highlight-indent-guides)
 (require 'setup-powershell)
 (require 'setup-bitbake)
 (require 'setup-rust)

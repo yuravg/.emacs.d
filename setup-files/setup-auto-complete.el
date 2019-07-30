@@ -10,6 +10,7 @@
     (setq ac-ignore-case t) ; ignore case
     (setq ac-use-fuzzy t) ; enable fuzzy auto complete
     (setq ac-trigger-key "TAB")
+    (setq ac-disable-faces nil)  ;; enable auto complete between quotation marks
 
     ;; http://cx4a.org/software/auto-complete/manual.html#Select_candidates_with_C-n_C-p_only_when_completion_menu_is_displayed
     ;; Use C-n/p instead of arrow keys to select ac options from the ac menu

@@ -165,6 +165,9 @@ need Org version to be at least 9.x.")
     ;; helm helm-swoop ; < swiper
     ;; helm-gtags ; < ggtags
     ;; projectile ; Better than fiplr < fork
+
+    ;; YuraVG:
+    autopair
     )
   "A list of packages to ensure are installed at launch")
 
@@ -361,6 +364,9 @@ need Org version to be at least 9.x.")
 
 ;; Place `setup-personal.el' with `(provide 'setup-personal)' in `user-personal-directory'
 (require 'setup-personal nil :noerror)
+
+;; YuraVG:
+(require 'setup-autopair)
 
 ;; The `setup-misc' must be the last package to be required except for
 ;; `setup-desktop'.

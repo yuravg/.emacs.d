@@ -171,6 +171,7 @@ need Org version to be at least 9.x.")
     autopair
     aggressive-indent
     google-translate
+    list-environment
     powershell
     bitbake
     )
@@ -376,6 +377,7 @@ need Org version to be at least 9.x.")
 (require 'setup-autopair)
 (require 'setup-aggressive-indent)
 (require 'setup-google-translate)
+(require 'setup-list-environment)
 (require 'setup-powershell)
 (require 'setup-bitbake)
 

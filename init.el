@@ -170,6 +170,7 @@ need Org version to be at least 9.x.")
     ;; YuraVG:
     autopair
     aggressive-indent
+    powershell
     bitbake
     )
   "A list of packages to ensure are installed at launch")
@@ -373,6 +374,7 @@ need Org version to be at least 9.x.")
 (require 'setup-bat)
 (require 'setup-autopair)
 (require 'setup-aggressive-indent)
+(require 'setup-powershell)
 (require 'setup-bitbake)
 
 ;; The `setup-misc' must be the last package to be required except for

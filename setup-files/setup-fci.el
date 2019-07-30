@@ -21,8 +21,22 @@
                                     emacs-lisp-mode-hook
                                     python-mode-hook
                                     sh-mode-hook
-                                    ;; org-src-mode-hook
+                                    ;; org-mode-hook
+                                    org-src-mode-hook
                                     cperl-mode-hook
+                                    makefile-mode-hook
+                                    text-mode-hook
+                                    fundamental-mode
+                                    tcl-mode-hook
+                                    java-mode-hook
+                                    c-mode-hook
+                                    c++-mode-hook
+                                    rust-mode-hook
+                                    bat-mode-hook
+                                    powershell-mode-hook
+                                    bitbake-mode-hook
+                                    js-mode-hook
+                                    nim-mode-hook
                                     d-mode-hook)
       "List of hooks of major modes in which fci mode should be enabled.")
 

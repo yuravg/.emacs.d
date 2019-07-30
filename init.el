@@ -366,6 +366,7 @@ need Org version to be at least 9.x.")
 (require 'setup-personal nil :noerror)
 
 ;; YuraVG:
+(require 'setup-bat)
 (require 'setup-autopair)
 
 ;; The `setup-misc' must be the last package to be required except for

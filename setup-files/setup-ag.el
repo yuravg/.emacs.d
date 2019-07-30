@@ -2,6 +2,9 @@
 
 ;; Ag
 ;; https://github.com/Wilfred/ag.el
+;; https://github.com/ggreer/the_silver_searcher
+;; release for Windows OS
+;; https://github.com/k-takata/the_silver_searcher-win32/releases
 
 (use-package ag
   :commands (modi/ag-regexp-cwd

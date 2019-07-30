@@ -176,6 +176,8 @@ need Org version to be at least 9.x.")
     bitbake
     rust-mode
     try
+    dockerfile-mode
+    docker
     )
   "A list of packages to ensure are installed at launch")
 
@@ -383,6 +385,7 @@ need Org version to be at least 9.x.")
 (require 'setup-powershell)
 (require 'setup-bitbake)
 (require 'setup-rust)
+(require 'setup-docker)
 
 ;; The `setup-misc' must be the last package to be required except for
 ;; `setup-desktop'.

@@ -388,6 +388,7 @@ need Org version to be at least 9.x.")
 (require 'setup-bitbake)
 (require 'setup-rust)
 (require 'setup-docker)
+(require 'setup-vhdl)
 
 ;; The `setup-misc' must be the last package to be required except for
 ;; `setup-desktop'.

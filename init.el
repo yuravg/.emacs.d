@@ -142,6 +142,7 @@ need Org version to be at least 9.x.")
     yaml-mode ; Useful for editing Octopress' _config.yml
     yasnippet
     zop-to-char
+    p4
 
     ;; Themes
     ;; zenburn-theme ; < fork

@@ -174,6 +174,7 @@ need Org version to be at least 9.x.")
     list-environment
     powershell
     bitbake
+    rust-mode
     )
   "A list of packages to ensure are installed at launch")
 
@@ -380,6 +381,7 @@ need Org version to be at least 9.x.")
 (require 'setup-list-environment)
 (require 'setup-powershell)
 (require 'setup-bitbake)
+(require 'setup-rust)
 
 ;; The `setup-misc' must be the last package to be required except for
 ;; `setup-desktop'.

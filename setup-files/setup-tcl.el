@@ -20,7 +20,32 @@
       (setq tab-width 4
             tcl-indent-level 4
             indent-tabs-mode nil))
-    (add-hook 'tcl-mode-hook #'yura/tcl-set-indentation)))
+    (add-hook 'tcl-mode-hook #'yura/tcl-set-indentation)
+
+    ;; SDC - Synopsys Design Constraints
+    (defun sdc-command-refactoring ()
+      "Refactoring the SDC command in the selected region or in the current line.
+
+If a region is selected then this region will be refactored,
+otherwise the current line will be refactored.\n
+Before:
+sdc_command -arg0 -arg1 -arg2 value\n
+After:
+sdc_command \\
+   -arg0 \\
+   -arg1 \\
+   -arg2 value"
+      (interactive)
+      (let ((beg (if (use-region-p) (region-beginning) (line-beginning-position)))
+            (end (if (use-region-p) (region-end) (line-end-position))))
+        (save-restriction
+          (narrow-to-region beg end)
+          (save-excursion
+            (goto-char beg)
+            (while (re-search-forward "\\( \\)\\(-\\)" (point-max) :noerror)
+              (replace-match "\\1\\\\\n\\2"))
+            (indent-region (point-min) (point-max))
+            (message "Finished refactoring SDC commmand.")))))))
 
 
 (provide 'setup-tcl)

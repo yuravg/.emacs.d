@@ -8,7 +8,7 @@
   :defer t
   :init
   (progn
-    (bind-to-modi-map "r" #'deadgrep))
+    (bind-to-modi-map "R" #'deadgrep)) ;default binding to "r"
   :config
   (progn
     (setq-default deadgrep--search-type 'regexp) ;Default is 'string
@@ -131,6 +131,10 @@
 
 ;; https://github.com/dajva/rg.el
 (use-package rg
+  :init
+  (progn
+    (bind-to-modi-map "r" #'rg)
+    (bind-to-modi-map "C-r" #'rg-project))
   :config
   (progn
     (defvar yura/rg-truncate-lines t "Variable `truncate-lines' for `rg-mode'.")

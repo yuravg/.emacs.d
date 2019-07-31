@@ -18,6 +18,7 @@
 ;;  Scratch buffer
 ;;  Minibuffer and Recursive Edit
 ;;  Untouchable Minibuffer Prompt
+;;  Minibuffer bindings
 ;;  Toggle between buffers
 ;;  Scrolling
 ;;  File Permissions
@@ -400,6 +401,12 @@ is set to a non-nil value."
       ;; `cursor-intangible' property in `minibuffer-prompt-properties'.
       ;; (see cus-start.el).
       (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)))
+
+;;; Minibuffer bindings
+(bind-keys
+ :map minibuffer-local-map
+ ("C-h" . backward-delete-char)
+ ("C-w" . backward-kill-word))
 
 ;;; Toggle between buffers
 ;; http://www.emacswiki.org/emacs/SwitchingBuffers

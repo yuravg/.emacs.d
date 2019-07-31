@@ -61,7 +61,13 @@ because 2^3 = 8 comes next after 7 |  ceil(log(x)/log(2))"
 
 (use-package rpn-calc
   :bind (:map modi-mode-map
-         ("C-~" . rpn-calc)))
+         ("C-~" . rpn-calc))
+  :config
+  (progn
+    (bind-keys
+     :map rpn-calc-map
+     ("C-j" . rpn-calc-self-insert)
+     ("C-i" . rpn-calc-select))))
 
 
 (provide 'setup-calc)

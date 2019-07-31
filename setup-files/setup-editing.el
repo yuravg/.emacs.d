@@ -1559,8 +1559,6 @@ buffer should do the right thing.. `eww-reload' in eww,
 (bind-keys
  :map modi-mode-map
  ("C-x d" . delete-region)
- ("C-S-d" . duplicate-current-line-or-region)
- ("C-M-d" . duplicate-current-line-or-region) ;Alternative to C-S-d in terminal mode, overrides `down-list'
  ("C-x \\" . align-regexp) ; align selected region to the entered regexp
  ;; Align multiple columns in the selected region. Of course all the selected
  ;; lines must have the same number of columns of groups of non-space characters
@@ -1571,6 +1569,7 @@ buffer should do the right thing.. `eww-reload' in eww,
  ("M-=" . count-words) ; count words in buffer if no region selected
  ("M-;" . endless/comment-line-or-region) ;Overrides`comment-dwim'
  ("C-x ;" . comment-dwim)                 ;Overrides `comment-set-column'
+ ("C-c d" . duplicate-current-line-or-region)
  ;; Override M-backspace to always do `backward-kill-word' using `modi-mode-map'.
  ;; Below is required so that `verilog-mode' does not bind it to `kill-word'.
  ("<M-delete>" . backward-kill-word)

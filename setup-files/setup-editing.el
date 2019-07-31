@@ -571,6 +571,57 @@ another indentation changed to spaces."
             (forward-line 1)))))))
 (defalias 'ts 'yura/refactoring-tabs-and-spaces)
 
+;; `hydra-refactoring/body' overwritten in some modes
+(defhydra hydra-refactoring (:color pink :hint nil)
+  "
+^^     Modify Indent           ^^^^Align                ^^Delete               ^^Tab/space             ^^Open Hydra
+^^-----------------------------^^^^---------------------^^---------------------^^----------------------^^----------
+  _i_: paragraph          _a_/_A_: align/repeat      _d_: double space    _C-t_: tabify             _o_: org
+  _t_: tabs and spaces      ^^_=_: equals            _l_: double line     _C-u_: untabify           _v_: verilog
+  _b_: around brackets    _c_/_|_: column/columns    ^^                     _w_: whitespace mode
+"
+  ("i" yura/indent-paragraph-region)
+  ("t" yura/refactoring-tabs-and-spaces)
+  ("b" yura/remove-spaces-around-brackets)
+
+  ("a" align-regexp)
+  ("A" align-regexp-repeat)
+  ("=" modi/align-to-equals)
+  ("c" (align-regexp (region-beginning) (region-end) "\\([[:blank:]]+\\)[[:alnum:]=(),?':`\.{}]" 1 1 nil))
+  ("|" modi/align-columns)
+
+  ("d" delete-double-spaces-in-region-or-line)
+  ("l" delete-double-blank-lines-in-region-or-buffer)
+
+  ("C-t" tabify)
+  ("C-u" untabify)
+  ("w" whitespace-mode)
+
+  ("o" hydra-org-refactoring/body :color teal)
+  ("v" hydra-verilog-refactoring/body :color teal)
+
+  ("q" nil "cancel" :color blue))
+
+(defun yura/select-refactoring-hydra-to-run (&optional arg)
+  "Select refactoring hydra to execute it.
+
+Perform an action based on ARG described below.
+By default execute `hydra-refactoring/body'.
+Prefixex with \\[universal-argument] execute:
+`hydra-org-refactoring/body' for `org-mode',
+`hydra-verilog-refactoring/body' for `verilog-mode',
+`hydra-refactoring/body' for other modes."
+  (interactive "P")
+  (if (not arg)
+      (hydra-refactoring/body)
+    (cond
+     ((eq major-mode 'org-mode) (hydra-org-refactoring/body))
+     ((eq major-mode 'verilog-mode) (hydra-verilog-refactoring/body))
+     (t (hydra-refactoring/body)))))
+
+(bind-keys :map modi-mode-map ("C-c M-r" . yura/select-refactoring-hydra-to-run))
+(defalias 'rf 'yura/select-refactoring-hydra-to-run)
+
 ;; Replace extend ASCII characters
 (defun replace-extended-ascii-characters ()
   "Replace extend ASCII characters to ASCII printable characters.

@@ -72,7 +72,8 @@
   :config
   (progn
     (recentf-mode 1)
-    (setq recentf-max-saved-items 200)))
+    (setq recentf-max-saved-items 2000)
+    (setq recentf-max-menu-items 80)))
 
 ;;; Windmove
 (use-package windmove

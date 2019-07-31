@@ -371,6 +371,8 @@ Do not do anything if `do-not-delete-trailing-whitespace' is non-nil."
       (setq do-not-delete-trailing-whitespace t)
       (message "Disable remove trailing whitespace before save."))))
 
+(defalias 'dw 'delete-trailing-whitespace)
+
 ;;; Untabify
 (setq-default indent-tabs-mode nil)  ;Use spaces instead of tabs for indentation
 
@@ -418,6 +420,7 @@ tabs explicitly."
   ;; repeat set to t/nil tells whether the alignment needs to be done multiple times per line (default=nil)
   (align-regexp begin end "\\([[:blank:]]*\\)=" 1 1 nil))
 ;; To do it manually do `M-x align-regexp`, type `=` and hit Enter
+(defalias 'ar 'align-regexp)
 
 ;; To perform align-regexp WITHOUT the default values of regexp, group, spacing, repeat
 ;; do `C-u M-x align-regexp`

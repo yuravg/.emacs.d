@@ -7,7 +7,6 @@
 
 (use-package deft
   :bind (:map modi-mode-map
-         ("C-c d" . modi/deft-dwim)
          ("<f6>"  . modi/deft-dwim))
   :config
   (progn

@@ -41,6 +41,15 @@ If NOSELECT is non-nil, do not select the imenu-list buffer."
     (bind-key "C-<return>"
               #'modi/imenu-list-goto-entry-and-hide
               imenu-list-major-mode-map)
+    (bind-keys
+     :map imenu-list-major-mode-map
+     ("j" . imenu-list-display-entry)
+     ("C-j" . imenu-list-goto-entry)
+     ("C-n" . (lambda ()(interactive) (progn (forward-line) (imenu-list-display-entry))))
+     ("C-p" . (lambda ()(interactive) (progn (forward-line -1) (imenu-list-display-entry))))
+     ("M-C-j" . imenu-list-smart-toggle)
+     ("M-j" . imenu-list-smart-toggle))
+    (key-chord-define-global "II" #'modi/imenu-list-display-toggle)
 
     (defun modi/imenu-auto-update (orig-fun &rest args)
       "Auto update the *Ilist* buffer if visible."

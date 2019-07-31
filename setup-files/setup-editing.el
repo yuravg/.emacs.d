@@ -43,6 +43,16 @@
 
 ;;; Coding System
 (setq keyboard-coding-system 'utf-8-unix)
+(set-language-environment 'UTF-8)
+(set-buffer-file-coding-system 'utf-8-unix)
+(set-default-coding-systems 'utf-8-unix)
+(set-terminal-coding-system 'utf-8-unix)
+(set-selection-coding-system 'utf-8-unix)
+(define-coding-system-alias 'windows-1251 'cp1251)
+(prefer-coding-system 'cp866-dos)
+(prefer-coding-system 'koi8-r-dos)
+(prefer-coding-system 'windows-1251-dos)
+(prefer-coding-system 'utf-8-unix)
 
 ;;; Time stamps
 ;; Write time stamps when saving files

@@ -48,6 +48,7 @@
 ;;    Smart Mark
 ;;  Tweaking `region-extract-function'
 ;;  Commenting
+;;    Comment/un-comment
 ;;  Anonymize
 ;;  Keep Lines - Because I Said So
 ;;  Bindings
@@ -1497,6 +1498,14 @@ Else, execute ORIG function."
     (forward-line 1)
     (back-to-indentation)))
 
+;;;; Comment/un-comment
+(defun comment-or-uncomment-line-or-region ()
+  "Comment or un-comment the current line or selected region."
+  (interactive)
+  (if (region-active-p)
+      (comment-or-uncomment-region (region-beginning) (region-end))
+    (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
+
 ;;; Anonymize
 (defun modi/anonymize (&optional only-numbers)
   "Replace alphabetical and numerical characters with random lowercase alphabets.
@@ -1569,6 +1578,7 @@ buffer should do the right thing.. `eww-reload' in eww,
  ("M-=" . count-words) ; count words in buffer if no region selected
  ("M-;" . endless/comment-line-or-region) ;Overrides`comment-dwim'
  ("C-x ;" . comment-dwim)                 ;Overrides `comment-set-column'
+ ("C-M-;" . comment-or-uncomment-line-or-region)
  ("C-c d" . duplicate-current-line-or-region)
  ;; Override M-backspace to always do `backward-kill-word' using `modi-mode-map'.
  ;; Below is required so that `verilog-mode' does not bind it to `kill-word'.

@@ -3,9 +3,9 @@
 
 (use-package p4
   :ensure t
-  :init
-  (progn
-    (setq p4-global-key-prefix nil)) ;Don't use the default `C-x p' prefix
+  ;; :init
+  ;; (progn
+  ;;   (setq p4-global-key-prefix nil)) ;Don't use the default `C-x p' prefix
   :config
   (progn
     (defun modi/p4-process-finished (buffer _process-name _message)

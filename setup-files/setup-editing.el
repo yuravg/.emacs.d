@@ -34,6 +34,7 @@
 ;;  Rectangle
 ;;  Cycle Letter Case
 ;;  Sort Words
+;;  Renuber-list
 ;;  Fill/unfill
 ;;  Replace identical strings with incremental number suffixes
 ;;  Delete Blank Lines
@@ -986,6 +987,21 @@ Temporarily consider - and _ characters as part of the word when sorting."
       (modify-syntax-entry ?- "w" temp-table)
       (modify-syntax-entry ?_ "w" temp-table)
       (sort-regexp-fields reverse "\\w+" "\\&" beg end))))
+
+;;; Renuber-list
+;; https://www.emacswiki.org/emacs/RenumberList
+(defun renumber-list (start end &optional num)
+  "Renumber the list items in the current START..END region.
+
+If optional prefix arg NUM is given, start numbering from that number instead of 1."
+  (interactive "*r\np")
+  (save-excursion
+    (goto-char start)
+    (setq num (or num 1))
+    (save-match-data
+      (while (re-search-forward "^[0-9]+" end t)
+        (replace-match (number-to-string num))
+        (setq num (1+ num))))))
 
 ;;; Fill/unfill
 

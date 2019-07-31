@@ -35,6 +35,10 @@
         (setq modi/fold-this--last-overlay o))
       (deactivate-mark))
 
+    (defalias 'ft 'fold-this "Fold selected region") ;command don't have doc string
+    (defalias 'ut 'fold-this-unfold-at-point "Unfold at point") ;command don't have doc string
+    (defalias 'ua 'fold-this-unfold-all "Unfold all") ;command don't have doc string
+
     (bind-keys
      :map fold-this-keymap
      ("<mouse-1>" . fold-this-unfold-at-point)) ; left-click on ellipsis to unfold

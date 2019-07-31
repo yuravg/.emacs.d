@@ -544,6 +544,33 @@ Remove space for selected region or for whole buffer, if region don't selected."
         (replace-match out-expr)))
     (message "Removal of spaces with new line is complete.")))
 
+;; https://www.emacswiki.org/emacs/SmartTabs
+(defun yura/refactoring-tabs-and-spaces ()
+  "Refactoring tags and spaces in the current line or selected region.
+
+Whitespace characters from the beginning of the line to the first non-whitespace
+character are replaced with a tab or spaces depending on the `indent-tabs-mode',
+another indentation changed to spaces."
+  (interactive)
+  (let ((beg (if (use-region-p) (region-beginning) (line-beginning-position)))
+        (end (if (use-region-p) (region-end) (line-end-position))))
+    (save-restriction
+      (narrow-to-region beg end)
+      (save-excursion
+        (goto-char beg)
+        (while (< (point) (point-max))
+          (let ((p0 (line-beginning-position))
+                (p1 (progn (back-to-indentation) (point)))
+                (p2))
+            (if indent-tabs-mode
+                (tabify p0 p1)
+              (untabify p0 p1))
+            (setq p1 (progn (back-to-indentation) (point))
+                  p2 (line-end-position))
+            (untabify p1 p2)
+            (forward-line 1)))))))
+(defalias 'ts 'yura/refactoring-tabs-and-spaces)
+
 ;;; Eval and replace last sexp
 ;; http://stackoverflow.com/a/3035574/1219634
 (defun eval-and-replace-last-sexp ()

@@ -16,6 +16,7 @@
 ;;  Managing white spaces and empty newlines
 ;;  Untabify
 ;;  Align
+;;    Align repeat
 ;;  Eval and replace last sexp
 ;;  My modified basic functions
 ;;    Kill Line
@@ -427,6 +428,15 @@ tabs explicitly."
   ;; align-regexp syntax:  align-regexp (beg end regexp &optional group spacing repeat)
   (align-regexp begin end "\\([[:blank:]]+\\)[[:alnum:]=(),?':`\.{}]" 1 1 t)
   (indent-region begin end)) ; indent the region correctly after alignment
+
+;;;; Align repeat
+;; http://www.emacswiki.org/emacs/AlignCommands
+(defun align-regexp-repeat (start end regexp)
+  "Repeat alignment with respect to the given regular expression."
+  (interactive "r\nsAlign regexp: ")
+  (align-regexp start end
+                (concat "\\(\\s-*\\)" regexp) 1 1 [[:space:]]))
+(defalias 'arr 'align-regexp-repeat)
 
 ;;; Eval and replace last sexp
 ;; http://stackoverflow.com/a/3035574/1219634

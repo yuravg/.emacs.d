@@ -110,6 +110,7 @@ If NEW-FILE is non-nil, call `deft-new-file'."
      :map deft-mode-map
      ("RET" . modi/deft-complete)
      ("C-S-m" . deft-new-file)
+     ("C-j" . modi/deft-complete)
      ("<S-return>" . deft-new-file)
      ("C-o" . nil)                    ;Unbind the "C-o" key from `deft-mode-map'
      ("C-c C-o" . deft-open-file-other-window))))

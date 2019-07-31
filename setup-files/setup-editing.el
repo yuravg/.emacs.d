@@ -17,6 +17,7 @@
 ;;  Untabify
 ;;  Align
 ;;    Align repeat
+;;    Change `align-regexp' behaviour
 ;;  Eval and replace last sexp
 ;;  My modified basic functions
 ;;    Kill Line
@@ -440,6 +441,42 @@ tabs explicitly."
   (align-regexp start end
                 (concat "\\(\\s-*\\)" regexp) 1 1 [[:space:]]))
 (defalias 'arr 'align-regexp-repeat)
+
+;;;; Change `align-regexp' behaviour
+;; Align with tab, spaces, default
+;; http://stackoverflow.com/questions/22710040/emacs-align-regexp-with-spaces-instead-of-tabs
+(defun set-align-regexp-with-spaces ()
+  "Use `align-regexp' with spaces."
+  (interactive)
+  (progn
+    (defadvice align-regexp (around align-regexp-with-spaces activate)
+      (let ((old-indent-tabs-mode indent-tabs-mode))
+        (setq indent-tabs-mode nil)
+        ad-do-it
+        (setq indent-tabs-mode old-indent-tabs-mode)))
+    (message "Use `align-regexp' with SPACES")))
+
+(defun set-align-regexp-with-tab ()
+  "Use `align-regexp' with tab."
+  (interactive)
+  (progn
+    (defadvice align-regexp (around align-regexp-with-spaces activate)
+      (let ((old-indent-tabs-mode indent-tabs-mode))
+        (setq indent-tabs-mode t)
+        ad-do-it
+        (setq indent-tabs-mode old-indent-tabs-mode)))
+    (message "Use `align-regexp' with TAB")))
+
+(defun set-align-regexp-with-default ()
+  "Use `align-regexp' with default value of `indent-tabs-mode'."
+  (interactive)
+  (progn
+    (defadvice align-regexp (around align-regexp-with-spaces activate)
+      ad-do-it)
+    (message "Use `align-regexp' with 'default'")))
+
+;; Change default behavior of `align-regexp'
+(set-align-regexp-with-spaces)
 
 ;;; Eval and replace last sexp
 ;; http://stackoverflow.com/a/3035574/1219634

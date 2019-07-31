@@ -79,7 +79,41 @@ This command is handy to open file form `dired-mode'."
     ;;  -v : Do natural sort .. so the file names starting with . will show up first.
     ;;  -F : Classify filenames by appending '*' to executables,
     ;;       '/' to directories, etc.
-    (setq dired-listing-switches "-alGhvF --group-directories-first") ; default: "-al"
+    ;; dired-listing-switches default: "-al"
+    (if (eq system-type 'windows-nt)
+        (setq yura/dired-listing-switches "-alGhvF")
+      (setq yura/dired-listing-switches "-alGhvF --group-directories-first"))
+    (setq dired-listing-switches yura/dired-listing-switches)
+    ;; http://ergoemacs.org/emacs/dired_sort.html
+    ;; https://www.emacswiki.org/emacs/dired-sort.el
+    (defun yura/dired-sort (&optional arg)
+      "Sort Dired's list of files.
+
+For the reverse sorting order should usage with negative prefix ARG \\[universal-argument]."
+      (interactive "p")
+      (let ((order (if (or (not arg)
+                           (> (prefix-numeric-value arg) 0))
+                       "" " -r"))
+            (sort-by)
+            (switches))
+        (setq sort-by (ivy-completing-read "Sort by:"
+                                           '( "name" "time" "size" "expression" "create-time"
+                                              "access-time")))
+        (cond
+         ((equal sort-by "name")
+          (setq switches (concat yura/dired-listing-switches order)))
+         ((equal sort-by "time")
+          (setq switches (concat yura/dired-listing-switches " -t" order)))
+         ((equal sort-by "size")
+          (setq switches (concat yura/dired-listing-switches " -S -r" order)))
+         ((equal sort-by "expression")
+          (setq switches (concat yura/dired-listing-switches " -X" order)))
+         ((equal sort-by "create-time")
+          (setq switches (concat yura/dired-listing-switches " -ct" order)))
+         ((equal sort-by "access-time")
+          (setq switches (concat yura/dired-listing-switches " -ut" order)))
+         (t (error "logic error")))
+        (dired-sort-other switches)))
 
     (defun modi/dired-rename-buffer-name ()
       "Rename the dired buffer name to distinguish it from file buffers.

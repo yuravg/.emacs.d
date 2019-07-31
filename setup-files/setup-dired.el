@@ -25,11 +25,17 @@
     (with-eval-after-load 'dired
       (bind-keys
        :map dired-mode-map
+       ("C-j"              . dired-single-buffer)
        ("<return>"         . dired-single-buffer)
        ("<double-mouse-1>" . dired-single-buffer-mouse)
+       ("C-M-u"            . dired-single-up-directory)
        ("^"                . dired-single-up-directory)))))
 
 (use-package dired
+  :bind (:map dired-mode-map
+         ("C-j" . dired-find-file)
+         ("M-h" . dired-omit-mode)
+         ("C-M-h" . dired-omit-mode))
   :commands (dired-toggle-read-only ; to toggle read-only state of any buffer
              dired-get-filename) ; called by `dired-single'
   :config

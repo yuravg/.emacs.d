@@ -34,7 +34,8 @@
 ;; buffers or after killing buffers.
 (setq switch-to-visible-buffer nil)
 
-(setq recenter-positions '(0.50 0.07 0.93)) ;default: '(middle top bottom)
+(setq recenter-positions '(0.43 0.07 0.88)) ;default: '(middle top bottom)
+;; (setq recenter-positions '(0.50 0.07 0.93))
 ;; First C-l  -> 0.50: Put point vertically at the middle of the window
 ;; Second C-l -> 0.07: Put point close to the top of the window. If
 ;;                     (window-height) returns 70, that's roughly 4 lines.

@@ -15,6 +15,7 @@
 ;;  Revert buffer
 ;;  Frame setup
 ;;  Scratch-and-Back
+;;  Scratch buffer
 ;;  Minibuffer and Recursive Edit
 ;;  Untouchable Minibuffer Prompt
 ;;  Toggle between buffers
@@ -351,6 +352,9 @@ Return the scratch buffer opened."
       (switch-to-buffer buf)
       (funcall (intern mode-str))    ;http://stackoverflow.com/a/7539787/1219634
       buf)))
+
+;;; Scratch buffer
+(setq initial-major-mode 'emacs-lisp-mode) ;; Elisp as default
 
 ;;; Minibuffer and Recursive Edit
 ;; Quit the minibuffer automatically when focus moves away from it (which could

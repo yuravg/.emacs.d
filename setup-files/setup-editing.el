@@ -598,6 +598,32 @@ Replace for selected region or for whole buffer, if region don't selected."
               ("ˆ"   . "^"))))
     (message "Replacement is complete.")))
 
+;; Replace words from a list in the current buffer
+(defvar list-to-replace nil "List to replace by `replase-in-buffer-from-list'.")
+
+(defun replase-in-buffer-from-list (&optional bool)
+  "Replace words from `list-to-replace' list in the current buffer.
+BOOL - is result of user answer for \"y or n\" question.
+
+Usage:
+1. Set variables
+ (setq list-to-replace '((\"mask1\" . \"MASK1\")
+                         (\"maks2\\\\[\" . \"MASK_2[\")
+                         (\"mask3\" . \"MASK3\")) ;; Meta-Ctrl-x to set
+2. Execute in a buffer `replase-in-buffer-from-list'."
+  (interactive
+   (list (y-or-n-p (message "Would you like replace:\n%s"
+                            list-to-replace))))
+  (if bool
+      (save-excursion
+        (dolist (pair-of-expr list-to-replace)
+          (let ((in-expr (car pair-of-expr))
+                (out-expr (cdr pair-of-expr)))
+            (goto-char (point-min))
+            (while (re-search-forward in-expr nil :noerror)
+              (replace-match out-expr :noerror)))))
+    (message "Exit without replacement.")))
+
 ;;; Eval and replace last sexp
 ;; http://stackoverflow.com/a/3035574/1219634
 (defun eval-and-replace-last-sexp ()

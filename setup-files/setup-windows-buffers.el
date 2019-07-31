@@ -286,6 +286,14 @@ will be killed."
   (list (car args) :noconfirm))
 (advice-add 'help-mode-revert-buffer :filter-args #'modi/revert-noconfirm-help-buffers)
 
+(defun yura/revert-buffer-no-confirm (reverse-modes)
+  "Refresh current buffer without confirmation, buffer modes will be preserve.
+
+Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
+  (interactive "P")
+  (revert-buffer :ignore-auto :noconfirm (unless reverse-modes :preserve-modes)))
+(defalias 'rb 'yura/revert-buffer-no-confirm)
+
 ;;; Frame setup
 (defun modi/frame-setup-1 ()
   "Set the frame to fill the center screen."

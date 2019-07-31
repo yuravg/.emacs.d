@@ -30,7 +30,7 @@
         (overlay-put o 'keymap fold-this-keymap)
         (overlay-put o 'face 'modi/fold-face)
         (overlay-put o 'modification-hooks '(fold-this--unfold-overlay))
-        (overlay-put o 'display (propertize " « » " 'face 'modi/fold-face))
+        (overlay-put o 'display (propertize "  «...»  " 'face 'modi/fold-face))
         (overlay-put o 'evaporate t)
         (setq modi/fold-this--last-overlay o))
       (deactivate-mark))

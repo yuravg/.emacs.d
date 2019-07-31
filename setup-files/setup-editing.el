@@ -1580,6 +1580,8 @@ buffer should do the right thing.. `eww-reload' in eww,
  ("C-x ;" . comment-dwim)                 ;Overrides `comment-set-column'
  ("C-M-;" . comment-or-uncomment-line-or-region)
  ("C-w" . kill-region-or-word) ;Overrides `backward-kill-word'
+ ("C-h" . backward-delete-char) ; Default binding to `help-command'
+ ("C-x C-h" . help-command)
  ("C-c d" . duplicate-current-line-or-region)
  ;; Override M-backspace to always do `backward-kill-word' using `modi-mode-map'.
  ;; Below is required so that `verilog-mode' does not bind it to `kill-word'.

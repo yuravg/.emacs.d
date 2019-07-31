@@ -1419,6 +1419,14 @@ http://thread.gmane.org/gmane.emacs.help/109025/focus=109102 "
   ;; (advice-remove fn #'modi/advice-region-or-whole)
   )
 
+(defun copy-all-text-from-buffer ()
+  "Copy all text from current buffer.
+
+Execute `kill-ring-save' with `point-min' `point-max'."
+  (interactive)
+  (kill-ring-save (point-min) (point-max))
+  (message "Buffer content copied."))
+
 ;;; Mark Management
 
 ;;;; Popping marks

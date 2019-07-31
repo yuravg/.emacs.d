@@ -20,6 +20,7 @@
 ;;    Change `align-regexp' behaviour
 ;;  Indentation
 ;;  Eval and replace last sexp
+;;  Insert current date
 ;;  My modified basic functions
 ;;    Kill Line
 ;;    Open Line
@@ -510,6 +511,20 @@ this command."
     (kill-sexp -1)
     (insert (format "%s" value))))
 (bind-to-modi-map "x" #'eval-and-replace-last-sexp)
+
+;;; Insert current date
+(defun insert-current-date (&optional arg)
+  "Insert today's date using the current locale.
+
+Without prefix, the date is inserted in DMY(day month year)
+order: DD.MM.YYYY.
+
+Prefixed with \\[universal-argument] ARG, the date is inserted in international date format(ISO)
+order: YYYY-MM-DD."
+  (interactive "P")
+  (insert (if arg
+              (format-time-string "%Y-%m-%d")
+            (format-time-string "%d.%m.%Y"))))
 
 ;;; My modified basic functions
 

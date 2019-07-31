@@ -571,6 +571,33 @@ another indentation changed to spaces."
             (forward-line 1)))))))
 (defalias 'ts 'yura/refactoring-tabs-and-spaces)
 
+;; Replace extend ASCII characters
+(defun replace-extended-ascii-characters ()
+  "Replace extend ASCII characters to ASCII printable characters.
+
+Replace for selected region or for whole buffer, if region don't selected."
+  (interactive)
+  (save-excursion
+    (let ((beg (if (use-region-p) (region-beginning) (point-min)))
+          (end (if (use-region-p) (region-end) (point-max))))
+      (mapc (lambda (pair)
+              (let ((in-expr (car pair))
+                    (out-expr (cdr pair)))
+                (goto-char beg)
+                (while (re-search-forward in-expr end :noerror)
+                  (replace-match out-expr))))
+            '(("\“"  . "\"")
+              ("\”"  . "\"")
+              ("\«"  . "\"")
+              ("\»"  . "\"")
+              ("\‘"  . "\'")
+              ("\’"  . "\'")
+              ("—" . "-")
+              ("–"  . "-")
+              ("…"   . "...")
+              ("ˆ"   . "^"))))
+    (message "Replacement is complete.")))
+
 ;;; Eval and replace last sexp
 ;; http://stackoverflow.com/a/3035574/1219634
 (defun eval-and-replace-last-sexp ()

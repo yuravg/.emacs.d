@@ -1565,7 +1565,7 @@ buffer should do the right thing.. `eww-reload' in eww,
  ("C-x |" . modi/align-columns)
  ("C-k" . modi/kill-line)
  ("C-o" . modi/smart-open-line)        ;Overrides `open-line'
- ("C-j" . modi/pull-up-line)
+ ("C-c C-j" . modi/pull-up-line)       ;To release C-j
  ("M-=" . count-words) ; count words in buffer if no region selected
  ("M-;" . endless/comment-line-or-region) ;Overrides`comment-dwim'
  ("C-x ;" . comment-dwim)                 ;Overrides `comment-set-column'

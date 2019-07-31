@@ -13,9 +13,17 @@
          ("C-x C-j" . dired-single-magic-buffer))
   :config
   (progn
-    (defun dired-single-magic-buffer-current-dir ()
-      "Open a single magic dired buffer for the current buffer directory."
-      (interactive)
+    (defun dired-single-magic-buffer-current-dir (other-buffer)
+      "Open a single magic dired buffer for the current buffer directory.
+
+Prefixed with \\[universal-argument], open single magit dired in the next window."
+      (interactive "P")
+      (if other-buffer
+          ;; TODO: 1. save windows to restore; 2. open the dired at the left if current buffer is at the right
+          (progn
+            (delete-other-windows)
+            (split-window-right)
+            (other-window 1)))
       (dired-single-magic-buffer default-directory))
 
     (defun dired-single-up-directory ()

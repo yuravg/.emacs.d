@@ -114,6 +114,8 @@ theme."
                        "#282828"
                      (face-background 'default))))
 
+    (defalias 'lm 'linum-mode)
+
     (defun modi/turn-on-linum ()
       "Turn on linum mode in specific modes."
       (interactive)

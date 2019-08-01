@@ -44,10 +44,8 @@ highlighting will not update as you type."
     ;; set in `.dir-locals.el' files.
     (put 'hi-lock-file-patterns 'safe-local-variable 'identity)
 
-    ;; Automatically cycle through the highlighting faces listed in
-    ;; `hi-lock-face-defaults' instead of bothering the user to pick a face
-    ;; manually each time.
-    (setq hi-lock-auto-select-face t)
+    ;; highlighting commands prompt for the face to use.
+    (setq hi-lock-auto-select-face nil)
 
     (defun modi/hi-lock-face-symbol-at-point-or-sel ()
       "If a region is selected, highlight each instance of that.

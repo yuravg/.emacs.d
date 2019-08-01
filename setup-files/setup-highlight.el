@@ -2,10 +2,6 @@
 
 ;; Highlight stuff
 
-;; Example of using Hi-lock keyword:
-;; Hi-Lock: (("policy" (0 'hi-yellow prepend)))
-;; Hi-Lock: end
-
 (use-package hi-lock
   :config
   (progn
@@ -166,6 +162,10 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
 
 ;; The Hi-Lock regexp forms are in the form of font lock keywords. Do
 ;; `C-h v font-lock-keywords' to learn more.
+
+;; Example of using Hi-lock keyword:
+;; Hi-Lock: (("policy" (0 'hi-yellow prepend)))
+;; Hi-Lock: end
 
 ;; Hi-Lock: (("<REGEXP>" (<SUBEXP-0> '<FACE-0> [<OVERRIDE> [<LAXMATCH>]])
 ;;                       (<SUBEXP-1> '<FACE-1> [<OVERRIDE> [<LAXMATCH>]])

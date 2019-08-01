@@ -5,6 +5,7 @@
 ;; Contents:
 ;;
 ;;  Variables
+;;  EOL Mnemonic
 ;;  Show Paren
 ;;  Bars, Dividers, and Window Elements
 ;;    Menu bar
@@ -56,6 +57,13 @@
 (defvar dark-theme t
   "Variable to store the nature of theme whether it is light or dark.
 This variable is to be updated when changing themes.")
+
+;;; EOL Mnemonic
+;; TODO: move to setup-line
+(setq eol-mnemonic-dos "\\")
+(setq eol-mnemonic-unix "/")
+(setq eol-mnemonic-mac ": class="string">")
+(setq eol-mnemonic-undecided "?")
 
 ;;; Show Paren
 ;; Highlight closing parentheses; show the name of the body being closed with

@@ -9,6 +9,8 @@
 ;;  Volatile Highlights
 ;;  Auto Highlight Symbol
 ;;  Highlight line
+;;  Highlight
+;;    Notes
 ;;  Notes
 
 ;;; Hi-lock
@@ -160,6 +162,27 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
         (setq hl-line-idle-interval 5)
         ;; Number of seconds for `hl-line-flash' to highlight the line
         (setq hl-line-flash-show-period 3)))))
+
+;;; Highlight
+(use-package highlight
+  :load-path "elisp/manually-synced/highlight"
+  :commands (turn-on-highlighting-commands highlight)
+  :config
+  (progn
+    (defun turn-on-highlighting-commands()
+      "Turn on Highlighting commands of `highlight'."
+      (interactive)
+      (highlight))))
+
+;;;; Notes
+;; Prefix key 'prefix': `C-x X'
+;; Prefix to highlight/unhighlight: prefix h/u
+;;
+;; (1) Wholly highlight the current buffer:
+;; 1. Set face(if you want to change the default face - 'highlight'):
+;;    prefix r -- `hlt-replace-highlight-face'
+;; 2. Highlight: prefix h r RET -- `hlt-highlight-regions'
+;; 3. Unhighlight: prefix u r RET -- `hlt-unhighlight-region'
 
 
 (provide 'setup-highlight)

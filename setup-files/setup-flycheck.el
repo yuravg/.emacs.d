@@ -28,7 +28,14 @@
       (dolist (hook modi/flycheck-mode-hooks)
         (remove-hook hook #'flycheck-mode)))
 
-    (modi/turn-on-flycheck-mode)))
+    (modi/turn-on-flycheck-mode)
+
+    ;;; Flycheck Variables
+    (setq flycheck-flake8-maximum-line-length 99)
+    (setq flycheck-checker-error-threshold 800)
+
+    ;; Enable C++ exceptions
+    (add-to-list 'flycheck-clang-args "-fcxx-exceptions")))
 
 
 (provide 'setup-flycheck)

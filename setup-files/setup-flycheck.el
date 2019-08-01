@@ -8,7 +8,10 @@
   :config
   (progn
     (defconst modi/flycheck-mode-hooks '(python-mode-hook
+                                         emacs-lisp-mode-hook
                                          sh-mode-hook
+                                         c++-mode-hook
+                                         c-mode-hook
                                          ;; nim-mode-hook
                                          )
       "List of hooks of major modes in which flycheck mode should be enabled.")

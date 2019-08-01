@@ -41,6 +41,7 @@
 (setq frame-resize-pixelwise t)      ;Allow frame size to inc/dec by a pixel
 (setq visible-bell t)    ;Enable visible bell or screen blink to happen on error
 (setq-default fill-column 96)        ;Default 70
+(global-hl-line-mode 1) ; Enable highlight current line
 
 (defun modi/is-font (fontname)
   "Return non-nil if the default font matches FONTNAME."

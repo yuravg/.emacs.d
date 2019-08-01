@@ -13,6 +13,7 @@
 | hideshowvis    | https://github.com/sheijk/hideshowvis                                | Not available on GNU Elpa or Melpa       |
 | highlight      | https://www.emacswiki.org/emacs/download/highlight.el                | Not available on GNU Elpa or Melpa       |
 | hl-line+       | https://www.emacswiki.org/emacs/download/hl-line%2b.el               | https://github.com/melpa/melpa/pull/5008 |
+| idle-highlight | https://github.com/nonsequitur/idle-highlight-mode                   | Not available on GNU Elpa or Melpa       |
 | info+          | https://www.emacswiki.org/emacs/download/info%2b.el                  | https://github.com/melpa/melpa/pull/5008 |
 | intel-hex      | https://github.com/yuravg/intel-hex-mode.git                         | Not available on GNU Elpa or Melpa       |
 | psvn           | http://www.xsteve.at/prg/emacs/psvn.el                               | Not available on GNU Elpa or Melpa       |

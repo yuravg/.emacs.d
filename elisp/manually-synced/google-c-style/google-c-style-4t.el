@@ -1,8 +1,8 @@
-;;; google-c-style.el --- Google's C/C++ style for c-mode
+;;; google-c-style-4t.el --- Google's C/C++ style for c-mode
 
 ;; Keywords: c, tools
 
-;; google-c-style.el is Copyright (C) 2008 Google Inc. All Rights Reserved.
+;; google-c-style-4t.el is Copyright (C) 2008 Google Inc. All Rights Reserved.
 ;;
 ;; It is free software; you can redistribute it and/or modify it under the
 ;; terms of either:
@@ -65,7 +65,7 @@ Suitable for inclusion in `c-offsets-alist'."
     (vector (+ 4 (current-column)))))
 
 ;;;###autoload
-(defconst google-c-style
+(defconst google-c-style-4t
   `((c-recognize-knr-p . nil)
     (c-enable-xemacs-performance-kludge-p . t) ; speed up indentation in XEmacs
     (c-basic-offset . 2)
@@ -131,13 +131,13 @@ Suitable for inclusion in `c-offsets-alist'."
   "Google C/C++ Programming Style.")
 
 ;;;###autoload
-(defun google-set-c-style ()
+(defun google-set-c-style-4t ()
   "Set the current buffer's c-style to Google C/C++ Programming
   Style. Meant to be added to `c-mode-common-hook'."
   (interactive)
   (make-local-variable 'c-tab-always-indent)
   (setq c-tab-always-indent t)
-  (c-add-style "Google" google-c-style t))
+  (c-add-style "Google" google-c-style-4t t))
 
 ;;;###autoload
 (defun google-make-newline-indent ()
@@ -147,5 +147,5 @@ Suitable for inclusion in `c-offsets-alist'."
   (define-key c-mode-base-map "\C-m" 'newline-and-indent)
   (define-key c-mode-base-map [ret] 'newline-and-indent))
 
-(provide 'google-c-style)
-;;; google-c-style.el ends here
+(provide 'google-c-style-4t)
+;;; google-c-style-4t.el ends here

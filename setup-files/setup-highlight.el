@@ -2,6 +2,16 @@
 
 ;; Highlight stuff
 
+;; Contents:
+;;
+;;  Hi-lock
+;;  Highlight Global
+;;  Volatile Highlights
+;;  Auto Highlight Symbol
+;;  Highlight line
+;;  Notes
+
+;;; Hi-lock
 (use-package hi-lock
   :config
   (progn
@@ -96,7 +106,7 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
      :map modi-mode-map
      ("C-." . modi/hi-lock-face-symbol-at-point-or-sel))))
 
-;; Highlight Global
+;;; Highlight Global
 ;; https://github.com/glen-dai/highlight-global
 (use-package highlight-global
   :load-path "elisp/highlight-global"
@@ -107,14 +117,14 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
     (bind-to-modi-map "h" #'highlight-global-hl-frame-toggle)
     (bind-to-modi-map "H" #'highlight-global-clear-hl-frame)))
 
-;; Volatile Highlights
+;;; Volatile Highlights
 ;; https://github.com/k-talo/volatile-highlights.el
 (use-package volatile-highlights
   :config
   (progn
     (volatile-highlights-mode 1)))
 
-;; Auto Highlight Symbol
+;;; Auto Highlight Symbol
 ;; https://github.com/emacsmirror/auto-highlight-symbol
 (use-package auto-highlight-symbol
   :bind (:map modi-mode-map
@@ -132,7 +142,7 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
      ("C-x C-'" . ahs-change-range)
      ("C-x C-a" . ahs-edit-mode))))
 
-;; Highlight line
+;;; Highlight line
 (use-package hl-line
   :config
   (progn
@@ -153,6 +163,8 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
 
 
 (provide 'setup-highlight)
+
+;;; Notes
 
 ;; If `hi-lock-file-patterns-policy' is set to `nil' or `'never', you will need
 ;; to call `M-x hi-lock-find-patterns' or `M-s h f' to highlighted all

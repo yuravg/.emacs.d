@@ -71,6 +71,7 @@ This variable is to be updated when changing themes.")
 ;; Highlight closing parentheses; show the name of the body being closed with
 ;; the closing parentheses in the minibuffer.
 (show-paren-mode 1)
+(setq show-paren-style 'expression)
 
 ;;; Bars, Dividers, and Window Elements
 

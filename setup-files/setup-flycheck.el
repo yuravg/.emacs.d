@@ -7,6 +7,8 @@
 (use-package flycheck
   :bind (:map modi-mode-map
          ("C-c e". hydra-flycheck/body))
+  :bind (:map flycheck-error-list-mode-map
+         ("C-j". flycheck-error-list-goto-error))
   :config
   (progn
     (setq flycheck-mode-line-prefix "Ω")

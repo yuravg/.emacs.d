@@ -289,6 +289,7 @@ https://lists.gnu.org/archive/html/emacs-devel/2016-07/msg00519.html "
    ("C-x M-c" . modi/quit-emacs-no-desktop-save)))
 (bind-key "C-c ;" #'modi/restore-imp-keys)
 
+(bind-key "C-j" #'push-button package-menu-mode-map)
 
 (provide 'setup-misc)
 

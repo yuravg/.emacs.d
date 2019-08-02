@@ -265,7 +265,9 @@ Sets variables `ffap-string-at-point' and `ffap-string-at-point-region'.
   :commands (modi/avy modi/goto-line)
   :init
   (progn
-    (global-set-key [remap goto-line] #'modi/goto-line))
+    (key-chord-define-global "jj" #'modi/goto-line)
+    (key-chord-define-global "kk" #'modi/avy))
+  ;; (global-set-key [remap goto-line] #'modi/goto-line)
   :bind (:map isearch-mode-map
          ("M-a" . isearch-avy)) ; isearch > avy
   :bind (:map modi-mode-map

@@ -5,7 +5,6 @@
 ;; http://www.flycheck.org/en/latest/index.html
 
 (use-package flycheck
-  :defer t
   :bind (:map modi-mode-map
          ("C-c e". hydra-flycheck/body))
   :config

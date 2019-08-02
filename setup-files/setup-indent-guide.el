@@ -8,7 +8,9 @@
   :config
   (progn
     (setq indent-guide-recursive t)
-    (setq indent-guide-char "|")
+    (setq indent-guide-char " ")
+    (set-face-foreground 'indent-guide-face "grey90")
+    (set-face-background 'indent-guide-face "gray90")
 
     (defvar modi/indent-guide-mode-hooks '(verilog-mode-hook
                                            emacs-lisp-mode-hook

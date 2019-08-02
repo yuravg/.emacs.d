@@ -321,7 +321,7 @@ font size."
       (setq font-size-pt (+ font-size-pt scale))))
   ;; The internal font size value is 10x the font size in points unit.
   ;; So a 10pt font size is equal to 100 in internal font size value.
-  (set-face-attribute 'default nil :height (* font-size-pt 10)))
+  (set-face-attribute 'default nil :height (* font-size-pt 8)))
 
 (defun modi/global-font-size-incr ()  (interactive) (modi/global-font-size-adj +1))
 (defun modi/global-font-size-decr ()  (interactive) (modi/global-font-size-adj -1))

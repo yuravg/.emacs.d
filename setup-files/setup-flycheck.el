@@ -7,6 +7,7 @@
   :defer t
   :config
   (progn
+    (setq flycheck-mode-line-prefix "Ω")
     (defconst modi/flycheck-mode-hooks '(python-mode-hook
                                          emacs-lisp-mode-hook
                                          sh-mode-hook

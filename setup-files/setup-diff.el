@@ -66,13 +66,29 @@ If NO-WHITESPACE is non-nil, ignore all white space when doing diff."
   (progn
     (defconst modi/diff-hl-mode-hooks '(emacs-lisp-mode-hook
                                         conf-space-mode-hook ;.tmux.conf
+                                        conf-mode-hook ;conf-space-mode-hook not enough for conf-mode
+                                        rst-mode-hook
                                         markdown-mode-hook
                                         css-mode-hook
                                         web-mode-hook
                                         sh-mode-hook
                                         yaml-mode-hook ;tmuxp yaml configs
-                                        c-mode-hook
                                         makefile-mode-hook
+                                        org-mode-hook
+                                        c++-mode-hook
+                                        c-mode-hook
+                                        rust-mode-hook
+                                        verilog-mode-hook
+                                        tcl-mode-hook
+                                        java-mode-hook
+                                        python-mode-hook
+                                        text-mode-hook
+                                        fundamental-mode-hook
+                                        snippet-mode-hook
+                                        bat-mode-hook
+                                        powershell-mode-hook
+                                        bitbake-mode-hook
+                                        js-mode-hook
                                         nim-mode-hook
                                         go-mode-hook
                                         org-mode-hook)

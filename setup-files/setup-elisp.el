@@ -305,6 +305,27 @@ Lisp function does not specify a special indentation."
           ((setq sym (function-at-point)) (describe-function sym)))))
 (bind-key "C-c C-d" #'describe-foo-at-point emacs-lisp-mode-map)
 
+;;; Eval and insert
+(defun eval-last-sexp-insert-as-comment (&optional arg)
+  "Insert result of an Emacs Lisp expression.
+
+Prefixed ARG with \\[universal-argument] insert result atger new line."
+  (interactive "P")
+  (let ((value (eval (elisp--preceding-sexp))))
+    (insert (if arg
+                (format "\n;; elisp> %s" value)
+              (format " ;; %s" value )))))
+
+(defun eval-last-sexp-lexical-insert-as-comment (&optional arg)
+  "Insert result of an Emacs Lisp expression.
+
+Evaluate using lexical scoping.
+Prefixed ARG with \\[universal-argument] insert result atger new line."
+  (interactive "P")
+  (let ((value (eval (elisp--preceding-sexp) t)))
+    (insert (if arg
+                (format "\n;; elisp> %s" value)
+              (format " ;; %s" value )))))
 
 
 (provide 'setup-elisp)

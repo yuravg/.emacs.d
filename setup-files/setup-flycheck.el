@@ -62,7 +62,86 @@
         (add-to-list 'flycheck-checkers 'python-pylint)
         ;; simultaneous launch checkers:
         ;; https://github.com/flycheck/flycheck/issues/186
-        (flycheck-add-next-checker 'python-flake8 'python-pylint)))))
+        (flycheck-add-next-checker 'python-flake8 'python-pylint)))
+
+    ;;; C/C++ checkers
+    ;;;; Google-cpplint (Google C++ Style checker), Clang
+    ;; flycheck-google-cpplint - Google C++ Style checker for Flycheck.
+    ;; https://github.com/flycheck/flycheck-google-cpplint/
+    ;; http://google.github.io/styleguide/cppguide.html -- Google C++ Style Guide
+    ;; https://github.com/google/styleguide
+    ;; https://github.com/theandrewdavis/cpplint
+    ;; Installation:
+    ;; (install pip from https://pip.pypa.io/en/stable/installing/)
+    ;;  pip install cpplint
+    ;;  for checking installation you may run Lisp function: (executable-find "cpplint")
+    ;;
+    ;;;; Cppcheck
+    ;; http://cppcheck.sourceforge.net/
+    ;; Installation:
+    ;;  - for Linux: something like 'sudo aptitude install cppcheck'
+    ;;  - for Windows: download and install from http://cppcheck.sourceforge.net/
+    ;; for checking installation you may run Lisp function: (executable-find "cppcheck")
+    ;;
+    ;;;; Clang:
+    ;; Clang Compiler is an open-source compiler
+    ;; http://clang.llvm.org/docs/UsersManual.html
+    ;; Installation:
+    ;;  - for Linux: something like 'sudo aptitude install clang'
+    ;;  - for Windows: download and install from
+    ;;     http://llvm.org/releases/download.html (Pre-Built Binaries, Clang for Windows (.sig))
+    ;; for checking installation you may run Lisp function: (executable-find "clang")
+    (defun check-command-is-executable (list)
+      (let ((all-commad-executable t))
+        (while list
+          (let ((command (car list)))
+            (when (not (executable-find command))
+              (message "Can't find command: '%s'" command)
+              (setq all-commad-executable nil)))
+          (setq list (cdr list)))
+        all-commad-executable))
+
+    (defvar flycheck-cpp-checkers-list '("cpplint" "cppcheck" "clang") "\
+List of C/C++ checkers to usage with Flycheck.")
+    (defvar flycheck-cpp-checkers-installed nil "\
+Non-nil if all C/C++ checkers installed.
+`flycheck-cpp-checkers-list' - list of required checkers.")
+    (if (check-command-is-executable flycheck-cpp-checkers-list)
+        (setq flycheck-cpp-checkers-installed t)
+      (message
+       "Can't detect all requered C/C++ checkers(%s)."
+       flycheck-cpp-checkers-list))
+
+    (if flycheck-cpp-checkers-installed
+        (use-package flycheck-google-cpplint
+          :load-path "elisp/manually-synced/flycheck-google-cpplint"
+          :config
+          (progn
+            (custom-set-variables
+             '(flycheck-c/c++-googlelint-executable
+               (executable-find "cpplint")))
+
+            ;; Add Google C++ Style checker.
+            ;; In default, syntax checked by Clang and Cppcheck.
+            (flycheck-add-next-checker 'c/c++-cppcheck
+                                       '(warning . c/c++-googlelint))
+            ;; If you not use  cppcheck . You have need to change  flycheck-add-next-checker .
+            ;; (flycheck-add-next-checker 'c/c++-clang
+            ;;                         '(warning . c/c++-googlelint))
+            (custom-set-variables
+             '(flycheck-googlelint-verbose "1")
+             '(flycheck-googlelint-filter "-whitespace/tab,
+                                    -legal/copyright,
+                                    -build/include_subdir,
+                                    -build/header_guard,
+                                    -build/include,
+                                    -readability/todo")
+             '(flycheck-googlelint-root "project/src")
+             '(flycheck-googlelint-linelength "99"))
+            ;; -whitespace/indent,
+            ;; +whitespace/braces,
+            ;; -whitespace,+whitespace/braces,
+            )))))
 
 
 (provide 'setup-flycheck)

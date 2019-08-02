@@ -32,7 +32,10 @@
 
     (add-hook 'ibuffer-hook #'(lambda () (setq hl-line-mode 1)))
     ;; ibuffer-projectile setup
-    (add-hook 'ibuffer-hook #'modi/ibuffer-customization)))
+    (add-hook 'ibuffer-hook #'modi/ibuffer-customization)
+    (bind-keys
+     :map ibuffer-mode-map
+     ("C-j" . ibuffer-visit-buffer))))
 
 (use-package ibuf-ext
   :defer t

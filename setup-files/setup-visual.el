@@ -54,6 +54,7 @@
     (cond
      ((modi/is-font "Monoid") 11)
      ((modi/is-font "Pragmata") 13)
+     ((modi/is-font "DejaVu Sans Mono") 13)
      (t 12))
     "Default font size in points."))
 
@@ -295,8 +296,19 @@ See `mode-line-format' to get help on the %-identifers used in this function."
 (set-face-attribute 'italic nil :inherit nil :slant 'italic)
 
 ;;;; Windows Font
-(when (eq system-type 'windows-nt)
-  (set-face-attribute 'default nil :family "Consolas"))
+;; https://dejavu-fonts.github.io/
+;; To use 'DejaVu Sans Mono-10'
+;; https://www.reddit.com/r/emacs/comments/3wmw8z/dejavu_sans_mono_line_height_bug/
+;; https://www.reddit.com/r/emacs/comments/3zto22/i_sort_of_fixed_a_font_rendering_bug_of_emacs/
+(cond
+ ((string-equal system-type "windows-nt")
+  (if (member "DejaVu Sans Mono" (font-family-list))
+      (progn
+        (set-frame-font "DejaVu Sans Mono-10" t t)
+        (setq-default line-spacing 1))
+    (set-frame-font "Courier New-10" t t)))
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "DejaVu Sans Mono-10" t t)))
 
 ;;;; Global Font Resize
 (defun modi/global-font-size-adj (scale &optional absolute)

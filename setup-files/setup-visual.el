@@ -379,6 +379,7 @@ Font Size:     _C--_/_-_ Decrease     _C-=_/_=_ Increase     _C-0_/_0_ Reset    
 (setq-default truncate-partial-width-windows nil)
 
 (bind-key "C-x t" #'toggle-truncate-lines modi-mode-map)
+(defalias 'tl 'toggle-truncate-lines)
 
 ;;; Visual Line Mode
 ;; Do word wrapping only at word boundaries

@@ -374,6 +374,7 @@ Here 'words' are defined as characters separated by whitespace."
 
 (key-chord-define-global "m," #'beginning-of-buffer)
 (key-chord-define-global ",." #'end-of-buffer)
+(key-chord-define-global "MM" #'modi-mode)
 
 
 (provide 'setup-navigation)

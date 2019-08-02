@@ -25,6 +25,13 @@
                                 (csh . csh)
                                 (tcsh . csh)))
 
+    (defun yura/sh-script-set-indentation ()
+      "Customize the indentation for `sh-script-mode'."
+      (setq tab-width 4
+            sh-basic-offset 4
+            indent-tabs-mode nil))
+    (add-hook 'sh-mode-hook #'yura/sh-script-set-indentation)
+
     ;; Thu Mar 30 15:41:39 EDT 2017 - kmodi
     ;; Below function is the same as original except that that message is not
     ;; displayed at the end.

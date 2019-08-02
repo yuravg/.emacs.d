@@ -13,6 +13,7 @@
 ;;    Scroll bar
 ;;    Window Dividers
 ;;  Themes
+;;    Leuven-gray theme
 ;;  Frame Title
 ;;  Fonts
 ;;    Font Lock
@@ -149,6 +150,8 @@ Also restore the original frame size when disabling the menu bar."
                       (tao-yang        'light "gray")
                       (ample-light     'light "gray")
                       (leuven          'light "gray")
+                      ;; (leuven-gray     'light "gray85") ; FIXME: after use this theme:
+                      ;; after loading Emacs `smart-mode-line' colors are not used
                       (twilight-bright 'light "gray")
                       (default         'light "gray")) ;Default emacs theme
   "Alist of themes I tend to switch to frequently.")
@@ -214,7 +217,10 @@ the smart-mode-line theme."
   "Function to set the default dark theme.")
 (defconst default-light-theme-fn 'load-theme/leuven
   "Function to set the default light theme.")
-(defconst default-theme-fn default-dark-theme-fn
+;; TODO: add leuven-gray to toggle-theme
+(defconst default-gray-theme-fn 'load-theme/leuven-gray
+  "Function to set the default light theme.")
+(defconst default-theme-fn default-gray-theme-fn
   "Function to set the default theme.")
 
 (defun toggle-theme ()
@@ -231,6 +237,16 @@ the smart-mode-line theme."
 ;; (add-hook 'after-make-frame-functions (lambda (&rest frame)
 ;;                                         (funcall default-theme-fn)))
 (add-hook 'window-setup-hook #'(lambda () (funcall default-theme-fn)))
+
+;;;; Leuven-gray theme
+;; FIXME: loading Leuven-gray theme before the first Emacs start(how todo?)
+(defvar yura/leuven-gray-package-file
+  (expand-file-name "elisp/emacs-leuven-theme/leuven-dark-theme.el" user-emacs-directory))
+(if (file-exists-p yura/leuven-gray-package-file)
+    (progn
+      (add-to-list 'custom-theme-load-path
+                   (concat user-emacs-directory "elisp/emacs-leuven-theme"))
+      (load-theme 'leuven-gray t)))
 
 ;;; Frame Title
 (defun modi/update-frame-title ()

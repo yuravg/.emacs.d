@@ -53,6 +53,9 @@ See the command `isearch-forward-symbol' for more information."
       (setq isearch-error "No symbol at point")
       (isearch-update)))))
 
+(defalias 'qr 'query-replace)
+(defalias 'qrr 'query-replace-regexp)
+
 ;;; anzu
 ;; https://github.com/syohex/emacs-anzu
 (use-package anzu

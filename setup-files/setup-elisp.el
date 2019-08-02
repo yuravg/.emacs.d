@@ -266,6 +266,8 @@ Lisp function does not specify a special indentation."
 
 (bind-key "<f9>"  #'eval-region emacs-lisp-mode-map)
 (bind-key "C-c 9" #'eval-region emacs-lisp-mode-map) ; alternative to f9
+(bind-key "C-c C-a" #'eval-region emacs-lisp-mode-map)
+
 
 
 (provide 'setup-elisp)

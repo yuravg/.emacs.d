@@ -533,7 +533,6 @@ Toggling off this mode reverts everything to their original states."
 
 ;;; Whitespace Mode/Show Long Lines
 (use-package whitespace
-  :defer t
   :config
   (progn
     (setq whitespace-line-column nil)  ;When nil, set the value to `fill-column'

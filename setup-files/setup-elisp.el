@@ -274,6 +274,8 @@ Lisp function does not specify a special indentation."
         indent-tabs-mode nil))
 (add-hook 'emacs-lisp-mode-hook #'yura/elisp-set-indentation)
 
+(defalias 'elisp-mode 'emacs-lisp-mode)
+
 
 
 (provide 'setup-elisp)

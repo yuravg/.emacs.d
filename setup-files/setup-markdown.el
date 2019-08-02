@@ -6,7 +6,10 @@
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
+         ("\\.markdown\\'" . markdown-mode)
+         ("[Rr]eadme.txt\\'" . markdown-mode)
+         ("README.txt\\'" . markdown-mode)
+         ("README.TXT\\'" . markdown-mode))
   :config
   (progn
     ;; http://daringfireball.net/projects/markdown/

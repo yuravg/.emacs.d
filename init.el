@@ -380,6 +380,7 @@ need Org version to be at least 9.x.")
 ;; YuraVG:
 (require 'setup-cc)
 (require 'setup-grep)
+(require 'setup-compilation)
 (require 'setup-bat)
 (require 'setup-autopair)
 (require 'setup-aggressive-indent)

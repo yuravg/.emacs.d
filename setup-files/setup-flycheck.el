@@ -159,6 +159,9 @@ Non-nil if all C/C++ checkers installed.
       ("d" flycheck-disable-checker "disable checker")
       ("v" flycheck-verify-setup "verify setup"))
 
+    (defalias 'fm 'flycheck-mode)
+    (defalias 'fl 'flycheck-list-errors)
+
     ;;; Flycheck-pos-tip
     ;; https://github.com/flycheck/flycheck-pos-tip
     (use-package flycheck-pos-tip)))

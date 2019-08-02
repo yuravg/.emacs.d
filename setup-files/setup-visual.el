@@ -250,7 +250,7 @@ the smart-mode-line theme."
 
 ;;; Frame Title
 (defun modi/update-frame-title ()
-  "Show the emacs branch/version and a useful buffer name in the frame title.
+  "Show buffer name in the frame title.
 
 If the buffer is showing a file, show the full file name.
 Else if it's showing a `dired' buffer, show the directory name.
@@ -262,15 +262,7 @@ At the end, % is shown if the buffer is read-only,
 
 See `mode-line-format' to get help on the %-identifers used in this function."
   (setq frame-title-format
-        `("emacs "
-          ;; If `emacs-git-branch' is non-nil, show that
-          (emacs-git-branch ,(concat "[" emacs-git-branch "]")
-                            ;; Else show the version number
-                            ,(concat (number-to-string emacs-major-version)
-                                     "."
-                                     (number-to-string emacs-minor-version)))
-          "   "
-          (buffer-file-name "%f" ;Show full file path if buffer is showing a file
+        `((buffer-file-name "%f" ;Show full file path if buffer is showing a file
                             (dired-directory dired-directory ;Else if in dired mode, show the directory name
                                              "%b")) ;Else show the buffer name (*scratch*, *Messages*, etc)
           "%*"))) ;Prints %(read-only), *(modified) or -(editable,not modified)

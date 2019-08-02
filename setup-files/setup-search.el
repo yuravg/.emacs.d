@@ -116,6 +116,8 @@ happens within a region if one is selected."
          ("M-i" . swiper-from-isearch)) ; isearch > swiper
   :bind (:map modi-mode-map
          ("C-M-i" . modi/swiper))
+  :bind (:map swiper-map
+         ("C-h" . backward-delete-char))
   :config
   (progn
     (defun modi/swiper (arg)

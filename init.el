@@ -168,6 +168,7 @@ need Org version to be at least 9.x.")
     ;; projectile ; Better than fiplr < fork
 
     ;; YuraVG:
+    flycheck-pos-tip
     pylint
     autopair
     aggressive-indent

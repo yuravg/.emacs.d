@@ -141,7 +141,11 @@ Non-nil if all C/C++ checkers installed.
             ;; -whitespace/indent,
             ;; +whitespace/braces,
             ;; -whitespace,+whitespace/braces,
-            )))))
+            )))
+
+    ;;; Flycheck-pos-tip
+    ;; https://github.com/flycheck/flycheck-pos-tip
+    (use-package flycheck-pos-tip)))
 
 
 (provide 'setup-flycheck)

@@ -268,6 +268,12 @@ Lisp function does not specify a special indentation."
 (bind-key "C-c 9" #'eval-region emacs-lisp-mode-map) ; alternative to f9
 (bind-key "C-c C-a" #'eval-region emacs-lisp-mode-map)
 
+(defun yura/elisp-set-indentation ()
+  "Customize the indentation for `emacs-lisp-mode'."
+  (setq tab-width 4
+        indent-tabs-mode nil))
+(add-hook 'emacs-lisp-mode-hook #'yura/elisp-set-indentation)
+
 
 
 (provide 'setup-elisp)

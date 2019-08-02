@@ -24,6 +24,7 @@
 ;;  Visual Line Mode
 ;;    Adaptive Wrap
 ;;  Cursor
+;;    Tabs
 ;;  Prez Mode
 ;;  Hidden Mode Line Mode
 ;;  Show mode line in header
@@ -444,6 +445,10 @@ Font Size:     _C--_/_-_ Decrease     _C-=_/_=_ Increase     _C-0_/_0_ Reset    
       (set-cursor-color (setq hcz-set-cursor-color-color color))
       (setq hcz-set-cursor-color-buffer (buffer-name)))))
 (add-hook 'post-command-hook #'hcz-set-cursor-color-according-to-mode)
+
+;;;; Tabs
+(setq-default tab-width 4)
+(setq tab-stop-list (number-sequence 4 120 4))
 
 ;;; Prez Mode
 (defvar prez-mode--buffer-name nil

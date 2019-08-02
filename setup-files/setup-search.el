@@ -60,7 +60,8 @@ See the command `isearch-forward-symbol' for more information."
 ;; https://github.com/syohex/emacs-anzu
 (use-package anzu
   :bind (:map modi-mode-map
-         ("C-c r" . anzu-query-replace))
+         ("C-c r" . anzu-query-replace)
+         ("C-c C-r" . anzu-query-replace-regexp))
   :config
   (progn
     (setq anzu-mode-lighter "")

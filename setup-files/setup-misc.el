@@ -106,19 +106,6 @@ If the buffer major-mode is `clojure-mode', run `cider-load-buffer'."
             (message "No recognized program file suffix for this file."))))))))
 (bind-to-modi-map "l" #'modi/run-current-file)
 
-;; Set the major mode for plain text/log files
-(use-package text-mode
-  :mode (("\\.log\\'" . text-mode)
-         ("\\.f\\'" . text-mode))         ;I never need to code in Fortran
-  :config
-  (progn
-    ;; http://emacs.stackexchange.com/a/16854/115
-    (defun modi/text-mode-comments ()
-      "Make text beginning with # look like comments only in `text-mode'."
-      (when (equal major-mode 'text-mode)
-        (font-lock-add-keywords nil '(("#.+" . font-lock-comment-face)))))
-    (add-hook 'text-mode-hook #'modi/text-mode-comments)))
-
 ;; Help Functions +
 ;; http://www.emacswiki.org/emacs/HelpPlus
 (use-package help-fns+

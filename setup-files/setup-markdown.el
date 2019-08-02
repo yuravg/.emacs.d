@@ -43,6 +43,8 @@
         (orgtbl-to-generic table (org-combine-plists params2 params))))
     (add-hook 'markdown-mode-hook #'orgtbl-mode)
 
+    ;; Set to a non-nil value to use asymmetric header styling
+    (setq markdown-asymmetric-header t)
     (bind-keys
      :map markdown-mode-map
      ;; Mimicking the org-export style bindings

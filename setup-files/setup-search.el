@@ -162,6 +162,8 @@ searches all buffers."
 ;;; Apropos
 (use-package apropos
   :defer t
+  :bind (:map apropos-mode-map
+         ("C-j" . push-button))
   :config
   (progn
     (setq apropos-do-all t)))     ;Make apropos commands search more extensively

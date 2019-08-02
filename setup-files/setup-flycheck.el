@@ -6,6 +6,8 @@
 
 (use-package flycheck
   :defer t
+  :bind (:map modi-mode-map
+         ("C-c e". hydra-flycheck/body))
   :config
   (progn
     (setq flycheck-mode-line-prefix "Ω")
@@ -142,6 +144,19 @@ Non-nil if all C/C++ checkers installed.
             ;; +whitespace/braces,
             ;; -whitespace,+whitespace/braces,
             )))
+
+    (defhydra hydra-flycheck (:color blue
+                              :columns 4)
+      "Flycheck"
+      ("l" flycheck-list-errors "list error" :color red)
+      ("n" flycheck-next-error "next error")
+      ("p" flycheck-previous-error "previous error")
+      ("P" flycheck-pos-tip-mode "toggle error tip pop-up")
+      ("u" flycheck-pos-tip-mode "toggle error tip pop-up")
+      ("t" flycheck-mode "toggle flycheck mode" :color red)
+      ("s" flycheck-select-checker "select checker")
+      ("d" flycheck-disable-checker "disable checker")
+      ("v" flycheck-verify-setup "verify setup"))
 
     ;;; Flycheck-pos-tip
     ;; https://github.com/flycheck/flycheck-pos-tip

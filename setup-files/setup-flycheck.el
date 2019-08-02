@@ -2,6 +2,7 @@
 
 ;; Flycheck
 ;; https://github.com/flycheck/flycheck
+;; http://www.flycheck.org/en/latest/index.html
 
 (use-package flycheck
   :defer t
@@ -31,6 +32,13 @@
 
     (modi/turn-on-flycheck-mode)
 
+    ;; Disable checkers
+    ;; http://www.flycheck.org/en/latest/user/syntax-checkers.html
+    ;; (setq-default flycheck-disabled-checkers '(sh-posix-dash))
+    ;; (if (eq system-type 'windows-nt)
+    ;;     (setq-default flycheck-disabled-checkers
+    ;;                   (append flycheck-disabled-checkers '(verilog-verilator))))
+
     ;;; Flycheck Variables
     (setq flycheck-flake8-maximum-line-length 99)
     (setq flycheck-checker-error-threshold 800)
@@ -58,3 +66,8 @@
 
 
 (provide 'setup-flycheck)
+
+;;; Notes
+;; flycheck keymap prefix: "C-c !"
+;; disable checker: flycheck-disable-checker
+;; enable  checker: C-u flycheck-disable-checker

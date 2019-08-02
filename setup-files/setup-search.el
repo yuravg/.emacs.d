@@ -114,8 +114,27 @@ happens within a region if one is selected."
 (use-package swiper
   :bind (:map isearch-mode-map
          ("M-i" . swiper-from-isearch)) ; isearch > swiper
+  :bind (:map modi-mode-map
+         ("C-M-i" . modi/swiper))
   :config
   (progn
+    (defun modi/swiper (arg)
+      "Start swiper with input as the selected region.
+
+If a region is not selected and,
+  - If ARG is nil, start swiper with the symbol at point as input.
+  - Elseswiper without any arguments (stock behavior)."
+      (interactive "P")
+      (if (use-region-p)
+          (let ((b (region-beginning))
+                (e (region-end)))
+            (deactivate-mark)
+            (swiper (buffer-substring-no-properties b e)))
+        (if arg
+            (swiper) ; C-u
+          (swiper (modi/get-selected-text-or-symbol-at-point)))))
+
+
     (bind-key "M-a" #'swiper-avy swiper-map))) ; swiper > avy
 
 ;;; grep

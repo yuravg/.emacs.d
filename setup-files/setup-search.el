@@ -172,5 +172,11 @@ searches all buffers."
  ("C-S-s" . isearch-forward-symbol-at-point)
  ("C-S-r" . modi/isearch-backward-symbol-at-point))
 
+(bind-keys
+ ;; :commands (unbind-key "C-j" isearch-mode-map) ; default binding: `isearch-printing-char'
+ :map isearch-mode-map
+ ("C-j" . isearch-exit)
+ ("C-h" . isearch-del-char))
+
 
 (provide 'setup-search)

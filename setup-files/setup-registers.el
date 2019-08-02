@@ -11,6 +11,9 @@
 
 (set-register ?j (cons 'file (expand-file-name "journal.org" org-directory))) ; C-x r j j
 
+(defalias 'rc 'copy-to-register)
+(defalias 'ri 'insert-register)
+
 
 (provide 'setup-registers)
 

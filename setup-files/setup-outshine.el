@@ -202,6 +202,8 @@ Don't add “Revision Control” heading to TOC."
        :map outline-minor-mode-map
        ("M-p" . outline-previous-visible-heading)
        ("M-n" . outline-next-visible-heading)
+       ("C-c C-p" . outline-previous-visible-heading)  ;like org-mode navigation
+       ("C-c C-n" . outline-next-visible-heading)      ;like org-mode navigation
        ("<M-up>" . outline-move-subtree-up)
        ("<M-down>" . outline-move-subtree-down)
        ("<M-left>" . outline-promote)

@@ -9,6 +9,9 @@
   :bind (:map modi-mode-map
          ("s-y" . hydra-yas/body)
          ("C-c y" . hydra-yas/body))
+  :chords (:map modi-mode-map
+           ("YY" . yas-insert-snippet)
+           ("yy" . yas-ido-expand))
   :config
   (progn
     (setq yas-prompt-functions '(yas-popup-isearch-prompt

@@ -418,6 +418,7 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
             (kill-buffer buf)
             (message "Killed non-existing/unreadable file buffer: %s" filename))))))
   (message "Finished reverting buffers containing unmodified files."))
+(defalias 'rba 'modi/revert-all-file-buffers)
 
 (defun modi/revert-noconfirm-help-buffers (&rest args)
   "Don't confirm when reverting *Help* buffers."

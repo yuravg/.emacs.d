@@ -172,6 +172,7 @@ need Org version to be at least 9.x.")
     pylint
     autopair
     aggressive-indent
+    shell-command
     elpy
     anaconda-mode
     google-translate
@@ -389,6 +390,7 @@ need Org version to be at least 9.x.")
 (require 'setup-autopair)
 (require 'setup-aggressive-indent)
 (require 'setup-makefile)
+(require 'setup-shell-command)
 (require 'setup-text)
 (require 'setup-subversion)
 (require 'setup-google-translate)

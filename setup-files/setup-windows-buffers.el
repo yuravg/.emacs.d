@@ -30,6 +30,7 @@
 ;;  Kill/Bury Buffer
 ;;  Other Window/Buffer
 ;;  Resize frame
+;;  Help mode
 ;;  *Messages* Auto-tail
 ;;  Bindings
 ;;    Read-only Buffer Bindings
@@ -748,6 +749,13 @@ Size list: default, maximized, full both, full height, full width."
     (modify-frame-parameters
      (selected-frame)
      (list (cons 'fullscreen next)))))
+
+;;; Help mode
+(bind-keys
+ :map help-mode-map
+ ("b" . help-go-back)
+ ("f" . help-go-forward)
+ ("C-j" . push-button))
 
 ;;; *Messages* Auto-tail
 ;; Improved upon http://stackoverflow.com/a/4685005/1219634

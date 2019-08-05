@@ -38,25 +38,7 @@
 # --
 $0")
 
-    (defconst modi/yas-minor-mode-hooks '(verilog-mode-hook
-                                          emacs-lisp-mode-hook
-                                          org-mode-hook)
-      "List of hooks of major modes in which `yas-minor-mode' should be enabled.")
-
-    (defun modi/turn-on-yas-minor-mode ()
-      "Turn on yas-minor-mode only for specific modes."
-      (interactive)
-      (yas-reload-all)
-      (dolist (hook modi/yas-minor-mode-hooks)
-        (add-hook hook #'yas-minor-mode)))
-
-    (defun modi/turn-off-yas-minor-mode ()
-      "Turn off yas-minor-mode only for specific modes."
-      (interactive)
-      (dolist (hook modi/yas-minor-mode-hooks)
-        (remove-hook hook #'yas-minor-mode)))
-
-    (modi/turn-on-yas-minor-mode)
+    (yas-global-mode 1)
 
     (defun modi/yas-org-path-to-caption (text)
       "Converts a file path in TEXT to caption.

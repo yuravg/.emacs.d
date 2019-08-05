@@ -799,6 +799,7 @@ Size list: default, maximized, full both, full height, full width."
 ;;;; Other Bindings
 (bind-keys
  :map modi-mode-map
+ ("C-c C-m" . execute-extended-command)
  ("C-'" . yura/other-window-bufer)
  ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'
  ("<f12>" . yura/resize-frame)

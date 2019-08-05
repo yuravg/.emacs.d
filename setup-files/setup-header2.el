@@ -140,7 +140,7 @@ Bring the point 2 lines below the current point."
                              modi/header-sep-line         ; // ---------------
                              modi/header-position-point))
 
-    (modi/turn-on-auto-headers)))
+    (modi/turn-off-auto-headers)))
 
 
 (provide 'setup-header2)

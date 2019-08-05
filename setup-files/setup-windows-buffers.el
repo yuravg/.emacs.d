@@ -829,6 +829,7 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
  ("C-x M-f" . find-name-dired)
  ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'
  ("<f12>" . yura/resize-frame)
+ ("C-x M-o" . other-frame)
  ("C-x 1" . modi/toggle-one-window) ;Default binding to `delete-other-windows'
  ("C-x <delete>" . modi/delete-current-buffer-file) ;Default binding to `backward-kill-sentence'
  ("C-x C-p" . modi/copy-buffer-file-name) ;Default binding to `mark-page'

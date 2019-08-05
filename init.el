@@ -172,6 +172,8 @@ need Org version to be at least 9.x.")
     pylint
     autopair
     aggressive-indent
+    elpy
+    anaconda-mode
     google-translate
     list-environment
     highlight-indent-guides

@@ -30,6 +30,7 @@
 ;;  Kill/Bury Buffer
 ;;  Other Window/Buffer
 ;;  Resize frame
+;;  Open at new frame
 ;;  Help mode
 ;;  *Messages* Auto-tail
 ;;  Bindings
@@ -750,6 +751,30 @@ Size list: default, maximized, full both, full height, full width."
      (selected-frame)
      (list (cons 'fullscreen next)))))
 
+;;; Open at new frame
+(defun yura/buffer-to-new-frame (arg)
+  "Open current buffer at new frame.
+Perform an action based on ARG described below.
+
+Prefixed with \\[universal-argument] open at new maximized frame.
+Prefixed with \\[universal-argument] \\[universal-argument] open at new full-screen frame."
+  (interactive "p")
+  (let ((frame-value
+         (cl-case arg
+           (0 nil)
+           (4 'maximized)
+           (16 'fullboth))))
+    (make-frame (list (cons 'fullscreen frame-value)))))
+
+;; Define commands name to show them names at mini-buffer after binding.
+;; For example after bind `buffer-to-maximized-frame' to 'C-x 5 n'.
+(defun buffer-to-maximized-frame ()
+  (interactive)
+  (yura/buffer-to-new-frame 4))
+(defun buffer-to-fullscreen-frame ()
+  (interactive)
+  (yura/buffer-to-new-frame 16))
+
 ;;; Help mode
 (bind-keys
  :map help-mode-map
@@ -821,7 +846,9 @@ Size list: default, maximized, full both, full height, full width."
 (bind-keys
  ("<f5>" . revert-buffer)
  ("C-c 5" . revert-buffer)              ;Alternative to f5 for terminal mode
- ("<S-f5>" . modi/revert-all-file-buffers))
+ ("<S-f5>" . modi/revert-all-file-buffers)
+ ("C-x 5 n" . buffer-to-maximized-frame)
+ ("C-x 5 C-n" . buffer-to-fullscreen-frame))
 
 (bind-to-modi-map "b" #'modi/switch-to-scratch-and-back)
 (bind-to-modi-map "f" #'modi/frame-setup-1)

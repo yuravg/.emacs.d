@@ -447,6 +447,8 @@ If DOUBLE is non-nil, the frame text width is doubled. "
                     (round (* factor (frame-text-width))) (frame-text-height)
                     :pixelwise)))
 
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;;; Scratch-and-Back
 ;; http://emacs.stackexchange.com/a/81/115
 (defun modi/switch-to-scratch-and-back (&optional arg)

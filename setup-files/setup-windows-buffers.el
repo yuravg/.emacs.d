@@ -701,6 +701,24 @@ Examples of such buffers: *gtags-global*, *ag*, *Occur*, *Diff*."
   ("<C-right>" next-buffer "→buf")
   ("<C-left>" previous-buffer "buf←"))
 
+;; http://emacsredux.com/blog/2013/04/28/switch-to-previous-buffer/
+(defun switch-to-recent-buffer ()
+  "Switch to a previously opened buffer.
+
+Repeated calls switch between the last two open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+(defun yura/other-window-bufer ()
+  "Select another window or switch between buffers.
+
+If there is only one window in frame, then switch to the last open buffer.
+Otherwise switch to another window in cyclic ordering of windows."
+  (interactive)
+  (if (= (length (window-list)) 1)
+      (switch-to-buffer (other-buffer (current-buffer) 1))
+    (other-window 1)))
+
 ;;; *Messages* Auto-tail
 ;; Improved upon http://stackoverflow.com/a/4685005/1219634
 (defun modi/messages-auto-tail (&rest _)
@@ -743,6 +761,8 @@ Examples of such buffers: *gtags-global*, *ag*, *Occur*, *Diff*."
 ;;;; Other Bindings
 (bind-keys
  :map modi-mode-map
+ ("C-'" . yura/other-window-bufer)
+ ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'
  ("C-x 1" . modi/toggle-one-window) ;Default binding to `delete-other-windows'
  ("C-x <delete>" . modi/delete-current-buffer-file) ;Default binding to `backward-kill-sentence'
  ("C-x C-p" . modi/copy-buffer-file-name) ;Default binding to `mark-page'

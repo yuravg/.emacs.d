@@ -61,11 +61,19 @@ Example: My Figure → my_figure"
     (defhydra hydra-yas (:color teal
                          :hint nil)
       "
-[yasnippet]        _i_nsert        _n_ew        _v_isit snippet file        _r_eload all        e_x_pand        _?_ list snippets        "
+Yasnippet:
+^^     Insert               ^^  Library                    ^^   Update
+^^--------------------------^^---------------------------------------------------------
+  _i_: insert              _v_: visit snippet file         _C_: compile and reload all
+  _I_: insert ido          _n_: new                        _r_: reload all
+  _x_: expand              _?_: list snippets
+"
       ("i" yas-insert-snippet)
+      ("I" yas-ido-expand)
       ("n" yas-new-snippet)
       ("v" yas-visit-snippet-file)
       ("r" yas-reload-all)
+      ("C" yura/yas-recompile-and-reload)
       ("x" yas-expand)
       ("?" yas-describe-tables)
       ("q" nil "cancel" :color blue))

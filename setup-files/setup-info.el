@@ -353,6 +353,9 @@ Info-mode:
      ;; Override the Info-mode-map binding to "?" set by info+
      ("?" . hydra-info/body))))
 
+(if (eq system-type 'windows-nt)
+    (setq Info-default-directory-list (list "c:/emacs/share/info")))
+
 (defun counsel-ag-emacs-info (&optional initial-input)
   "Search in all Info manuals in the emacs 'info/' directory using ag.
 This directory contains the emacs, elisp, eintr, org, calc Info manuals and other

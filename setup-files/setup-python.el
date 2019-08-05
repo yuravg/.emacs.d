@@ -4,7 +4,8 @@
 
 ;; Emacs built-in `python' mode
 (use-package python
-  :mode (("\\.py\\'" . python-mode))
+  :mode (("\\.py\\'" . python-mode)
+         ("\\.pyw\\'" . python-mode))
   :bind (:map python-mode-map
          ("<f9>" . python-shell-send-buffer))
   :config

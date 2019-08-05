@@ -11,7 +11,8 @@
          ("C-c y" . hydra-yas/body))
   :config
   (progn
-    (setq yas-prompt-functions '(yas-ido-prompt
+    (setq yas-prompt-functions '(yas-popup-isearch-prompt
+                                 yas-ido-prompt
                                  yas-completing-prompt))
 
     (setq modi/yas-snippets-dir (let ((dir (concat user-emacs-directory
@@ -67,7 +68,35 @@ Example: My Figure → my_figure"
       ("r" yas-reload-all)
       ("x" yas-expand)
       ("?" yas-describe-tables)
-      ("q" nil "cancel" :color blue))))
+      ("q" nil "cancel" :color blue))
+
+    ;; use popup menu for yas-choose-value
+    ;; https://www.emacswiki.org/emacs/Yasnippet
+    (use-package popup
+      :config
+      (progn
+        ;; add some shotcuts in popup menu mode
+        (define-key popup-menu-keymap (kbd "M-n") 'popup-next)
+        (define-key popup-menu-keymap (kbd "TAB") 'popup-next)
+        (define-key popup-menu-keymap (kbd "<tab>") 'popup-next)
+        (define-key popup-menu-keymap (kbd "<backtab>") 'popup-previous)
+        (define-key popup-menu-keymap (kbd "C-j") 'popup-select)
+        (define-key popup-menu-keymap (kbd "M-p") 'popup-previous)
+        (define-key popup-menu-keymap (kbd "C-s") 'popup-isearch)
+
+        (defun yas-popup-isearch-prompt (prompt choices &optional display-fn)
+          (when (featurep 'popup)
+            (popup-menu*
+             (mapcar
+              (lambda (choice)
+                (popup-make-item
+                 (or (and display-fn (funcall display-fn choice))
+                     choice)
+                 :value choice))
+              choices)
+             :prompt prompt
+             ;; start isearch mode immediately
+             :isearch t)))))))
 
 
 (provide 'setup-yasnippet)

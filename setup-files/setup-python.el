@@ -33,7 +33,14 @@
           ;; https://emacs.stackexchange.com/q/24453/115
           ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25306
           (setq python-shell-interpreter-args "--simple-prompt -i"))
-      (setq python-shell-interpreter "python3")))) ;Default to python 3.x
+      (setq python-shell-interpreter "python3")) ;Default to python 3.x
+
+    (defun yura/python-set-indentation ()
+      "Customize the indentation for `python-mode'."
+      (setq tab-width 4
+            python-indent-offset 4
+            indent-tabs-mode nil))
+    (add-hook 'python-mode-hook #'yura/python-set-indentation)))
 
 
 (provide 'setup-python)

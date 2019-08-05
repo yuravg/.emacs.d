@@ -3,7 +3,10 @@
 
 (use-package text-mode
   :mode (("\\.log\\'" . text-mode)
-         ("\\.f\\'" . text-mode))         ;I never need to code in Fortran
+         ("\\.log\,[0-9]+\\'" . text-mode)
+         ("\\.f\\'" . text-mode)         ;I never need to code in Fortran
+         ("\\.rpt\\'" . text-mode)
+         ("\\.rpt\,[0-9]+\\'" . text-mode))
   :config
   (progn
     ;; http://emacs.stackexchange.com/a/16854/115

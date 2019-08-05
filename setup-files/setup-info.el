@@ -282,8 +282,8 @@ argument, also open the URL in the default browser."
       "
 Info-mode:
 
-  ^^_]_ forward  (next logical node)       ^^_l_ast (←)                     _u_p (↑)                             _f_ollow reference       _d_irectory of all manuals
-  ^^_[_ backward (prev logical node)       ^^_r_eturn (→)                   _m_enu (↓) (C-u for new window)      _i_ndex                  _T_OC of current manual
+  ^^_]_/_M-n_ forward  (next logical node)   _l_ast (←)                     _u_p (↑)                             _f_ollow reference       _d_irectory of all manuals
+  ^^_[_/_M-p_ backward (prev logical node)   _r_eturn (→)                   _m_enu (↓) (C-u for new window)      _i_ndex                  _T_OC of current manual
   ^^_n_ext (same level only)               ^^_H_istory                      _g_oto (C-u for new window)          _,_ next index item      _w_ copy node name
   ^^_p_rev (same level only)               _<_/_t_op of current manual      _b_eginning of buffer                virtual _I_ndex          _c_lone buffer
   regex _s_earch (_S_ case sensitive)      ^^_>_ final                      _e_nd of buffer                      ^^                       _a_propos
@@ -292,7 +292,9 @@ Info-mode:
 
 "
       ("]"   Info-forward-node)
+      ("M-n" Info-forward-node)
       ("["   Info-backward-node)
+      ("M-p" Info-backward-node)
       ("n"   Info-next)
       ("p"   Info-prev)
       ("s"   Info-search)
@@ -344,6 +346,10 @@ Info-mode:
     (bind-keys
      :map Info-mode-map
      ("y" . bury-buffer)
+     ("C-j" . Info-follow-nearest-node)
+     ("M-n" . Info-forward-node) ;Override the default binding to `clone-buffer'
+     ("M-p" . Info-backward-node)
+     ("H" . Info-history)
      ;; Override the Info-mode-map binding to "?" set by info+
      ("?" . hydra-info/body))))
 

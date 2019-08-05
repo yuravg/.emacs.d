@@ -719,6 +719,22 @@ Otherwise switch to another window in cyclic ordering of windows."
       (switch-to-buffer (other-buffer (current-buffer) 1))
     (other-window 1)))
 
+(defhydra hydra-scroll-other-window (:color amaranth :hint nil)
+  "
+Scroll other window, up/down lines: _p_/_n_: one  _C-p_/_C-n_: ten  _M-p_/_M-p_: fifty  _C-M-p_/_C-M-n_: screen  _b_/_e_: begin/end   "
+  ("p"     (scroll-other-window  -1))
+  ("n"     (scroll-other-window   1))
+  ("C-p"   (scroll-other-window -10))
+  ("C-n"   (scroll-other-window  10))
+  ("M-p"   (scroll-other-window -50))
+  ("M-n"   (scroll-other-window  50))
+  ("C-M-p" (scroll-other-window  '-))
+  ("C-M-n" (scroll-other-window    ))
+  ("b"     beginning-of-buffer-other-window)
+  ("e"     end-of-buffer-other-window)
+  ("q" nil "cancel" :color blue))
+(bind-keys :map modi-mode-map ("C-c C-'" . hydra-scroll-other-window/body))
+
 ;;; *Messages* Auto-tail
 ;; Improved upon http://stackoverflow.com/a/4685005/1219634
 (defun modi/messages-auto-tail (&rest _)

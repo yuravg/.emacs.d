@@ -388,13 +388,14 @@ Return the copied file name."
       nil)))
 
 ;;; Revert buffer
-(defun modi/revert-all-file-buffers ()
+(defun modi/revert-all-file-buffers (reverse-modes)
   "Refresh all open file buffers without confirmation.
 Buffers in modified (not yet saved) state in emacs will not be reverted. They
 will be reverted though if they were modified outside emacs.
 Buffers visiting files which do not exist any more or are no longer readable
-will be killed."
-  (interactive)
+will be killed.
+Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
+  (interactive "P")
   (dolist (buf (buffer-list))
     (let ((filename (buffer-file-name buf)))
       ;; (message "buf:%s  filename:%s  modified:%s  filereadable:%s"
@@ -408,7 +409,7 @@ will be killed."
         (if (file-readable-p filename)
             ;; If the file exists and is readable, revert the buffer.
             (with-current-buffer buf
-              (revert-buffer :ignore-auto :noconfirm :preserve-modes))
+              (revert-buffer :ignore-auto :noconfirm (unless reverse-modes :preserve-modes)))
           ;; Otherwise, kill the buffer.
           (let (kill-buffer-query-functions) ;No query done when killing buffer
             (kill-buffer buf)

@@ -826,6 +826,7 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
  :map modi-mode-map
  ("C-c C-m" . execute-extended-command)
  ("C-'" . yura/other-window-bufer)
+ ("C-x M-f" . find-name-dired)
  ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'
  ("<f12>" . yura/resize-frame)
  ("C-x 1" . modi/toggle-one-window) ;Default binding to `delete-other-windows'

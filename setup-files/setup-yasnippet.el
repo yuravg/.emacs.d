@@ -27,7 +27,7 @@
     ;; like `fundamental-mode' in which you are never going to use yasnippet!
     ;;   So the solution is to copy only the snippet folders that I am ever
     ;; going to use to `modi/yas-snippets-dir'.
-    (setq yas-snippet-dirs (list 'modi/yas-snippets-dir))
+    ;; (setq yas-snippet-dirs (list 'modi/yas-snippets-dir))
 
     (setq yas-new-snippet-default "# -*- mode: snippet -*-
 # contributor: Kaushal Modi

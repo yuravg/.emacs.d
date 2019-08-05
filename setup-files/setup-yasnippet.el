@@ -58,7 +58,7 @@ Used in org-mode/figure-caption and org-mode/table-caption snippets.
 Example: My Figure → my_figure"
       (replace-regexp-in-string " " "_" (downcase text)))
 
-    (defhydra hydra-yas (:color blue
+    (defhydra hydra-yas (:color teal
                          :hint nil)
       "
 [yasnippet]        _i_nsert        _n_ew        _v_isit snippet file        _r_eload all        e_x_pand        _?_ list snippets        "

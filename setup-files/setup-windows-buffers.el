@@ -852,6 +852,10 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
  ("C-x 5 n" . buffer-to-maximized-frame)
  ("C-x 5 C-n" . buffer-to-fullscreen-frame))
 
+(defalias 'arm 'auto-revert-mode)
+(defalias 'ff 'toggle-frame-fullscreen)
+(defalias 'ro 'read-only-mode)
+
 (bind-to-modi-map "b" #'modi/switch-to-scratch-and-back)
 (bind-to-modi-map "f" #'modi/frame-setup-1)
 (bind-to-modi-map "F" #'modi/frame-width-2x)

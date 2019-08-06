@@ -96,9 +96,10 @@
 
         ;; https://github.com/d12frosted/flyspell-correct
         (use-package flyspell-correct-ivy
-          :after flyspell-correct
-          :bind (:map modi-mode-map
-                 ("<f12>" . flyspell-correct-word-generic)))
+          :config
+          (use-package flyspell-correct
+            :chords
+            (("ww" . flyspell-correct-word-generic))))
 
         (bind-keys
          :map flyspell-mode-map

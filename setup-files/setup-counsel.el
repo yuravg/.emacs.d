@@ -13,8 +13,8 @@
        :map modi-mode-map
        ("M-i" . counsel-grep-or-swiper)
        ("C-M-y" . counsel-yank-pop)
-       ("C-h F" . counsel-faces)       ;Overrides `Info-goto-emacs-command-node'
-       ("C-h S" . counsel-info-lookup-symbol)
+       ;; ("C-h F" . counsel-faces)       ;Overrides `Info-goto-emacs-command-node' ;C-h - bind backward-delete-char
+       ;; ("C-h S" . counsel-info-lookup-symbol) ;C-h - bind backward-delete-char
        ("C-c u" . counsel-unicode-char)
        ("C-c C" . counsel-colors-emacs) ;Alternative to `list-colors-display'
        ([remap execute-extended-command] . counsel-M-x)

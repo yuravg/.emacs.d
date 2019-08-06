@@ -71,7 +71,7 @@
     ;; (setq counsel-ag-base-command "\\ag --vimgrep %s") ; default
     (setq counsel-ag-base-command
           ;; http://stackoverflow.com/a/12999828/1219634
-          (concat (mapconcat #'shell-quote-argument
+          (concat (mapconcat #'identity
                              (append '("ag")
                                      modi/ag-arguments
                                      '("--noheading" ;No file names above matching content
@@ -88,7 +88,7 @@
     ;; the `--follow' option to allow search through symbolic links (part of
     ;; `modi/rg-arguments').
     (setq counsel-rg-base-command
-          (concat (mapconcat #'shell-quote-argument
+          (concat (mapconcat #'identity
                              (append '("rg")
                                      modi/rg-arguments
                                      '("--no-heading" ;No file names above matching content

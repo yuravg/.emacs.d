@@ -199,6 +199,10 @@ files in Fundamental mode."
       ("F" projectile-find-file-dwim-other-window "file dwim")
       ("q" nil "cancel" :color blue))
 
+    ;; 'native' projectile-indexing method takes too much time in the Windows OS.
+    (if (eq system-type 'windows-nt)
+        (setq projectile-indexing-method 'alien))
+
     (defhydra hydra-projectile (:color teal
                                 :hint  nil)
       "

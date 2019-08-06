@@ -94,7 +94,7 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
 ;; https://github.com/ggreer/the_silver_searcher
 (defconst modi/ag-arguments
   '("--nogroup" ;mandatory argument for ag.el as per https://github.com/Wilfred/ag.el/issues/41
-    "--skip-vcs-ignores"                ;Ignore files/dirs ONLY from `.ignore'
+    ;; "--skip-vcs-ignores"                ;Ignore files/dirs ONLY from `.ignore'
     "--numbers"                         ;Line numbers
     "--smart-case"
     ;; "--one-device"                      ;Do not cross mounts when searching
@@ -106,8 +106,8 @@ packages.")
 ;;; Default rg arguments
 ;; https://github.com/BurntSushi/ripgrep
 (defconst modi/rg-arguments
-  `("--no-ignore-vcs"                   ;Ignore files/dirs ONLY from `.ignore'
-    "--line-number"                     ;Line numbers
+  `("--line-number"                     ;Line numbers
+    ;; "--no-ignore-vcs"                   ;Ignore files/dirs ONLY from `.ignore'
     "--smart-case"
     "--follow"                 ;Follow symlinks
     "--max-columns" "150"      ;Emacs doesn't handle long line lengths very well

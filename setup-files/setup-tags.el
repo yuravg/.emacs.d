@@ -82,6 +82,7 @@
              ;; else return the whole `(buffer-substring beg end)'
              (buffer-substring beg end)))))
 
+      (bind-key "C-j" #'compile-goto-error ggtags-global-mode-hook)
       ;; Remove the default binding for `M-.' in `ggtags-mode-map'
       (bind-key "M-." nil ggtags-mode-map)
       ;; Remove the default binding for `M-o' in `ggtags-navigation-map'
@@ -141,7 +142,8 @@
 
       (bind-keys
        :map etags-select-mode-map
-        ("C-g" . etags-select-quit))))
+       ("C-g" . etags-select-quit)
+       ("C-j" . etags-select-goto-tag))))
 
 ;;;; ctags-update
   ;; https://github.com/jixiuf/ctags-update

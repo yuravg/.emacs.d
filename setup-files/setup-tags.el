@@ -200,18 +200,29 @@ function is non-nil and the tag generation process is already running."
       (add-hook 'emacs-lisp-mode-hook #'turn-on-ctags-auto-update-mode)
       (add-hook 'verilog-mode-hook #'turn-on-ctags-auto-update-mode))))
 
+;; Disable global/ggtags for verilog-mode for Windows OS,
+;; global is slow down verilog-buffer too much.
+;; I use compiled http://adoxa.altervista.org/global/,
+;; and build http://adoxa.altervista.org/global/dl.php?f=source by Cygwin.
 ;;; modi/find-tag
 (defun modi/find-tag (&optional use-ctags)
   "Use `ggtags' if available, else use `ctags' to find tags.
 
-If USE-CTAGS is non-nil, use `ctags'."
+If USE-CTAGS is non-nil, use `ctags'.\n
+If `major-mode' is `verilog-mode' use `ctags' only(for Windows OS only)."
   (interactive "P")
-  (if (or use-ctags
-          (not (featurep 'ggtags)))
-      (progn
-        (modi/update-etags-table)
-        (etags-select-find-tag-at-point))
-    (call-interactively #'ggtags-find-tag-dwim)))
+  ;; clean `yura/compilation-finish-function' to show ggtags/ctags messages
+  (let ((is-function (if (bound-and-true-p yura/compilation-finish-function) t nil)))
+    (setq yura/compilation-finish-function nil) ;clean `compilation-finish-function'
+    (if (or use-ctags
+            (not (featurep 'ggtags))
+            (if (eq system-type 'windows-nt)
+                (eq major-mode 'verilog-mode))) ;`ggtags' slow down `verilog-mode' so I disable it for this mode
+        (progn
+          (modi/update-etags-table)
+          (etags-select-find-tag-at-point))
+      (call-interactively #'ggtags-find-tag-dwim))
+    (if is-function (yura/compilation-toggle-finish-function)))) ;restore `compilation-finish-function'
 
 ;;; xref, semantic/symref
 ;; `xref' using `semantic-symref-detect-symref-tool' and

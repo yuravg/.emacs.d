@@ -214,3 +214,19 @@ If USE-CTAGS is non-nil, use `ctags'."
 ;; | ..      | ..                                 |
 ;; | 9       | (etags-select-by-tag-number "9")   |
 ;; |---------+------------------------------------|
+
+;; Default `ggtags-navigation-mode'
+;; |-------------------------+-------------------------------------------------------------------------------|
+;; | Binding                 | Description                                                                   |
+;; |-------------------------+-------------------------------------------------------------------------------|
+;; | M-n                     | Move to the next match.                                                       |
+;; | M-p                     | Move to the previous match.                                                   |
+;; | M-}                     | Move to next file.                                                            |
+;; | M-{                     | Move to previous file.                                                        |
+;; | M-=                     | Move to the file where navigation session starts.                             |
+;; | M-<                     | Move to the first match.                                                      |
+;; | M->                     | Move to the last match.                                                       |
+;; | C-M-s or M-s s          | Use isearch to find the match.                                                |
+;; | RET                     | the right match so exit navigation mode. Resumable by M-x tags-loop-continue. |
+;; | M-, (M-* if Emacs < 25) | Abort and go back to the location where the search was started.               |
+;; |-------------------------+-------------------------------------------------------------------------------|

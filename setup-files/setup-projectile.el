@@ -6,7 +6,7 @@
 (use-package projectile
   :bind (:map modi-mode-map
          ("C-c p" . hydra-projectile/body)
-         ("C-c f" . hydra-projectile/body)
+         ;; ("C-c f" . hydra-projectile/body) ; Bind to `hydra-source-code-warnings/body'
          ("s-f" . hydra-projectile/body))
   :commands (projectile-project-root)
   :config

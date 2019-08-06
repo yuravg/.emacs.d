@@ -158,7 +158,10 @@ Else call `counsel-org-tag'."
       (interactive "P")
       (if option
           (org-set-tags-command option)
-        (counsel-org-tag)))))
+        (counsel-org-tag))))
+
+;;; counsel-projectile
+  (use-package counsel-projectile))
 
 
 (provide 'setup-counsel)

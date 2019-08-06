@@ -176,6 +176,7 @@ need Org version to be at least 9.x.")
     shell-command
     elpy
     anaconda-mode
+    counsel-projectile
     google-translate
     list-environment
     highlight-indent-guides

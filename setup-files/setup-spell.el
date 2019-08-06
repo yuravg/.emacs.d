@@ -101,6 +101,23 @@
             :chords
             (("ww" . flyspell-correct-word-generic))))
 
+        (defhydra hydra-flyspell (:color pink
+                                  :hint nil)
+          "
+^^      Correct word:                 ^^GoTo:                           ^^Spell:
+^^------------------------------------^^--------------------------------^^------
+   _w_: ispell                     _n_: next error                   _b_: buffer
+   _c_: flyspell
+"
+          ("w" ispell-word)
+          ("c" flyspell-correct-word-generic)
+          ("n" flyspell-goto-next-error)
+          ("b" flyspell-buffer)
+          ("q" nil "cancel"))
+        (bind-keys
+         :map modi-mode-map
+         ("C-c s" . hydra-flyspell/body))
+
         (bind-keys
          :map flyspell-mode-map
          ;; Stop flyspell overriding other key bindings

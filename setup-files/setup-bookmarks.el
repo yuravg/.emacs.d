@@ -4,9 +4,22 @@
 
 ;; Contents:
 ;;
+;;  bookmark
 ;;  bm
 ;;  bookmark+ (bmkp)
 ;;  Quickly save and restore point using registers
+
+;;; bookmark
+(use-package bookmark
+  :bind (:map bookmark-bmenu-mode-map
+         ("C-j" . bookmark-bmenu-this-window)
+         ("q" . switch-to-prev-buffer)))
+
+(defalias 'bs 'bookmark-set)
+(defalias 'bj 'bookmark-jump)
+(with-eval-after-load 'projectile
+  (defalias 'bj 'counsel-bookmark)) ;bookmark-jump is poor
+(defalias 'bl 'bookmark-bmenu-list)
 
 ;;; bm
 ;; https://github.com/joodland/bm

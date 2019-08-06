@@ -14,9 +14,11 @@
 ;;    - Install the dictionary using ./configure, make, make install
 ;;
 ;; Hunspell Setup:
-;; 1. Install hunspell from http://hunspell.sourceforge.net/
+;; 1. Install hunspell from http://hunspell.sourceforge.net/(https://github.com/hunspell/hunspell)
 ;; 2. Download openoffice dictionary extension from
 ;;    http://extensions.openoffice.org/en/project/english-dictionaries-apache-openoffice
+;;    http://extensions.openoffice.org/en/project/russian-dictionary
+;;    http://extensions.openoffice.org/en/project/russian-dictionary-yo
 ;; 3. That is download `dict-en.oxt'. Rename that to `dict-en.zip' and unzip
 ;;    the contents to a temporary folder.
 ;; 4. Copy `en_US.dic' and `en_US.aff' files from there to a folder where you
@@ -36,10 +38,29 @@
   :defer 15
   :config
   (progn
+    ;; http://www.emacswiki.org/emacs/InteractiveSpell
+    (if (eq system-type 'windows-nt)
+        (progn
+          (setenv "DICTIONARY" "ru_RU")
+          (setenv "DICTIONARY" "en_US")))
+    (defun dictionary-ru()
+      "Switch to the Russian dictionary."
+      (interactive)
+      (ispell-change-dictionary "ru_RU"))
+    (defun dictionary-en ()
+      "Switch to the English dictionary."
+      (interactive)
+      (ispell-change-dictionary "en_US"))
     (cond
      ((executable-find "hunspell")
       (setq ispell-program-name "hunspell")
-      (setq ispell-extra-args   '("-d en_US")))
+      (setq ispell-extra-args '("-d en_US"))
+      ;; https://emacs.stackexchange.com/questions/21378/spell-check-with-multiple-dictionaries
+      (setq ispell-dictionary "en_US,ru_RU")
+      ;; ispell-set-spellchecker-params has to be called
+      ;; before ispell-hunspell-add-multi-dic will work
+      (ispell-set-spellchecker-params)
+      (ispell-hunspell-add-multi-dic "en_US,ru_RU"))
      ((executable-find "aspell")
       (setq ispell-program-name "aspell")
       (setq ispell-extra-args   '("--sug-mode=ultra"

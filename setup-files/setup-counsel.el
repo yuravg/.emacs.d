@@ -166,6 +166,19 @@ Else call `counsel-org-tag'."
 
 (provide 'setup-counsel)
 
+;; TIPS
+;;
+;; (1) Refactoring power-ups
+;; http://manuel-uberti.github.io/emacs/2018/02/10/occur/
+;; https://oremacs.com/2017/11/30/ivy-0.10.0/
+;; 1. 'C-c C-r' brings up `counsel-projectile-rg'; type in
+;; 2. 'C-c C-o' now runs `ivy-occur' and all the candidates end up in a dedicated buffer
+;;    'C-d' to delete uninteresting lines
+;; 3. 'w' bound to `ivy-wgrep-change-to-wgrep-mode', makes the new buffer editable.
+;; 4. 'C-c r' bind to `anzu-query-replace'
+;; 5. 'C-c C-c' to confirm modification('C-c C-k' to abort changes)
+;; 6. 'C-x s' bind to `save-some-buffers'
+;;
 ;; Peek at files with `C-M-n' and `C-M-p'
 ;; Input a leading dot to see all files
 ;;

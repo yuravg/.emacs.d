@@ -4,7 +4,9 @@
 
 ;; Contents:
 ;;
-;;  gtags, GNU global
+;;  Tags setup notes
+;;    Setup Ctags(Universal Ctags or Exuberant Ctags)
+;;    Setup global
 ;;    ggtags
 ;;  ctags
 ;;    etags-select
@@ -13,11 +15,46 @@
 ;;  modi/find-tag
 ;;  xref, semantic/symref
 
-;;; gtags, GNU global
+
+;;; Tags setup notes
+
+;;;; Setup Ctags(Universal Ctags or Exuberant Ctags)
+;; 1. Overview
+;;    ctags(exuberant ctags), systemverilog and emacs: https://scripter.co/ctags-systemverilog-and-emacs/
+;; 2. Install Ctags
+;;    2.1. Windows OS:
+;;         Get ctags.exe
+;;           Universal Ctags(is preferable): https://github.com/universal-ctags/ctags-win32/releases
+;;           Or
+;;           Exuberant Ctags: http://ctags.sourceforge.net/
+;;         Copy ctags.exe to <Path>/emacs/bin/
+;;    2.2. Linux OS:
+;;         https://github.com/universal-ctags/ctags#how-to-build-and-install
+;; 3. Configure Ctags
+;;    For Universal Ctags see at https://github.com/universal-ctags/ctags#difference
+;;    copy .ctags - Ctags configuration file to $HOME(for Exuberant Ctags only)
+;;    https://verificationacademy.com/forums/systemverilog/ctags-systemverilog
+;;
+;;;; Setup global
+;; 1. Download
+;;    https://www.gnu.org/software/global/download.html
+;;    (for Windows OS: download binary: http://adoxa.altervista.org/global/)
+;; 2. Configure
+;;    ./configure --prefix=/usr/local --with-exuberant-ctags=/usr/local/bin/ctags
+;; Notes: https://www.reddit.com/r/emacs/comments/3pni17/ctags_etags_or_gtags/
+;; 3. Setup environment
+;;    for Bash:
+;;      export GTAGSCONF="$HOME"/.globalrc
+;;      export GTAGSLABEL="new-ctags"
+;;    or use:
+;;      (setenv "GTAGSCONF" (concat (getenv "HOME") "/" ".globalrc"))
+;;      (setenv "GTAGSLABEL" "new-ctags")
 
 (when (executable-find "global")
 ;;;; ggtags
-  ;; https://github.com/leoliu/ggtags
+  ;; https://github.com/leoliu/ggtags:
+  ;; 1. install/configuration global to work with Emacs
+  ;; 2. install pygments plugins
   (use-package ggtags
     :config
     (progn

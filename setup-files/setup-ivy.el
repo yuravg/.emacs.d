@@ -93,6 +93,10 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
      ("v" . ivy-occur-press)            ;Default f
      ("RET" . ivy-occur-press))
 
+    (bind-keys
+     :map ivy-occur-grep-mode-map
+     ("q" . modi/quit-and-kill-window))
+
     (with-eval-after-load 'setup-windows-buffers
       (bind-keys
        :map ivy-minibuffer-map

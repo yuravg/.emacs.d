@@ -53,8 +53,8 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
           ;; actions
           ("f" ivy-alt-done :exit nil)
           ;; Exchange the default bindings for C-j and C-m
-          ("C-m" ivy-alt-done :exit nil) ;RET, default C-j
-          ("C-j" ivy-done :exit t)       ;Default C-m
+          ;; ("C-m" ivy-alt-done :exit nil) ;RET, default C-j
+          ;; ("C-j" ivy-done :exit t)       ;Default C-m
           ("d" ivy-done :exit t)
           ("D" ivy-immediate-done :exit t)
           ("g" ivy-call)
@@ -80,8 +80,8 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
     (bind-keys
      :map ivy-minibuffer-map
      ;; Exchange the default bindings for C-j and C-m
-     ("C-m" . ivy-alt-done)             ;RET, default C-j
-     ("C-j" . ivy-done)                 ;Default C-m
+     ;; ("C-m" . ivy-alt-done)             ;RET, default C-j
+     ;; ("C-j" . ivy-done)                 ;Default C-m
      ("C-S-m" . ivy-immediate-done))
 
     (bind-keys

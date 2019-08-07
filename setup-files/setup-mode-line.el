@@ -193,10 +193,10 @@ If nil, show the same in the minibuffer.")
                 (add-to-list 'rm-text-properties '("\\` Fill\\'" 'display "​⮒"))) ;auto fill
             (progn
               (add-to-list 'rm-text-properties '("\\` Hi\\'"   'display "​H"))
-              (add-to-list 'rm-text-properties '("\\` Tail\\'" 'display "​Tail."))
-              (add-to-list 'rm-text-properties '("\\` =>\\'"   'display "​aI."))
-              (add-to-list 'rm-text-properties '("\\` ARev\\'" 'display "​aR."))
-              (add-to-list 'rm-text-properties '("\\` Fill\\'" 'display "​aF.")))))))
+              (add-to-list 'rm-text-properties '("\\` Tail\\'" 'display "​Tail"))
+              (add-to-list 'rm-text-properties '("\\` =>\\'"   'display "​aI"))
+              (add-to-list 'rm-text-properties '("\\` ARev\\'" 'display "​aR"))
+              (add-to-list 'rm-text-properties '("\\` Fill\\'" 'display "​aF")))))))
 
     (sml/setup)))
 

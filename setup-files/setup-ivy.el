@@ -4,7 +4,7 @@
 
 (use-package ivy
   :bind (:map modi-mode-map
-         ("M-u" . ivy-resume)    ;Override the default binding for `upcase-word'
+         ;; ("M-u" . ivy-resume)    ;Override the default binding for `upcase-word'
          ("C-c w" . ivy-push-view) ;Push window configuration to `ivy-views'
          ("C-c W" . ivy-pop-view)) ;Remove window configuration from `ivy-views'
   :config

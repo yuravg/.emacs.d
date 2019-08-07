@@ -82,6 +82,10 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
      ;; Exchange the default bindings for C-j and C-m
      ;; ("C-m" . ivy-alt-done)             ;RET, default C-j
      ;; ("C-j" . ivy-done)                 ;Default C-m
+     ("C-d" . ivy-done)                 ;Default C-m
+     ("C-w" . backward-kill-word)
+     ("C-M-u" . backward-kill-word)
+     ("C-h" . backward-delete-char)
      ("C-S-m" . ivy-immediate-done))
 
     (bind-keys

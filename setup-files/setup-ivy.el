@@ -15,6 +15,11 @@
       ;; Enable ivy
       (ivy-mode 1))
 
+    ;; Disable faces for buffers in the ivy-switch-buffer
+    ;; Default value:
+    ;; (setq ivy-switch-buffer-faces-alist '((dired-mode . ivy-subdir) (org-mode . ivy-org)))
+    (setq ivy-switch-buffer-faces-alist nil)
+
     ;; Show recently killed buffers when calling `ivy-switch-buffer'
     (setq ivy-use-virtual-buffers t)
     (setq ivy-virtual-abbreviate 'full) ;Show the full virtual file paths

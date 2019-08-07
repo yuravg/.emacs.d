@@ -71,6 +71,7 @@ If nil, show the same in the minibuffer.")
     (setq sml/line-number-format "%4l")
     (setq sml/name-width 40)            ;Buffer name width in the mode-line
     (setq sml/mode-width 'full)         ;Minor mode lighters area width
+    (setq sml/show-eol t)
     (setq sml/no-confirm-load-theme t)
     (setq sml/theme (if (boundp 'dark-theme)
                         (if (not dark-theme) 'light 'dark)

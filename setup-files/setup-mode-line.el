@@ -73,9 +73,7 @@ If nil, show the same in the minibuffer.")
     (setq sml/mode-width 'full)         ;Minor mode lighters area width
     (setq sml/show-eol t)
     (setq sml/no-confirm-load-theme t)
-    (setq sml/theme (if (boundp 'dark-theme)
-                        (if (not dark-theme) 'light 'dark)
-                      'dark))
+    (setq sml/theme 'respectful)
 
     ;; Try doing projectile based replacements *after* going through regular
     ;; replacements.

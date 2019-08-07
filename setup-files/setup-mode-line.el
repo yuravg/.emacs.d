@@ -158,7 +158,7 @@ If nil, show the same in the minibuffer.")
                 " Undo-Tree" ;undo tree
                 " wr"        ;Wrap Region
                 " SliNav"    ;elisp-slime-nav
-                " Fly"       ;Flycheck
+                " Fly"       ;Flyspell
                 " PgLn"      ;page-line-break
                 " ElDoc"     ;eldoc
                 " GG"        ;ggtags
@@ -167,8 +167,22 @@ If nil, show the same in the minibuffer.")
                 " ez-esc"    ;easy-escape
                 " ivy"       ;ivy
                 " h"         ;hungry-delete-mode
+                " pair"      ;autopair
+                " eV"        ; easy-verilog
+                " P4:edit"   ;P4(perfoce)
+                " Elpy"      ; elpy-mode
+                " ||"        ; highlight-indentation-mode
                 " (*)"       ;beacon
+                " =>"        ;aggressive indent
+                " ws"        ;whitespace mode
+                " h-i-g"     ;highlight-indent-guides-mode
+                " hl-highlight" ;hl-highlight
                 " Outshine"  ;outshine-mode
+                " Projectile";Projectile(there is at: magit-status-mode)
+                "​P"         ;Projectile
+                " Abbrev"    ;abbrev-mode
+                " HSA"       ;auto-highlight-symbol-mode
+                " Rbow"      ;rainbow-mode
                 ))
         (setq rm-text-properties '(("\\` Ovwrt\\'" 'face 'font-lock-warning-face) ;Overwrite
                                    ("\\` mc:[0-9]+ *\\'" 'face 'font-lock-keyword-face) ;Multiple cursors

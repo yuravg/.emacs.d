@@ -19,7 +19,7 @@ If nil, show the same in the minibuffer.")
 
 ;; Date, time, load average, mail in mode-line
 (if modi/show-date-time-in-mode-line
-    (setq display-time-format "%l:%M %b %d %a" )
+    (setq display-time-format "%k:%M %b %d %a" )
   (setq display-time-format ""))
 
 ;; Do NOT show average system load time
@@ -48,7 +48,7 @@ If nil, show the same in the minibuffer.")
 
     (setq minibuffer-line-format
           '((:eval
-             (let ((time-string (format-time-string "%l:%M %b %d %a")))
+             (let ((time-string (format-time-string "%k:%M %b %d %a")))
                ;; http://emacs.stackexchange.com/a/19856/115
                (if modi/minibuffer-line-right-aligned
                    (concat

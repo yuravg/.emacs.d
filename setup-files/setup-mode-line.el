@@ -188,6 +188,19 @@ If nil, show the same in the minibuffer.")
                                    ("\\` mc:[0-9]+ *\\'" 'face 'font-lock-keyword-face) ;Multiple cursors
                                    ("\\` rk\\'" 'display (propertize "​[]" 'face 'font-lock-warning-face)) ;Region bindings
 
+                                   ("\\` hl-highlight\\'" 'display "​h")   ;hl-highlight
+                                   ("\\` Ω.*\\'" 'display ;flycheck-mode
+                                    (let ((flycheck-msg (string-remove-prefix " " (flycheck-mode-line-status-text)))
+                                          (flycheck-msg-face
+                                           (let-alist (flycheck-count-errors flycheck-current-errors)
+                                             (if .error
+                                                 font-lock-warning-face
+                                               (if .warning
+                                                   '(:foreground "chocolate4" :weight bold)
+                                                 '(:foreground "dark green" :weight bold))))))
+                                      (propertize flycheck-msg
+                                                  'face
+                                                  flycheck-msg-face)))
                                    ("\\` Abbrev\\'" 'display "​@")   ;Abbrev
                                    ("\\` Ind\\'"    'display "​*>")  ;org indent
                                    ("\\` Outl\\'"   'display "​ø")   ;outline

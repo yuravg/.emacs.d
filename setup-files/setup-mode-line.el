@@ -195,6 +195,7 @@ If nil, show the same in the minibuffer.")
                                    ("\\` μ\\'"      'display "​μ")   ;modi-mode
                                    ("\\` Wg\\'"     'display "​w")   ;writegood
                                    ("\\` Vis\\'"    'display "​V")   ;visible-mode
+                                   ("\\` OrgTbl\\'" 'display "​ot")  ;orgtbl-mode
                                    ("\\` Temp\\'"   'display "​t"))) ;temp-mode
         (with-eval-after-load 'setup-font-check
           (if font-symbola-p

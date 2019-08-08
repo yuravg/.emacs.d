@@ -166,9 +166,9 @@ This value must match the `infodir' variable in the Org local.mk.")
     (setq org-todo-keywords '((sequence "TODO" "SOMEDAY" "CANCELED" "DONE")))
     (setq org-todo-keyword-faces
           '(("TODO"     . org-todo)
-            ("SOMEDAY"  . (:foreground "black" :background "#FFEF9F"))
-            ("CANCELED" . (:foreground "#94BFF3" :weight bold :strike-through t))
-            ("DONE"     . (:foreground "black" :background "#91ba31"))))
+            ("SOMEDAY"  . (:weight bold :foreground "DarkOrange3"))
+            ("CANCELED" . (:foreground "Cyan4" :weight bold :strike-through t))
+            ("DONE"     . org-done)))
     ;; Block entries from changing state to DONE while they have children
     ;; that are not DONE - https://orgmode.org/manual/TODO-dependencies.html
     (setq org-enforce-todo-dependencies t)

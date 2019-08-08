@@ -1020,9 +1020,9 @@ package is loaded.")
         ;;         "%latex -interaction nonstopmode -shell-escape -output-directory %o %f"))
 
         ;; Run xelatex multiple times to get the cross-references right
-        (setq org-latex-pdf-process '("xelatex -shell-escape %f"
-                                      "xelatex -shell-escape %f"
-                                      "xelatex -shell-escape %f"))
+        (if (executable-find "xelatex")
+            (setq org-latex-pdf-process (make-list 3 "xelatex -shell-escape %f"))
+          (setq org-latex-pdf-process (make-list 3 "latex -shell-escape %f")))
 
         ;; Override `org-latex-format-headline-default-function' definition
         ;; so that the TODO keyword in TODO marked headings is exported in

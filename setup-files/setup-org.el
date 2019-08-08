@@ -1314,6 +1314,8 @@ on each save.
   :defer t
   :config
   (progn
+    (setq org-agenda-start-on-weekday 1)
+
     ;; http://sachachua.com/blog/2013/01/emacs-org-task-related-keyboard-shortcuts-agenda/
     (defun sacha/org-agenda-done (&optional arg)
       "Mark current TODO as done.

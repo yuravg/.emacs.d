@@ -5,6 +5,7 @@
 
 (use-package magit
   :bind (:map modi-mode-map
+         ("C-x g" . magit-status)
          ("C-c g". hydra-magit/body))
   :commands (magit-status magit-log-all-branches)
   :config

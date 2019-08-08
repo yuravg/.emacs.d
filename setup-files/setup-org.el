@@ -11,6 +11,7 @@
 ;;  Org File Apps
 ;;  Org Goto
 ;;  Easy Templates
+;;  Refactoring
 ;;  Bindings
 ;;  Org Export
 ;;    Org Export Customization
@@ -725,6 +726,27 @@ line, or if a region is selected.  Else call
                      (looking-back "^[[:blank:]]*")))
             (hydra-org-template/body)
           (self-insert-command 1))))
+
+;;; Refactoring
+    ;; extended version of `hydra-refactoring/body'
+    (defhydra hydra-org-refactoring (:color pink :hint nil)
+      "
+^^       Org meta move          ^^^Open Hydra
+^^-----------------------------^^^^------------
+  _M-p_: up                _r_/_o_: refactoring
+  _M-n_: down
+  _M-r_: right
+  _M-l_: left
+"
+      ("M-p" org-metaup)
+      ("M-n" org-metadown)
+      ("M-r" org-shiftmetaright)
+      ("M-l" org-shiftmetaleft)
+
+      ("r" hydra-refactoring/body :color teal)
+      ("o" hydra-refactoring/body :color teal)
+
+      ("q" nil "cancel" :color blue))
 
 ;;; Bindings
     (defun modi/reset-local-set-keys ()

@@ -168,6 +168,7 @@ need Org version to be at least 9.x.")
     ;; projectile ; Better than fiplr < fork
 
     ;; YuraVG:
+    yasnippet-snippets
     flycheck-pos-tip
     pylint
     autopair

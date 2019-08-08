@@ -168,6 +168,20 @@ It is assumed that the author has only one or two names."
 ;; | M-n     | Jump to next sibling section     |
 ;; |---------+----------------------------------|
 
-;; Tip: Adding prefix to above jump commands also expands those sections and
+;; TIPS:
+;;
+;;  Adding prefix to above jump commands also expands those sections and
 ;; brings that section to the top of the buffer.
 ;;   So `C-u j s' is analogous to doing `j s C-l C-l 4`
+;;
+;; Checkout the desired version of the file(overwrite file)
+;;   1. Open file
+;;   2. `magit-log-buffer-file' (hydra-magit/body, 'L')
+;;   3. go to a desired commits
+;;   4. `magit-file-checkout' (hydra-magit/body, 'c')
+;;
+;; Open the desired version of the file in a new buffer
+;;   1. Open file
+;;   2. `magit-log-buffer-file' (hydra-magit/body, 'L')
+;;   3. go to a desired commits
+;;   4. `magit-find-file' (hydra-magit/body, 'S')

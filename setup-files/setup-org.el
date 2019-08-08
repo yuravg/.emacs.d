@@ -1321,6 +1321,7 @@ this with to-do items than with projects or headings."
 
     (bind-keys
      :map org-agenda-mode-map
+     ("C-j". org-agenda-switch-to)
      ("x" . sacha/org-agenda-done)
      ("X" . sacha/org-agenda-mark-done-and-add-followup)
      ("N" . sacha/org-agenda-new))))

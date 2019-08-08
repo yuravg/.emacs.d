@@ -73,19 +73,40 @@ Should usage with:
         (setq magit-diff-refine-hunk next)
         (message "Set 'magit-diff-refine-hunk': %s" magit-diff-refine-hunk)))
 
-    (defhydra hydra-magit (:color blue
-                           :columns 4)
-      "Magit"
-      ("g" magit-status "status")
-      ("s" magit-status "status")
-      ("l" magit-log-all-branches "log")
-      ("b" magit-branch-popup "branch popup")
-      ("r" magit-rebase-popup "rebase popup")
-      ("f" magit-fetch-popup "fetch popup")
-      ("P" magit-push-popup "push popup")
-      ("F" magit-pull-popup "pull popup")
-      ("W" magit-format-patch "format patch")
-      ("$" magit-process "process"))
+    (defhydra hydra-magit (:color teal
+                           :hint nil)
+      "
+Magit:
+^^^^     Status/Log            ^^   Open Rev File              ^^   Refactor          ^^  Sync             ^^  Other
+^^^^---------------------------^^------------------------------^^---------------------^^-------------------^^--------------------------
+_s_/_g_: status                _c_: checkout file(rewrite)     _b_: branch popup     _f_: fetch popup     _W_: format patch
+^^  _l_: log current         _C-c_: find file(open new)        _r_: rebase popup     _F_: pull popup      _$_: process
+^^  _L_: log all branches       ^^                              ^^                   _P_: push popup      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
+^^_C-l_: log current buffer     ^^                              ^^                   ^^                   _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
+^^                              ^^                              ^^                   ^^               ^^_C-f_: find Git file
+"
+      ("g" magit-status)
+      ("s" magit-status)
+      ("l" magit-log-current)
+      ("L" magit-log-all-branches)
+      ("C-l" magit-log-buffer-file)
+
+      ("c" magit-file-checkout)
+      ("C-c" magit-find-file)
+
+      ("b" magit-branch-popup)
+      ("r" magit-rebase-popup)
+
+      ("f" magit-fetch-popup)
+      ("F" magit-pull-popup)
+      ("P" magit-push-popup)
+
+      ("W" magit-format-patch)
+      ("$" magit-process)
+      ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
+      ("T" yura/magit-diff-refine-hunk-toggle :color red)
+      ("C-f" counsel-git)
+      ("q"   nil "cancel" :color blue))
 
     (use-package git-rebase
       :bind (:map git-rebase-mode-map

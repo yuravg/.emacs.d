@@ -168,6 +168,7 @@ need Org version to be at least 9.x.")
     ;; projectile ; Better than fiplr < fork
 
     ;; YuraVG:
+    projectile ; I don't use Projectile fork
     yasnippet-snippets
     ;; use ido for:
     ;; - yasnippet: `yas-ido-expand'

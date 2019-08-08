@@ -1254,6 +1254,7 @@ on each save.
     ;; If non-nil, the effect of TAB in a code block is as if it were issued in the language major mode buffer.
     (setq org-src-tab-acts-natively t)
     (setq org-src-preserve-indentation t)
+    (setq org-src-window-setup (quote current-window)) ;open source code in the current window.
 
     ;; Do not add the default indentation of 2 spaces when exiting the *Org Src*
     ;; buffer (the buffer you get when you do «C-c '» while in a block like

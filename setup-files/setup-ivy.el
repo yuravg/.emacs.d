@@ -31,6 +31,10 @@
     ;; Do not show "./" and "../" in the `counsel-find-file' completion list
     (setq ivy-extra-directories nil)    ;Default value: ("../" "./")
 
+    ;; Don't show tag buffers; tag buffers available though `ibuffer'(bind 'C-x C-b')
+    (dolist (item '("TAGS" "GTAGS" "GRTAGS" "GPATH"))
+      (add-to-list 'ivy-ignore-buffers item))
+
     ;; https://github.com/abo-abo/swiper/blob/master/ivy-hydra.el
     (use-package ivy-hydra
       :ensure t

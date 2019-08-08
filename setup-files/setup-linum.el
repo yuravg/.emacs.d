@@ -235,24 +235,25 @@ function is added to the `after-make-frame-functions' hook."
       (modi/linum-set 'off)
     (modi/linum--enable)))
 
+;; Turn off 'Set linum'(written below)
 ;; Set linum
-(if (daemonp)
-    ;; Need to delay linum activation till the frame and fonts are loaded, only
-    ;; for emacsclient launches. For non-daemon, regular emacs launches, the
-    ;; frame is loaded *before* the emacs config is read. Not doing so results
-    ;; in the below error in emacs 24.5:
-    ;;   *ERROR*: Invalid face: linum
-    (add-hook 'after-make-frame-functions #'modi/linum--enable)
-  ;; Even when running in non-daemon mode, run `modi/linum--enable' only after
-  ;; the init has loaded, so that the last modified value of
-  ;; `modi/linum-fn-default' if any in setup-personal.el is the one effective,
-  ;; not its standard value in its defvar form above.
-  ;;
-  ;; Mon Oct 30 12:50:52 EDT 2017 - kmodi
-  ;; Use `window-setup-hook' instead of `after-init-hook', else emacs startup
-  ;; freezes on emacs 25.x - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29031.
-  ;; (add-hook 'after-init-hook #'modi/linum--enable) ;This does not work
-  (add-hook 'window-setup-hook #'modi/linum--enable))
+;; (if (daemonp)
+;;     ;; Need to delay linum activation till the frame and fonts are loaded, only
+;;     ;; for emacsclient launches. For non-daemon, regular emacs launches, the
+;;     ;; frame is loaded *before* the emacs config is read. Not doing so results
+;;     ;; in the below error in emacs 24.5:
+;;     ;;   *ERROR*: Invalid face: linum
+;;     (add-hook 'after-make-frame-functions #'modi/linum--enable)
+;;   ;; Even when running in non-daemon mode, run `modi/linum--enable' only after
+;;   ;; the init has loaded, so that the last modified value of
+;;   ;; `modi/linum-fn-default' if any in setup-personal.el is the one effective,
+;;   ;; not its standard value in its defvar form above.
+;;   ;;
+;;   ;; Mon Oct 30 12:50:52 EDT 2017 - kmodi
+;;   ;; Use `window-setup-hook' instead of `after-init-hook', else emacs startup
+;;   ;; freezes on emacs 25.x - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=29031.
+;;   ;; (add-hook 'after-init-hook #'modi/linum--enable) ;This does not work
+;;   (add-hook 'window-setup-hook #'modi/linum--enable))
 
 
 (provide 'setup-linum)

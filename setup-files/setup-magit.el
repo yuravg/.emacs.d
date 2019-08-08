@@ -18,6 +18,61 @@
      :map magit-cherry-mode-map
      ("C-j" . magit-diff-show-or-scroll-up))
 
+    (setq magit-diff-refine-hunk 'all)
+    ;; it takes a long time to open a large buffer with show all difference
+    ;; when `magit-diff-refine-hunk' has value 'all
+    (defvar yura/magit-diff-rh-max-chars 10000
+      "Maximum buffer size in chars to usage `magit-diff-refine-hunk' with value 'all.")
+
+    (defun yura/magit-diff-rh-auto-set ()
+      "Toggle `magit-diff-refine-hunk' depending on buffer size.
+
+If buffer size in char more then `yura/magit-diff-rh-max-chars'
+toggle `magit-diff-refine-hunk' to nil.
+Otherwise toggle to 'all.
+
+Should usage with:
+`magit-status-mode-hook', `magit-revision-mode-hook', `magit-diff-mode-hook', `magit-log-mode', etc."
+      (progn
+        (setq magit-diff-refine-hunk nil)
+        ;; Command `magit-refresh-buffer' may and with error:
+        ;; apply: Wrong type argument: number-or-marker-p, magit-log-margin-width
+        ;; perhaps the reason is errors in Git repository
+        (condition-case nil
+            (magit-refresh-buffer)
+          (error nil))
+        (if (< (buffer-size) yura/magit-diff-rh-max-chars)
+            (setq magit-diff-refine-hunk 'all)
+          (setq magit-diff-refine-hunk nil))))
+
+    (defvar yura/magit-diff-rh-auto-set-enable nil
+      "Enable usage `yura/magit-diff-rh-auto-set'.")
+
+    (defun yura/magit-diff-refine-hunk-auto-setting-toggle ()
+      "Toggle usage `yura/magit-diff-rh-auto-set'."
+      (interactive)
+      (if yura/magit-diff-rh-auto-set-enable
+          (progn (remove-hook 'magit-status-mode-hook  #'yura/magit-diff-rh-auto-set)
+                 (remove-hook 'magit-revision-mode-hook #'yura/magit-diff-rh-auto-set)
+                 (remove-hook 'magit-diff-mode-hook #'yura/magit-diff-rh-auto-set)
+                 (remove-hook 'magit-log-mode-hook #'yura/magit-diff-rh-auto-set)
+                 (setq yura/magit-diff-rh-auto-set-enable nil)
+                 (message "Disable auto setting of the variable 'magit-diff-refine-hunk'."))
+        (progn (add-hook 'magit-status-mode-hook #'yura/magit-diff-rh-auto-set)
+               (add-hook 'magit-revision-mode-hook #'yura/magit-diff-rh-auto-set)
+               (add-hook 'magit-diff-mode-hook #'yura/magit-diff-rh-auto-set)
+               (add-hook 'magit-log-mode-hook #'yura/magit-diff-rh-auto-set)
+               (setq yura/magit-diff-rh-auto-set-enable t)
+               (message "Enable auto setting of the variable 'magit-diff-refine-hunk'."))))
+
+    (defun yura/magit-diff-refine-hunk-toggle ()
+      "Toggle value `magit-diff-refine-hunk' from list: nil, t, 'all."
+      (interactive)
+      (let* ((modes '(nil t all))
+             (next (cadr (member magit-diff-refine-hunk modes))))
+        (setq magit-diff-refine-hunk next)
+        (message "Set 'magit-diff-refine-hunk': %s" magit-diff-refine-hunk)))
+
     (defhydra hydra-magit (:color blue
                            :columns 4)
       "Magit"

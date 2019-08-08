@@ -130,7 +130,6 @@ This value must match the `infodir' variable in the Org local.mk.")
   :config
   (progn
 ;;; Org Variables
-    (setq org-src-fontify-natively t)   ;Fontify code in code blocks
     ;; Display entities like \tilde, \alpha, etc in UTF-8 characters
     (setq org-pretty-entities t)
     ;; Render subscripts and superscripts in Org buffers
@@ -1251,6 +1250,8 @@ on each save.
   :defer t
   :config
   (progn
+    (setq org-src-fontify-natively t)   ;Fontify code in code blocks
+
     ;; Do not add the default indentation of 2 spaces when exiting the *Org Src*
     ;; buffer (the buffer you get when you do «C-c '» while in a block like
     ;; #+begin_src

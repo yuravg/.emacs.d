@@ -8,6 +8,8 @@
   ;;   (setq p4-global-key-prefix nil)) ;Don't use the default `C-x p' prefix
   :config
   (progn
+    (add-hook 'p4-edit-hook #'revert-buffer-with-utf8)
+
     (defun modi/p4-process-finished (buffer _process-name _message)
       "Render the ANSI color codes in the P4 buffers.
 

@@ -30,6 +30,8 @@
       (add-to-list 'projectile-globally-ignored-directories item))
     (dolist (item '("GTAGS" "GRTAGS" "GPATH"))
       (add-to-list 'projectile-globally-ignored-files item))
+    (dolist (item projectile-globally-ignored-files)
+      (add-to-list 'projectile-globally-ignored-buffers item))
 
     ;; Git projects should be marked as projects in top-down fashion,
     ;; so that each git submodule can be a projectile project.

@@ -465,7 +465,9 @@ point."
       (add-to-list 'org-file-apps '("\\.x?html\\'" . "firefox %s")))
     ;; Change the default app for opening pdf files from org
     ;; http://stackoverflow.com/a/9116029/1219634
-    (setcdr (assoc "\\.pdf\\'" org-file-apps) "okular %s")
+    (if (eq system-type 'windows-nt)
+        (setcdr (assoc "\\.pdf\\'" org-file-apps) "PDFXCview.exe %s")
+      (setcdr (assoc "\\.pdf\\'" org-file-apps) "okular %s"))
 
 ;;; Org Goto
     (defun modi/org-goto-override-bindings (&rest _)

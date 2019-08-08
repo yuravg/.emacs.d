@@ -1535,6 +1535,8 @@ the languages in `modi/ob-enabled-languages'."
         unsafe))
     (setq org-confirm-babel-evaluate #'modi/org-confirm-babel-evaluate-fn)))
 
+(defalias 'ot 'org-babel-tangle)
+
 ;;; Org Babel Tangle
 (use-package ob-tangle
   :defer t

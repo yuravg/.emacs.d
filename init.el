@@ -169,6 +169,10 @@ need Org version to be at least 9.x.")
 
     ;; YuraVG:
     yasnippet-snippets
+    ;; use ido for:
+    ;; - yasnippet: `yas-ido-expand'
+    ;; - magit: `magit-branch-checkout', `magit-log-buffer-file'
+    ido-vertical-mode flx-ido ;< ivy, counsel
     flycheck-pos-tip
     pylint
     autopair
@@ -278,9 +282,8 @@ need Org version to be at least 9.x.")
 ;; (require 'setup-hugo)
 (require 'setup-hungry-delete)
 (require 'setup-ibuffer)
-(if (bound-and-true-p disable-pkg-ivy)
-    (require 'setup-ido)
-  (require 'setup-ivy))
+(require 'setup-ido)
+(require 'setup-ivy)
 (require 'setup-imenu-list)
 (require 'setup-indent-guide)
 (require 'setup-info)

@@ -7,6 +7,12 @@
   :bind (:map modi-mode-map
          ("C-x g" . magit-status)
          ("C-c g". hydra-magit/body))
+  :init
+  ;; Mark the `yura/magit-diff-rh-auto-set-enable' variable as safe so that it can be
+  ;; set in `.dir-locals.el' files or set in Local Variables.
+  ;; Magit package loaded after use-package/commands,
+  ;; so do not put a safe local variable using use-package/config
+  (put 'yura/magit-diff-rh-auto-set-enable 'safe-local-variable #'booleanp)
   :commands (magit-status magit-log-all-branches)
   :config
   (progn

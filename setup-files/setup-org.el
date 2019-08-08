@@ -163,12 +163,15 @@ This value must match the `infodir' variable in the Org local.mk.")
     (setq org-log-done 'time) ;Insert only timestamp when closing an Org TODO item
     ;; (setq org-log-done 'note) ;Insert timestamp and note when closing an Org TODO item
     ;; https://orgmode.org/manual/Closing-items.html
-    (setq org-todo-keywords '((sequence "TODO" "SOMEDAY" "CANCELED" "DONE")))
+    (setq org-todo-keywords '((sequence "TODO" "SOMEDAY" "|" "CANCELED" "DONE")
+                              (sequence "BUG" "|" "FIXED")))
     (setq org-todo-keyword-faces
           '(("TODO"     . org-todo)
+            ("BUG"      . org-todo)
             ("SOMEDAY"  . (:weight bold :foreground "DarkOrange3"))
             ("CANCELED" . (:foreground "Cyan4" :weight bold :strike-through t))
-            ("DONE"     . org-done)))
+            ("DONE"     . org-done)
+            ("FIXED"    . org-done)))
     ;; Block entries from changing state to DONE while they have children
     ;; that are not DONE - https://orgmode.org/manual/TODO-dependencies.html
     (setq org-enforce-todo-dependencies t)

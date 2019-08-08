@@ -142,7 +142,8 @@ This is merged into emacs 25.0."
        ("<up>"   . ido-prev-match)
        ("C-f"    . ido-magic-forward-char)
        ("C-b"    . ido-magic-backward-char)
-       ("C-i"    . ido-toggle-ignore))
+       ("C-i"    . ido-toggle-ignore)
+       ("C-j"    . ido-exit-minibuffer))
       (>=e "25.0"
           (bind-key "C-S-b" #'ido-bury-buffer-at-head ido-completion-map) ; emacs >= 25.0
         (bind-key "C-S-b" #'endless/ido-bury-buffer-at-head ido-completion-map))) ; emacs < 25.0

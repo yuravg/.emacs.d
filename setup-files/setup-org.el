@@ -232,6 +232,17 @@ This value must match the `infodir' variable in the Org local.mk.")
     ;; settings from above.
     (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
 
+    ;; Hiding markup(emphasis) elements in org-mode
+    (setq org-hide-emphasis-markers t)
+    (defun org-toggle-emphasis-markers ()
+      "Toggle display of org-mode's emphasis markers(hide/show)."
+      (interactive)
+      (if org-hide-emphasis-markers
+          (progn (setq org-hide-emphasis-markers nil)
+                 (message "Show org-mode emphasis markers"))
+        (progn (setq org-hide-emphasis-markers t)
+               (message "Hide org-mode emphasis markers"))))
+
 ;;; Org Defuns
     ;; http://emacs.stackexchange.com/a/13854/115
     ;; Heading▮   --(C-c C-t)--> * TODO Heading▮

@@ -10,6 +10,14 @@
   :commands (magit-status magit-log-all-branches)
   :config
   (progn
+    (bind-keys
+     :map magit-status-mode-map
+     ("C-j" . magit-diff-show-or-scroll-up)
+     :map magit-log-mode-map
+     ("C-j" . magit-diff-show-or-scroll-up)
+     :map magit-cherry-mode-map
+     ("C-j" . magit-diff-show-or-scroll-up))
+
     (defhydra hydra-magit (:color blue
                            :columns 4)
       "Magit"
@@ -22,7 +30,11 @@
       ("P" magit-push-popup "push popup")
       ("F" magit-pull-popup "pull popup")
       ("W" magit-format-patch "format patch")
-      ("$" magit-process "process"))))
+      ("$" magit-process "process"))
+
+    (use-package git-rebase
+      :bind (:map git-rebase-mode-map
+             ("C-j" . git-rebase-show-or-scroll-up)))))
 
 (use-package magit-log
   :init

@@ -105,6 +105,10 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
     ;; Unbind the "C-x w" bindings because "M-s h" bindings provide the same thing.
     (bind-key "C-x w" nil hi-lock-map)
 
+    (defalias 'lh 'hi-lock-face-buffer)
+    (defalias 'lu 'hi-lock-unface-buffer)
+    (defalias 'lhl 'highlight-lines-matching-regexp)
+
     (bind-keys
      :map modi-mode-map
      ("C-." . modi/hi-lock-face-symbol-at-point-or-sel))))

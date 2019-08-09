@@ -34,30 +34,50 @@
   :config
   (progn
 
-    (defvar modi/verilog-indent-level 2
-      "Variable to set all `verilog-mode' indents.
-Sets `verilog-indent-level', `verilog-indent-level-module',
-`verilog-indent-level-declaration',`verilog-indent-level-behavioral',
-`verilog-indent-level-directive' and `verilog-case-indent'.")
+    ;;     (defvar modi/verilog-indent-level 2
+    ;;       "Variable to set all `verilog-mode' indents.
+    ;; Sets `verilog-indent-level', `verilog-indent-level-module',
+    ;; `verilog-indent-level-declaration',`verilog-indent-level-behavioral',
+    ;; `verilog-indent-level-directive' and `verilog-case-indent'.")
 
 ;;; Variables
-    (setq verilog-indent-level modi/verilog-indent-level)             ;3 (default)
-    (setq verilog-indent-level-module modi/verilog-indent-level)      ;3
-    (setq verilog-indent-level-declaration modi/verilog-indent-level) ;3
-    (setq verilog-indent-level-behavioral modi/verilog-indent-level)  ;3
-    (setq verilog-indent-level-directive modi/verilog-indent-level)   ;1
-    (setq verilog-case-indent modi/verilog-indent-level)              ;2
+    ;; (setq verilog-indent-level modi/verilog-indent-level)             ;3 (default)
+    ;; (setq verilog-indent-level-module modi/verilog-indent-level)      ;3
+    ;; (setq verilog-indent-level-declaration modi/verilog-indent-level) ;3
+    ;; (setq verilog-indent-level-behavioral modi/verilog-indent-level)  ;3
+    ;; (setq verilog-indent-level-directive modi/verilog-indent-level)   ;1
+    ;; (setq verilog-case-indent modi/verilog-indent-level)              ;2
 
-    (setq verilog-auto-newline             nil) ;t
-    (setq verilog-auto-indent-on-newline   t)   ;t
-    (setq verilog-tab-always-indent        t)   ;t
-    (setq verilog-minimum-comment-distance 10)  ;10
-    (setq verilog-indent-begin-after-if    t)   ;t
-    (setq verilog-auto-lineup              nil) ;'declarations
-    (setq verilog-align-ifelse             nil) ;nil
-    (setq verilog-auto-endcomments         t)   ;t
-    (setq verilog-tab-to-comment           nil) ;nil
-    (setq verilog-date-scientific-format   t)   ;t
+    ;; (setq verilog-auto-newline             nil) ;t
+    ;; (setq verilog-auto-indent-on-newline   t)   ;t
+    ;; (setq verilog-tab-always-indent        t)   ;t
+    ;; (setq verilog-minimum-comment-distance 10)  ;10
+    ;; (setq verilog-indent-begin-after-if    t)   ;t
+    ;; (setq verilog-auto-lineup              nil) ;'declarations
+    ;; (setq verilog-align-ifelse             nil) ;nil
+    ;; (setq verilog-auto-endcomments         t)   ;t
+    ;; (setq verilog-tab-to-comment           nil) ;nil
+    ;; (setq verilog-date-scientific-format   t)   ;t
+
+    (setq verilog-indent-level             4
+          verilog-indent-level-module      0
+          verilog-indent-level-declaration 0
+          verilog-indent-level-behavioral  4
+          verilog-indent-level-directive   4
+          verilog-case-indent              4
+          verilog-auto-newline             nil
+          verilog-auto-indent-on-newline   nil
+          verilog-tab-always-indent        nil
+          verilog-auto-endcomments         nil
+          verilog-minimum-comment-distance 40
+          verilog-indent-begin-after-if    nil
+          verilog-auto-lineup              nil
+          verilog-align-ifelse             nil
+          verilog-tab-to-comment           nil
+          verilog-highlight-p1800-keywords nil
+          verilog-cexp-indent              4
+          enable-local-eval                t
+          verilog-date-scientific-format   t)
 
     (defconst modi/verilog-identifier-re
       (concat "\\_<\\(?:"

@@ -179,6 +179,39 @@ If the buffer major-mode is `clojure-mode', run `cider-load-buffer'."
     (apply orig-fun args)))
 (advice-add 'report-emacs-bug :around #'modi/advice-report-emacs-bug-without-build-system)
 
+;; Recursively list files in a given directory
+;; http://turingmachine.org/bl/2013-05-29-recursively-listing-directories-in-elisp.html
+(defun directory-files-recursive (directory maxdepth full match ignore)
+  "List files in DIRECTORY and in its sub-directories.
+If FULL is non-nil, return absolute file names.  Otherwise return names
+that are relative to the specified directory.
+Return files that match the regular expression MATCH but ignore
+files and directories that match IGNORE (IGNORE is tested before MATCH. Recurse only
+to depth MAXDEPTH. If zero or negative, then do not recursion."
+  (let* ((files-list '())
+         (current-directory-list (directory-files directory full)))
+    (while current-directory-list
+      (let ((f (car current-directory-list)))
+        (cond
+         ((and
+           (not (string= "" ignore))
+           (string-match ignore f))
+          nil)
+         ((and (file-regular-p f)
+               (file-readable-p f)
+               (string-match match f))
+          (setq files-list (cons f files-list)))
+         ((and (file-directory-p f)
+               (file-readable-p f)
+               (not (string-equal "." (substring f -1)))
+               (not (string-equal ".." (substring f -2)))
+               (> maxdepth 0))
+          (setq files-list
+                (append files-list
+                        (directory-files-recursive f (1- maxdepth) full match ignore))))))
+      (setq current-directory-list (cdr current-directory-list)))
+    files-list))
+
 (use-package calendar
   :defer t
   :config

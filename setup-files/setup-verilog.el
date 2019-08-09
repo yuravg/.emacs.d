@@ -806,7 +806,8 @@ _a_lways         _f_or              _g_enerate         _O_utput
      ("<S-f9>"    . modi/verilog-simulate))
     (bind-chord "\\\\" #'modi/verilog-jump-to-module-at-point verilog-mode-map) ;"\\"
     (when (executable-find "ag")
-      (bind-chord "^^" #'modi/verilog-find-parent-module verilog-mode-map))))
+      (bind-chord "^^" #'modi/verilog-find-parent-module verilog-mode-map)
+      (bind-chord "UU" #'modi/verilog-find-parent-module verilog-mode-map))))
 
 
 (provide 'setup-verilog)

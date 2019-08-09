@@ -212,6 +212,18 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
       (setq current-directory-list (cdr current-directory-list)))
     files-list))
 
+;; Conver list to string
+(defun list-convert-to-string (list delimiter)
+  "Return input LIST as string in which elements of LIST separated by DELIMITER."
+  (let ((str ""))
+    (while list
+      (let ((i (car list)))
+        (if (string= "" str)
+            (setq str (concat str (message "%s" i)))
+          (setq str (concat str delimiter (message "%s" i)))))
+      (setq list (cdr list)))
+    str))
+
 (use-package calendar
   :defer t
   :config

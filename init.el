@@ -174,6 +174,7 @@ need Org version to be at least 9.x.")
     ;; - yasnippet: `yas-ido-expand'
     ;; - magit: `magit-branch-checkout', `magit-log-buffer-file'
     ido-vertical-mode flx-ido ;< ivy, counsel
+    hl-anything
     flycheck-pos-tip
     pylint
     autopair

@@ -12,6 +12,8 @@
 ;;  Idle Highlight
 ;;  Highlight
 ;;    Notes
+;;  Highlight Anything
+;;  Colors for highlight
 ;;  Notes
 
 ;;; Hi-lock
@@ -221,6 +223,369 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
 ;;    prefix r -- `hlt-replace-highlight-face'
 ;; 2. Highlight: prefix h r RET -- `hlt-highlight-regions'
 ;; 3. Unhighlight: prefix u r RET -- `hlt-unhighlight-region'
+
+;;; Highlight Anything
+;; https://github.com/boyw165/hl-anything
+(use-package hl-anything
+  :if (not (bound-and-true-p disable-pkg-hl-anything))
+  ;; This package has known to cause issues with the `list-colors-display'
+  ;; command. The buffer that opens on calling that command does not show the
+  ;; colors. The issue is fixed temporarily by uncommenting the below line
+  ;; and restarting emacs - https://github.com/boyw165/hl-anything/issues/14
+  ;; Also causes to show this error at startup:
+  ;;   org-mode fontification error
+  :init
+  (progn
+    (setq hl-highlight-save-file (locate-user-emacs-file "hl-save")))
+  :config
+  (progn
+    (hl-highlight-mode 1)
+
+    (defun my/hl-anything (local)
+      "Highlight the thing at point globally in all buffers.
+
+If LOCAL is non-nil, highlight only in the current buffer."
+      (interactive "P")
+      (if local
+          (hl-highlight-thingatpt-local)
+        (hl-highlight-thingatpt-global)))
+
+    (defun my/unhl-anything (local)
+      "Un-highlight the thing at point globally in all buffers.
+
+If LOCAL is non-nil, un-highlight only in the current buffer."
+      (interactive "P")
+      (if local
+          (hl-unhighlight-all-local)
+        (hl-unhighlight-all-global)))
+
+    (defhydra hydra-hl-anything (:color teal
+                                 :hint nil)
+      "
+^^^^       Highlight               ^^             Jump                         ^^  Save                     ^^    Other
+^^^^-------------------------------^^-----------------------------------------^^^^--------------------------^^-----------------------
+  _h_/_H_: highlight (global/local)          _n_: next hightlight             _s_: save highlights           _t_: toggle highlights
+  _u_/_U_: un-highlight (global/local)       _p_: previous highlight          _r_: restore highlights
+  _f_/_d_: lock face/unface (regexp)
+  _l_/_d_: highlight/unface line (regexp)
+"
+      ("h" my/hl-anything)
+      ("H" (my/hl-anything :local))
+      ("u" my/unhl-anything)
+      ("U" (my/unhl-anything :local))
+      ("n" hl-find-next-thing :color red)
+      ("p" hl-find-prev-thing :color red)
+      ("s" hl-save-highlights)
+      ("r" hl-restore-highlights)
+      ("t" hl-global-highlight-on/off :color red)
+      ("f" hi-lock-face-buffer)
+      ("d" hi-lock-unface-buffer)
+      ("l" highlight-lines-matching-regexp)
+      ("q" nil "cancel"))
+    (bind-key "C-c h" #'hydra-hl-anything/body modi-mode-map)))
+
+;;; Colors for highlight
+(defface hi-tomato1
+  '((((background dark)) (:background "tomato1" :foreground "black"))
+    (t (:background "tomato1")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-red
+  '((((background dark)) (:background "red" :foreground "black"))
+    (t (:background "red")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-yellow
+  '((((background dark)) (:background "yellow" :foreground "black"))
+    (t (:background "yellow")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-pink
+  '((((background dark)) (:background "pink" :foreground "black"))
+    (t (:background "pink")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-gold
+  '((((background dark)) (:background "gold" :foreground "black"))
+    (t (:background "gold")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-orchid
+  '((((background dark)) (:background "orchid" :foreground "black"))
+    (t (:background "orchid")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-light-salmon
+  '((((background dark)) (:background "light salmon" :foreground "black"))
+    (t (:background "light salmon")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-magenta1
+  '((((background dark)) (:background "magenta1" :foreground "black"))
+    (t (:background "magenta1")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-tan
+  '((((background dark)) (:background "tan" :foreground "black"))
+    (t (:background "tan")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-light-green
+  '((((background dark)) (:background "light green" :foreground "black"))
+    (t (:background "light green")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-green1
+  '((((background dark)) (:background "green1" :foreground "black"))
+    (t (:background "green1")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-green3
+  '((((background dark)) (:background "green3" :foreground "black"))
+    (t (:background "green3")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-green4
+  '((((background dark)) (:background "green4" :foreground "black"))
+    (t (:background "green4")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-dark-green
+  '((((background dark)) (:background "dark green" :foreground "black"))
+    (t (:background "dark green")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-dodger-blue
+  '((((background dark)) (:background "dodger blue" :foreground "black"))
+    (t (:background "dodger blue")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-light-blue
+  '((((background dark)) (:background "light blue" :foreground "black"))
+    (t (:background "light blue")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-deepskyblue
+  '((((background dark)) (:background "DeepSkyBlue" :foreground "black"))
+    (t (:background "DeepSkyBlue")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-lightcyan2
+  '((((background dark)) (:background "LightCyan2" :foreground "black"))
+    (t (:background "LightCyan2")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-sienna
+  '((((background dark)) (:background "sienna3" :foreground "black"))
+    (t (:background "sienna3")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-gray90
+  '((((background dark)) (:background "gray90" :foreground "black"))
+    (t (:background "gray90")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-gray80
+  '((((background dark)) (:background "gray80" :foreground "black"))
+    (t (:background "gray80")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-wheat1
+  '((((background dark)) (:background "wheat1" :foreground "black"))
+    (t (:background "wheat1")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-cornflower-blue
+  '((((background dark)) (:background "cornflower blue" :foreground "black"))
+    (t (:background "cornflower blue")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-aquamarine
+  '((((background dark)) (:background "aquamarine" :foreground "black"))
+    (t (:background "aquamarine")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-cyan
+  '((((background dark)) (:background "cyan" :foreground "black"))
+    (t (:background "cyan")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-cyan3
+  '((((background dark)) (:background "cyan3" :foreground "black"))
+    (t (:background "cyan3")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-olive-drab
+  '((((background dark)) (:background "olive drab" :foreground "black"))
+    (t (:background "olive drab")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-chocolate
+  '((((background dark)) (:background "chocolate" :foreground "black"))
+    (t (:background "chocolate")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-violet
+  '((((background dark)) (:background "violet" :foreground "black"))
+    (t (:background "violet")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-peach-puff
+  '((((background dark)) (:background "peach puff" :foreground "black"))
+    (t (:background "peach puff")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-slateblue1
+  '((((background dark)) (:background "SlateBlue1" :foreground "black"))
+    (t (:background "SlateBlue1")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-purple1
+  '((((background dark)) (:background "purple1" :foreground "black"))
+    (t (:background "purple1")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-orange
+  '((((background dark)) (:background "orange" :foreground "black"))
+    (t (:background "orange")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-peru
+  '((((background dark)) (:background "peru" :foreground "black"))
+    (t (:background "peru")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-dark-khaki
+  '((((background dark)) (:background "dark khaki" :foreground "black"))
+    (t (:background "dark khaki")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(face-spec-set 'hi-black-b
+               '((((background dark)) (:weight bold :foreground "black"))
+                 (t (:weight bold :foreground "black")))
+               'face-defface-spec)
+
+(face-spec-set 'hi-blue-b
+               '((((background dark)) (:weight bold :foreground "blue1"))
+                 (t (:weight bold :foreground "blue1")))
+               'face-defface-spec)
+
+(face-spec-set 'hi-green-b
+               '((((background dark)) (:weight bold :foreground "forest green"))
+                 (t (:weight bold :foreground "forest green")))
+               'face-defface-spec)
+
+(face-spec-set 'hi-red-b
+               '((((background dark)) (:weight bold :foreground "red"))
+                 (t (:weight bold :foreground "red")))
+               'face-defface-spec)
+
+(defface hi-orange-b
+  '((((background dark)) (:weight bold :foreground "orange"))
+    (t (:weight bold :foreground "orange")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-magenta-b
+  '((((background dark)) (:weight bold :foreground "magenta2"))
+    (t (:weight bold :foreground "magenta2")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defvar highlight-faces
+  '(('hi-yellow          . 0 )
+    ('hi-light-green     . 0 )
+    ('hi-light-salmon    . 0 )
+    ('hi-light-blue      . 0 )
+    ('hi-pink            . 0 )
+    ('hi-tan             . 0 )
+    ('hi-cornflower-blue . 0 )
+    ('hi-violet          . 0 )
+    ('hi-gold            . 0 )
+    ('hi-green3          . 0 )
+    ('hi-peru            . 0 )
+    ('hi-cyan            . 0 )
+    ('hi-orange          . 0 )
+    ('hi-peach-puff      . 0 )
+    ('hi-green1          . 0 )
+    ('hi-deepskyblue     . 0 )
+    ('hi-purple1         . 0 ))
+  "Default faces for hi-lock interactive functions, you could add your own.")
+
+(setq hl-highlight-background-colors
+      (quote
+       ("yellow"
+        "light green"
+        "light salmon"
+        "light blue"
+        "pink"
+        "tan"
+        "cornflower blue"
+        "violet"
+        "gold"
+        "green3"
+        "peru"
+        "cyan"
+        "orange"
+        "peach puff"
+        "green1"
+        "DeepSkyBlue"
+        "purple1")))
+
+(setq hl-highlight-foreground-colors
+      (quote
+       ("black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black"
+        "black")))
 
 
 (provide 'setup-highlight)

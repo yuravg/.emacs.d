@@ -379,7 +379,10 @@ _i_nfo      _o_rg      e_l_isp      e_L_isp intro      _e_macs      _c_alc      
   ("C" (ora-open-info "cl" "* Emacs Common Lisp Info*"))
   ("p" (ora-open-info "python3" "*Python 3 Info*"))
   ("g" counsel-ag-emacs-info))
-(bind-key "C-h i" #'hydra-info-to/body modi-mode-map)
+;; Bind `hydra-info-to/body' should at setup-editing.el or setup-misc.el,
+;; because there is a rebinding "C-x C-h" at setup-editing.el,
+;; and binding to "C-x C-h i" at this place will not work
+;; (bind-key "C-x C-h i" #'hydra-info-to/body modi-mode-map) ; KModi bind: "C-h i""
 
 
 (provide 'setup-info)

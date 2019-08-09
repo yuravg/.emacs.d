@@ -115,8 +115,14 @@ If the buffer major-mode is `clojure-mode', run `cider-load-buffer'."
   (progn
     (bind-keys
      :map help-map
-     ("c" . describe-key-briefly)
-     ("C-c" . describe-command))
+     ("c" . describe-command) ;Overrides `describe-key-briefly'
+     ("C-c" . describe-char)  ;Overrides `describe-command'
+     ("C-k" . describe-key-briefly)
+     ("C-i" . hydra-info-to/body) ;this binding is displayed as 'TAB' in the mini-buffer
+     ("A" . apropos)
+     ("H" . Info-history)
+     ("M-a" . counsel-ag-emacs-info)
+     ("M-d" . Info-directory))
     (>=e "25.0"
         (bind-keys
          :map help-map

@@ -28,6 +28,7 @@
 ;;  hydra-verilog-template
 ;;  imenu + outshine
 ;;  modi/verilog-mode-customization
+;;  easy-verilog package
 ;;  Key bindings
 
 (use-package verilog-mode
@@ -1002,6 +1003,19 @@ _a_lways         _f_or              _g_enerate         _O_utput
     ;; correctly *before* `outline-minor-mode' is enabled (the act of
     ;; which enables `outshine-mode').
     (add-hook 'verilog-mode-hook #'modi/verilog-mode-customization)
+
+;;; easy-verilog package
+    (use-package easy-verilog
+      :load-path "elisp/easy-verilog"
+      :config
+      (progn
+        (add-hook 'verilog-mode-hook #'easy-verilog-minor-mode)
+        (set-face-attribute 'easy-verilog-face nil
+                            :weight 'normal :foreground "Blue1" :background "azure2")
+        (set-face-attribute 'easy-verilog-levels-face nil :foreground "navy":weight 'bold
+                            :background "azure2")
+        (set-face-attribute 'easy-verilog-digit-face nil :foreground "navy" :weight 'bold)))
+    (defalias 'ev 'easy-verilog-minor-mode "Toggle easy-verilog mode") ;overwrite doc
 
 ;;; Key bindings
     (bind-keys

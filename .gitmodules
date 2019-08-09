@@ -55,3 +55,6 @@
 [submodule "elisp/emacs-leuven-theme"]
 	path = elisp/emacs-leuven-theme
 	url = https://github.com/yuravg/emacs-leuven-theme
+[submodule "elisp/easy-verilog"]
+	path = elisp/easy-verilog
+	url = https://github.com/yuravg/easy-verilog

@@ -18,6 +18,7 @@
 ;;    modi/verilog-compile
 ;;    convert block-end comments to block names
 ;;    Do not open all `included files
+;;    Indentation
 ;;  hideshow
 ;;  hydra-verilog-template
 ;;  imenu + outshine
@@ -628,6 +629,13 @@ for all the `included files."
         (progn
           (advice-remove 'verilog-read-includes #'modi/verilog-do-not-read-includes)
           (advice-remove 'verilog-read-defines #'modi/verilog-do-not-read-defines))))
+
+;;;; Indentation
+    (defun yura/verilog-set-indentation ()
+      "Customize the indentation for `verilog-mode'."
+      (setq tab-width 4
+            indent-tabs-mode t))
+    (add-hook 'verilog-mode-hook #'yura/verilog-set-indentation)
 
 ;;; hideshow
     (with-eval-after-load 'hideshow

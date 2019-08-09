@@ -25,6 +25,7 @@
 ;;    Alignment
 ;;    Refactoring
 ;;  Verilog compile
+;;    Compilation after save
 ;;  hideshow
 ;;  hydra-verilog-template
 ;;  imenu + outshine
@@ -900,6 +901,35 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
      :map verilog-mode-map
      ("C-c C-c" . verilog-compile-current-file)
      ("C-c C-a" . verilog-compile-all-files))
+
+;;;; Compilation after save
+    (defvar yura/verilog-compilation-after-save-enable nil
+      "The variable allows you to start compiling the current verilog buffer after saving it.
+Compilation by `yura/verilog-compilation-after-save'.")
+
+    (defun yura/verilog-compilation-after-save-toggle ()
+      "Toggle the variable `yura/verilog-compilation-after-save-enable'."
+      (interactive)
+      (if yura/verilog-compilation-after-save-enable
+          (progn (setq yura/verilog-compilation-after-save-enable nil)
+                 (message "Disable"))
+        (progn (setq yura/verilog-compilation-after-save-enable t)
+               (message "Enable"))))
+
+    (defun yura/verilog-compilation-after-save ()
+      "Starts compiling the current buffer after saving it.
+Execute `verilog-compile-current-file' after saving the current buffer,
+if variable `yura/verilog-compilation-after-save-enable' is t."
+      (add-hook 'after-save-hook
+                #'(lambda() (if yura/verilog-compilation-after-save-enable
+                           (progn (setq yura/compilation-buffer-single-show-time "0 sec")
+                                  (verilog-compile-current-file))))
+                nil :local))
+    (add-hook 'verilog-mode-hook #'yura/verilog-compilation-after-save)
+
+    ;; Mark the `yura/verilog-compilation-after-save-enable' variable as safe so that it can be
+    ;; set in `.dir-locals.el' files or set in Local Variables.
+    (put 'yura/verilog-compilation-after-save-enable 'safe-local-variable #'booleanp)
 
 ;;; hideshow
     (with-eval-after-load 'hideshow

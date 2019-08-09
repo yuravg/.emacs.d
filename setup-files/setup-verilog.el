@@ -725,7 +725,7 @@ _a_lways         _f_or              _g_enerate         _O_utput
         (add-hook 'before-save-hook #'modi/verilog-block-end-comments-to-block-names nil :local))
 
       ;; Replace tabs with spaces when saving files in verilog-mode.
-      (add-hook 'before-save-hook #'modi/untabify-buffer nil :local)
+      ;; (add-hook 'before-save-hook #'modi/untabify-buffer nil :local)
 
       ;; Stop cluttering my buffer list by not opening all the `included files.
       (modi/verilog-do-not-read-includes-defines-mode 1)

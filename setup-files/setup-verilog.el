@@ -24,6 +24,7 @@
 ;;      Set verilog auto lineup
 ;;    Alignment
 ;;    Refactoring
+;;  Verilog compile
 ;;  hideshow
 ;;  hydra-verilog-template
 ;;  imenu + outshine
@@ -852,6 +853,53 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
       ("v" hydra-refactoring/body :color teal)
 
       ("q" nil "cancel" :color blue))
+
+;;; Verilog compile
+    (defvar verilog-linter-command nil
+      "Verilog lint command.")
+    (setq verilog-linter-modelsim "vlog -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
+    (setq verilog-linter-verilator "verilator --lint-only")
+    (setq verilog-linter-command verilog-linter-modelsim)
+
+    (setq verilog-linter verilog-linter-command)
+
+    (defun verilog-get-list-verilog-files-in-current-directory ()
+      "Returns a list of all Verilog files in the current directory
+File order in the list: Verilog, System Verilog packages, interfaces, modules."
+      (let ((list))
+        (setq list (append list (directory-files-recursive "." 0 nil "\\.v$" "#\\|~")))
+        (setq list (append list (directory-files-recursive "." 0 nil "_pkg.sv$" "#\\|~")))
+        (setq list (append list (directory-files-recursive "." 0 nil "_if.sv$" "#\\|~")))
+        (setq list (append list (directory-files-recursive "." 0 nil "\\.sv$" "\\(_if.sv\\|_pkg\\|\\#\\|~\\)")))
+        list))
+
+    (defun verilog-compile-all-files ()
+      "Execute `verilog-linter-command' for current file and files in its directory and sub-directories."
+      (interactive)
+      (let ((old-compilation-scroll-output compilation-scroll-output)
+            (files (list-convert-to-string
+                    (verilog-get-list-verilog-files-in-current-directory) " ")))
+        (progn (setq compilation-scroll-output nil)
+               (compile (concat verilog-linter-command " " files)))
+        (setq compilation-scroll-output old-compilation-scroll-output)))
+
+    (defun verilog-compile-current-file ()
+      "Execute `verilog-linter-command' for current file."
+      (interactive)
+      (let ((old-compilation-scroll-output compilation-scroll-output)
+            (fname (file-name-nondirectory buffer-file-name))
+            (old-compilation-auto-jump-to-first-error compilation-auto-jump-to-first-error))
+        (progn
+          (setq compilation-scroll-output t)
+          (setq compilation-auto-jump-to-first-error t)
+          (compile (concat verilog-linter-command " " fname))
+          (setq compilation-scroll-output old-compilation-scroll-output
+                compilation-auto-jump-to-first-error old-compilation-auto-jump-to-first-error))))
+
+    (bind-keys
+     :map verilog-mode-map
+     ("C-c C-c" . verilog-compile-current-file)
+     ("C-c C-a" . verilog-compile-all-files))
 
 ;;; hideshow
     (with-eval-after-load 'hideshow

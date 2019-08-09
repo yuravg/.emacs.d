@@ -798,6 +798,7 @@ _a_lways         _f_or              _g_enerate         _O_utput
      ;; Bind `verilog-header' to "C-c C-H" instead of to "C-c C-h"
      ("C-c C-h"   . nil)
      ("C-c C-S-h" . verilog-header)
+     ("C-m"       . indent-new-comment-line) ; default `autopair-newline'
      ;;
      ("C-c C-t"   . hydra-verilog-template/body)
      ("C-^"       . modi/verilog-jump-to-header-dwim)

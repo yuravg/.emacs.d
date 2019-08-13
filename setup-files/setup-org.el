@@ -214,6 +214,9 @@ This value must match the `infodir' variable in the Org local.mk.")
     ;; Above workaround is not needed after this fix in Org master:
     ;;   https://code.orgmode.org/bzg/org-mode/commit/2d29269bb1b9af08011e091913798b6598e4b156
 
+    ;; Directory with Org files.
+    (setq org-directory "~/notes") ;Default = "~/org"
+
     ;; `org-default-notes-file' is used as a fall back file for org-capture.el.
     (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 

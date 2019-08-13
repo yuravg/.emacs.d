@@ -228,6 +228,23 @@ This value must match the `infodir' variable in the Org local.mk.")
       ;; touch `modi/one-org-agenda-file'
       (write-region "" :ignore modi/one-org-agenda-file))
 
+    (defvar yura/enable-org-agenda-file t
+      "Enable `modi/one-org-agenda-file' or all files from `org-directory'.")
+    (defun yura/toggle-source-of-org-agenda-files ()
+      "Enable `modi/one-org-agenda-file' file or all files from `org-directory'.\n
+Toggle `yura/enable-org-agenda-file'."
+      (interactive)
+      (progn
+        (setq yura/enable-org-agenda-file
+              (if (bound-and-true-p yura/enable-org-agenda-file)
+                  nil t))
+        (if (bound-and-true-p yura/enable-org-agenda-file)
+            (setq org-agenda-files modi/one-org-agenda-file)
+          (setq org-agenda-files (file-expand-wildcards "~/notes/*.org")))
+        (message "org-agend-file: %s" (if (bound-and-true-p yura/enable-org-agenda-file)
+                                          modi/one-org-agenda-file
+                                        "ALL files"))))
+
     ;; Allow multiple line Org emphasis markup
     ;; http://emacs.stackexchange.com/a/13828/115
     (setcar (nthcdr 4 org-emphasis-regexp-components) 20) ;Up to 20 lines, default is just 1

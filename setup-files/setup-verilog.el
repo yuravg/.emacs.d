@@ -19,6 +19,9 @@
 ;;    convert block-end comments to block names
 ;;    Do not open all `included files
 ;;    Indentation
+;;      Set indent level declaration
+;;      Set Indent level module/declaratioin
+;;      Set verilog auto lineup
 ;;  hideshow
 ;;  hydra-verilog-template
 ;;  imenu + outshine
@@ -636,6 +639,55 @@ for all the `included files."
       (setq tab-width 4
             indent-tabs-mode t))
     (add-hook 'verilog-mode-hook #'yura/verilog-set-indentation)
+
+;;;;; Set indent level declaration
+    (defun yura/verilog-auto-indent-level-declaration ()
+      "Auto switch `verilog-indent-level-declaration' for different Verilog code style.
+
+For buffer with only one Verilog module, variables `verilog-indent-level-module' and
+`verilog-indent-level-declaration' set to 0.
+Otherwise set them to 4."
+      (save-excursion
+        (if (and (progn (goto-char (point-min))
+                        (and (re-search-forward "^endmodule" nil t)
+                             (not (re-search-forward "^endmodule" nil t))))
+                 (progn (goto-char (point-min))
+                        (not (re-search-forward "^endclass" nil t))))
+            (setq verilog-indent-level-module 0
+                  verilog-indent-level-declaration 0)
+          (setq verilog-indent-level-module 4
+                verilog-indent-level-declaration 4))))
+    (add-hook 'verilog-mode-hook #'yura/verilog-auto-indent-level-declaration)
+
+;;;;; Set Indent level module/declaratioin
+    (defun yura/verilog-set-indent-module-declaration ()
+      "Set module and declaration indentation for verilog mode."
+      (interactive)
+      (let (indent-value arg)
+        (setq indent-value (ido-completing-read "Set Indentation (for module and declaration):"
+                                                '("0" "4")))
+        (cond
+         ((equal indent-value "0") (setq verilog-indent-level-module 0
+                                         verilog-indent-level-declaration 0))
+         ((equal indent-value "4") (setq verilog-indent-level-module 4
+                                         verilog-indent-level-declaration 4))
+         (t (error "logic error")))
+        (message "Set verilog indentation to: %s (for module and declaration)" indent-value)))
+
+;;;;; Set verilog auto lineup
+    (defun yura/verilog-set-auto-lineup ()
+      "Set auto-lineup (alignment) variable of verilog mode."
+      (interactive)
+      (let (lineup arg)
+        (setq lineup (ido-completing-read "Set Lineup (alignment):"
+                                          '("off" "all" "assignments" "declaration")))
+        (cond
+         ((equal lineup "off") (setq verilog-auto-lineup 'nil))
+         ((equal lineup "all") (setq verilog-auto-lineup 'all))
+         ((equal lineup "assignments") (setq verilog-auto-lineup 'assignments))
+         ((equal lineup "declaration") (setq verilog-auto-lineup 'declarations))
+         (t (error "logic error")))
+        (message "Set variable verilog-auto-lineup to: %s" lineup)))
 
 ;;; hideshow
     (with-eval-after-load 'hideshow

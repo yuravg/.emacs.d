@@ -22,6 +22,7 @@
 ;;      Set indent level declaration
 ;;      Set Indent level module/declaratioin
 ;;      Set verilog auto lineup
+;;    Alignment
 ;;  hideshow
 ;;  hydra-verilog-template
 ;;  imenu + outshine
@@ -688,6 +689,105 @@ Otherwise set them to 4."
          ((equal lineup "declaration") (setq verilog-auto-lineup 'declarations))
          (t (error "logic error")))
         (message "Set variable verilog-auto-lineup to: %s" lineup)))
+
+;;;; Alignment
+    ;; TODO: alignment parameters of module
+    (defun verilog-port-alignmet-for-module-instance (arg)
+      "Port alignment for a module instance.
+
+To execute command should move point in module.
+If called without prefix ARG \\[universal-argument], the result is:
+
+module_name item_name(
+    .port_name      (wire_name),
+    .next_port_name (next_ware_name)
+);
+
+Prefixed with ARG > 0, the result is:
+
+module_name item_name(
+    .port_name      (wire_name     ),
+    .next_port_name (next_ware_name)
+);"
+      (interactive "P")
+      (save-excursion
+        (let ((begin (+ (search-backward-regexp "($\\|^(") 1))
+              (end   (- (search-forward-regexp ");") 3)))
+          ;; remove space(s) before last bracket
+          (goto-char end)
+          (delete-horizontal-space)
+          (setq end (- (search-forward-regexp ");") 3))
+          (save-restriction
+            (narrow-to-region begin end)
+            (defun replace--in--region (in-expr out-expr)
+              (goto-char (point-min))
+              (while (re-search-forward in-expr nil :noerror)
+                (replace-match out-expr)))
+            (replace--in--region "(" " (")
+            (replace--in--region ")" " )")
+            (set-mark (point-min))
+            (goto-char (point-max))
+            (delete-double-spaces-in-region-or-line)
+            (indent-rigidly (point-min) (point-max) -24)
+            (indent-rigidly (point-min) (point-max) 4)
+            (align-regexp (point-min) (point-max) "\\(\\s-*\\)\\ (" 1 0 nil)
+            (replace--in--region "( " "(")
+            (if arg
+                (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\ )" 1 0 nil))
+            (replace--in--region " )" ")"))))
+      (message "Alignment done."))
+    (defalias 'vai 'verilog-port-alignmet-for-module-instance)
+
+    ;; TODO: alignment parameters of module
+    ;; FIXME: comma in comment not allowed
+    (defun verilog-port-alignment-when-declaring-module (variable-indent)
+      "Port alignment when declaring a module.\n
+To execute command should move point in module.\n
+VARIABLE-INDENT(default 1) set indentation to variable name,
+`\\[universal-argument]' prefix using to set VARIABLE-INDENT."
+      (interactive "p")
+      (save-excursion
+        (save-restriction
+          (let ((begin (+ (search-backward-regexp "($\\|^(") 1))
+                (end   (- (search-forward-regexp ");") 0)))
+            (narrow-to-region begin end)
+            (set-mark (point-min))
+            (goto-char (point-max))
+            (delete-double-spaces-in-region-or-line)
+            (indent-rigidly (point-min) (point-max) -24)
+            (indent-rigidly (point-min) (point-max) 4)
+            (goto-char (point-min))
+            (while (re-search-forward "\\(\\w\\)\\[" (point-max) :noerror)
+              (replace-match "\\1 ["))
+            (goto-char (point-min))
+            (while (re-search-forward "\\([0-9]\\)\\(]\\)\\(\\w\\)" (point-max) :noerror)
+              (replace-match "\\1\\2 \\3"))
+            ;; align to variable width
+            (align-regexp (point-min) (point-max) "^\\(\\s-+\\w+\\)+\\(\\s-+\\)\\(\\[\\)" 2 1 nil)
+            ;; align to variable name
+            (align-regexp (point-min) (point-max) "\\(\\s-*\\)\\w+\\(,\\|\\(\\s-*\\Ca*\\s-*);\\)\\|\\(\\s-*=\\)\\)" 1 variable-indent nil)
+            ;; align end of module
+            (goto-char (point-min))
+            (while (re-search-forward "\\(\\s-+\\)\\();\\)" (point-max) :noerror)
+              (replace-match "\\2")))))
+      (message "Alignment done."))
+    (defalias 'vap 'verilog-port-alignment-when-declaring-module)
+
+    (defun verilog-alignment-of-variables-declaration-in-region (variable-indent)
+      "Variables alignment when declaring.\n
+If a region is selected the execute alignment in the region,
+otherwise execute alignment in a current paragraph.
+VARIABLE-INDENT(default 1) set indentation to variable name,
+`\\[universal-argument]' prefix using to set VARIABLE-INDENT."
+      (interactive "p")
+      (save-excursion
+        (unless (use-region-p)
+          (mark-paragraph))
+        (delete-double-spaces-in-region-or-line)
+        (indent-region (region-beginning) (region-end))
+        (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\w+\\(;\\|\\(\\(\\s-*\\)=\\)\\)" 1 variable-indent nil)
+        (message "Alignment done.")))
+    (defalias 'vav 'verilog-alignment-of-variables-declaration-in-region)
 
 ;;; hideshow
     (with-eval-after-load 'hideshow

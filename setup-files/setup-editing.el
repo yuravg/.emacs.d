@@ -18,6 +18,7 @@
 ;;  Align
 ;;    Align repeat
 ;;    Change `align-regexp' behaviour
+;;  Indentation
 ;;  Eval and replace last sexp
 ;;  My modified basic functions
 ;;    Kill Line
@@ -477,6 +478,25 @@ tabs explicitly."
 
 ;; Change default behavior of `align-regexp'
 (set-align-regexp-with-spaces)
+
+;;; Indentation
+;; Indent paragraph
+(defun yura/indent-paragraph-region (&optional arg)
+  "Indent a paragraph around point or selected region.
+
+If a region is selected then execute `indent-region' for selected region.
+
+Otherwise paragraph around point will be marked by `mark-paragraph'
+with \\[universal-argument] passed to it as argument ARG.
+Then execute `indent-region'."
+  (interactive "p")
+  (save-excursion
+    (if (use-region-p)
+        (indent-region (region-beginning) (region-end))
+      (progn
+        (mark-paragraph arg)
+        (indent-region (region-beginning) (region-end))))))
+(defalias 'ip 'yura/indent-paragraph-region)
 
 ;;; Eval and replace last sexp
 ;; http://stackoverflow.com/a/3035574/1219634

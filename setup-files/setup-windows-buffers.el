@@ -8,6 +8,7 @@
 ;;  Winner Mode
 ;;  Uniquify
 ;;  Recentf
+;;  Duplicate current window
 ;;  Insert file name
 ;;  Windmove
 ;;  Reopen Killed File
@@ -77,6 +78,14 @@
     (recentf-mode 1)
     (setq recentf-max-saved-items 2000)
     (setq recentf-max-menu-items 80)))
+
+;;; Duplicate current window
+(defun duplicate-current-window-delete-other ()
+  "Duplicate the current window to the next window and delete other windows."
+  (interactive)
+  (delete-other-windows)
+  (split-window-right))
+(defalias 'db 'duplicate-current-window-delete-other)
 
 ;;; Insert file name
 ;; https://www.emacswiki.org/emacs/InsertFileName

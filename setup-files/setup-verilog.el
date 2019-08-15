@@ -23,6 +23,7 @@
 ;;      Set Indent level module/declaratioin
 ;;      Set verilog auto lineup
 ;;    Alignment
+;;    Refactoring
 ;;  hideshow
 ;;  hydra-verilog-template
 ;;  imenu + outshine
@@ -788,6 +789,68 @@ VARIABLE-INDENT(default 1) set indentation to variable name,
         (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\w+\\(;\\|\\(\\(\\s-*\\)=\\)\\)" 1 variable-indent nil)
         (message "Alignment done.")))
     (defalias 'vav 'verilog-alignment-of-variables-declaration-in-region)
+
+;;;; Refactoring
+    (defun verilog-refactoring-of-alignment ()
+      "Refactoring of alignment for Verilog mode.
+
+Refactoring of alignment for selected region, or for whole buffer if region don't selected."
+      (interactive)
+      (save-excursion
+        (let ((beg (if (use-region-p) (region-beginning) (point-min)))
+              (end (if (use-region-p) (region-end) (point-max))))
+          (mapc (lambda (pair)
+                  (let ((in-expr (car pair))
+                        (out-expr (cdr pair)))
+                    (goto-char beg)
+                    (while (re-search-forward in-expr end :noerror)
+                      (replace-match out-expr))))
+                '(("(\\(\\s-+\\)"   . "(")
+                  ("(\\(\\s-+\\)"   . "(")
+                  ("\\(\\s-+\\))"   . ")")
+                  ("\\(\\s-+\\)\\["  . "[")
+                  ("{\\(\\s-+\\)"   . "{")
+                  ("\\(\\s-+\\)}"   . "}")
+                  ("\\(\\s-+\\)}"   . "}")
+                  ("(\\(\\s-+\\))"  . "()")
+                  ("(!\\(\\s-+\\)"  . "(!")
+                  ("| !\\(\\s-+\\)" . "| !")
+                  ("& !\\(\\s-+\\)" . "& !")
+                  ("~\\(\\s-+\\)"   . "~")
+                  ("@\\(\\s-+\\)("  . "@(")
+                  ("\\bif("        . "if (")
+                  ("\\bcase("      . "case (")
+                  ("\\bforever("   . "forever (")
+                  ("\\brepeat("    . "repeat (")
+                  ("\\bwhile("     . "while (")
+                  ("\\bwait("      . "wait (")
+                  ("\\bfor("       . "for (")
+                  ("\\b$display (" . "$display(")
+                  ("\\balways@"    . "always @")
+                  ("\\balways_ff@" . "always_ff @")
+                  ;; FIXME: disable in module declaration
+                  ("\\(reg\\|logic\\|wire\\|bit\\|input\\|output\\|inout\\)\\[" . "\\1 ["))))
+        (message "Refactoring of alignment is complete.")))
+
+    ;; extended version of `hydra-refactoring/body'
+    (defhydra hydra-verilog-refactoring (:color pink :hint nil)
+      "
+^^     Alignment                            ^^^^Open Hydra
+^^------------------------------------------^^^^-----------
+  _p_: ports of module                      _r_/_v_: refactoring
+  _i_: module instance
+  _d_: variables in region
+  _a_: refactor alignment (region/buffer)
+"
+      ("p" verilog-ports-alignment-when-declaring-module)
+      ("i" verilog-ports-alignmet-for-module-instance)
+      ("d" verilog-alignment-of-variables-declaration-in-region)
+      ("a" verilog-refactoring-of-alignment)
+
+      ("r" hydra-refactoring/body :color teal)
+      ("v" hydra-refactoring/body :color teal)
+
+      ("q" nil "cancel" :color blue))
 
 ;;; hideshow
     (with-eval-after-load 'hideshow

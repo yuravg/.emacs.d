@@ -33,6 +33,7 @@
 ;;    Table Recalculation
 ;;    Table Field Marking
 ;;  Org Entities
+;;  Org Statistics cookies
 ;;  Org Babel
 ;;  Org Babel Tangle
 ;;    Diagrams
@@ -1470,6 +1471,21 @@ returned value `entity-name' will be nil."
     ;; Run `org-self-insert-command' only if `modi/org-insert-org-entity-maybe'
     ;; returns nil.
     (advice-add 'org-self-insert-command :before-until #'modi/org-insert-org-entity-maybe)))
+
+;;; Org Statistics cookies
+;; Update org statistics cookies before saving the buffer
+(defun yura/org-update-statistics-cookies-current-buffer ()
+  "Execute `org-update-statistics-cookies' for the entire current buffer."
+  (interactive)
+  (let ((current-prefix-arg  '(4)))
+    (org-update-statistics-cookies t)))
+
+(defun yura/org-update-statistics-cookies-before-save ()
+  "Execute `yura/org-update-statistics-cookies-current-buffer' just before saving the current file."
+  (add-hook 'before-save-hook #'yura/org-update-statistics-cookies-current-buffer nil :local))
+(add-hook 'org-mode-hook #'yura/org-update-statistics-cookies-before-save)
+
+(defalias 'ou 'org-update-statistics-cookies)
 
 ;;; Org Babel
 (use-package ob

@@ -38,6 +38,8 @@
 ;;  Fill/unfill
 ;;  Replace identical strings with incremental number suffixes
 ;;  Delete Blank Lines
+;;  Delete double spaces
+;;  Delete double blank lines
 ;;  Space Adjustment After Word Kills
 ;;  Operate on Region or Whole Buffer
 ;;  Mark Management
@@ -1149,6 +1151,40 @@ Note that the selected region cannot contain any spaces."
       (flush-lines "^[[:blank:]]*$" (region-beginning) (region-end)))
     do-not-run-orig-fn))
 (advice-add 'delete-blank-lines :before-until #'modi/delete-blank-lines-in-region)
+
+;;; Delete double spaces
+(defun delete-double-spaces-in-region-or-line ()
+  "Delete double spaces in the selected region or in the current line.
+
+If a region is selected, then double spaces between BEGIN END will be deleted.
+If no region is selected, double spaces in the current line will be deleted."
+  (interactive)
+  (let ((beg (if (use-region-p) (region-beginning) (line-beginning-position)))
+        (end (if (use-region-p) (region-end) (line-end-position))))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region beg end)
+        (goto-char (point-min))
+        (while (re-search-forward "\\s-+" nil :noerror)
+          (replace-match " "))))
+    (message "Double spaces removal is complete.")))
+(defalias 'dd 'delete-double-spaces-in-region-or-line)
+
+;;; Delete double blank lines
+(defun delete-double-blank-lines-in-region-or-buffer ()
+  "Delete double blank lines.
+
+If a region is selected, delete the double blank line between BEGIN end.
+If no region is selected, delete the double blank line in the entire current buffer."
+  (interactive)
+  (let ((beg (if (use-region-p) (region-beginning) (point-min)))
+        (end (if (use-region-p) (region-end) (point-max))))
+    (save-excursion
+      (goto-char beg)
+      (while (re-search-forward "\n\n\n+" end :noerror)
+        (replace-match "\n\n")))
+    (message "Double blank lines removal is complete.")))
+(defalias 'ddl 'delete-double-blank-lines-in-region-or-buffer)
 
 ;;; Space Adjustment After Word Kills
 (defun modi/just-one-space-post-kill-word (&rest _)

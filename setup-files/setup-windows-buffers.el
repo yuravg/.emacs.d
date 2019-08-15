@@ -8,6 +8,7 @@
 ;;  Winner Mode
 ;;  Uniquify
 ;;  Recentf
+;;  Find .dir-locals.el
 ;;  Duplicate current window
 ;;  Insert file name
 ;;  Windmove
@@ -78,6 +79,13 @@
     (recentf-mode 1)
     (setq recentf-max-saved-items 2000)
     (setq recentf-max-menu-items 80)))
+
+;;; Find .dir-locals.el
+(defun find-file-dir-locals ()
+  "Find the '.dir-locals.el' file in the local directory.
+If the file does not exist it will be created."
+  (interactive)
+  (find-file "./.dir-locals.el"))
 
 ;;; Duplicate current window
 (defun duplicate-current-window-delete-other ()

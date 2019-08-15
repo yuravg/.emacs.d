@@ -8,6 +8,7 @@
 ;;  Winner Mode
 ;;  Uniquify
 ;;  Recentf
+;;  Insert file name
 ;;  Windmove
 ;;  Reopen Killed File
 ;;  Transpose Frame
@@ -76,6 +77,38 @@
     (recentf-mode 1)
     (setq recentf-max-saved-items 2000)
     (setq recentf-max-menu-items 80)))
+
+;;; Insert file name
+;; https://www.emacswiki.org/emacs/InsertFileName
+(defun insert-file-name (filename &optional args)
+  "Insert name of file FILENAME into buffer after point.
+
+  Prefixed with \\[universal-argument], expand the file name to
+  its fully canocalized path.  See `expand-file-name'.
+
+  Prefixed with \\[negative-argument], use relative path to file
+  name from current directory, `default-directory'.  See
+  `file-relative-name'.
+
+  The default with no prefix is to insert the file name exactly as
+  it appears in the minibuffer prompt."
+  ;; Based on insert-file in Emacs -- ashawley 20080926
+  (interactive "*fInsert file name: \nP")
+  (cond ((eq '- args)
+         (insert (file-relative-name filename)))
+        ((not (null args))
+         (insert (expand-file-name filename)))
+        (t
+         (insert filename))))
+
+(defun insert-current-file-name (full-path)
+  "Insert name of the current buffer after point.
+
+Prefixed FULL-PATH with \\[universal-argument], expand the file name to its fully path."
+  (interactive "P")
+  (if full-path
+      (insert (buffer-file-name (window-buffer (minibuffer-selected-window))))
+    (insert (buffer-name))))
 
 ;;; Windmove
 (use-package windmove

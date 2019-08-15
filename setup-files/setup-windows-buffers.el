@@ -29,6 +29,7 @@
 ;;  One Window Toggle
 ;;  Kill/Bury Buffer
 ;;  Other Window/Buffer
+;;  Resize frame
 ;;  *Messages* Auto-tail
 ;;  Bindings
 ;;    Read-only Buffer Bindings
@@ -735,6 +736,19 @@ Scroll other window, up/down lines: _p_/_n_: one  _C-p_/_C-n_: ten  _M-p_/_M-p_:
   ("q" nil "cancel" :color blue))
 (bind-keys :map modi-mode-map ("C-c C-'" . hydra-scroll-other-window/body))
 
+;;; Resize frame
+(defun yura/resize-frame ()
+  "Resize the current frame to the next size.
+
+Size list: default, maximized, full both, full height, full width."
+  (interactive)
+  (let* ((modes '(nil maximized fullboth fullheight fullwidth))
+         (cm (cdr (assoc 'fullscreen (frame-parameters))))
+         (next (cadr (member cm modes))))
+    (modify-frame-parameters
+     (selected-frame)
+     (list (cons 'fullscreen next)))))
+
 ;;; *Messages* Auto-tail
 ;; Improved upon http://stackoverflow.com/a/4685005/1219634
 (defun modi/messages-auto-tail (&rest _)
@@ -779,6 +793,7 @@ Scroll other window, up/down lines: _p_/_n_: one  _C-p_/_C-n_: ten  _M-p_/_M-p_:
  :map modi-mode-map
  ("C-'" . yura/other-window-bufer)
  ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'
+ ("<f12>" . yura/resize-frame)
  ("C-x 1" . modi/toggle-one-window) ;Default binding to `delete-other-windows'
  ("C-x <delete>" . modi/delete-current-buffer-file) ;Default binding to `backward-kill-sentence'
  ("C-x C-p" . modi/copy-buffer-file-name) ;Default binding to `mark-page'

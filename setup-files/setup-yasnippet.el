@@ -70,6 +70,15 @@ Example: My Figure → my_figure"
       ("?" yas-describe-tables)
       ("q" nil "cancel" :color blue))
 
+    (defun yura/yas-recompile-and-reload ()
+      "Recompile and reload YASnippet.\n
+Execute commands: `yas-recompile-all', `yas-reload-all'."
+      (interactive)
+      (progn
+        (yas-recompile-all)
+        (yas-reload-all)
+        (message "Yasnippet has been recompiled and reloaded")))
+
     ;; https://www.emacswiki.org/emacs/Yasnippet
     ;; Completing point by some yasnippet key
     (defun yas-ido-expand ()

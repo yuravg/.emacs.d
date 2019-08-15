@@ -19,6 +19,7 @@
 ;;    Align repeat
 ;;    Change `align-regexp' behaviour
 ;;  Indentation
+;;  Refactoring
 ;;  Eval and replace last sexp
 ;;  Insert current date
 ;;  My modified basic functions
@@ -501,6 +502,47 @@ Then execute `indent-region'."
         (mark-paragraph arg)
         (indent-region (region-beginning) (region-end))))))
 (defalias 'ip 'yura/indent-paragraph-region)
+
+;;; Refactoring
+(defun remove-spaces-around-brackets ()
+  "Remove spaces around brackets.
+
+Remove space for selected region or for whole buffer, if region don't selected."
+  (interactive)
+  (save-excursion
+    (let ((beg (if (use-region-p) (region-beginning) (point-min)))
+          (end (if (use-region-p) (region-end) (point-max))))
+      (mapc (lambda (pair)
+              (let ((in-expr (car pair))
+                    (out-expr (cdr pair)))
+                (goto-char beg)
+                (while (re-search-forward in-expr end :noerror)
+                  (replace-match out-expr))))
+            '(("(\\(\\s-+\\)"  . "(")
+              ("\\(\\s-+\\))"  . ")")
+              ("{\\(\\s-+\\)"  . "{")
+              ("\\(\\s-+\\)}"  . "}")
+              ("\\(\\s-+\\)}"  . "}")
+              ("\\(\\s-+\\)]"  . "]")
+              ("\\[\\(\\s-+\\)" . "[")
+              ("(\\(\\s-+\\))" . "()")
+              ("{\\(\\s-+\\)}" . "{}"))))
+    (message "Removal of spaces near the brackets is complete.")))
+
+(defun remove-spaces-with-newline-before-brace ()
+  "Remove whitespace characters with a new line before the brace.
+
+Remove space for selected region or for whole buffer, if region don't selected."
+  (interactive)
+  (save-excursion
+    (let ((beg (if (use-region-p) (region-beginning) (point-min)))
+          (end (if (use-region-p) (region-end) (point-max)))
+          (in-expr "\\(\\s-*\\Ca+\\)+\\s-*{")
+          (out-expr " {"))
+      (goto-char beg)
+      (while (re-search-forward in-expr end :noerror)
+        (replace-match out-expr)))
+    (message "Removal of spaces with new line is complete.")))
 
 ;;; Eval and replace last sexp
 ;; http://stackoverflow.com/a/3035574/1219634

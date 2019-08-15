@@ -11,6 +11,7 @@
 ;;  Find .dir-locals.el
 ;;  Duplicate current window
 ;;  Insert file name
+;;  Switch/revert file/buffer coding system
 ;;  Windmove
 ;;  Reopen Killed File
 ;;  Transpose Frame
@@ -126,6 +127,85 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
   (if full-path
       (insert (buffer-file-name (window-buffer (minibuffer-selected-window))))
     (insert (buffer-name))))
+
+;;; Switch/revert file/buffer coding system
+;; http://www.emacswiki.org/emacs/EndOfLineTips
+(defun unix-file ()
+  "Change the current buffer to Latin 1 with Unix line-ends."
+  (interactive)
+  (set-buffer-file-coding-system 'iso-latin-1-unix t))
+(defun dos-file ()
+  "Change the current buffer to Latin 1 with DOS line-ends."
+  (interactive)
+  (set-buffer-file-coding-system 'iso-latin-1-dos t))
+(defun mac-file ()
+  "Change the current buffer to Latin 1 with Mac line-ends."
+  (interactive)
+  (set-buffer-file-coding-system 'iso-latin-1-mac t))
+
+(defun revert-buffer-with-coding-system-no-confirm (coding-system)
+  "Change `coding-system-for-read' with CODING-SYSTEM and `revert-buffer' without confirmation."
+  (interactive "zCoding system for visited file (default nil): ")
+  (let ((coding-system-for-read coding-system))
+    (revert-buffer :noconfirm t)))
+
+(defun revert-buffer-with-cp1251 ()
+  "Revert buffer with coding: cp1251."
+  (interactive)
+  (progn
+    (revert-buffer-with-coding-system-no-confirm 'cp1251)
+    (message "Buffer reverted with: cp1251")))
+
+(defun revert-buffer-with-utf8 ()
+  "Revert buffer with coding: utf-8."
+  (interactive)
+  (progn
+    (revert-buffer-with-coding-system-no-confirm 'utf-8)
+    (message "Buffer reverted with: utf-8")))
+
+(defun revert-buffer-with-utf8-dos ()
+  "Revert buffer with coding: utf-8-dos."
+  (interactive)
+  (progn
+    (revert-buffer-with-coding-system-no-confirm 'utf-8-dos)
+    (message "Buffer reverted with: utf-8-dos")))
+
+(defun revert-buffer-with-utf8-unix ()
+  "Revert buffer with coding: utf-8-unix."
+  (interactive)
+  (progn
+    (revert-buffer-with-coding-system-no-confirm 'utf-8-unix)
+    (message "Buffer reverted with: utf-8-unix")))
+
+(defun recode-region-to-utf8-from-cp1251 (start end)
+  "Call `recode-region' to utf-8 from cp1251, between points START END."
+  (interactive "r")
+  (progn
+    (recode-region start end 'cp1251 'utf-8)
+    (message "Region recode to: utf-8")))
+
+(defun recode-region-to-cp1251-from-utf8 (start end)
+  "Call `recode-region' to cp1251 from utf-8, between points START END."
+  (interactive "r")
+  (progn
+    (recode-region start end 'utf-8 'cp1251)
+    (message "Region recode to: cp1251")))
+
+(defun revert-and-recode-buffer-to-utf8-from-cp1251 ()
+  "Revert and recode current buffer to utf-8 form cp1251."
+  (interactive)
+  (progn
+    (revert-buffer-with-coding-system-no-confirm 'utf-8)
+    (recode-region-to-utf8-from-cp1251 (point-min) (point-max))
+    (message "Buffer reverted and recode to: utf-8")))
+
+(defun revert-and-recode-buffer-to-cp1251-from-utf8 ()
+  "Revert and recode current buffer to cp1251 from utf-8."
+  (interactive)
+  (progn
+    (revert-buffer-with-coding-system-no-confirm 'cp1251)
+    (recode-region-to-cp1251-from-utf8 (point-min) (point-max))
+    (message "Buffer reverted and recode to: cp1251")))
 
 ;;; Windmove
 (use-package windmove

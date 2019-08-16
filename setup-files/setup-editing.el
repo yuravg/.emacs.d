@@ -9,6 +9,7 @@
 ;;  Clipboard
 ;;  Delete Selection
 ;;  Show Paren
+;;  Select line
 ;;  Duplicate current line or region
 ;;  Managing white spaces and empty newlines
 ;;  Untabify
@@ -167,6 +168,21 @@ Additional control:
 ;; Allow one to see matching pairs of parentheses
 ;; When point is on one of the paired characters, highlight the other
 (show-paren-mode 1)
+
+;;; Select line
+;; http://ergoemacs.org/emacs/modernization_mark-word.html, Version 2017-11-01
+(defun select-line ()
+  "Select current line.
+
+If region is active, extend selection downward by line."
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (forward-line 1)
+        (end-of-line))
+    (progn
+      (end-of-line)
+      (set-mark (line-beginning-position)))))
 
 ;;; Duplicate current line or region
 ;; http://tuxicity.se/emacs/elisp/2010/03/11/duplicate-current-line-or-region-in-emacs.html

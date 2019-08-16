@@ -825,7 +825,7 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
 ;;;; Other Bindings
 (bind-keys
  :map modi-mode-map
- ("C-c C-m" . execute-extended-command)
+ ("C-c C-m" . execute-extended-command) ;using 'C-c C-m' is more handy than 'M-x'(for me)
  ("C-'" . yura/other-window-bufer)
  ("C-x M-f" . find-name-dired)
  ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'

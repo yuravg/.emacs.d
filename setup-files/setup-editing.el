@@ -11,6 +11,7 @@
 ;;  Show Paren
 ;;  Select line
 ;;  Duplicate current line or region
+;;  Kill region or word
 ;;  Managing white spaces and empty newlines
 ;;  Untabify
 ;;  Align
@@ -206,6 +207,17 @@ there's a region, all lines that region covers will be duplicated."
         (insert region)
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
+
+;;; Kill region or word
+(defun kill-region-or-word (&optional region)
+  "Kill the active region or one word backward.
+
+If a REGION is selected execute `kill-region'.
+Else, execute `backward-kill-word'."
+  (interactive "p")
+  (if (use-region-p)
+      (kill-region (region-beginning) (region-end))
+    (backward-kill-word 1)))
 
 ;;; Managing white spaces and empty newlines
 (setq require-final-newline t)

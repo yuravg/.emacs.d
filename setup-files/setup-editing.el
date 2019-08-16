@@ -12,6 +12,7 @@
 ;;  Select line
 ;;  Duplicate current line or region
 ;;  Kill region or word
+;;  Move region
 ;;  Managing white spaces and empty newlines
 ;;  Untabify
 ;;  Align
@@ -218,6 +219,29 @@ Else, execute `backward-kill-word'."
   (if (use-region-p)
       (kill-region (region-beginning) (region-end))
     (backward-kill-word 1)))
+
+;;; Move region
+(defun yura/indent-rigidly-tab-width (&optional arg region)
+  "Indent the region(if selected REGION) or current line by `tab-width'.
+
+The indent direction based on ARG is described below.
+If called without prefix or positive \\[universal-argument] is executed indent forward.
+With negative \\[universal-argument] is executed indent backward."
+  (interactive "p\nP")
+  (let ((deactivate-mark)
+        (shift (if (or (not arg)
+                       (> (prefix-numeric-value arg) 0))
+                   tab-width
+                 (- tab-width))))
+    (if (use-region-p)
+        (indent-rigidly (region-beginning) (region-end) shift)
+      (save-excursion
+        (indent-rigidly (line-beginning-position) (line-end-position) shift)))))
+
+(use-package modi-mode
+  :chords (:map modi-mode-map
+           ("RR" . yura/indent-rigidly-tab-width)                             ;indent to the right
+           ("LL" . (lambda () (interactive) (yura/indent-rigidly-tab-width -1))))) ;indent to the left
 
 ;;; Managing white spaces and empty newlines
 (setq require-final-newline t)

@@ -40,6 +40,20 @@ Prefixed with \\[universal-argument], open single magit dired in the next window
        ("^"                . dired-single-up-directory)))))
 
 (use-package dired
+  :after (counsel)
+  :bind (:map dired-mode-map
+         ("C-M-j" . yura/dired-counsel-find-file))
+  :config
+  (defun yura/dired-counsel-find-file ()
+    "Move point to the end of line and execute `counsel-find-file'.
+
+This command is handy to open file form `dired-mode'."
+    (interactive)
+    (progn
+      (move-end-of-line nil)
+      (counsel-find-file))))
+
+(use-package dired
   :bind (:map dired-mode-map
          ("C-j" . dired-find-file)
          ("M-h" . dired-omit-mode)

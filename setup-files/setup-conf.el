@@ -4,10 +4,6 @@
 
 (use-package conf-mode
   :mode (("\\.conf\\'" . conf-space-mode)
-         ("\\.gitignore\\'" . conf-space-mode)
-         ("\\.gitattributes\\'" . conf-space-mode)
-         ("\\.gitconfig\\'" . conf-space-mode)
-         ("\\.gitmodules\\'" . conf-space-mode)
          ("\\.dat\\'" . conf-space-mode)
          ("\\.service\\'" . conf-space-mode)
          ("\\.setup.*\\'" . conf-space-mode))

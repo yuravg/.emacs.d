@@ -154,6 +154,13 @@ It is assumed that the author has only one or two names."
       (car args))                       ;'(REV AUTHOR-ABBR DATE)
     (advice-add 'magit-log-format-margin :filter-args #'modi/magit-log--abbreviate-author)))
 
+;; git-modes
+;; The package 'git-modes' do not available form Melpa
+(use-package gitattributes-mode)
+(use-package gitconfig-mode)
+(use-package gitignore-mode
+  :mode (("\\.gitignore_global". gitignore-mode)))
+
 
 (provide 'setup-magit)
 

@@ -193,6 +193,7 @@ need Org version to be at least 9.x.")
     dockerfile-mode
     docker
     rg
+    gitattributes-mode gitconfig-mode gitignore-mode ;git-modes
     )
   "A list of packages to ensure are installed at launch")
 

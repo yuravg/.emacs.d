@@ -83,9 +83,9 @@ Should usage with:
                            :hint nil)
       "
 Magit:
-^^^^     Status/Log            ^^   Open Rev File              ^^   Refactor          ^^  Sync             ^^  Other
-^^^^---------------------------^^------------------------------^^---------------------^^-------------------^^--------------------------
-_s_/_g_: status                _c_: checkout file(rewrite)     _b_: branch popup     _f_: fetch popup     _W_: format patch
+^^^^     Status/Log            ^^   Open Rev File              ^^   Refactor          ^^  Sync             ^^  Other                              Other
+^^^^---------------------------^^------------------------------^^---------------------^^-------------------^^--------------------------------^^------------------
+_s_/_g_: status                _c_: checkout file(rewrite)     _b_: branch popup     _f_: fetch popup     _W_: format patch                  _m_: git-timemachine
 ^^  _l_: log current         _C-c_: find file(open new)        _r_: rebase popup     _F_: pull popup      _$_: process
 ^^  _L_: log all branches       ^^                              ^^                   _P_: push popup      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
 ^^_C-l_: log current buffer     ^^                              ^^                   ^^                   _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
@@ -112,6 +112,8 @@ _s_/_g_: status                _c_: checkout file(rewrite)     _b_: branch popup
       ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
       ("T" yura/magit-diff-refine-hunk-toggle :color red)
       ("C-f" counsel-git)
+
+      ("m" git-timemachine)
       ("q"   nil "cancel" :color blue))
 
     (use-package git-rebase

@@ -83,29 +83,22 @@ Should usage with:
                            :hint nil)
       "
 Magit:
-^^^^     Status/Log            ^^   Open Rev File              ^^   Refactor          ^^  Sync             ^^  Other                              Other
-^^^^---------------------------^^------------------------------^^---------------------^^-------------------^^--------------------------------^^------------------
-_s_/_g_: status                _c_: checkout file(rewrite)     _b_: branch popup     _f_: fetch popup     _W_: format patch                  _m_: git-timemachine
-^^  _l_: log current         _C-c_: find file(open new)        _r_: rebase popup     _F_: pull popup      _$_: process
-^^  _L_: log all branches       ^^                              ^^                   _P_: push popup      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
-^^_C-l_: log current buffer     ^^                              ^^                   ^^                   _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
-^^                              ^^                              ^^                   ^^               ^^_C-f_: find Git file
+^^^^     Status/Log                  ^^  Open Rev File                   ^^  Other                   ^^  Refine-hunk
+^^^^---------------------------------^^----------------------------------^^--------------------------^^----------------------------
+_s_/_g_: status                     _c_: checkout file(rewrite)         _W_: format patch           _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
+^^  _l_: log current              _C-c_: find file(open new)            _$_: process                _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
+_b_/_L_: log all/local branches      ^^                               _C-f_: find Git file
+^^_C-l_: log current buffer          ^^                                 _m_: git-timemachine
 "
       ("g" magit-status)
       ("s" magit-status)
       ("l" magit-log-current)
-      ("L" magit-log-all-branches)
+      ("b" magit-log-all-branches)
+      ("L" magit-log-branches)
       ("C-l" magit-log-buffer-file)
 
       ("c" magit-file-checkout)
       ("C-c" magit-find-file)
-
-      ("b" magit-branch-popup)
-      ("r" magit-rebase-popup)
-
-      ("f" magit-fetch-popup)
-      ("F" magit-pull-popup)
-      ("P" magit-push-popup)
 
       ("W" magit-format-patch)
       ("$" magit-process)
@@ -225,12 +218,12 @@ It is assumed that the author has only one or two names."
 ;;
 ;; Checkout the desired version of the file(overwrite file)
 ;;   1. Open file
-;;   2. `magit-log-buffer-file' (hydra-magit/body, 'L')
+;;   2. `magit-log-buffer-file' (hydra-magit, 'C-l')
 ;;   3. go to a desired commits
-;;   4. `magit-file-checkout' (hydra-magit/body, 'c')
+;;   4. `magit-file-checkout' (hydra-magit, 'c')
 ;;
 ;; Open the desired version of the file in a new buffer
 ;;   1. Open file
-;;   2. `magit-log-buffer-file' (hydra-magit/body, 'L')
+;;   2. `magit-log-buffer-file' (hydra-magit, 'C-l')
 ;;   3. go to a desired commits
-;;   4. `magit-find-file' (hydra-magit/body, 'S')
+;;   4. `magit-find-file' (hydra-magit/body, 'C-c')

@@ -420,7 +420,7 @@ Font Size:     _C--_/_-_ Decrease     _C-=_/_=_ Increase     _C-0_/_0_ Reset    
   (dolist (hook modi/visual-line-mode-hooks)
     (remove-hook hook #'visual-line-mode)))
 
-(modi/turn-on-visual-line-mode)
+;; (modi/turn-on-visual-line-mode)
 
 ;; Turn on line wrapping fringe indicators in Visual Line Mode
 (setq-default visual-line-fringe-indicators '(left-curly-arrow

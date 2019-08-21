@@ -156,7 +156,31 @@ It is assumed that the author has only one or two names."
       (car args))                       ;'(REV AUTHOR-ABBR DATE)
     (advice-add 'magit-log-format-margin :filter-args #'modi/magit-log--abbreviate-author)))
 
-(use-package git-timemachine)
+(use-package git-timemachine
+  :config
+  (progn
+    (defun yura/git-timemachine-show-commit ()
+      "Show commit for current revision, without changing the current window."
+      (interactive)
+      (git-timemachine-show-commit)
+      (other-window -1))
+    (defun yura/git-timemachine-show-previous-revision-commit ()
+      "Show previous revision and commit of file, without changing the current window."
+      (interactive)
+      (git-timemachine-show-previous-revision)
+      (yura/git-timemachine-show-commit))
+    (defun yura/git-timemachine-show-next-revision-commit ()
+      "Show next revision and commit of file, without changing the current window."
+      (interactive)
+      (git-timemachine-show-next-revision)
+      (yura/git-timemachine-show-commit))
+
+    (bind-keys
+     :map git-timemachine-mode-map
+     ("c" . yura/git-timemachine-show-commit)
+     ("C" . git-timemachine-show-commit)
+     ("N" . yura/git-timemachine-show-next-revision-commit)
+     ("P" . yura/git-timemachine-show-previous-revision-commit))))
 ;; Default key binding in `git-timemachine'
 ;; |---------+-------------------------------------------------------------------------|
 ;; | Binding | Command                                                                 |

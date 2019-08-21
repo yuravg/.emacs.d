@@ -10,7 +10,7 @@
          ("<f6>"  . modi/deft-dwim))
   :config
   (progn
-    (setq deft-directory (file-name-as-directory (expand-file-name "notes" org-directory)))
+    (setq deft-directory (file-name-as-directory (expand-file-name org-directory)))
     (setq deft-recursive t)
 
     (setq deft-recursive-ignore-dir-regexp

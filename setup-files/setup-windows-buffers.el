@@ -194,6 +194,14 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
     (recode-region start end 'utf-8 'cp1251)
     (message "Region recode to: cp1251")))
 
+(defun recode-region-to-utf8-from-cp1252 (start end)
+  "Call `recode-region' to utf-8 from cp1252, between points START END.
+
+Usage: execute this command after copying the Russian text to the utf-8 buffer."
+  (interactive "r")
+  (recode-region start end 'utf-8 'cp1252)
+  (recode-region start end 'cp1251 'utf-8))
+
 (defun revert-and-recode-buffer-to-utf8-from-cp1251 ()
   "Revert and recode current buffer to utf-8 form cp1251."
   (interactive)

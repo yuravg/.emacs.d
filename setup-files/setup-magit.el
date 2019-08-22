@@ -85,10 +85,11 @@ Should usage with:
 Magit:
 ^^^^     Status/Log                  ^^  Open Rev File                   ^^  Other                   ^^  Refine-hunk
 ^^^^---------------------------------^^----------------------------------^^--------------------------^^----------------------------
-_s_/_g_: status                     _c_: checkout file(rewrite)         _W_: format patch           _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
-^^  _l_: log current              _C-c_: find file(open new)            _$_: process                _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
-_b_/_L_: log all/local branches      ^^                               _C-f_: find Git file
-^^_C-l_: log current buffer          ^^                                 _m_: git-timemachine
+_s_/_g_: status                     _c_: checkout file(rewrite)         _W_: patch                  _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
+^^  _l_: log current              _C-c_: find file(open new)            _!_: run                    _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
+_b_/_L_: log all/local branches      ^^                                 _$_: process buffer
+^^_C-l_: log current buffer          ^^                               _C-f_: find Git file
+^^^^                                 ^^                                 _m_: git-timemachine
 "
       ("g" magit-status)
       ("s" magit-status)
@@ -100,8 +101,9 @@ _b_/_L_: log all/local branches      ^^                               _C-f_: fin
       ("c" magit-file-checkout)
       ("C-c" magit-find-file)
 
-      ("W" magit-format-patch)
-      ("$" magit-process)
+      ("W" magit-patch)
+      ("!" magit-run)
+      ("$" magit-process-buffer)
       ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
       ("T" yura/magit-diff-refine-hunk-toggle :color red)
       ("C-f" counsel-git)

@@ -286,7 +286,6 @@ If ARG is \\[universal-argument] \\[universal-argument] \\[universal-argument] \
         (16  (counsel-rg nil (file-name-directory buffer-file-name) ""))
         (64  #'lambda () (let ((dir (read-directory-name "Starting directory: " nil default-directory t)))
                       (counsel-rg nil dir "")))
-        ;; FIXME: execution at my ~/.emacs.d/ completes with an incorrect result
         (256 #'lambda () (let ((dir (read-directory-name "Starting directory: " nil default-directory t)))
                       (counsel-rg nil dir " -uuu")))
         (t (counsel-grep-or-swiper))))

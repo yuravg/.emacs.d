@@ -530,10 +530,10 @@ Delete spaces for selected region or for entire buffer, if no region is selected
               ("{\\(\\s-+\\)}" . "{}"))))
     (message "Deleting spaces completed.")))
 
-(defun remove-spaces-with-newline-before-brace ()
-  "Remove whitespace characters with a new line before the brace.
+(defun delete-spaces-with-newline-before-brace ()
+  "Delete spaces with a new line characters before the brace.
 
-Remove space for selected region or for whole buffer, if region don't selected."
+Delete for the selected region or for the entire buffer if no region is selected."
   (interactive)
   (save-excursion
     (let ((beg (if (use-region-p) (region-beginning) (point-min)))
@@ -543,7 +543,7 @@ Remove space for selected region or for whole buffer, if region don't selected."
       (goto-char beg)
       (while (re-search-forward in-expr end :noerror)
         (replace-match out-expr)))
-    (message "Removal of spaces with new line is complete.")))
+    (message "Deleting completed.")))
 
 ;; https://www.emacswiki.org/emacs/SmartTabs
 (defun yura/refactoring-tabs-and-spaces ()

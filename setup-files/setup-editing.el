@@ -505,10 +505,10 @@ Then execute `indent-region'."
 (defalias 'ip 'yura/indent-paragraph-region)
 
 ;;; Refactoring
-(defun remove-spaces-around-brackets ()
-  "Remove spaces around brackets.
+(defun delete-spaces-near-brackets ()
+  "Delete spaces near brackets.
 
-Remove space for selected region or for whole buffer, if region don't selected."
+Delete spaces for selected region or for entire buffer, if no region is selected."
   (interactive)
   (save-excursion
     (let ((beg (if (use-region-p) (region-beginning) (point-min)))
@@ -528,7 +528,7 @@ Remove space for selected region or for whole buffer, if region don't selected."
               ("\\[\\(\\s-+\\)" . "[")
               ("(\\(\\s-+\\))" . "()")
               ("{\\(\\s-+\\)}" . "{}"))))
-    (message "Removal of spaces near the brackets is complete.")))
+    (message "Deleting spaces completed.")))
 
 (defun remove-spaces-with-newline-before-brace ()
   "Remove whitespace characters with a new line before the brace.
@@ -583,7 +583,7 @@ another indentation changed to spaces."
 "
   ("i" yura/indent-paragraph-region)
   ("t" yura/refactoring-tabs-and-spaces)
-  ("b" yura/remove-spaces-around-brackets)
+  ("b" delete-spaces-near-brackets)
 
   ("a" align-regexp)
   ("A" align-regexp-repeat)

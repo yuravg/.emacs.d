@@ -94,7 +94,7 @@
                              (append '("rg")
                                      modi/rg-arguments
                                      '("--no-heading" ;No file names above matching content
-                                       ))
+                                       "--color never"))
                              " ")
                   " %s ."            ;This MUST be %s, not %S
                                         ;https://github.com/abo-abo/swiper/issues/427

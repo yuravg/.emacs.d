@@ -90,6 +90,8 @@ Execute commands: `yas-recompile-all', `yas-reload-all'."
         (yas-reload-all)
         (message "Yasnippet has been recompiled and reloaded")))
 
+    (use-package ivy-yasnippet)
+
     ;; https://www.emacswiki.org/emacs/Yasnippet
     ;; Completing point by some yasnippet key
     (defun yas-ido-expand ()

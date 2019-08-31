@@ -170,6 +170,7 @@ need Org version to be at least 9.x.")
     ;; YuraVG:
     projectile ; I don't use Projectile fork
     yasnippet-snippets
+    ivy-yasnippet
     ;; use ido for:
     ;; - yasnippet: `yas-ido-expand'
     ;; - magit: `magit-branch-checkout', `magit-log-buffer-file'

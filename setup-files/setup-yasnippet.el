@@ -69,10 +69,12 @@ Yasnippet:
 ^^--------------------------^^---------------------------------------------------------
   _i_: insert              _v_: visit snippet file         _C_: compile and reload all
   _I_: insert ido          _n_: new                        _r_: reload all
-  _x_: expand              _?_: list snippets
+_C-i_: ivy                 _?_: list snippets
+  _x_: expand
 "
       ("i" yas-insert-snippet)
       ("I" yas-ido-expand)
+      ("C-i" ivy-yasnippet)
       ("n" yas-new-snippet)
       ("v" yas-visit-snippet-file)
       ("r" yas-reload-all)
@@ -90,7 +92,11 @@ Execute commands: `yas-recompile-all', `yas-reload-all'."
         (yas-reload-all)
         (message "Yasnippet has been recompiled and reloaded")))
 
-    (use-package ivy-yasnippet)
+    (use-package ivy-yasnippet
+      :config
+      (progn
+        (setq ivy-yasnippet-expand-keys 'always) ;default is 'smart
+        (defalias 'iy 'ivy-yasnippet)))
 
     ;; https://www.emacswiki.org/emacs/Yasnippet
     ;; Completing point by some yasnippet key

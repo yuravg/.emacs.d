@@ -505,7 +505,8 @@ Then execute `indent-region'."
 (defalias 'ip 'yura/indent-paragraph-region)
 (use-package modi-mode
   :chords (:map modi-mode-map
-           ("pp" . yura/indent-paragraph-region)))
+           ("jk" . yura/indent-paragraph-region)
+           ("PP" . yura/indent-paragraph-region)))
 
 ;;; Refactoring
 (defun delete-spaces-near-brackets ()

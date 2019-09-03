@@ -136,15 +136,19 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
 (defun unix-file ()
   "Change the current buffer to Latin 1 with Unix line-ends."
   (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-unix t))
+  (set-buffer-file-coding-system 'iso-latin-1-unix :force))
 (defun dos-file ()
   "Change the current buffer to Latin 1 with DOS line-ends."
   (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-dos t))
+  (set-buffer-file-coding-system 'iso-latin-1-dos :forece))
 (defun mac-file ()
   "Change the current buffer to Latin 1 with Mac line-ends."
   (interactive)
-  (set-buffer-file-coding-system 'iso-latin-1-mac t))
+  (set-buffer-file-coding-system 'iso-latin-1-mac :force))
+(defun utf-8-unix-file ()
+  "Set the file coding-system of the current buffer to 'utf-8-unix."
+  (interactive)
+  (set-buffer-file-coding-system 'utf-8-unix :force))
 
 (defun revert-buffer-with-coding-system-no-confirm (coding-system)
   "Change `coding-system-for-read' with CODING-SYSTEM and `revert-buffer' without confirmation."

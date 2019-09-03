@@ -50,6 +50,11 @@
 ;;      (setenv "GTAGSCONF" (concat (getenv "HOME") "/" ".globalrc"))
 ;;      (setenv "GTAGSLABEL" "new-ctags")
 
+(if (not (eq system-type 'windows-nt))
+    (progn
+      (setenv "GTAGSCONF" (concat (getenv "HOME") "/" ".globalrc"))
+      (setenv "GTAGSLABEL" "new-ctags")))
+
 (when (executable-find "global")
 ;;;; ggtags
   ;; https://github.com/leoliu/ggtags:

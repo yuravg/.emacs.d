@@ -87,7 +87,7 @@ Magit:
 ^^^^---------------------------------^^----------------------------------^^--------------------------^^----------------------------
 _s_/_g_: status                     _c_: checkout file(rewrite)         _W_: patch                  _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
 ^^  _l_: log current              _C-c_: find file(open new)            _!_: run                    _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
-_b_/_L_: log all/local branches      ^^                                 _$_: process buffer
+_b_/_L_: log all/local branches     _f_: file-dispatch                  _$_: process buffer
 ^^_C-l_: log current buffer          ^^                               _C-f_: find Git file
 ^^^^                                 ^^                                 _m_: git-timemachine
 "
@@ -100,6 +100,7 @@ _b_/_L_: log all/local branches      ^^                                 _$_: pro
 
       ("c" magit-file-checkout)
       ("C-c" magit-find-file)
+      ("f" magit-file-dispatch)
 
       ("W" magit-patch)
       ("!" magit-run)

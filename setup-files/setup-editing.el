@@ -417,16 +417,25 @@ tabs explicitly."
 ;;; Align
 ;; http://stackoverflow.com/questions/6217153/aligning-or-prettifying-code-in-emacs
 ;; http://stackoverflow.com/questions/3633120/emacs-hotkey-to-align-equal-signs
-(defun modi/align-to-equals (begin end)
-  "Align region to equal signs"
-  (interactive "r")
+(defun modi/align-to-equals (&optional arg)
+  "Align region to equal signs for paragraph around point or selected region.
+
+If a region is selected then execute `align-regexp' for selected region.
+
+Otherwise paragraph around point will be marked by `mark-paragraph'
+with \\[universal-argument] passed to it as argument ARG.
+Then execute `align-regexp'."
+  (interactive "p")
   ;; align-regexp syntax:  align-regexp (beg end regexp &optional group spacing repeat)
   ;; beg and end are the begin and end of the selected region
   ;; regexp is the default 'group' for deletion/expansion
   ;; group is to specify the parenthesis group that is desired to be deleted/expanded (default=1)
   ;; spacing is the number of spaces that replaces specified parenthesis group (default=0)
   ;; repeat set to t/nil tells whether the alignment needs to be done multiple times per line (default=nil)
-  (align-regexp begin end "\\([[:blank:]]*\\)=" 1 1 nil))
+  (save-excursion
+    (if (not (use-region-p))
+        (mark-paragraph arg))
+    (align-regexp (region-beginning) (region-end) "\\([[:blank:]]*\\)=" 1 1 nil)))
 ;; To do it manually do `M-x align-regexp`, type `=` and hit Enter
 (defalias 'ar 'align-regexp)
 

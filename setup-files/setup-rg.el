@@ -176,5 +176,8 @@
      :map rg-mode-map
      ("?" . hydra-rg/body))))
 
+;; Projectile mode uses `ripgrep' by default for `projectile-ripgrep'
+(use-package ripgrep)
+
 
 (provide 'setup-rg)

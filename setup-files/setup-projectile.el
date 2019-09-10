@@ -4,6 +4,8 @@
 ;; https://github.com/bbatsov/projectile
 
 (use-package projectile
+  :bind-keymap
+  ("C-x p" . projectile-command-map)
   :bind (:map modi-mode-map
          ("C-c p" . hydra-projectile/body)
          ;; ("C-c f" . hydra-projectile/body) ; Bind to `hydra-source-code-warnings/body'

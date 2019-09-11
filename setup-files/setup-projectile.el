@@ -219,38 +219,41 @@ files in Fundamental mode."
 ^^    _d_: file curr dir    ^^      _o_: multi-occur         _K_/_s-k_: kill all buffers     _X_: cleanup non-existing    ^^    _g_: switch to Magit status of other project
 ^^    _l_: file literally   ^^    _C-s_: counsel rg          ^^^^                            _z_: cache current           ^^    _P_: switch to an open project
 ^^    _r_: recent file      _C-a_/_C-g_: counsel ag/grep     ^^^^                            ^^                           ^^    _D_: find dir
-^^  _C-f_: Git file         ^^      _w_: source code warnings
+^^  _C-f_: Git file         ^^      _w_: source code warnings^^^^                            ^^                           ^^    _4_: other window
 "
-      ("a"   projectile-ag)
-      ("b"   projectile-switch-to-buffer)
-      ("c"   projectile-invalidate-cache)
-      ("d"   projectile-find-file-in-directory)
       ("f"   projectile-find-file)
-      ("C-f" counsel-git)
       ("F"   projectile-find-file-dwim)
-      ("D"   projectile-find-dir)
-      ("E"   projectile-edit-dir-locals)
-      ("g"   modi/projectile-switch-project-magit-status)
-      ("G"   ggtags-update-tags)
-      ("i"   projectile-ibuffer)
-      ("K"   projectile-kill-buffers)
-      ("s-k" projectile-kill-buffers)
+      ("d"   projectile-find-file-in-directory)
       ("l"   modi/projectile-find-file-literally)
+      ("r"   projectile-recentf)
+      ("C-f" counsel-git)
+
+      ("a"   projectile-ag)
+      ("G"   ggtags-update-tags)
+      ("o"   projectile-multi-occur)
       ("C-s" counsel-projectile-rg)
       ("C-a" counsel-projectile-ag)
       ("C-g" counsel-projectile-grep)
-      ("m"   projectile-multi-occur)
-      ("o"   projectile-multi-occur)
-      ("p"   projectile-switch-project)
-      ("s-p" projectile-switch-project)
-      ("P"   projectile-switch-open-project)
-      ("s"   projectile-switch-project)
-      ("r"   projectile-recentf)
+      ("w"   yura/projectile-src-warning)
+
+      ("i"   projectile-ibuffer)
+      ("b"   projectile-switch-to-buffer)
+      ("K"   projectile-kill-buffers)
+      ("s-k" projectile-kill-buffers)
+
+      ("c"   projectile-invalidate-cache)
       ("x"   projectile-remove-known-project)
       ("X"   projectile-cleanup-known-projects)
       ("z"   projectile-cache-current-file)
-      ("4"   hydra-projectile-other-window/body "other window")
-      ("w"   yura/projectile-src-warning)
+
+      ("E"   projectile-edit-dir-locals)
+      ("s-p" projectile-switch-project)
+      ("p"   projectile-switch-project)
+      ("g"   modi/projectile-switch-project-magit-status)
+      ("P"   projectile-switch-open-project)
+      ("D"   projectile-find-dir)
+      ("4"   hydra-projectile-other-window/body)
+
       ("q"   nil "cancel" :color blue))
 
     (projectile-mode)))

@@ -261,6 +261,14 @@ If `major-mode' is `verilog-mode' use `ctags' only(for Windows OS only)."
  :filter (not (derived-mode-p 'emacs-lisp-mode))
  ("M-." . modi/find-tag))
 
+(use-package xref
+  :config
+  (progn
+    (bind-keys
+     :map xref--xref-buffer-mode-map
+     ("C-j" . xref-quit-and-goto-xref) ;usual way to jump
+     ("M-C-j" . xref-goto-xref))))
+
 
 (provide 'setup-tags)
 

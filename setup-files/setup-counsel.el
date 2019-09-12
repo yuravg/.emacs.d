@@ -14,6 +14,7 @@
       (bind-keys
        :map modi-mode-map
        ("M-i" . yura/counsel-grep-or-swiper)
+       ("ESC M-i" . swiper-isearch) ; Ivy 0.12.0: a faster swiper that's not line-based
        ("C-M-y" . counsel-yank-pop)
        ;; ("C-h F" . counsel-faces)       ;Overrides `Info-goto-emacs-command-node' ;C-h - bind backward-delete-char
        ;; ("C-h S" . counsel-info-lookup-symbol) ;C-h - bind backward-delete-char

@@ -149,6 +149,10 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
   "Set the file coding-system of the current buffer to 'utf-8-unix."
   (interactive)
   (set-buffer-file-coding-system 'utf-8-unix :force))
+(defun utf-8-dos-file ()
+  "Set the file coding-system of the current buffer to 'utf-8-dos."
+  (interactive)
+  (set-buffer-file-coding-system 'utf-8-dos :force))
 
 (defun revert-buffer-with-coding-system-no-confirm (coding-system)
   "Change `coding-system-for-read' with CODING-SYSTEM and `revert-buffer' without confirmation."

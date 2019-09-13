@@ -589,9 +589,9 @@ Toggling off this mode reverts everything to their original states."
       "Turn off whitespace-mode only for specific modes."
       (interactive)
       (dolist (hook modi/whitespace-mode-hooks)
-        (remove-hook hook #'whitespace-mode))))
+        (remove-hook hook #'whitespace-mode)))
 
-  (defalias 'wm 'whitespace-mode))
+    (defalias 'wm 'whitespace-mode)))
 
 ;;; Narrow/Widen
 ;; http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html

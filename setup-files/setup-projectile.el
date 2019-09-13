@@ -214,25 +214,22 @@ files in Fundamental mode."
       "Run `projectile-compile-project' without prompt.\n
 This is not a safe command, this command should only be used with trusted files."
       (interactive)
-      (switch-during-launch
-       compilation-read-command nil
-       (projectile-compile-project nil)))
+      (let ((compilation-read-command nil))
+        (projectile-compile-project nil)))
 
     (defun yura/projectile-test-project ()
       "Run `projectile-test-project' without prompt.\n
 This is not a safe command, this command should only be used with trusted files."
       (interactive)
-      (switch-during-launch
-       compilation-read-command nil
-       (projectile-test-project nil)))
+      (let ((compilation-read-command nil))
+        (projectile-test-project nil)))
 
     (defun yura/projectile-run-project ()
       "Run `projectile-run-project' without prompt.\n
 This is not a safe command, this command should only be used with trusted files."
       (interactive)
-      (switch-during-launch
-       compilation-read-command nil
-       (projectile-run-project nil)))
+      (let ((compilation-read-command nil))
+        (projectile-run-project nil)))
 
     (defhydra hydra-projectile (:color teal
                                 :hint  nil)

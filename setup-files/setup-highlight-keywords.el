@@ -4,6 +4,7 @@
 ;; Contents:
 ;;
 ;;  TO-DO
+;;  Magit
 ;;  Synopsys, Altera(Quartus) and Mentor(ModelSim/QuestaSim)
 ;;  Natural Docs
 ;;  Simulation, compilation
@@ -45,6 +46,24 @@
         nim-mode
         c-mode
         c++-mode))
+
+;;; Magit
+;; see `magit-log-propertize-keywords' (magit package, magit-log.el) for more information
+(defvar magit-log-hkeywords
+  '(("\\_<\\(squash\\|fixup\\)! "
+     0
+     'font-lock-warning-face
+     prepend)))
+(font-lock-add-keywords 'git-rebase-mode magit-log-hkeywords)
+
+;; copy-past regexpression from `magit-log-propertize-keywords'
+;; highlight for 'commit editing' buffer
+(defvar magit-log-4text-mode-hkeywords
+  '(("^\\(squash\\|fixup\\)! "
+     0
+     'font-lock-warning-face
+     prepend)))
+(font-lock-add-keywords 'text-mode magit-log-4text-mode-hkeywords)
 
 ;;; Synopsys, Altera(Quartus) and Mentor(ModelSim/QuestaSim)
 ;; <Quartus_root_dir>/version/quartus/common/tcl/auto_completion/: project.cmds, sdc.cmds, sdc_ext.cmds

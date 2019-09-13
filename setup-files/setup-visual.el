@@ -591,7 +591,18 @@ Toggling off this mode reverts everything to their original states."
       (dolist (hook modi/whitespace-mode-hooks)
         (remove-hook hook #'whitespace-mode)))
 
-    (defalias 'wm 'whitespace-mode)))
+    (defun yura/whitespace-with-newline ()
+      "Launch `whitespace-mode' extended by styles: 'face', newline-mark', 'newline'.
+
+See `whitespace-style' more information."
+      (interactive)
+      (let ((whitespace-style (append whitespace-style
+                                      '(face newline-mark newline))))
+        (whitespace-mode 'toggle)))
+
+    (defalias 'wm 'whitespace-mode)
+    (defalias 'wmn 'yura/whitespace-with-newline)
+    (defalias 'wmo 'whitespace-toggle-options)))
 
 ;;; Narrow/Widen
 ;; http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html

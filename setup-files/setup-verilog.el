@@ -877,25 +877,15 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
     (defun verilog-compile-all-files ()
       "Execute `verilog-linter-command' for current file and files in its directory and sub-directories."
       (interactive)
-      (let ((old-compilation-scroll-output compilation-scroll-output)
-            (files (list-convert-to-string
+      (let ((files (list-convert-to-string
                     (verilog-get-list-verilog-files-in-current-directory) " ")))
-        (progn (setq compilation-scroll-output nil)
-               (compile (concat verilog-linter-command " " files)))
-        (setq compilation-scroll-output old-compilation-scroll-output)))
+               (compile (concat verilog-linter-command " " files))))
 
     (defun verilog-compile-current-file ()
       "Execute `verilog-linter-command' for current file."
       (interactive)
-      (let ((old-compilation-scroll-output compilation-scroll-output)
-            (fname (file-name-nondirectory buffer-file-name))
-            (old-compilation-auto-jump-to-first-error compilation-auto-jump-to-first-error))
-        (progn
-          (setq compilation-scroll-output t)
-          (setq compilation-auto-jump-to-first-error t)
-          (compile (concat verilog-linter-command " " fname))
-          (setq compilation-scroll-output old-compilation-scroll-output
-                compilation-auto-jump-to-first-error old-compilation-auto-jump-to-first-error))))
+      (let ((fname (file-name-nondirectory buffer-file-name)))
+          (compile (concat verilog-linter-command " " fname))))
 
     (bind-keys
      :map verilog-mode-map

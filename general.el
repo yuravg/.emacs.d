@@ -13,6 +13,7 @@
 ;;  Default rg arguments
 ;;  Emacs version and git branch
 ;;  Switch/restore the buffer-local variable
+;;  Toggle logical value
 
 ;;; Emacs version check
 (defmacro >=e (version &rest body)
@@ -257,6 +258,14 @@ restore the original value of bufer-local variable after command completion."
      (setq ,variable ,value)
      ,@body
      (setq ,variable origin-value)))
+
+;;; Toggle logical value
+(defmacro toggle-logical-value (variable)
+  "Toggle logical value of a VARIABLE."
+  `(setq ,variable
+         (if (bound-and-true-p ,variable)
+             nil
+           t)))
 
 
 (provide 'general)

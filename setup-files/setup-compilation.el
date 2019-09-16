@@ -13,6 +13,13 @@
   "Truncate lines for compilation buffer.")
 
 ;;; Functions
+;;;; yura/compilation-toggle-scroll-output
+(defun yura/compilation-toggle-scroll-output ()
+  "Toggle `compilation-scroll-output' variable."
+  (interactive)
+  (toggle-logical-value compilation-scroll-output)
+  (message "Set compilation scroll: '%s'" compilation-scroll-output))
+
 ;;;; yura/compilation-toggle-auto-jump-to-first-error
 (defun yura/compilation-toggle-auto-jump-to-first-error ()
   "Toggle variable `compilation-auto-jump-to-first-error'."
@@ -136,16 +143,18 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
 (defhydra hydra-compilation (:color red
                              :hint nil)
   "
-[compile mode]
-    Toggle
+[compilation mode]
+    Toggles
 --------------------------------------
-  auto _j_ump to first error (%(if compilation-auto-jump-to-first-error t nil))
-  _t_runcate line            (%(if yura/compilation-truncate-lines t nil))
-  _h_ide compilation buffer  (%(if (not (null yura/compilation-finish-function)) t nil))
+  auto _j_ump to first error  (%(if compilation-auto-jump-to-first-error t nil))
+  _t_runcate line             (%(if yura/compilation-truncate-lines t nil))
+  _h_ide compilation buffer   (%(if (not (null yura/compilation-finish-function)) t nil))
+  _s_croll compilation output (%(if compilation-scroll-output t nil))
 "
   ("j" yura/compilation-toggle-auto-jump-to-first-error)
   ("t" yura/compilation-toggle-truncate-lines)
   ("h" (lambda () (interactive) (yura/compilation-toggle-finish-function t)))
+  ("s" yura/compilation-toggle-scroll-output)
   ("q" nil "cancel" :color blue))
 (with-eval-after-load 'compile
   (bind-key "?" #'hydra-compilation/body compilation-mode-map))

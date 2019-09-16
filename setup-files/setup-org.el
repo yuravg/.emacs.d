@@ -263,6 +263,18 @@ Toggle `yura/enable-org-agenda-file'."
         (progn (setq org-hide-emphasis-markers t)
                (message "Hide org-mode emphasis markers"))))
 
+    ;; https://emacs.stackexchange.com/questions/5387/show-org-mode-hyperlink-as-plain-text
+    (defun org-toggle-link-display ()
+      "Toggle the literal or descriptive display of links."
+      (interactive)
+      (if org-descriptive-links
+          (progn (org-remove-from-invisibility-spec '(org-link))
+                 (org-restart-font-lock)
+                 (setq org-descriptive-links nil))
+        (progn (add-to-invisibility-spec '(org-link))
+               (org-restart-font-lock)
+               (setq org-descriptive-links t))))
+
 ;;; Org Defuns
     ;; http://emacs.stackexchange.com/a/13854/115
     ;; Heading▮   --(C-c C-t)--> * TODO Heading▮

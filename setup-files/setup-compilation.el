@@ -24,9 +24,7 @@
 (defun yura/compilation-toggle-auto-jump-to-first-error ()
   "Toggle variable `compilation-auto-jump-to-first-error'."
   (interactive)
-  (setq compilation-auto-jump-to-first-error
-        (if (bound-and-true-p compilation-auto-jump-to-first-error)
-            nil t))
+  (toggle-logical-value compilation-auto-jump-to-first-error)
   (message "Auto jump to first error, set: '%s'" compilation-auto-jump-to-first-error))
 
 ;;;; yura/compilation-toggle-truncate-lines
@@ -36,9 +34,7 @@
 `yura/compilation-truncate-lines' modify `truncate-lines' after restart
 compilation buffer by `compilation-mode-hook'."
   (interactive)
-  (setq yura/compilation-truncate-lines
-        (if (bound-and-true-p yura/compilation-truncate-lines)
-            nil t))
+  (toggle-logical-value yura/compilation-truncate-lines)
   (message "Truncate line (compile mode), set: '%s'" yura/compilation-truncate-lines))
 
 ;;;; compilation-finish-function

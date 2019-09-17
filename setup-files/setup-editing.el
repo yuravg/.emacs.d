@@ -437,10 +437,11 @@ Then execute `align-regexp'."
         (mark-paragraph arg))
     (align-regexp (region-beginning) (region-end) "\\([[:blank:]]*\\)=" 1 1 nil)))
 ;; To do it manually do `M-x align-regexp`, type `=` and hit Enter
-(defalias 'ar 'align-regexp)
 
 ;; To perform align-regexp WITHOUT the default values of regexp, group, spacing, repeat
 ;; do `C-u M-x align-regexp`
+
+(defalias 'ar 'align-regexp)
 
 (defun modi/align-columns (begin end)
   "Align text columns"

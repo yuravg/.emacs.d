@@ -438,6 +438,8 @@ Then execute `align-regexp'."
     (align-regexp (region-beginning) (region-end) "\\([[:blank:]]*\\)=" 1 1 nil)))
 ;; To do it manually do `M-x align-regexp`, type `=` and hit Enter
 
+(bind-key "=" #'modi/align-to-equals region-bindings-mode-map)
+
 ;; To perform align-regexp WITHOUT the default values of regexp, group, spacing, repeat
 ;; do `C-u M-x align-regexp`
 

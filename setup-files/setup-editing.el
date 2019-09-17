@@ -1339,22 +1339,33 @@ Note that the selected region cannot contain any spaces."
     do-not-run-orig-fn))
 (advice-add 'delete-blank-lines :before-until #'modi/delete-blank-lines-in-region)
 
+;; TODO: change indentation if command prefixed with 'C-u'
+;; problem: 'Match data clobbered by buffer modification hooksInvalid face reference'
 ;;; Delete double spaces
-(defun delete-double-spaces-in-region-or-line ()
+(defun delete-double-spaces-in-region-or-line (arg)
   "Delete double spaces in the selected region or in the current line.
 
-If a region is selected, then double spaces between BEGIN END will be deleted.
-If no region is selected, double spaces in the current line will be deleted."
-  (interactive)
-  (let ((beg (if (use-region-p) (region-beginning) (line-beginning-position)))
-        (end (if (use-region-p) (region-end) (line-end-position))))
+Delete double spaces after first non-whitespace character(`back-to-indentation').\n
+If a region is selected, then double spaces in the selected region will be deleted.
+If no region is selected, double spaces in the current line will be deleted.\n
+Prefixed ARG with \\[universal-argument] also changes the indentation with `indent-region'."
+  (interactive "P")
+  (let* ((beg (if (use-region-p) (region-beginning) (line-beginning-position)))
+         (end (if (use-region-p) (region-end) (line-end-position)))
+         (lines (count-lines beg end)))
     (save-excursion
       (save-restriction
         (narrow-to-region beg end)
         (goto-char (point-min))
-        (while (re-search-forward "\\s-+" nil :noerror)
-          (replace-match " "))))
-    (message "Double spaces removal is complete.")))
+        (if arg
+            (indent-region (point-min) (point-max)))
+        (while (> lines 0)
+          (back-to-indentation)
+          (while (re-search-forward "\\s-+" (line-end-position) :noerror)
+            (replace-match " "))
+          (setq lines (1- lines))
+          (forward-line 1)))))
+  (message "Double spaces removal is complete."))
 (defalias 'dd 'delete-double-spaces-in-region-or-line)
 (bind-key "d" #'delete-double-spaces-in-region-or-line region-bindings-mode-map)
 

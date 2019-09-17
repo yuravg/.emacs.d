@@ -1356,6 +1356,7 @@ If no region is selected, double spaces in the current line will be deleted."
           (replace-match " "))))
     (message "Double spaces removal is complete.")))
 (defalias 'dd 'delete-double-spaces-in-region-or-line)
+(bind-key "d" #'delete-double-spaces-in-region-or-line region-bindings-mode-map)
 
 ;;; Delete double blank lines
 (defun delete-double-blank-lines-in-region-or-buffer ()

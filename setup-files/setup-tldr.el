@@ -3,6 +3,12 @@
 ;; TLDR
 ;; https://github.com/tldr-pages/tldr
 ;; https://github.com/kuanyui/tldr.el
+
+;; FIXME: use tldr at Windows OS
+;; for use tldr package:
+;; 1. download(and rename) `tldr-source-zip-url' to `tldr-saved-zip-path'
+;; 2. un-pack the `tldr-saved-zip-path' to tldr (at same path)
+
 (use-package tldr
   :bind (:map modi-mode-map
          ("C-x / t" . tldr))

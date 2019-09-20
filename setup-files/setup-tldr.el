@@ -8,6 +8,8 @@
          ("C-x / t" . tldr))
   :init
   (progn
+    (if (eq system-type 'windows-nt)
+        (setq tldr-enabled-categories '("common" "linux")))
     (setq tldr-saved-zip-path (expand-file-name "tldr-source.zip" modi/temporary-file-directory))
     (setq tldr-directory-path (let ((dir (file-name-as-directory (expand-file-name "tldr" modi/temporary-file-directory))))
                                 (make-directory dir :parents)

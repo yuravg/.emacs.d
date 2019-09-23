@@ -543,8 +543,8 @@ Delete spaces for selected region or for entire buffer, if no region is selected
               ("\\(\\s-+\\)]"  . "]")
               ("\\[\\(\\s-+\\)" . "[")
               ("(\\(\\s-+\\))" . "()")
-              ("{\\(\\s-+\\)}" . "{}"))))
-    (message "Deleting spaces completed.")))
+              ("{\\(\\s-+\\)}" . "{}")))))
+  (message "Deleting spaces completed."))
 (bind-key "b" #'delete-spaces-near-brackets region-bindings-mode-map)
 
 (defun delete-spaces-with-newline-before-brace ()

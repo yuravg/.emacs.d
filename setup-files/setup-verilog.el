@@ -36,7 +36,7 @@
 (use-package verilog-mode
   :load-path "elisp/verilog-mode"
   :mode (("\\.[st]*v[hp]*\\'" . verilog-mode) ;.v, .sv, .svh, .tv, .vp
-         ("\\.f\\'"         . verilog-mode)   ;verilog file lists
+         ("\\.f\\'"           . verilog-mode) ;verilog file lists
          ("\\.psl\\'"         . verilog-mode)
          ("\\.vams\\'"        . verilog-mode)
          ("\\.vinc\\'"        . verilog-mode))
@@ -879,13 +879,13 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
       (interactive)
       (let ((files (list-convert-to-string
                     (verilog-get-list-verilog-files-in-current-directory) " ")))
-               (compile (concat verilog-linter-command " " files))))
+        (compile (concat verilog-linter-command " " files))))
 
     (defun verilog-compile-current-file ()
       "Execute `verilog-linter-command' for current file."
       (interactive)
       (let ((fname (file-name-nondirectory buffer-file-name)))
-          (compile (concat verilog-linter-command " " fname))))
+        (compile (concat verilog-linter-command " " fname))))
 
     (bind-keys
      :map verilog-mode-map

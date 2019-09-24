@@ -19,7 +19,8 @@
 ;;    convert block-end comments to block names
 ;;    Do not open all `included files
 ;;    Indentation
-;;      Set indent level declaration
+;;      Verilog styles
+;;      Set indent level for module and declaration
 ;;      Set Indent level module/declaratioin
 ;;      Set verilog auto lineup
 ;;    Alignment
@@ -43,50 +44,10 @@
   :config
   (progn
 
-    ;;     (defvar modi/verilog-indent-level 2
-    ;;       "Variable to set all `verilog-mode' indents.
-    ;; Sets `verilog-indent-level', `verilog-indent-level-module',
-    ;; `verilog-indent-level-declaration',`verilog-indent-level-behavioral',
-    ;; `verilog-indent-level-directive' and `verilog-case-indent'.")
-
 ;;; Variables
-    ;; (setq verilog-indent-level modi/verilog-indent-level)             ;3 (default)
-    ;; (setq verilog-indent-level-module modi/verilog-indent-level)      ;3
-    ;; (setq verilog-indent-level-declaration modi/verilog-indent-level) ;3
-    ;; (setq verilog-indent-level-behavioral modi/verilog-indent-level)  ;3
-    ;; (setq verilog-indent-level-directive modi/verilog-indent-level)   ;1
-    ;; (setq verilog-case-indent modi/verilog-indent-level)              ;2
-
-    ;; (setq verilog-auto-newline             nil) ;t
-    ;; (setq verilog-auto-indent-on-newline   t)   ;t
-    ;; (setq verilog-tab-always-indent        t)   ;t
-    ;; (setq verilog-minimum-comment-distance 10)  ;10
-    ;; (setq verilog-indent-begin-after-if    t)   ;t
-    ;; (setq verilog-auto-lineup              nil) ;'declarations
-    ;; (setq verilog-align-ifelse             nil) ;nil
-    ;; (setq verilog-auto-endcomments         t)   ;t
-    ;; (setq verilog-tab-to-comment           nil) ;nil
-    ;; (setq verilog-date-scientific-format   t)   ;t
-
-    (setq verilog-indent-level             4
-          verilog-indent-level-module      0
-          verilog-indent-level-declaration 0
-          verilog-indent-level-behavioral  4
-          verilog-indent-level-directive   4
-          verilog-case-indent              4
-          verilog-auto-newline             nil
-          verilog-auto-indent-on-newline   nil
-          verilog-tab-always-indent        nil
-          verilog-auto-endcomments         nil
-          verilog-minimum-comment-distance 40
-          verilog-indent-begin-after-if    nil
-          verilog-auto-lineup              nil
-          verilog-align-ifelse             nil
-          verilog-tab-to-comment           nil
-          verilog-highlight-p1800-keywords nil
-          verilog-cexp-indent              4
-          enable-local-eval                t
-          verilog-date-scientific-format   t)
+    ;; This variable can be risky when used as a file-local variable
+    (setq enable-local-eval t)
+    (setq verilog-date-scientific-format t)
 
     (defconst modi/verilog-identifier-re
       (concat "\\_<\\(?:"
@@ -639,15 +600,140 @@ for all the `included files."
           (advice-remove 'verilog-read-defines #'modi/verilog-do-not-read-defines))))
 
 ;;;; Indentation
-    (defun yura/verilog-set-indentation ()
-      "Customize the indentation for `verilog-mode'."
-      (setq tab-width 4
-            indent-tabs-mode t))
-    (add-hook 'verilog-mode-hook #'yura/verilog-set-indentation)
 
-;;;;; Set indent level declaration
-    (defun yura/verilog-auto-indent-level-declaration ()
-      "Auto switch `verilog-indent-level-declaration' for different Verilog code style.
+;;;;; Verilog styles
+    ;; Add an analog of style - commands to set verilog variables to different values.
+    (defun yura/verilog-set-style-tab-4width ()
+      "Set `verilog-mode' indent with tabs and 4 `tab-width'."
+      (interactive)
+      (let ((toggle-indent (save-excursion
+                             (if (or (progn (goto-char (point-min))
+                                            (re-search-forward "endinterface" nil t))
+                                     (progn (goto-char (point-min))
+                                            (re-search-forward "endclass" nil t)))
+                                 4 0)))) ; if file has only Verilog module - indent-level = 0
+        (setq-local verilog-indent-level             4)
+        (setq-local verilog-indent-level-module      toggle-indent)
+        (setq-local verilog-indent-level-declaration toggle-indent)
+        (setq-local verilog-indent-level-behavioral  4)
+        (setq-local verilog-indent-level-directive   4)
+        (setq-local verilog-case-indent              4)
+        (setq-local verilog-auto-newline             nil)
+        (setq-local verilog-auto-indent-on-newline   nil)
+        (setq-local verilog-tab-always-indent        nil)
+        (setq-local verilog-auto-endcomments         nil)
+        (setq-local verilog-minimum-comment-distance 40)
+        (setq-local verilog-indent-begin-after-if    nil)
+        (setq-local verilog-auto-lineup              nil)
+        (setq-local verilog-align-ifelse             nil)
+        (setq-local verilog-tab-to-comment           nil)
+        (setq-local verilog-highlight-p1800-keywords nil)
+        (setq-local verilog-cexp-indent              4)
+        (setq-local tab-width        4)
+        (setq-local indent-tabs-mode t)
+        (setq-local yura/verilog-buffer-style 'tab-4width)))
+
+    (defun yura/verilog-set-style-uvm ()
+      "Set `verilog-mode' indent with spaces and 2 `tab-width'."
+      (interactive)
+      (setq-local verilog-indent-level             2)
+      (setq-local verilog-indent-level-module      2)
+      (setq-local verilog-indent-level-declaration 2)
+      (setq-local verilog-indent-level-behavioral  2)
+      (setq-local verilog-indent-level-directive   2)
+      (setq-local verilog-case-indent              2)
+      (setq-local verilog-auto-newline             nil)
+      (setq-local verilog-auto-indent-on-newline   nil)
+      (setq-local verilog-tab-always-indent        nil)
+      (setq-local verilog-auto-endcomments         nil)
+      (setq-local verilog-minimum-comment-distance 40)
+      (setq-local verilog-indent-begin-after-if    nil)
+      (setq-local verilog-auto-lineup              nil)
+      (setq-local verilog-align-ifelse             nil)
+      (setq-local verilog-tab-to-comment           nil)
+      (setq-local verilog-highlight-p1800-keywords nil)
+      (setq-local verilog-cexp-indent              2)
+      (setq-local tab-width        2)
+      (setq-local indent-tabs-mode nil)
+      (setq-local yura/verilog-buffer-style 'uvm))
+
+    (defun yura/verilog-set-style-default ()
+      "Set `verilog-mode' indent with spaces and default indents from `verilog-mode'."
+      (interactive)
+      (setq-local verilog-indent-level             3)
+      (setq-local verilog-indent-level-module      3)
+      (setq-local verilog-indent-level-declaration 3)
+      (setq-local verilog-indent-level-behavioral  3)
+      (setq-local verilog-indent-level-directive   1)
+      (setq-local verilog-case-indent              2)
+      (setq-local verilog-auto-newline             nil)
+      (setq-local verilog-auto-indent-on-newline   t)
+      (setq-local verilog-tab-always-indent        t)
+      (setq-local verilog-auto-endcomments         t)
+      (setq-local verilog-minimum-comment-distance 10)
+      (setq-local verilog-indent-begin-after-if    t)
+      (setq-local verilog-auto-lineup              nil)
+      (setq-local verilog-align-ifelse             nil)
+      (setq-local verilog-tab-to-comment           nil)
+      (setq-local verilog-cexp-indent              2)
+      (setq-local tab-width        3)
+      (setq-local indent-tabs-mode nil)
+      (setq-local yura/verilog-buffer-style 'default))
+
+    (defun yura/verilog-set-style-modi ()
+      (interactive)
+      (setq-local verilog-indent-level             2)
+      (setq-local verilog-indent-level-module      2)
+      (setq-local verilog-indent-level-declaration 2)
+      (setq-local verilog-indent-level-behavioral  2)
+      (setq-local verilog-indent-level-directive   2)
+      (setq-local verilog-case-indent              2)
+      (setq-local verilog-auto-newline             nil)
+      (setq-local verilog-auto-indent-on-newline   t)
+      (setq-local verilog-tab-always-indent        t)
+      (setq-local verilog-auto-endcomments         t)
+      (setq-local verilog-minimum-comment-distance 10)
+      (setq-local verilog-indent-begin-after-if    t)
+      (setq-local verilog-auto-lineup              nil)
+      (setq-local verilog-align-ifelse             nil)
+      (setq-local verilog-tab-to-comment           nil)
+      (setq-local verilog-cexp-indent              2)
+      (setq-local tab-width        2)
+      (setq-local indent-tabs-mode nil)
+      (setq-local yura/verilog-buffer-style 'modi))
+
+    ;; Select the style depending on local variable which describe current style.
+    (defvar-local yura/verilog-buffer-style 'tab-4width
+      "Variable to store `verilog-mode' style for current buffer.
+
+If `tab-4width' is selected, then `verilog-mode' style set with `yura/verilog-set-style-tab-4width'.
+If `uvm' is selected, then `verilog-mode' style set with `yura/verilog-set-style-uvm'.
+If `default' is selected, then `verilog-mode' style set with `yura/verilog-set-style-default'.")
+    (put 'yura/verilog-buffer-style 'safe-local-variable
+         '(lambda (x) (memq x '(tab-4width uvm default))))
+
+    (defun yura/verilog-select-style ()
+      "Set indents for `verilog-mode' depending on `yura/verilog-buffer-style'."
+      (cl-case yura/verilog-buffer-style
+        (tab-4width (yura/verilog-set-style-tab-4width))
+        (uvm        (yura/verilog-set-style-uvm))
+        (default    (yura/verilog-set-style-default))
+        (otherwise  (yura/verilog-set-style-tab-4width))))
+
+    (defun yura/verilog-show-style ()
+      "Inform caller of the current verilog style(`yura/verilog-buffer-style')."
+      (interactive)
+      (if (eq major-mode 'verilog-mode)
+          (message "Verilog style: %s" yura/verilog-buffer-style)
+        (message "This command available for `verilog-mode' only.")))
+
+    (defun yura/add-hook-for-verilog-set-style ()
+      (add-hook 'hack-local-variables-hook #'yura/verilog-select-style nil :local))
+    (add-hook 'verilog-mode-hook #'yura/add-hook-for-verilog-set-style)
+
+;;;;; Set indent level for module and declaration
+    (defun yura/verilog-auto-indent-level-module-declaration ()
+      "Auto switch module and declaration indent for `verilo-mode'.
 
 For buffer with only one Verilog module, variables `verilog-indent-level-module' and
 `verilog-indent-level-declaration' set to 0.
@@ -662,21 +748,17 @@ Otherwise set them to 4."
                   verilog-indent-level-declaration 0)
           (setq verilog-indent-level-module 4
                 verilog-indent-level-declaration 4))))
-    (add-hook 'verilog-mode-hook #'yura/verilog-auto-indent-level-declaration)
+    (add-hook 'verilog-mode-hook #'yura/verilog-auto-indent-level-module-declaration)
 
 ;;;;; Set Indent level module/declaratioin
     (defun yura/verilog-set-indent-module-declaration ()
       "Set module and declaration indentation for verilog mode."
       (interactive)
-      (let (indent-value arg)
-        (setq indent-value (ido-completing-read "Set Indentation (for module and declaration):"
-                                                '("0" "4")))
-        (cond
-         ((equal indent-value "0") (setq verilog-indent-level-module 0
-                                         verilog-indent-level-declaration 0))
-         ((equal indent-value "4") (setq verilog-indent-level-module 4
-                                         verilog-indent-level-declaration 4))
-         (t (error "logic error")))
+      (let ((indent-value (string-to-number (ido-completing-read
+                                             "Set Indentation (for module and declaration):"
+                                             '("0" "2" "3" "4")))))
+        (setq verilog-indent-level-module indent-value
+              verilog-indent-level-declaration indent-value)
         (message "Set verilog indentation to: %s (for module and declaration)" indent-value)))
 
 ;;;;; Set verilog auto lineup
@@ -716,11 +798,15 @@ module_name item_name(
       (interactive "P")
       (save-excursion
         (let ((begin (+ (search-backward-regexp "($\\|^(") 1))
-              (end   (- (search-forward-regexp ");") 3)))
+              (end   (- (search-forward-regexp ");") 2)))
           ;; remove space(s) before last bracket
           (goto-char end)
+          (back-to-indentation)
           (delete-horizontal-space)
-          (setq end (- (search-forward-regexp ");") 3))
+          (indent-rigidly (line-beginning-position)
+                          (line-end-position)
+                          verilog-indent-level-module)
+          (setq end (- (search-forward-regexp ");") (+ 3 verilog-indent-level-module)))
           (save-restriction
             (narrow-to-region begin end)
             (defun replace--in--region (in-expr out-expr)
@@ -729,11 +815,12 @@ module_name item_name(
                 (replace-match out-expr)))
             (replace--in--region "(" " (")
             (replace--in--region ")" " )")
+            (replace--in--region "\\s-+" " ")
             (set-mark (point-min))
             (goto-char (point-max))
-            (delete-double-spaces-in-region-or-line)
             (indent-rigidly (point-min) (point-max) -24)
-            (indent-rigidly (point-min) (point-max) 4)
+            (indent-rigidly (point-min) (point-max) (+ verilog-indent-level
+                                                       verilog-indent-level-module))
             (align-regexp (point-min) (point-max) "\\(\\s-*\\)\\ (" 1 0 nil)
             (replace--in--region "( " "(")
             (if arg

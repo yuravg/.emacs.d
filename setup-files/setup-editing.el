@@ -452,6 +452,8 @@ Then execute `align-regexp'."
   (align-regexp begin end "\\([[:blank:]]+\\)[[:alnum:]=(),?':`\.{}]" 1 1 t)
   (indent-region begin end)) ; indent the region correctly after alignment
 
+(bind-key "|" #'modi/align-columns region-bindings-mode-map)
+
 ;;;; Align repeat
 ;; http://www.emacswiki.org/emacs/AlignCommands
 (defun align-regexp-repeat (start end regexp)

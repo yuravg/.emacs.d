@@ -20,7 +20,6 @@
 ;;    Do not open all `included files
 ;;    Indentation
 ;;      Verilog styles
-;;      Set indent level for module and declaration
 ;;      Set Indent level module/declaratioin
 ;;      Set verilog auto lineup
 ;;    Alignment
@@ -730,25 +729,6 @@ If `default' is selected, then `verilog-mode' style set with `yura/verilog-set-s
     (defun yura/add-hook-for-verilog-set-style ()
       (add-hook 'hack-local-variables-hook #'yura/verilog-select-style nil :local))
     (add-hook 'verilog-mode-hook #'yura/add-hook-for-verilog-set-style)
-
-;;;;; Set indent level for module and declaration
-    (defun yura/verilog-auto-indent-level-module-declaration ()
-      "Auto switch module and declaration indent for `verilo-mode'.
-
-For buffer with only one Verilog module, variables `verilog-indent-level-module' and
-`verilog-indent-level-declaration' set to 0.
-Otherwise set them to 4."
-      (save-excursion
-        (if (and (progn (goto-char (point-min))
-                        (and (re-search-forward "^endmodule" nil t)
-                             (not (re-search-forward "^endmodule" nil t))))
-                 (progn (goto-char (point-min))
-                        (not (re-search-forward "^endclass" nil t))))
-            (setq verilog-indent-level-module 0
-                  verilog-indent-level-declaration 0)
-          (setq verilog-indent-level-module 4
-                verilog-indent-level-declaration 4))))
-    (add-hook 'verilog-mode-hook #'yura/verilog-auto-indent-level-module-declaration)
 
 ;;;;; Set Indent level module/declaratioin
     (defun yura/verilog-set-indent-module-declaration ()

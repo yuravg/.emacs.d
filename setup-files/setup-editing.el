@@ -590,6 +590,7 @@ another indentation changed to spaces."
             (untabify p1 p2)
             (forward-line 1)))))))
 (defalias 'ts 'yura/refactoring-tabs-and-spaces)
+(bind-key "t" #'yura/refactoring-tabs-and-spaces region-bindings-mode-map)
 
 ;; `hydra-refactoring/body' overwritten in some modes
 (defhydra hydra-refactoring (:color pink :hint nil)

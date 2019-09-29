@@ -34,7 +34,6 @@
     ;; (setq yas-snippet-dirs (list 'modi/yas-snippets-dir))
 
     (setq yas-new-snippet-default "# -*- mode: snippet -*-
-# contributor: Kaushal Modi
 # name: $1
 # key: ${2:${1:$(yas--key-from-desc yas-text)}}${3:
 # binding: ${4:direct-keybinding}}${5:

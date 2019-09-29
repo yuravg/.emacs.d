@@ -9,6 +9,9 @@
 ;;  Natural Docs
 ;;  Simulation, compilation
 ;;  Verilog
+;;    Preprocessor
+;;    Identifier
+;;    Class name
 ;;  Number
 ;;  Make file
 ;;  Backslash
@@ -221,10 +224,47 @@
    ("\\*\\*\\s-?Error:.+(\\([0-9]+\\)" (1 '(compilation-line-number) prepend))))
 
 ;;; Verilog
+;;;; Preprocessor
 (font-lock-add-keywords
  'verilog-mode
  '(("\\<\\(\\(synopsys\\|synthesis\\) translate_\\(off\\|on\\)\\)\\>" 1 'font-lock-preprocessor-face prepend)
    ("\\(altera message_off [0-9]\\{5,6\\}\\)" 1 'font-lock-preprocessor-face prepend)))
+
+;;;; Identifier
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("\\(^\\s-*\\)\
+\\<\\(end\\|join\\|join_any\\|join_none\\|endfunction\\|endtask\\|endclocking\\|endchecker\\|endgroup\\|endmodule\\|\
+endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\\>\
+\\( : \\<\\w+\\>\\)"
+    3 'font-lock-comment-delimiter-face)))
+
+;; block identifier
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("\\( \\<begin\\>\\)\\( : \\<\\w+\\>\\)"
+    2 'font-lock-comment-delimiter-face)))
+
+;;;; Class name
+;; Highlight <class_name> (now there is no highlighting for 'void' or user type)
+;; verilog code example: function <type> <class_name>::<method>(variables)
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("^\\(\\s-*\\)\\(function\\)\\(\\s-+\\w+\\s-+\\)\\(\\w+\\)::\\w+"
+    4 'font-lock-constant-face)))
+;; verilog code example: function <class_name>::<user_type> <class_name>::<method>(variables)
+;;  highlight second class name(the first is highlighted already):
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("^\\(\\s-*\\)\\(function\\s-+\\w+::\\w+\\s-+\\)\\(\\w+\\)::\\w+"
+    3 'font-lock-constant-face)))
+
+;; Highlight <class_name>
+;; verilog: task <class_name>::<method>(variables)
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("^\\(\\s-*\\|\\s-*virtual \\|\\s-*pure virtual \\)\\(task\\s-+\\)\\(\\w+\\)::\\w+"
+    3 'font-lock-constant-face)))
 
 ;;; Number
 (defvar hkeywords-number-face 'hkeywords-number-face

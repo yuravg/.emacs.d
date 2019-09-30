@@ -1028,7 +1028,8 @@ _a_lways         _f_or              _g_enerate         _O_utput
       ;; Do this *only* for .sv files. This prevents the slowness of saving
       ;; super-huge .v RTL/Netlist files.
       (when (and (buffer-file-name)
-                 (string= "sv" (file-name-extension (buffer-file-name)))
+                 (or (string= "sv"  (file-name-extension (buffer-file-name)))
+                     (string= "svh" (file-name-extension (buffer-file-name))))
                  ;; Do not add this hook when working in the verilog-mode repo
                  (not (and (buffer-file-name) ;Has to be a file, and
                            (vc-git-root (buffer-file-name)) ;In a git repo, and

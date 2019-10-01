@@ -1349,7 +1349,7 @@ Note that the selected region cannot contain any spaces."
 ;; TODO: change indentation if command prefixed with 'C-u'
 ;; problem: 'Match data clobbered by buffer modification hooksInvalid face reference'
 ;;; Delete double spaces
-(defun delete-double-spaces-in-region-or-line (arg)
+(defun delete-double-spaces-in-region-or-line (&optional arg)
   "Delete double spaces in the selected region or in the current line.
 
 Delete double spaces after first non-whitespace character(`back-to-indentation').\n

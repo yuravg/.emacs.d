@@ -309,11 +309,49 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
 (font-lock-add-keywords 'verilog-mode verilog-number-hkeyword)
 
 ;;; Make file
+;; Highlight conditions
 (defvar make-file-hkeywords
   '(("\\<\\(ifeq\\|ifneq\\|else\\|endif\\|define\\|endef\\|ifndef\\)\\>"
      . font-lock-keyword-face)))
 (font-lock-add-keywords 'makefile-mode make-file-hkeywords)
 (font-lock-add-keywords 'makefile-gmake-mode make-file-hkeywords)
+
+;; Highlight function name
+;; make-file source code: define <func_name>
+(font-lock-add-keywords
+ 'makefile-mode
+ '(("^\\(\\s-*define\\s-+\\)\\([_A-Za-z0-9]+\\)"
+    (2 'font-lock-function-name-face))))
+
+;; Highlight variable and parameters for 'call' function
+;; make-file source code: $(call <variable>,<param1>,<param2>,...)
+(font-lock-add-keywords
+ 'makefile-mode
+ '(("\\(\\$\\)(\\(call\\)\\(\\s-+\\)\\([_A-Za-z0-9]+\\)"
+    (4 'font-lock-variable-name-face))))
+
+;; TODO: simplify regexp to highlight ','
+(font-lock-add-keywords
+ 'makefile-mode
+ '(("\\(\\$(call\\s-+[_A-Za-z0-9]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)"
+    (2 '(:inherit font-lock-keyword-face :background "gray94")))))
+
+(font-lock-add-keywords
+ 'makefile-mode
+ '(("\\(\\$(call\\s-+[_A-Za-z0-9]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)"
+    (4 '(:inherit font-lock-keyword-face :background "gray94")))))
+
+(font-lock-add-keywords
+ 'makefile-mode
+ '(("\\(\\$(call\\s-+[_A-Za-z0-9]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\
+\\(,\\)\\([_A-Za-z0-9()$/.]+\\)"
+    (6 '(:inherit font-lock-keyword-face :background "gray94")))))
+
+(font-lock-add-keywords
+ 'makefile-mode
+ '(("\\(\\$(call\\s-+[_A-Za-z0-9]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\
+\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)"
+    (8 '(:inherit font-lock-keyword-face :background "gray94")))))
 
 ;;; Backslash
 (defvar backslash-ending-hkeywords

@@ -922,6 +922,46 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
 
       ("q" nil "cancel" :color blue))
 
+    (defun yura/verilog-overwrite-identifiers ()
+      "Overwrite Verilog identifiers.
+
+Overwrite identifiers for Verilog:
+task, class, function, interface, package, module."
+      (interactive)
+      (save-excursion
+        (mapc (lambda (keyword)
+                (let ((name))
+                  (goto-char (point-min))
+                  (while (re-search-forward (concat "^\\s-*\\<" keyword) nil :noerror)
+                    (if (or (string-match-p "task" keyword)
+                            (string-match-p "function" keyword)
+                            (string-match-p "module" keyword))
+                        (progn(search-forward "(")
+                              (backward-char 2))
+                      (progn
+                        (forward-char 2)))
+                    (setq name (symbol-at-point))
+                    (cond
+                     ((string-match-p "task" keyword) (search-backward "task"))
+                     ((string-match-p "function" keyword) (search-backward "function"))
+                     (t (back-to-indentation)))
+                    (cond
+                     ((string= "package" keyword) (search-forward "endpackage"))
+                     ((string= "interface" keyword) (search-forward "endinterface"))
+                     (t (electric-verilog-forward-sexp)))
+                    (insert (format " : %s tmp" name))
+                    (backward-char 4)
+                    (kill-line)
+                    (back-to-indentation)
+                    (unless (string= "package" keyword)
+                      (electric-verilog-backward-sexp))
+                    (forward-line))))
+              '("task" "class" "function" "interface" "package" "module"
+                "pure virtual function" "virtual function"
+                "protected function" "virtual protected function"
+                "pure virtual task" "virtual task"
+                "protected task" "virtual protected task"))))
+
 ;;; Verilog compile
     (defvar verilog-linter-command nil
       "Verilog lint command.")

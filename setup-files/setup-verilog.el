@@ -962,6 +962,50 @@ task, class, function, interface, package, module."
                 "pure virtual task" "virtual task"
                 "protected task" "virtual protected task"))))
 
+    (defun yura/verilog-task-func-move-from-class (arg)
+      "Move a Verilog 'task' or 'function' from class - make them 'extern'.
+
+To execute command should move point below the Verilog 'task' or 'function'.
+If called without prefix ARG move after class.
+If prefixed with \\[universal-argument], move to the end of page.
+NOTE: this command is dangerous(makes numerous changes),
+and you should edit file after launch this command."
+      (interactive "P")
+      (let ((beg)
+            (end)
+            (name))
+        (move-end-of-line nil)
+        (re-search-backward "\\(\\<function \\)\\|\\(\\<task \\)")
+        (back-to-indentation)
+        (setq beg (point))
+        (re-search-backward "^\\s-*\\<class \\w")
+        (forward-word 2)
+        (setq name (symbol-at-point))
+        (goto-char beg)
+        (re-search-forward "\\(\\<endfunction \\)\\|\\(\\<endtask \\)")
+        (move-end-of-line nil)
+        (setq end (point))
+        (copy-region-as-kill beg end)
+        (goto-char beg)
+        (insert "extern ")
+        (forward-line 1)
+        (setq beg (point))
+        (goto-char end)
+        (move-end-of-line nil)
+        (setq end (point))
+        (delete-region beg end)
+        (if arg
+            (progn (forward-page)
+                   (newline 2))
+          (progn (search-forward "endclass")
+                 (forward-line 1)
+                 (newline 2)))
+        (yank)
+        (re-search-backward "\\(\\<function \\)\\|\\(\\<task \\)")
+        (search-forward "(")
+        (backward-word 1)
+        (insert (format "%s::" name))))
+
 ;;; Verilog compile
     (defvar verilog-linter-command nil
       "Verilog lint command.")

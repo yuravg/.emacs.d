@@ -444,6 +444,7 @@ Then execute `align-regexp'."
 ;; do `C-u M-x align-regexp`
 
 (defalias 'ar 'align-regexp)
+(bind-key "e" #'align-regexp region-bindings-mode-map)
 
 (defun modi/align-columns (begin end)
   "Align text columns"

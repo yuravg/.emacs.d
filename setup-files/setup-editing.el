@@ -368,16 +368,16 @@ Do not do anything if `do-not-delete-trailing-whitespace' is non-nil."
 (add-hook 'before-save-hook #'modi/delete-trailing-whitespace-buffer)
 ;; (remove-hook 'before-save-hook #'modi/delete-trailing-whitespace-buffer)
 
-(defun yura/delete-trailing-whitespace-toggle ()
+(defun yura/toggle-delete-trailing-whitespace ()
   "Toggle variable `do-not-delete-trailing-whitespace'."
   (interactive)
   (if do-not-delete-trailing-whitespace
       (progn
         (setq do-not-delete-trailing-whitespace nil)
-        (message "Enable remove trailing whitespace before save."))
+        (message "Enable deletion trailing whitespace before save."))
     (progn
       (setq do-not-delete-trailing-whitespace t)
-      (message "Disable remove trailing whitespace before save."))))
+      (message "Disable deletion trailing whitespace before save."))))
 
 (defalias 'dw 'delete-trailing-whitespace)
 

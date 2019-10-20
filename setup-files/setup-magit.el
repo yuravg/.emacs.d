@@ -1,8 +1,14 @@
 ;; Time-stamp: <2019-01-23 16:23:21 kmodi>
 
-;; magit
-;; https://github.com/magit/magit
+;; Contents:
+;;
+;;  Magit
+;;  Magit-log
+;;  Git-timemachine
+;;  Git-modes
 
+;;; Magit
+;; https://github.com/magit/magit
 (use-package magit
   :bind (:map modi-mode-map
          ("C-x g" . magit-status)
@@ -116,6 +122,7 @@ _b_/_L_: log all/local branches     _f_: file-dispatch                  _$_: pro
       :bind (:map git-rebase-mode-map
              ("C-j" . git-rebase-show-or-scroll-up)))))
 
+;;; Magit-log
 (use-package magit-log
   :init
   (progn
@@ -152,6 +159,7 @@ It is assumed that the author has only one or two names."
       (car args))                       ;'(REV AUTHOR-ABBR DATE)
     (advice-add 'magit-log-format-margin :filter-args #'modi/magit-log--abbreviate-author)))
 
+;;; Git-timemachine
 (use-package git-timemachine
   :config
   (progn
@@ -192,7 +200,7 @@ It is assumed that the author has only one or two names."
 ;; | c       | Show current commit using magit (if magit available).                   |
 ;; |---------+-------------------------------------------------------------------------|
 
-;; git-modes
+;;; Git-modes
 ;; The package 'git-modes' do not available form Melpa
 (use-package gitattributes-mode)
 (use-package gitconfig-mode)

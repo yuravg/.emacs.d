@@ -32,6 +32,7 @@
         shell-script-mode
         sh-mode
         makefile-mode
+        makefile-gmake-mode
         tcl-mode
         org-mode
         python-mode

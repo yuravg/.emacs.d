@@ -9,14 +9,15 @@
                 ("miniperl" . cperl-mode))
   :config
   (progn
-    (setq cperl-indent-level               3)
-    (setq cperl-close-paren-offset         -3)
-    (setq cperl-continued-statement-offset 3)
-    (setq cperl-indent-parens-as-block     t)
-    (setq cperl-tab-always-indent          t)
+    (setq cperl-indent-parens-as-block t)
 
     ;; No paren electricity!
     (setq cperl-electric-parens-string nil)
+
+    ;; Styles:
+    ;; To set style: M-x `cperl-set-style': CPerl, PerlStyle, GNU, K&R, BSD, C++ and Whitesmith.
+    ;; Set default style:
+    (cperl-set-style "PerlStyle")
 
     (defun modi/cperl-mode-customization ()
       "My customization for `cperl-mode'."

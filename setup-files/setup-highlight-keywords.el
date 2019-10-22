@@ -31,6 +31,7 @@
         verilog-mode
         shell-script-mode
         sh-mode
+        cperl-mode
         makefile-mode
         makefile-gmake-mode
         tcl-mode
@@ -285,6 +286,7 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
         verilog-mode
         shell-script-mode
         sh-mode
+        cperl-mode
         makefile-mode
         makefile-gmake-mode
         tcl-mode

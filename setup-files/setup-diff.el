@@ -73,6 +73,7 @@ If NO-WHITESPACE is non-nil, ignore all white space when doing diff."
                                         web-mode-hook
                                         sh-mode-hook
                                         yaml-mode-hook ;tmuxp yaml configs
+                                        cperl-mode-hook
                                         makefile-mode-hook
                                         org-mode-hook
                                         c++-mode-hook

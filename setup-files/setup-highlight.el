@@ -192,6 +192,7 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
                                                verilog-mode-hook
                                                c-mode-hook
                                                c++-mode-hook
+                                               cperl-mode-hook
                                                makefile-mode-hook
                                                makefile-gmake-mode-hook
                                                sh-mode-hook

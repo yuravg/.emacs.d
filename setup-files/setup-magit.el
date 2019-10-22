@@ -27,6 +27,8 @@
      ("C-j" . magit-diff-show-or-scroll-up)
      :map magit-log-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)
+     :map magit-diff-mode-map
+     ("C-j" . magit-diff-show-or-scroll-up)
      :map magit-cherry-mode-map
      ("C-j" . magit-diff-show-or-scroll-up))
 

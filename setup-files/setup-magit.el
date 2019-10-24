@@ -122,7 +122,15 @@ _b_/_L_: log all/local branches     _f_: file-dispatch                  _$_: pro
 
     (use-package git-rebase
       :bind (:map git-rebase-mode-map
-             ("C-j" . git-rebase-show-or-scroll-up)))))
+             ("C-j" . git-rebase-show-or-scroll-up)))
+
+    ;; Enable 'git-commit-mode' yasnippet for the *COMMIT_EDITMSG* buffer
+    ;; https://emacs.stackexchange.com/questions/27946/yasnippets-wont-expand-in-git-commit-mode
+    (with-eval-after-load 'yasnippet
+      (add-hook 'git-commit-mode-hook
+                #'(lambda ()
+                    (when (derived-mode-p 'text-mode)
+                      (yas-activate-extra-mode 'git-commit-mode)))))))
 
 ;;; Magit-log
 (use-package magit-log

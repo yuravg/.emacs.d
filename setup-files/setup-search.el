@@ -62,13 +62,14 @@ See the command `isearch-forward-symbol' for more information."
   :bind (:map modi-mode-map
          ("C-c r" . anzu-query-replace)
          ("C-c C-r" . anzu-query-replace-regexp))
+  :init
+  (progn
+    (global-anzu-mode t))
   :config
   (progn
     (setq anzu-mode-lighter "")
     (setq anzu-search-threshold 1000)
-    (setq anzu-replace-to-string-separator " => ")
-
-    (global-anzu-mode 1)))
+    (setq anzu-replace-to-string-separator " => ")))
 
 ;;; Visual Regular Expression search/replace
 (use-package visual-regexp

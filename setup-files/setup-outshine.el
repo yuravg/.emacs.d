@@ -16,6 +16,7 @@
                                             emacs-lisp-mode-hook
                                             tcl-mode-hook
                                             sh-mode-hook
+                                            cperl-mode-hook
                                             makefile-mode-hook
                                             makefile-gmake-mode-hook
                                             conf-mode-hook ;conf-space-mode-hook not enough for conf-mode

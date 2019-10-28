@@ -130,7 +130,12 @@ _b_/_L_: log all/local branches     _f_: file-dispatch                  _$_: pro
       (add-hook 'git-commit-mode-hook
                 #'(lambda ()
                     (when (derived-mode-p 'text-mode)
-                      (yas-activate-extra-mode 'git-commit-mode)))))))
+                      (yas-activate-extra-mode 'git-commit-mode)))))
+
+    ;; OpenSSH passphrase caching, via ssh-agent
+    ;; https://github.com/magit/magit/wiki/Pushing-with-Magit-from-Windows
+    ;; TODO: enable mini-buffer for OpenSSH passphrase
+    (setenv "SSH_ASKPASS" "git-gui--askpass")))
 
 ;;; Magit-log
 (use-package magit-log

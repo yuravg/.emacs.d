@@ -59,7 +59,9 @@
      :map markdown-mode-map
      ;; Mimicking the org-export style bindings
      ("C-c C-e o" . gk-markdown-preview-buffer)
-     ("C-c C-e t". orgtbl-send-table))))
+     ("C-c C-e t". orgtbl-send-table)
+     ("M-p" . markdown-previous-visible-heading)
+     ("M-n" . markdown-next-visible-heading))))
 
 
 (provide 'setup-markdown)

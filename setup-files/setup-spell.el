@@ -101,7 +101,7 @@
             :chords
             (("ww" . flyspell-correct-word-generic))))
 
-        (defhydra hydra-flyspell (:color pink
+        (defhydra hydra-flyspell (:color teal
                                   :hint nil)
           "
 ^^      Correct word:                 ^^GoTo:                           ^^Spell:

@@ -252,8 +252,8 @@ Lisp function does not specify a special indentation."
         ;; Skip this feature if `cider' is not installed
         (when (fboundp #'cider--make-result-overlay)
           (cider--make-result-overlay (format "%S" orig-ret-val)
-            :where (point)
-            :duration 'command))
+                                      :where (point)
+                                      :duration 'command))
         orig-ret-val)
       (advice-add 'eval-last-sexp :filter-return #'endless/eval-overlay)
       ;; (advice-remove 'eval-last-sexp #'endless/eval-overlay)

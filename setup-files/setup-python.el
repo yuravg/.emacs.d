@@ -20,10 +20,6 @@
     ;; Change the default symbol prettification
     (setcdr (assoc "and" python--prettify-symbols-alist) ?&) ;Default ?^
     (setcdr (assoc "or" python--prettify-symbols-alist) ?|)  ;Default ?∨
-    (with-eval-after-load 'setup-font-check
-      (when (modi/is-font "Pragmata")
-        (setcdr (assoc "and" python--prettify-symbols-alist) ?)
-        (setcdr (assoc "or" python--prettify-symbols-alist) ?)))
 
     (if (and (executable-find "ipython")
              modi/python-use-ipython)

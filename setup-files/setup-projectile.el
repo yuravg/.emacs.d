@@ -234,16 +234,16 @@ This is not a safe command, this command should only be used with trusted files.
     (defhydra hydra-projectile (:color teal
                                 :hint  nil)
       "
-     PROJECTILE: %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\")
+     Projectile: %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\")
 
-^^^^       Find             ^^^^         Search/Tags         ^^^^       Buffers              ^^   Cache                    ^^     Project   ^^^^       Other
-^^^^------------------------^^^^-----------------------------^^^^----------------------------^^----------------------------^^-----------------------------------------------------------------
-^^    _f_: file             ^^      _a_: ag                  ^^    _i_: Ibuffer              _c_: cache clear            M/_C-c_: compile   ^^    _E_: edit project's .dir-locals.el
-^^    _F_: file dwim        ^^      _G_: update gtags        ^^    _b_: switch to buffer     _x_: remove known project   M/_C-t_: test      _s-p_/_p_: switch to other project
-^^    _d_: file curr dir    ^^      _o_: multi-occur         _K_/_s-k_: kill all buffers     _X_: cleanup non-existing   M/_C-r_: run       ^^    _g_: switch to Magit status of other project
-^^    _l_: file literally   ^^_C-s_/_s_: counsel rg          ^^^^                            _z_: cache current         (M-to prompt)     ^^^^    _P_: switch to an open project
-^^    _r_: recent file      _C-a_/_C-g_: counsel ag/grep     ^^^^                            ^^                            ^^               ^^    _D_: find dir
-^^  _C-f_: Git file         ^^      _w_: source code warnings^^^^                            ^^                            ^^               ^^    _4_: other window
+^^       Find             ^^^^         Search/Tags         ^^^^       Buffers              ^^   Cache                    ^^^^         Project     ^^^^       Other
+^^------------------------^^^^-----------------------------^^^^----------------------------^^----------------------------^^^^---------------------^^^^----------------------------------------------
+    _f_: file             ^^      _a_: ag                  ^^    _i_: Ibuffer              _c_: cache clear              _M-c_/_C-c_: compile     ^^    _E_: edit project's .dir-locals.el
+    _F_: file dwim        ^^      _G_: update gtags        ^^    _b_: switch to buffer     _x_: remove known project     _M-t_/_C-t_: test        _s-p_/_p_: switch to other project
+    _d_: file curr dir    ^^      _o_: multi-occur         _K_/_s-k_: kill all buffers     _X_: cleanup non-existing     _M-r_/_C-r_: run         ^^    _g_: switch to Magit status of other project
+    _l_: file literally     _C-s_/_s_: counsel rg          ^^^^                            _z_: cache current            ^^^^                     ^^    _P_: switch to an open project
+    _r_: recent file      _C-a_/_C-g_: counsel ag/grep     ^^^^                            ^^                            ^^^^                     ^^    _D_: find dir
+  _C-f_: Git file         ^^      _w_: source code warnings^^^^                            ^^                            ^^^^                     ^^    _4_: other window
 "
       ("f"   projectile-find-file)
       ("F"   projectile-find-file-dwim)

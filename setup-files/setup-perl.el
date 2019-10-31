@@ -3,7 +3,7 @@
 ;; Perl
 
 (use-package cperl-mode
-  :mode ("\\.\\([pP][Llm][0-9]*\\|al\\)\\'" . cperl-mode) ; cperl-mode instead of perl-mode
+  :mode ("\\.\\([pP][Llm56][0-9]*\\|al\\)\\'" . cperl-mode) ; cperl-mode instead of perl-mode
   :interpreter (("perl"     . cperl-mode)
                 ("perl5"    . cperl-mode)
                 ("miniperl" . cperl-mode))

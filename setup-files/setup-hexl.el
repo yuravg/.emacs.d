@@ -1,7 +1,7 @@
 
 ;; Hexl
 
-(use-package hexl-mode
+(use-package hexl
   :mode (("\\.bin" . hexl-mode)
          ("\\.dll" . hexl-mode)
          ("\\.pof" . hexl-mode)

@@ -29,6 +29,7 @@
                                     fundamental-mode
                                     tcl-mode-hook
                                     java-mode-hook
+                                    conf-space-mode-hook
                                     c-mode-hook
                                     c++-mode-hook
                                     rust-mode-hook

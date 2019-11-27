@@ -49,6 +49,7 @@
         js-mode
         rust-mode
         nim-mode
+        conf-space-mode
         c-mode
         c++-mode))
 
@@ -298,6 +299,7 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
         bitbake-mode
         js-mode
         rust-mode
+        conf-space-mode
         c-mode
         c++-mode))
 

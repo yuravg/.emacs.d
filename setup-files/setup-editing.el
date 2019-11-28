@@ -455,6 +455,14 @@ Then execute `align-regexp'."
 
 (bind-key "|" #'modi/align-columns region-bindings-mode-map)
 
+(defun yura/align-to-less-than-sign (begin end)
+  "Align text to LESS-THAN SIGN (<)."
+  (interactive "r")
+  (align-regexp begin end "\\(\\s-*\\)<" 1 1 nil)
+  (indent-region begin end))
+
+(bind-key "<" #'yura/align-to-less-than-sign region-bindings-mode-map)
+
 ;;;; Align repeat
 ;; http://www.emacswiki.org/emacs/AlignCommands
 (defun align-regexp-repeat (start end regexp)

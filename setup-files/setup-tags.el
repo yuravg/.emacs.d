@@ -227,9 +227,7 @@ If `major-mode' is `verilog-mode' use `ctags' only(for Windows OS only)."
   (let ((is-function (if (bound-and-true-p yura/compilation-finish-function) t nil)))
     (setq yura/compilation-finish-function nil) ;clean `compilation-finish-function'
     (if (or use-ctags
-            (not (featurep 'ggtags))
-            (if (eq system-type 'windows-nt)
-                (eq major-mode 'verilog-mode))) ;`ggtags' slow down `verilog-mode' so I disable it for this mode
+            (not (featurep 'ggtags)))
         (progn
           (modi/update-etags-table)
           (etags-select-find-tag-at-point))

@@ -83,6 +83,8 @@
              (buffer-substring beg end)))))
 
       (bind-key "C-j" #'compile-goto-error ggtags-global-mode-hook)
+      ;; Tag selection has done
+      (bind-key "C-j" #'ggtags-navigation-mode-done ggtags-navigation-mode-map)
       ;; Remove the default binding for `M-.' in `ggtags-mode-map'
       (bind-key "M-." nil ggtags-mode-map)
       ;; Remove the default binding for `M-o' in `ggtags-navigation-map'

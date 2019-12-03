@@ -66,6 +66,8 @@
     (when (string-equal system-type "windows-nt")
       (setq explicit-shell-file-name "c:/MinGW/msys/1.0/bin/bash.exe"))
 
+    (defalias 'sc 'shell-command)
+
 ;;;; Run current buffer in shell
     (defun run-buffer-in-shell ()
       "Run current buffer in existing shell as command: ./<buffer_name>."

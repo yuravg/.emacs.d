@@ -279,7 +279,7 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
   :group 'hkeywords-face)
 
 (defvar number-hkeyword
-  '(("\\_<\\(-\\)?[0-9]+\\_>"
+  '(("\\_<[-+]??[0-9]+\\(\\.[0-9]+\\)??\\_>"
      . hkeywords-number-face)))
 (mapc (lambda (mode)
         (font-lock-add-keywords mode number-hkeyword))

@@ -131,7 +131,7 @@ It added extra strings at the front and back of the default dired buffer name."
     (use-package dired-x
       :config
       (progn
-        (setq dired-omit-verbose nil)
+        (setq dired-omit-verbose t)
         ;; hide backup, autosave, *.*~ files
         ;; omit mode can be toggled using `M-o' in dired buffer
         (add-hook 'dired-mode-hook #'dired-omit-mode)))

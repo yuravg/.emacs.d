@@ -136,7 +136,7 @@ It added extra strings at the front and back of the default dired buffer name."
         ;; omit mode can be toggled using `M-o' in dired buffer
         (add-hook 'dired-mode-hook #'dired-omit-mode)))
 
-    ;; http://www.emacswiki.org/DiredPlus
+    ;; https://www.emacswiki.org/emacs/DiredPlus
     (use-package dired+
       :load-path "elisp/manually-synced/dired-plus"
       :init

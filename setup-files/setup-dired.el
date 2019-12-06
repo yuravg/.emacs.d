@@ -132,6 +132,12 @@ It added extra strings at the front and back of the default dired buffer name."
       :config
       (progn
         (setq dired-omit-verbose t)
+
+        ;; Mask `dired-omit-files' extension
+        (setq yura-dired-omit-files "GPATH\\|GRTAGS\\|GTAGS")
+        (setq dired-omit-files
+              (concat dired-omit-files "\\|" yura-dired-omit-files))
+
         ;; hide backup, autosave, *.*~ files
         ;; omit mode can be toggled using `M-o' in dired buffer
         (add-hook 'dired-mode-hook #'dired-omit-mode)))

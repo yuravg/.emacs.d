@@ -183,6 +183,7 @@ If nil, show the same in the minibuffer.")
                 " Abbrev"    ;abbrev-mode
                 " HSA"       ;auto-highlight-symbol-mode
                 " Rbow"      ;rainbow-mode
+                " SMerge"    ;smerge-mode
                 ))
         (setq rm-text-properties '(("\\` Ovwrt\\'" 'face 'font-lock-warning-face) ;Overwrite
                                    ("\\` mc:[0-9]+ *\\'" 'face 'font-lock-keyword-face) ;Multiple cursors

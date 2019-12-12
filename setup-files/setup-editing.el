@@ -1386,7 +1386,7 @@ Prefixed ARG with \\[universal-argument] also changes the indentation with `inde
 (bind-key "d" #'delete-double-spaces-in-region-or-line region-bindings-mode-map)
 ;; delete double spaces and `indent-region'
 (bind-key "C-d"
-          #'(lambda () (interactive) (delete-double-spaces-in-region-or-line 4))
+          (lambda () (interactive) (delete-double-spaces-in-region-or-line 4))
           region-bindings-mode-map)
 
 ;;; Delete double blank lines

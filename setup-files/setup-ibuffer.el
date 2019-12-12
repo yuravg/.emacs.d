@@ -30,7 +30,7 @@
             (ibuffer-do-sort-by-alphabetic) ; first do alphabetic sort
             (ibuffer-do-sort-by-major-mode))))) ; then do major-mode sort
 
-    (add-hook 'ibuffer-hook #'(lambda () (setq hl-line-mode 1)))
+    (add-hook 'ibuffer-hook (lambda () (setq hl-line-mode t)))
     ;; ibuffer-projectile setup
     (add-hook 'ibuffer-hook #'modi/ibuffer-customization)
     (bind-keys

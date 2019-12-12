@@ -128,9 +128,9 @@ _b_/_L_: log all/local branches     _f_: file-dispatch                  _$_: pro
     ;; https://emacs.stackexchange.com/questions/27946/yasnippets-wont-expand-in-git-commit-mode
     (with-eval-after-load 'yasnippet
       (add-hook 'git-commit-mode-hook
-                #'(lambda ()
-                    (when (derived-mode-p 'text-mode)
-                      (yas-activate-extra-mode 'git-commit-mode)))))
+                (lambda ()
+                  (when (derived-mode-p 'text-mode)
+                    (yas-activate-extra-mode 'git-commit-mode)))))
 
     ;; OpenSSH passphrase caching, via ssh-agent
     ;; https://github.com/magit/magit/wiki/Pushing-with-Magit-from-Windows

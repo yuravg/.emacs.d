@@ -236,7 +236,7 @@ the smart-mode-line theme."
 ;; ;; `after-make-frame-functions' hook is not run in no-window mode
 ;; (add-hook 'after-make-frame-functions (lambda (&rest frame)
 ;;                                         (funcall default-theme-fn)))
-(add-hook 'window-setup-hook #'(lambda () (funcall default-theme-fn)))
+(add-hook 'window-setup-hook (lambda () (funcall default-theme-fn)))
 
 ;;;; Leuven-gray theme
 ;; FIXME: loading Leuven-gray theme before the first Emacs start(how todo?)

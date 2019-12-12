@@ -29,25 +29,25 @@
     (defalias 'ap 'autopair-mode)
 
     (add-hook 'c++-mode-hook
-              #'(lambda ()
-                  (push ?{
-                        (getf autopair-dont-pair :comment))
-                  (push '(?< . ?>)
-                        (getf autopair-extra-pairs :comment))))
+              (lambda ()
+                (push ?{
+                      (getf autopair-dont-pair :comment))
+                (push '(?< . ?>)
+                      (getf autopair-extra-pairs :comment))))
 
     (add-hook 'emacs-lisp-mode-hook
-              #'(lambda ()
-                  (push '(?` . ?')
-                        (getf autopair-extra-pairs :comment))
-                  (push '(?` . ?')
-                        (getf autopair-extra-pairs :string))))
+              (lambda ()
+                (push '(?` . ?')
+                      (getf autopair-extra-pairs :comment))
+                (push '(?` . ?')
+                      (getf autopair-extra-pairs :string))))
 
     (add-hook 'makefile-mode-hook
-              #'(lambda ()
-                  (push '(?< . ?>)
-                        (getf autopair-extra-pairs :comment))
-                  (push '(?' . ?')
-                        (getf autopair-extra-pairs :comment))))))
+              (lambda ()
+                (push '(?< . ?>)
+                      (getf autopair-extra-pairs :comment))
+                (push '(?' . ?')
+                      (getf autopair-extra-pairs :comment))))))
 
 
 (provide 'setup-autopair)

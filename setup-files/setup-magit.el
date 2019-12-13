@@ -138,6 +138,17 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
                   (when (derived-mode-p 'text-mode)
                     (yas-activate-extra-mode 'git-commit-mode)))))
 
+    ;; Some application are changing control characters(CRLF/LF),
+    ;; `yura/git-checkout-all' revert this change.
+    (defun yura/git-checkout-all (bool)
+      "Git checkout all files, will launch 'git checkout --'."
+      (interactive
+       (list (progn (magit-status)
+                    (y-or-n-p "Would you like checkout all files?"))))
+      (if bool
+          (magit-run-git "checkout" "--" ".")
+        (message "Exit without checkout.")))
+
     ;; OpenSSH passphrase caching, via ssh-agent
     ;; https://github.com/magit/magit/wiki/Pushing-with-Magit-from-Windows
     ;; TODO: enable mini-buffer for OpenSSH passphrase

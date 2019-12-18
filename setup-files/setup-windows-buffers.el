@@ -711,6 +711,10 @@ Examples of such buffers: *gtags-global*, *ag*, *Occur*, *Diff*."
   (quit-window :kill))
 
 ;;; Other Window/Buffer
+;; I prefer to split the (diff) window horizontally: if `split-height-threshold' is nil,
+;; `split-window-sensibly' is not allowed to split a window vertically
+(setq split-height-threshold nil)
+
 ;; http://emacs.stackexchange.com/q/22226/115
 (defhydra hydra-other-window-buffer
   (global-map "C-x"

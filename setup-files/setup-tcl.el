@@ -45,7 +45,17 @@ sdc_command \\
             (while (re-search-forward "\\( \\)\\(-\\)" (point-max) :noerror)
               (replace-match "\\1\\\\\n\\2"))
             (indent-region (point-min) (point-max))
-            (message "Finished refactoring SDC commmand.")))))))
+            (message "Finished refactoring SDC commmand.")))))
+
+    ;; Intel Quartus tool automatically removes the newline,
+    ;; therefore it better not to add newline.
+    (defun tcl-qsf-do-not-add-newlines ()
+      "Set `require-final-newline' local variable to nil for qsf-files."
+      (when (and (derived-mode-p 'tcl-mode)
+                 (string= (file-name-extension buffer-file-name) "qsf"))
+        (setq-local require-final-newline nil)))
+
+    (add-hook 'tcl-mode-hook #'tcl-qsf-do-not-add-newlines)))
 
 
 (provide 'setup-tcl)

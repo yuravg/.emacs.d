@@ -172,7 +172,17 @@ It is assumed that the author has only one or two names."
                             (replace-regexp-in-string "\\(.\\).*?[. ]+\\(.*\\)" "\\1 \\2" author))))
         (setf (nth 1 (car args)) author-abbr))
       (car args))                       ;'(REV AUTHOR-ABBR DATE)
-    (advice-add 'magit-log-format-margin :filter-args #'modi/magit-log--abbreviate-author)))
+    (advice-add 'magit-log-format-margin :filter-args #'modi/magit-log--abbreviate-author)
+
+    ;; Limit the subject line to 50 characters
+    (setq git-commit-summary-max-length 50)
+
+    (defun yura/git-commit-mode-customization ()
+      "Customization for `git-commit-mode'."
+      (when (and (derived-mode-p 'text-mode)
+                 (bound-and-true-p git-commit-mode))
+        (setq-local fill-column 72)))
+    (add-hook 'git-commit-mode-hook #'yura/git-commit-mode-customization)))
 
 ;;; Git-timemachine
 (use-package git-timemachine

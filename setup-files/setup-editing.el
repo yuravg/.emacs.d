@@ -450,7 +450,7 @@ Then execute `align-regexp'."
   "Align text columns"
   (interactive "r")
   ;; align-regexp syntax:  align-regexp (beg end regexp &optional group spacing repeat)
-  (align-regexp begin end "\\([[:blank:]]+\\)[[:alnum:]=(),?':`\.{}]" 1 1 t)
+  (align-regexp begin end "\\([[:blank:]]+\\)[[:alnum:]=(),_$?':`\.{}]" 1 1 t)
   (indent-region begin end)) ; indent the region correctly after alignment
 
 (bind-key "|" #'modi/align-columns region-bindings-mode-map)

@@ -8,6 +8,10 @@
 (use-package autopair
   :config
   (progn
+
+    ;; Disable autopair blinks matching delimiters
+    (setq autopair-blink nil)
+
     (defvar autopair-modes '(verilog-mode
                              emacs-lisp-mode
                              python-mode

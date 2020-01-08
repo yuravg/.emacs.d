@@ -138,6 +138,12 @@ It added extra strings at the front and back of the default dired buffer name."
         (setq dired-omit-files
               (concat dired-omit-files "\\|" yura-dired-omit-files))
 
+        ;; TODO: add mask for dired-omit, `dired-omit-extensions' don't works at all
+        ;; Mask `dired-omit-extensions' extension
+        ;; (setq yura-dired-omit-extensions '("db/" "incremental_db/" "work/"))
+        ;; (dolist (item yura-dired-omit-extensions)
+        ;;   (add-to-list 'dired-omit-extensions item))
+
         ;; hide backup, autosave, *.*~ files
         ;; omit mode can be toggled using `M-o' in dired buffer
         (add-hook 'dired-mode-hook #'dired-omit-mode)))

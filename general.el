@@ -12,7 +12,6 @@
 ;;  Default ag arguments
 ;;  Default rg arguments
 ;;  Emacs version and git branch
-;;  Switch/restore the buffer-local variable
 ;;  Toggle logical value
 
 ;;; Emacs version check
@@ -247,17 +246,6 @@ in `modi/variables-to-be-watched'."
   (interactive)
   (dolist (var modi/variables-to-be-watched)
     (remove-variable-watcher var #'modi/variable-watcher-fn)))
-
-;;; Switch/restore the buffer-local variable
-(defmacro switch-during-launch (variable value &rest body)
-  "Switch a buffer-local varilabe during launch a command.
-
-Switch a buffer-local VARIABLE to new VALUE at the time the command is run BODY,
-restore the original value of bufer-local variable after command completion."
-  `(let ((origin-value ,variable))
-     (setq ,variable ,value)
-     ,@body
-     (setq ,variable origin-value)))
 
 ;;; Toggle logical value
 (defmacro toggle-logical-value (variable)

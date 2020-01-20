@@ -9,6 +9,7 @@
 ;;  Get symbol at point, maybe
 ;;  Quitting emacs
 ;;  Fringe face setting
+;;  List of major modes
 ;;  Default ag arguments
 ;;  Default rg arguments
 ;;  Emacs version and git branch
@@ -90,6 +91,48 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
                                       "#f7f7f7" (face-foreground 'default))
                       :background (if (string= (face-background 'default) "unspecified-bg")
                                       "#282828" (face-background 'default))))
+
+;;; List of major modes
+(defvar yura/major-modes
+  '(bat-mode
+    bitbake-mode
+    c++-mode
+    c-mode
+    conf-mode
+    conf-space-mode
+    conf-unix-mode
+    cperl-mode
+    css-mode
+    emacs-lisp-mode
+    fundamental-mode
+    go-mode
+    java-mode
+    js-mode
+    makefile-gmake-mode
+    makefile-mode
+    markdown-mode
+    nim-mode
+    org-mode
+    org-src-mode
+    powershell-mode
+    python-mode
+    rst-mode
+    rust-mode
+    sh-mode
+    shell-script-mode
+    snippet-mode
+    tcl-mode
+    text-mode
+    verilog-mode
+    web-mode
+    yaml-mode)
+  "List of major modes.")
+
+(defvar yura/major-modes-hooks nil
+  "List of major modes of hooks.")
+(dolist (mode yura/major-modes)
+  (add-to-list 'yura/major-modes-hooks
+               (intern (concat (symbol-name mode) "-hook"))))
 
 ;;; Default ag arguments
 ;; https://github.com/ggreer/the_silver_searcher

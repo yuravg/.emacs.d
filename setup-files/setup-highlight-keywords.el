@@ -27,31 +27,7 @@
      prepend)))
 (mapc (lambda (mode)
         (font-lock-add-keywords mode todo-hkeywords))
-      '(text-mode
-        verilog-mode
-        shell-script-mode
-        sh-mode
-        cperl-mode
-        makefile-mode
-        makefile-gmake-mode
-        tcl-mode
-        org-mode
-        python-mode
-        emacs-lisp-mode
-        fundamental-mode
-        markdown-mode
-        rst-mode
-        conf-mode
-        conf-unix-mode
-        bat-mode
-        powershell-mode
-        bitbake-mode
-        js-mode
-        rust-mode
-        nim-mode
-        conf-space-mode
-        c-mode
-        c++-mode))
+      yura/major-modes)
 
 ;;; Magit
 ;; see `magit-log-propertize-keywords' (magit package, magit-log.el) for more information
@@ -283,25 +259,7 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
      . hkeywords-number-face)))
 (mapc (lambda (mode)
         (font-lock-add-keywords mode number-hkeyword))
-      '(text-mode
-        verilog-mode
-        shell-script-mode
-        sh-mode
-        cperl-mode
-        makefile-mode
-        makefile-gmake-mode
-        tcl-mode
-        python-mode
-        emacs-lisp-mode
-        fundamental-mode
-        bat-mode
-        powershell-mode
-        bitbake-mode
-        js-mode
-        rust-mode
-        conf-space-mode
-        c-mode
-        c++-mode))
+      yura/major-modes)
 
 (defvar python-number-hkeyword
   '(("\\_<0x[A-Fa-f0-9]+\\_>"

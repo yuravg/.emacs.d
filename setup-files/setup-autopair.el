@@ -12,23 +12,13 @@
     ;; Disable autopair blinks matching delimiters
     (setq autopair-blink nil)
 
-    (defvar autopair-modes '(verilog-mode
-                             emacs-lisp-mode
-                             python-mode
-                             sh-mode
-                             org-mode
-                             org-src-mode
-                             cperl-mode
-                             makefile-mode
-                             makefile-gmake-mode
-                             fundamental-mode
-                             text-mode
-                             tcl-mode
-                             c-mode
-                             c++-mode))
     (defun turn-on-autopair-mode () (autopair-mode 1))
-    (dolist (mode autopair-modes)
-      (add-hook (intern (concat (symbol-name mode) "-hook")) #'turn-on-autopair-mode))
+
+    (defvar yura/autopair-mode-hooks yura/major-modes-hooks
+      "List of hooks of major modes in which `autopair-mode' should be enabled.")
+
+    (dolist (hook yura/autopair-mode-hooks)
+      (add-hook hook #'turn-on-autopair-mode))
 
     (defalias 'ap 'autopair-mode)
 

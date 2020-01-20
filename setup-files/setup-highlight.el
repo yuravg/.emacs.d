@@ -185,20 +185,7 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
       (if window-system (hl-line-mode t))
       (idle-highlight-mode t))
 
-    (defconst yura/idle-highlight-mode-hooks '(emacs-lisp-mode-hook
-                                               tcl-mode-hook
-                                               java-mode-hook
-                                               python-mode-hook
-                                               verilog-mode-hook
-                                               c-mode-hook
-                                               c++-mode-hook
-                                               cperl-mode-hook
-                                               makefile-mode-hook
-                                               makefile-gmake-mode-hook
-                                               sh-mode-hook
-                                               text-mode-hook
-                                               bat-mode-hook
-                                               conf-space-mode-hook)
+    (defconst yura/idle-highlight-mode-hooks yura/major-modes-hooks
       "List of hooks of major modes in which `idle-highlight-mode' should be enabled.")
 
     (dolist (hook yura/idle-highlight-mode-hooks)

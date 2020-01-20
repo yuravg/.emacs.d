@@ -124,10 +124,10 @@ _c_ontinue (_C_ fast)      ^^^^                       _X_ global breakpoint
         (message "Debug-on-entry: %s" fn)))))
 
 ;; Turn on ElDoc mode
-(dolist ( hook '(emacs-lisp-mode-hook
-                 lisp-interaction-mode-hook
-                 ielm-mode-hook
-                 eval-expression-minibuffer-setup-hook))
+(dolist (hook '(emacs-lisp-mode-hook
+                lisp-interaction-mode-hook
+                ielm-mode-hook
+                eval-expression-minibuffer-setup-hook))
   (add-hook hook #'eldoc-mode))
 
 ;; Change the default indentation function for `emacs-lisp-mode' to

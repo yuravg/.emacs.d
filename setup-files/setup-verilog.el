@@ -1063,8 +1063,8 @@ Execute `verilog-compile-current-file' after saving the current buffer,
 if variable `yura/verilog-compilation-after-save-enable' is t."
       (add-hook 'after-save-hook
                 (lambda() (if yura/verilog-compilation-after-save-enable
-                           (progn (setq yura/compilation-buffer-single-show-time "0 sec")
-                                  (verilog-compile-current-file))))
+                         (progn (setq yura/compilation-buffer-single-show-time "0 sec")
+                                (verilog-compile-current-file))))
                 nil :local))
     (add-hook 'verilog-mode-hook #'yura/verilog-compilation-after-save)
 

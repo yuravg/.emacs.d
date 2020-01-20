@@ -216,7 +216,7 @@ It is assumed that the author has only one or two names."
 ;; |---------+-------------------------------------------------------------------------|
 
 ;;; Git-modes
-;; The package 'git-modes' do not available form Melpa
+;; The 'git-modes' package is not available from Melpa
 (use-package gitattributes-mode)
 (use-package gitconfig-mode)
 (use-package gitignore-mode

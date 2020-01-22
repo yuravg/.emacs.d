@@ -96,10 +96,10 @@
 
         ;; https://github.com/d12frosted/flyspell-correct
         (use-package flyspell-correct-ivy
-          :config
-          (use-package flyspell-correct
-            :chords
-            (("ww" . flyspell-correct-at-point))))
+          :chords ("ww" . flyspell-correct-at-point)
+          :bind ("C-;" . flyspell-correct-wrapper)
+          :init
+          (setq flyspell-correct-interface #'flyspell-correct-ivy))
 
         (defhydra hydra-flyspell (:color teal
                                   :hint nil)

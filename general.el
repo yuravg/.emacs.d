@@ -105,6 +105,9 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
     css-mode
     emacs-lisp-mode
     fundamental-mode
+    gitattributes-mode
+    gitconfig-mode
+    gitignore-mode
     go-mode
     java-mode
     js-mode

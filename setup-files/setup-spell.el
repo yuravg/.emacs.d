@@ -99,7 +99,7 @@
           :config
           (use-package flyspell-correct
             :chords
-            (("ww" . flyspell-correct-word-generic))))
+            (("ww" . flyspell-correct-at-point))))
 
         (defhydra hydra-flyspell (:color teal
                                   :hint nil)
@@ -110,7 +110,7 @@
    _c_: flyspell
 "
           ("w" ispell-word)
-          ("c" flyspell-correct-word-generic)
+          ("c" flyspell-correct-at-point)
           ("n" flyspell-goto-next-error)
           ("b" flyspell-buffer)
           ("q" nil "cancel"))

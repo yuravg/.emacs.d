@@ -12,13 +12,13 @@
   :config
   (progn
     (setq flycheck-mode-line-prefix "Ω")
-    (defconst modi/flycheck-mode-hooks '(python-mode-hook
-                                         emacs-lisp-mode-hook
-                                         sh-mode-hook
-                                         c++-mode-hook
+    (defconst modi/flycheck-mode-hooks '(c++-mode-hook
                                          c-mode-hook
+                                         cperl-mode-hook
+                                         emacs-lisp-mode-hook
                                          ;; nim-mode-hook
-                                         )
+                                         python-mode-hook
+                                         sh-mode-hook)
       "List of hooks of major modes in which flycheck mode should be enabled.")
 
     (defun modi/turn-on-flycheck-mode ()

@@ -42,6 +42,13 @@
     ;; - Hit =C-RET= in the perl buffer to send the current line to the
     ;;   interpreter in the ansi-term buffer. If a region is active, all
     ;;   lines spanning the region will be sent.
+    ;;
+    ;; Other way:
+    ;;
+    ;; - M-x perldb RET <command buffer-name> RET
+    ;; - M-x isend-associate RET <buffer-name> RET
+    ;; - Select code or just hit C-RET to send code to associated buffer
+
     (use-package isend-mode
       :config
       (progn

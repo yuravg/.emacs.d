@@ -240,6 +240,14 @@ Lisp function does not specify a special indentation."
   (progn
     (setq easy-escape-character ?\\) ; default
     ;; (setq easy-escape-character ?⑊)
+
+    (set-face-attribute 'easy-escape-delimiter-face nil
+                        :inherit 'diff-hl-insert
+                        :bold t)
+    (set-face-attribute 'easy-escape-face nil
+                        :inherit 'diff-hl-insert
+                        :bold t)
+
     (add-hook 'emacs-lisp-mode-hook #'easy-escape-minor-mode)))
 
 ;; Overlay eval results

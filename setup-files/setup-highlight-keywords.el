@@ -17,17 +17,14 @@
 ;;  Backslash
 
 
-;; https://www.emacswiki.org/emacs/AddKeywords
-
 ;;; TO-DO
 (defvar todo-hkeywords
   '(("\\<\\(FIXME\\|DEBUG\\|NOTE\\|TEMP\\|TODO\\):"
      1
      'font-lock-warning-face
      prepend)))
-(mapc (lambda (mode)
-        (font-lock-add-keywords mode todo-hkeywords))
-      yura/major-modes)
+(dolist (mode yura/major-modes)
+  (font-lock-add-keywords mode todo-hkeywords))
 
 ;;; Magit
 ;; see `magit-log-propertize-keywords' (magit package, magit-log.el) for more information

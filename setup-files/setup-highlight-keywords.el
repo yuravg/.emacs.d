@@ -4,6 +4,7 @@
 ;; Contents:
 ;;
 ;;  TO-DO
+;;  Tips
 ;;  Magit
 ;;  Synopsys, Altera(Quartus) and Mentor(ModelSim/QuestaSim)
 ;;  Natural Docs
@@ -25,6 +26,14 @@
      prepend)))
 (dolist (mode yura/major-modes)
   (font-lock-add-keywords mode todo-hkeywords))
+
+;;; Tips
+(defvar tips-hkeywords
+  '(("\\<\\(TIPS\\)\\>"
+     1 '(:inherit font-lock-comment-delimiter-face :weight bold :slant normal)
+     prepend)))
+(dolist (mode yura/major-modes)
+  (font-lock-add-keywords mode tips-hkeywords))
 
 ;;; Magit
 ;; see `magit-log-propertize-keywords' (magit package, magit-log.el) for more information

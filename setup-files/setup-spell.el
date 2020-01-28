@@ -104,15 +104,20 @@
         (defhydra hydra-flyspell (:color teal
                                   :hint nil)
           "
-^^^^      Correct word:                 ^^GoTo:                           ^^Spell:
-^^^^------------------------------------^^--------------------------------^^------
- _w_/_f_: flyspell                   _n_: next error                   _b_: buffer
+^^^^      Correct word:                   ^^GoTo:                           ^^Spell:
+^^^^--------------------------------------^^--------------------------------^^------
+ _w_/_f_: flyspell (smart)           _C-n_: next error                   _b_: buffer
+ _p_/_n_: flyspell previous/next
+^^   _c_: flyspell at point
 ^^   _i_: ispell
 "
           ("w" flyspell-correct-wrapper)
           ("f" flyspell-correct-wrapper)
+          ("p" flyspell-correct-previous)
+          ("n" flyspell-correct-next)
+          ("c" flyspell-correct-at-point)
           ("i" ispell-word)
-          ("n" flyspell-goto-next-error)
+          ("C-n" flyspell-goto-next-error)
           ("b" flyspell-buffer)
           ("q" nil "cancel"))
         (bind-keys

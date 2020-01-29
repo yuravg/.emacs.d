@@ -15,6 +15,7 @@
 ;;    Class name
 ;;  Number
 ;;  Make file
+;;  Tcl
 ;;  Backslash
 
 
@@ -321,6 +322,17 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  '(("\\(\\$(call\\s-+[_A-Za-z0-9]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)\
 \\(,\\)\\([_A-Za-z0-9()$/.]+\\)\\(,\\)\\([_A-Za-z0-9()$/.]+\\)"
     (8 '(:inherit font-lock-keyword-face :background "gray94")))))
+
+;;; Tcl
+(font-lock-add-keywords
+ 'tcl-mode
+ '(("\\<\\(require\\|provide\\)\\>"
+    1 font-lock-keyword-face)))
+
+(font-lock-add-keywords
+ 'tcl-mode
+ '(("\\<\\(file exists\\)\\>"
+    1 font-lock-function-name-face)))
 
 ;;; Backslash
 (defvar backslash-ending-hkeywords

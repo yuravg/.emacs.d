@@ -91,13 +91,13 @@ Should usage with:
                            :hint nil)
       "
 Magit:
-^^^^     Status/Log                  ^^  Open Rev File                   ^^  Other                   ^^  Refine-hunk
-^^^^---------------------------------^^----------------------------------^^--------------------------^^----------------------------
-_s_/_g_: status                     _c_: checkout file(rewrite)         _W_: patch                  _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
-^^  _l_: log current              _C-c_: find file(open new)            _!_: run                    _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
-_b_/_L_: log all/local branches     _f_: file-dispatch                  _$_: process buffer
-^^_C-l_: log current buffer          ^^                               _C-f_: find Git file
-^^^^                                 ^^                                 _m_: git-timemachine
+^^^^     Status/Log                  ^^  File                             ^^ Repository          ^^  Other                   ^^  Refine-hunk
+^^^^---------------------------------^^-----------------------------------^^---------------------^^--------------------------^^----------------------------
+_s_/_g_: status                     _c_: checkout file(rewrite)         _f_: fetch               _W_: patch                  _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
+^^  _l_: log current              _C-c_: find file(open new)            _P_: push                _!_: run                    _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
+_b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: checkout            _$_: process buffer
+^^_C-l_: log current buffer       _C-f_: find Git file                   ^^                      _m_: git-timemachine
+^^^^                                 ^^
 "
       ("g" magit-status)
       ("s" magit-status)
@@ -108,14 +108,18 @@ _b_/_L_: log all/local branches     _f_: file-dispatch                  _$_: pro
 
       ("c" magit-file-checkout)
       ("C-c" magit-find-file)
-      ("f" magit-file-dispatch)
+      ("F" magit-file-dispatch)
+      ("C-f" counsel-git)
+
+      ("f" magit-fetch)
+      ("P" magit-push)
+      ("h" counsel-git-checkout)
 
       ("W" magit-patch)
       ("!" magit-run)
       ("$" magit-process-buffer)
       ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
       ("T" yura/magit-diff-refine-hunk-toggle :color red)
-      ("C-f" counsel-git)
 
       ("m" git-timemachine)
       ("q"   nil "cancel" :color blue))

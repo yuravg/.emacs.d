@@ -182,10 +182,9 @@ It is assumed that the author has only one or two names."
     (setq git-commit-summary-max-length 50)
 
     (defun yura/git-commit-mode-customization ()
-      "Customization for `git-commit-mode'."
-      (when (and (derived-mode-p 'text-mode)
-                 (bound-and-true-p git-commit-mode))
-        (setq-local fill-column 72)))
+      "Set Git message body limits to 72. https://chris.beams.io/posts/git-commit."
+      (setq-local fill-column 72)
+      (setq-local fci-rule-column 73))
     (add-hook 'git-commit-mode-hook #'yura/git-commit-mode-customization)))
 
 ;;; Git-timemachine

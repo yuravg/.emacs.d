@@ -1,13 +1,17 @@
 *.desktop
 *.desktop.lock
 .hl-save
+.org-id-locations
+.projectile
 abbrev_defs
 anaconda-mode/
+autex/
 bm-repository
 bookmarks
 elfeed_db*/
 elpa_[2-9]*/
 elpy/
+emojis/
 eshell/
 folds-saved
 hl-save

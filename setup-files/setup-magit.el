@@ -6,6 +6,7 @@
 ;;  Magit-log
 ;;  Git-timemachine
 ;;  Git-modes
+;;  Emojify
 
 ;;; Magit
 ;; https://github.com/magit/magit
@@ -234,6 +235,17 @@ It is assumed that the author has only one or two names."
 (use-package gitconfig-mode)
 (use-package gitignore-mode
   :mode (("\\.gitignore_global". gitignore-mode)))
+
+;;; Emojify
+;; https://github.com/iqbalansari/emacs-emojify
+(use-package emojify
+  :config
+  (progn
+    (dolist (hook '(git-commit-mode-hook
+                    git-rebase-mode-hook
+                    magit-diff-mode-hook
+                    magit-log-mode-hook))
+      (add-hook hook #'emojify-turn-on-emojify-mode))))
 
 
 (provide 'setup-magit)

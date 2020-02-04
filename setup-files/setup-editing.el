@@ -550,7 +550,6 @@ Delete spaces for selected region or for entire buffer, if no region is selected
               ("\\(\\s-+\\))"  . ")")
               ("{\\(\\s-+\\)"  . "{")
               ("\\(\\s-+\\)}"  . "}")
-              ("\\(\\s-+\\)}"  . "}")
               ("\\(\\s-+\\)]"  . "]")
               ("\\[\\(\\s-+\\)" . "[")
               ("(\\(\\s-+\\))" . "()")

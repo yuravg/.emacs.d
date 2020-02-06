@@ -237,16 +237,27 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
 
 ;; https://github.com/jackkamm/undo-propose-el
 (use-package undo-propose
+  :commands undo-propose
+  :bind
+  (:map undo-propose-mode-map
+   ("?" . hydra-undo-propose/body))
   :config
   (progn
     ;; Open undo-propose buffer in a new window
-    (setq undo-propose-pop-to-buffer t))
-  :commands undo-propose)
-;; TIPS:
-;; 'C-c C-c' is bound `undo-propose-commit' (undo parent)
-;; 'C-c C-s' is bound `undo-propose-squash-commit' (undos into a single edit)
-;; 'C-c C-k' is bound `undo-propose-cancel'
-;; 'C-c C-d' is bound `undo-propose-diff'
+    (setq undo-propose-pop-to-buffer t)
+    (defhydra hydra-undo-propose (:color teal :hint nil)
+      "
+[undo-propose mode (mode-map prefix: 'C-c')]
+  _C-c_: commit
+  _C-s_: squash commit
+  _C-d_: diff
+  _C-k_: cancel
+"
+      ("C-c" undo-propose-commit)
+      ("C-s" undo-propose-squash-commit)
+      ("C-d" undo-propose-diff)
+      ("C-k" undo-propose-cancel)
+      ("q" nil "quit" :color blue))))
 
 ;; Tue Jul 30 13:49:35 EDT 2019 - kmodi
 ;; Commenting out the below as I do not think they are needed.

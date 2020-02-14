@@ -214,7 +214,9 @@ It is assumed that the author has only one or two names."
     (define-transient-command git-timemachine-help ()
       "Show online help."
       ["Navigate"
-       [("p" "show previous revision" git-timemachine-show-previous-revision)
+       [("P" "show previous revision(show patch)" yura/git-timemachine-show-previous-revision-commit)
+        ("N" "show next revision(show patch)" yura/git-timemachine-show-next-revision-commit)
+        ("p" "show previous revision" git-timemachine-show-previous-revision)
         ("n" "show next revision" git-timemachine-show-next-revision)
         ("g" "show nth revision" git-timemachine-show-nth-revision)
         ("t" "show fuzzy revision" git-timemachine-show-revision-fuzzy)]]
@@ -223,7 +225,8 @@ It is assumed that the author has only one or two names."
         ("W" "kill revision" git-timemachine-kill-revision)]]
       ["Misc"
        [("b" "blame current revision" git-timemachine-blame)
-        ("c" "show commit" git-timemachine-show-commit)
+        ("c" "show commit" yura/git-timemachine-show-commit)
+        ("C" "show commit(and jump)" git-timemachine-show-commit)
         ("?" "show help" git-timemachine-help)
         ("q" "quit" git-timemachine-quit)]])
 

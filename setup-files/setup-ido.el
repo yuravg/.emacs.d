@@ -33,11 +33,13 @@
   :config
   (progn
     (ido-mode 1)
+
+    ;; The following command disables the `ivy-mode' after update this package:
     ;; Re-enable `ido-mode' again after ensuring that `ivy-mode' is off
-    (with-eval-after-load 'ivy
-      (ivy-mode -1)
-      ;; Enable ido
-      (ido-mode 1))
+    ;; (with-eval-after-load 'ivy
+    ;;   (ivy-mode -1)
+    ;;   ;; Enable ido
+    ;;   (ido-mode 1))
 
     ;; Use flx-ido for better flex matching between words
     (use-package flx-ido

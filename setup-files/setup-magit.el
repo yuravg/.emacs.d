@@ -209,6 +209,24 @@ It is assumed that the author has only one or two names."
       (git-timemachine-show-next-revision)
       (yura/git-timemachine-show-commit))
 
+    ;; The `git-timemachine-help' is defined in `git-timemachine' package.
+    ;; To add commands to `git-timemachine-help' I overwrite it.
+    (define-transient-command git-timemachine-help ()
+      "Show online help."
+      ["Navigate"
+       [("p" "show previous revision" git-timemachine-show-previous-revision)
+        ("n" "show next revision" git-timemachine-show-next-revision)
+        ("g" "show nth revision" git-timemachine-show-nth-revision)
+        ("t" "show fuzzy revision" git-timemachine-show-revision-fuzzy)]]
+      ["Kill current revision"
+       [("w" "kill abbreviated revision" git-timemachine-kill-abbreviated-revision)
+        ("W" "kill revision" git-timemachine-kill-revision)]]
+      ["Misc"
+       [("b" "blame current revision" git-timemachine-blame)
+        ("c" "show commit" git-timemachine-show-commit)
+        ("?" "show help" git-timemachine-help)
+        ("q" "quit" git-timemachine-quit)]])
+
     (bind-keys
      :map git-timemachine-mode-map
      ("c" . yura/git-timemachine-show-commit)

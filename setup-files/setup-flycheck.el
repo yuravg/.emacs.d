@@ -146,18 +146,18 @@ Non-nil if all C/C++ checkers installed.
             ;; -whitespace,+whitespace/braces,
             )))
 
-    (defhydra hydra-flycheck (:color blue
+    (defhydra hydra-flycheck (:color amaranth
                               :columns 4)
       "Flycheck"
-      ("l" flycheck-list-errors "list error" :color red)
+      ("l" flycheck-list-errors "list error")
       ("n" flycheck-next-error "next error")
       ("s" flycheck-select-checker "select checker")
       ("P" flycheck-pos-tip-mode "toggle error tip pop-up")
-      ("u" flycheck-pos-tip-mode "toggle error tip pop-up")
-      ("t" flycheck-mode "toggle flycheck mode" :color red)
+      ("t" flycheck-mode "toggle flycheck mode")
       ("p" flycheck-previous-error "previous error")
       ("d" flycheck-disable-checker "disable checker")
-      ("v" flycheck-verify-setup "verify setup"))
+      ("v" flycheck-verify-setup "verify setup")
+      ("q" nil "cancel"))
 
     (defalias 'fm 'flycheck-mode)
     (defalias 'fl 'flycheck-list-errors)

@@ -151,11 +151,11 @@ Non-nil if all C/C++ checkers installed.
       "Flycheck"
       ("l" flycheck-list-errors "list error" :color red)
       ("n" flycheck-next-error "next error")
-      ("p" flycheck-previous-error "previous error")
+      ("s" flycheck-select-checker "select checker")
       ("P" flycheck-pos-tip-mode "toggle error tip pop-up")
       ("u" flycheck-pos-tip-mode "toggle error tip pop-up")
       ("t" flycheck-mode "toggle flycheck mode" :color red)
-      ("s" flycheck-select-checker "select checker")
+      ("p" flycheck-previous-error "previous error")
       ("d" flycheck-disable-checker "disable checker")
       ("v" flycheck-verify-setup "verify setup"))
 

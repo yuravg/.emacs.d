@@ -5,7 +5,7 @@
 (use-package counsel
   :defer t
   :bind (:map modi-mode-map
-         ("C-c f" . hydra-source-code-warnings/body))
+         ("C-c C-w" . hydra-source-code-warnings/body))
   :init
   (progn
     ;; Do not bind the below keys to counsel commands if the user has decided

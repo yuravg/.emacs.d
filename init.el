@@ -197,6 +197,7 @@ need Org version to be at least 9.x.")
     gitattributes-mode gitconfig-mode gitignore-mode ;git-modes
     emojify ;display emojis
     undo-propose
+    dumb-jump
     )
   "A list of packages to ensure are installed at launch")
 

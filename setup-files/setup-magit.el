@@ -254,7 +254,12 @@ It is assumed that the author has only one or two names."
 ;;; Git-modes
 ;; The 'git-modes' package is not available from Melpa
 (use-package gitattributes-mode)
-(use-package gitconfig-mode)
+
+(use-package gitconfig-mode
+  :config
+  (with-eval-after-load 'easy-escape
+    (add-hook 'gitconfig-mode-hook #'easy-escape-minor-mode)))
+
 (use-package gitignore-mode
   :mode (("\\.gitignore_global". gitignore-mode)))
 

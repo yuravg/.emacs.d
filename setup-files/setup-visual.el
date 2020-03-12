@@ -601,8 +601,8 @@ See `whitespace-style' more information."
                                       '(face newline-mark newline))))
         (whitespace-mode 'toggle)))
 
-    (defalias 'wm 'whitespace-mode)
-    (defalias 'wmn 'yura/whitespace-with-newline)
+    (defalias 'wmt 'whitespace-mode)
+    (defalias 'wm 'yura/whitespace-with-newline)
     (defalias 'wmo 'whitespace-toggle-options)))
 
 ;;; Narrow/Widen

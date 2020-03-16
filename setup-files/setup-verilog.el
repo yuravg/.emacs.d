@@ -926,7 +926,11 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
       "Overwrite Verilog identifiers.
 
 Overwrite identifiers for Verilog:
-task, class, function, interface, package, module."
+task, class, function, interface, package, module.
+
+Examples: endmodule                 → endmodule : module_name
+          endmodule // module_name  → endmodule : module_name
+          endmodule // some_comment → endmodule : module_name"
       (interactive)
       (save-excursion
         (mapc (lambda (keyword)
@@ -936,10 +940,9 @@ task, class, function, interface, package, module."
                     (if (or (string-match-p "task" keyword)
                             (string-match-p "function" keyword)
                             (string-match-p "module" keyword))
-                        (progn(search-forward "(")
-                              (backward-char 2))
-                      (progn
-                        (forward-char 2)))
+                        (progn (re-search-forward "(\\|;" nil :noerror)
+                               (re-search-backward "\\w" nil :noerror))
+                      (forward-char 2))
                     (setq name (symbol-at-point))
                     (cond
                      ((string-match-p "task" keyword) (search-backward "task"))
@@ -957,9 +960,9 @@ task, class, function, interface, package, module."
                       (electric-verilog-backward-sexp))
                     (forward-line))))
               '("task" "class" "function" "interface" "package" "module"
-                "pure virtual function" "virtual function"
+                "virtual function"
                 "protected function" "virtual protected function"
-                "pure virtual task" "virtual task"
+                "virtual task"
                 "protected task" "virtual protected task"))))
 
     (defun yura/verilog-task-func-move-from-class (arg)

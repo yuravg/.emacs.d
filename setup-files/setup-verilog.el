@@ -1251,6 +1251,8 @@ _a_lways         _f_or              _g_enerate         _O_utput
      ("C-c C-h"   . nil)
      ("C-c C-S-h" . verilog-header)
      ("C-m"       . indent-new-comment-line) ; default `autopair-newline'
+     ;; Unbind `electric-verilog-semi-with-comment'; binding to `flyspell-correct-wrapper'
+     ("C-;" . nil)
      ;;
      ("C-c C-t"   . hydra-verilog-template/body)
      ("C-^"       . modi/verilog-jump-to-header-dwim)

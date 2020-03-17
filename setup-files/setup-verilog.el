@@ -857,7 +857,7 @@ VARIABLE-INDENT(default 1) set indentation to variable name,
           (mark-paragraph))
         (delete-double-spaces-in-region-or-line)
         (indent-region (region-beginning) (region-end))
-        (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\w+\\(;\\|\\(\\(\\s-*\\)=\\)\\)" 1 variable-indent nil)
+        (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\w+\\(;\\|,\\|\\(\\(\\s-*\\)=\\)\\)" 1 variable-indent nil)
         (message "Alignment done.")))
     (defalias 'vav 'verilog-alignment-of-variables-declaration-in-region)
 

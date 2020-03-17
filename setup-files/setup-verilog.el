@@ -25,6 +25,7 @@
 ;;    Alignment
 ;;    Refactoring
 ;;  Verilog compile
+;;  Simulation
 ;;    Compilation after save
 ;;  hideshow
 ;;  hydra-verilog-template
@@ -1045,6 +1046,25 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
      :map verilog-mode-map
      ("C-c C-c" . verilog-compile-current-file)
      ("C-c C-a" . verilog-compile-all-files))
+
+;;; Simulation
+    (defun yura/questasim-vsim ()
+      "Run compilation and simulation with QuestaSim."
+      (interactive)
+      (let* ((is-function (if (bound-and-true-p yura/compilation-finish-function) t nil))
+             (fname (file-name-nondirectory buffer-file-name))
+             (command (concat verilog-linter-modelsim " " fname
+                              " && "
+                              "vsim -c "
+                              (file-name-sans-extension fname)
+                              " -do 'run -all'")))
+        (setq yura/compilation-finish-function nil) ;clean `compilation-finish-function'
+        (compile command))
+      (if is-function (yura/compilation-toggle-finish-function))) ;restore `compilation-finish-function'
+
+    (bind-keys
+     :map verilog-mode-map
+     ("C-c M-q" . yura/questasim-vsim))
 
 ;;;; Compilation after save
     (defvar yura/verilog-compilation-after-save-enable nil

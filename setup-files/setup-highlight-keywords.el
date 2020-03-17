@@ -220,7 +220,7 @@
 (font-lock-add-keywords
  'verilog-mode
  '(("\\(^\\s-*\\)\
-\\<\\(end\\|join\\|join_any\\|join_none\\|endfunction\\|endtask\\|endclocking\\|endchecker\\|endgroup\\|endmodule\\|\
+\\<\\(begin\\|end\\|join\\|join_any\\|join_none\\|endfunction\\|endtask\\|endclocking\\|endchecker\\|endgroup\\|endmodule\\|\
 endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\\>\
 \\( : \\<\\w+\\>\\)"
     3 'font-lock-comment-delimiter-face)))

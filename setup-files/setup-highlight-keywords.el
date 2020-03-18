@@ -13,6 +13,7 @@
 ;;    Preprocessor
 ;;    Identifier
 ;;    Class name
+;;    Formal verification
 ;;  Number
 ;;  Make file
 ;;  Tcl
@@ -256,6 +257,14 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  'verilog-mode
  '(("^\\(\\s-*\\|\\s-*virtual \\|\\s-*pure virtual \\)\\(task\\s-+\\)\\(\\w+\\)::\\w+"
     3 'font-lock-constant-face)))
+
+;;;; Formal verification
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("\\(\\w+:\\)\\s-+\\<\\(assert\\|assume\\|cover\\|restrict\\)\\>"
+    1
+    font-lock-comment-delimiter-face
+    prepend)))
 
 ;;; Number
 (defvar hkeywords-number-face 'hkeywords-number-face

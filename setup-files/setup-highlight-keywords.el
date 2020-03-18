@@ -209,6 +209,11 @@
    ("\\*\\*\\s-?Error:.+/\\(.+\\)(" (1 '(compilation-error) prepend))
    ("\\*\\*\\s-?Error:.+(\\([0-9]+\\)" (1 '(compilation-line-number) prepend))))
 
+;; Reset keywords of face; for default it has `font-lock-warning-face'
+(font-lock-add-keywords
+ 'compilation-mode
+ '((" \\<\\([Tt]ime\\|Iteration\\)\\>:" 0 '(:background nil) prepend)))
+
 ;;; Verilog
 ;;;; Preprocessor
 (font-lock-add-keywords

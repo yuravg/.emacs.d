@@ -14,25 +14,28 @@
 ;; 4. make
 ;; 5. make install
 
-(defvar auctex-install-dir (file-name-as-directory (expand-file-name "auctex" user-emacs-directory))
-  "AucTeX install directory.")
+(use-package tex
+  :config
+  (progn
+    (defvar auctex-install-dir (file-name-as-directory (expand-file-name "auctex" user-emacs-directory))
+      "AucTeX install directory.")
 
-(when (file-exists-p auctex-install-dir)
-  (add-to-list 'load-path auctex-install-dir)
-  (load "auctex.el" nil t t)
-  (load "preview-latex.el" nil t t)
+    (when (file-exists-p auctex-install-dir)
+      (add-to-list 'load-path auctex-install-dir)
+      (load "auctex.el" nil t t)
+      (load "preview-latex.el" nil t t))
 
-  (if (executable-find "xelatex")
-      (setq LaTeX-command "xelatex -shell-escape")
-    (setq LaTeX-command "latex -shell-escape"))
+    (if (executable-find "xelatex")
+        (setq LaTeX-command "xelatex -shell-escape")
+      (setq LaTeX-command "latex -shell-escape"))
 
-  ;; http://www.gnu.org/software/auctex/manual/auctex/Multifile.html
-  (setq TeX-PDF-mode   t)
-  (setq TeX-auto-save  t)
-  (setq TeX-parse-self t)
-  (setq TeX-save-query nil)
+    ;; http://www.gnu.org/software/auctex/manual/auctex/Multifile.html
+    (setq TeX-PDF-mode   t)
+    (setq TeX-auto-save  t)
+    (setq TeX-parse-self t)
+    (setq TeX-save-query nil)
 
-  (setq-default TeX-master nil)) ; Query for master file.
+    (setq-default TeX-master nil))) ; Query for master file.
 
 
 (provide 'setup-latex)

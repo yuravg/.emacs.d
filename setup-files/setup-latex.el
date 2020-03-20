@@ -29,6 +29,9 @@
         (setq LaTeX-command "xelatex -shell-escape")
       (setq LaTeX-command "latex -shell-escape"))
 
+    (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+    (setq TeX-command-default "XeLaTeX")
+
     ;; http://www.gnu.org/software/auctex/manual/auctex/Multifile.html
     (setq TeX-PDF-mode   t)
     (setq TeX-auto-save  t)

@@ -48,7 +48,7 @@
 	url = https://github.com/sheijk/hideshowvis
 [submodule "elisp/verilog-mode/src"]
 	path = elisp/verilog-mode/src
-	url = https://github.com/kaushalmodi/verilog-mode
+	url = https://github.com/veripool/verilog-mode.git
 [submodule "misc/ntangle"]
 	path = misc/ntangle
 	url = https://github.com/OrgTangle/ntangle.git

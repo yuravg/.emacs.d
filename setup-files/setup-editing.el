@@ -480,10 +480,8 @@ Then execute `align-regexp'."
   (interactive)
   (progn
     (defadvice align-regexp (around align-regexp-with-spaces activate)
-      (let ((old-indent-tabs-mode indent-tabs-mode))
-        (setq indent-tabs-mode nil)
-        ad-do-it
-        (setq indent-tabs-mode old-indent-tabs-mode)))
+      (let ((indent-tabs-mode nil))
+        ad-do-it))
     (message "Use `align-regexp' with SPACES")))
 
 (defun set-align-regexp-with-tab ()
@@ -491,10 +489,8 @@ Then execute `align-regexp'."
   (interactive)
   (progn
     (defadvice align-regexp (around align-regexp-with-spaces activate)
-      (let ((old-indent-tabs-mode indent-tabs-mode))
-        (setq indent-tabs-mode t)
-        ad-do-it
-        (setq indent-tabs-mode old-indent-tabs-mode)))
+      (let ((indent-tabs-mode t))
+        ad-do-it))
     (message "Use `align-regexp' with TAB")))
 
 (defun set-align-regexp-with-default ()

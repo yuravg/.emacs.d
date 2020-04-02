@@ -430,6 +430,12 @@ and to have a `ctags' TAGS file pre-generated for this command to work."
                 (user-error "Ctags TAGS file `%s' was not found" tags-file)))
           (user-error "Executable `ctags' is required for this command to work")))
 
+      (defun yura/verilog-jump-to-module-at-point ()
+        "Jump to tag."
+        (interactive)
+        (modi/verilog-jump-to-header-dwim nil)
+        (modi/find-tag))
+
       (with-eval-after-load 'ag         ;For `ag-regexp'
 
 ;;;; modi/verilog-find-parent-module (interactive)
@@ -1302,7 +1308,7 @@ _a_lways         _f_or              _g_enerate         _O_utput
      ("C-&"       . modi/verilog-jump-to-header-dwim-fwd)
      ("<f9>"      . modi/verilog-compile)
      ("<S-f9>"    . modi/verilog-simulate))
-    (bind-chord "\\\\" #'modi/verilog-jump-to-module-at-point verilog-mode-map) ;"\\"
+    (bind-chord "\\\\" #'yura/verilog-jump-to-module-at-point verilog-mode-map) ;"\\"
     (when (executable-find "ag")
       (bind-chord "^^" #'modi/verilog-find-parent-module verilog-mode-map)
       (bind-chord "UU" #'modi/verilog-find-parent-module verilog-mode-map))))

@@ -794,24 +794,22 @@ module_name item_name(
               (goto-char (point-min))
               (while (re-search-forward in-expr nil :noerror)
                 (replace-match out-expr)))
-            (replace--in--region "(" " (")
-            (replace--in--region ")" " )")
             (replace--in--region "\\s-+" " ")
+            (replace--in--region " )" ")")
+            (replace--in--region "( " "(")
+            (replace--in--region "\\(\\w-*\\)(" "\\1 (")
             (set-mark (point-min))
             (goto-char (point-max))
             (indent-rigidly (point-min) (point-max) -24)
             (indent-rigidly (point-min) (point-max) (+ verilog-indent-level
                                                        verilog-indent-level-module))
-            (align-regexp (point-min) (point-max) "\\(\\s-*\\)\\ (" 1 0 nil)
-            (replace--in--region "( " "(")
+            (align-regexp (point-min) (point-max) "\\(\\s-*\\.\\w+\\)\\(\\s-+\\)\\((\\)" 2 1 nil)
             (if arg
-                (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\ )" 1 0 nil))
-            (replace--in--region " )" ")"))))
+                (align-regexp (region-beginning) (region-end) "\\(\\s-*\\.\\w+.+?\\)\\(\\s-*\\)\\()\\)" 2 0 nil)))))
       (message "Alignment done."))
     (defalias 'vai 'verilog-port-alignmet-for-module-instance)
 
     ;; TODO: alignment parameters of module
-    ;; FIXME: comma in comment not allowed
     (defun verilog-port-alignment-when-declaring-module (variable-indent)
       "Port alignment when declaring a module.\n
 To execute command should move point in module.\n
@@ -837,7 +835,18 @@ VARIABLE-INDENT(default 1) set indentation to variable name,
             ;; align to variable width
             (align-regexp (point-min) (point-max) "^\\(\\s-+\\w+\\)+\\(\\s-+\\)\\(\\[\\)" 2 1 nil)
             ;; align to variable name
-            (align-regexp (point-min) (point-max) "\\(\\s-*\\)\\w+\\(,\\|\\(\\s-*\\Ca*\\s-*);\\)\\|\\(\\s-*=\\)\\)" 1 variable-indent nil)
+            (align-regexp (point-min)
+                          (point-max)
+                          ;; Align-regexp GROUP:
+                          ;; 1: interface with modport
+                          ;; 3: string parameter
+                          "^\\(\\s-+\\w+\\.?\\w+?\\)\
+\\(\\s-+reg\\|\\s-+bit\\|\\s-+logic\\)?\
+\\(\\s-*\\[[[:ascii:]]+?:[[:ascii:]]+?\\]\\s-*\\)?\
+\\(\\s-+\\)\\(\\w+\\)"
+                          4
+                          variable-indent
+                          nil)
             ;; align end of module
             (goto-char (point-min))
             (while (re-search-forward "\\(\\s-+\\)\\();\\)" (point-max) :noerror)
@@ -913,8 +922,8 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
   _d_: variables in region
   _a_: refactor alignment (region/buffer)
 "
-      ("p" verilog-ports-alignment-when-declaring-module)
-      ("i" verilog-ports-alignmet-for-module-instance)
+      ("p" verilog-port-alignment-when-declaring-module)
+      ("i" verilog-port-alignmet-for-module-instance)
       ("d" verilog-alignment-of-variables-declaration-in-region)
       ("a" verilog-refactoring-of-alignment)
 

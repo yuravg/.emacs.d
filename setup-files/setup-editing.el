@@ -446,12 +446,15 @@ Then execute `align-regexp'."
 (defalias 'ar 'align-regexp)
 (bind-key "e" #'align-regexp region-bindings-mode-map)
 
-(defun modi/align-columns (begin end)
-  "Align text columns"
-  (interactive "r")
+(defun modi/align-columns (begin end &optional arg)
+  "Align text columns.
+
+Prefixed ARG with \\[universal-argument] also changes the indentation with `indent-region'."
+  (interactive "r\nP")
   ;; align-regexp syntax:  align-regexp (beg end regexp &optional group spacing repeat)
   (align-regexp begin end "\\([[:blank:]]+\\)[[:alnum:]=(),_$?':`\.{}]" 1 1 t)
-  (indent-region begin end)) ; indent the region correctly after alignment
+  (if arg
+      (indent-region begin end)))
 
 (bind-key "|" #'modi/align-columns region-bindings-mode-map)
 

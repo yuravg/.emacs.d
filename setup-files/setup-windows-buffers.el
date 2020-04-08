@@ -92,12 +92,16 @@ If the file does not exist it will be created."
   (find-file "./.dir-locals.el"))
 
 ;;; Duplicate current window
-(defun duplicate-current-window-delete-other ()
-  "Duplicate the current window to the next window and delete other windows."
-  (interactive)
-  (delete-other-windows)
-  (split-window-right))
-(defalias 'db 'duplicate-current-window-delete-other)
+(defun duplicate-current-window (arg)
+  "Duplicate the current window to the next window.
+
+Prefixex with \\[universal-argument] delete other windows."
+  (interactive "P")
+  (if arg
+      (delete-other-windows))
+  (split-window-right)
+  (balance-windows))
+(defalias 'db 'duplicate-current-window)
 
 ;;; Insert file name
 ;; https://www.emacswiki.org/emacs/InsertFileName

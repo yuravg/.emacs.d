@@ -116,14 +116,13 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
       ("P" magit-push)
       ("h" counsel-git-checkout)
 
-      ("W" magit-patch)
-      ("w" magit-am)
       ("!" magit-run)
       ("$" magit-process-buffer)
+      ("m" git-timemachine)
+
       ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
       ("T" yura/magit-diff-refine-hunk-toggle :color red)
 
-      ("m" git-timemachine)
       ("q"   nil "cancel" :color blue))
 
     (use-package git-rebase

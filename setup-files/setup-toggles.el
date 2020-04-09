@@ -9,8 +9,6 @@
   ("af"    auto-fill-mode "auto fill")
   ("ar"    auto-revert-mode "auto revert")
   ("aw"    adaptive-wrap-prefix-mode "adaptive wrap")
-  ("b"     modi/toggle-menu-bar "menu bar")
-  ("c"     xah-cycle-letter-case "cycle case" :color red)
   ("d"     toggle-debug-on-error "debug on error")
   ("D"     modi/toggle-debug "debug on entry")
   ("e"     modi/toggle-edebug "edebug")
@@ -30,7 +28,6 @@
   ("r"     dired-toggle-read-only "read only/editable") ; generalized `read-only-mode'
   ("sa"    scroll-all-mode "scroll all mode")
   ("t"     toggle-truncate-lines "truncate lines" :color red)
-  ("C-t"   toggle-theme "dark/light theme")
   ("v"     view-mode "view mode") ; make buffer read-only, then use SPC/DEL to nav
   ("V"     visible-mode "visible mode") ; view all hidden text in org-mode (e.g. links)
   ("<SPC>" whitespace-mode "whitespace mode")

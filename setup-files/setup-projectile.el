@@ -267,8 +267,8 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
     _f_: file             ^^      _a_: ag                      _i_: Ibuffer              _c_: cache clear              _M-c_/_C-c_: compile     _E_: edit project's .dir-locals.el
     _F_: file dwim        ^^      _G_: update gtags            _b_: switch to buffer     _x_: remove known project     _M-t_/_C-t_: test        _p_: switch to other project
     _d_: file curr dir    ^^      _o_: multi-occur             _k_: kill all buffers     _X_: cleanup non-existing     _M-r_/_C-r_: run         _g_: switch to Magit status of other project
-    _l_: file literally     _C-s_/_s_: counsel rg              ^^                        _z_: cache current            ^^^^                     _P_: switch to an open project
-    _r_: recent file      _C-a_/_C-g_: counsel ag/grep         ^^                        ^^                            ^^^^                     _D_: find dir
+    _l_: file literally     _C-s_/_s_: counsel rg            _C-m_: revert               _z_: cache current            ^^^^                     _P_: switch to an open project
+    _r_: recent file      _C-a_/_C-g_: counsel ag/grep       _M-m_: revert with modes    ^^                            ^^^^                     _D_: find dir
   _C-f_: Git file         ^^      _w_: source code warnings    ^^                        ^^                            ^^^^                     _4_: other window
 "
       ("f"   projectile-find-file)
@@ -290,6 +290,8 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
       ("i"   projectile-ibuffer)
       ("b"   projectile-switch-to-buffer)
       ("k"   projectile-kill-buffers)
+      ("C-m" yura/projectile-revert-all-file-buffers)
+      ("M-m" (yura/projectile-revert-all-file-buffers :reverse-modes))
 
       ("c"   projectile-invalidate-cache)
       ("x"   projectile-remove-known-project)

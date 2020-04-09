@@ -599,28 +599,33 @@ another indentation changed to spaces."
 ;; `hydra-refactoring/body' overwritten in some modes
 (defhydra hydra-refactoring (:color pink :hint nil)
   "
-^^     Modify Indent           ^^^^Align                ^^Delete               ^^Tab/space             ^^Open Hydra
-^^-----------------------------^^^^---------------------^^---------------------^^----------------------^^----------
-  _i_: paragraph          _a_/_A_: align/repeat      _d_: double space    _C-t_: tabify             _o_: org
-  _t_: tabs and spaces      ^^_=_: equals            _l_: double line     _C-u_: untabify           _v_: verilog
-  _b_: around brackets    _c_/_|_: column/columns    ^^                     _w_: whitespace mode
+^^     Modify Indent           ^^^^Align                ^^Delete               ^^Tab/space      ^^Other           ^^Align with       ^^Open Hydra
+^^-----------------------------^^^^---------------------^^---------------------^^---------------^^----------------^^-----------------^^----------
+  _i_: paragraph          _e_/_E_: regexp/&repeat    _d_: double space    _C-t_: tabify      _w_: whitespace      _as_: space      _o_: org
+  _t_: tabs and spaces    _c_/_|_: column/columns    _l_: double line     _C-u_: untabify       ^^                _at_: tab        _v_: verilog
+  _b_: around brackets      ^^_=_: equals               ^^                     ^^               ^^                _ad_: default
 "
   ("i" yura/indent-paragraph-region)
   ("t" yura/refactoring-tabs-and-spaces)
   ("b" delete-spaces-near-brackets)
 
-  ("a" align-regexp)
-  ("A" align-regexp-repeat)
-  ("=" modi/align-to-equals)
+  ("e" align-regexp)
+  ("E" align-regexp-repeat)
   ("c" (align-regexp (region-beginning) (region-end) "\\([[:blank:]]+\\)[[:alnum:]=(),?':`\.{}]" 1 1 nil))
   ("|" modi/align-columns)
+  ("=" modi/align-to-equals)
 
   ("d" delete-double-spaces-in-region-or-line)
   ("l" delete-double-blank-lines-in-region-or-buffer)
 
   ("C-t" tabify)
   ("C-u" untabify)
-  ("w" whitespace-mode)
+
+  ("w" yura/whitespace-with-newline)
+
+  ("as" set-align-regexp-with-spaces :color teal)
+  ("at" set-align-regexp-with-tab :color teal)
+  ("ad" set-align-regexp-with-default :color teal)
 
   ("o" hydra-org-refactoring/body :color teal)
   ("v" hydra-verilog-refactoring/body :color teal)

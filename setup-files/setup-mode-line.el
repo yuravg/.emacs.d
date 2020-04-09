@@ -175,6 +175,7 @@ If nil, show the same in the minibuffer.")
                 " (*)"       ;beacon
                 " =>"        ;aggressive indent
                 " ws"        ;whitespace mode
+                " ing"       ;indent-guide
                 " h-i-g"     ;highlight-indent-guides-mode
                 " hl-highlight" ;hl-highlight
                 " Outshine"  ;outshine-mode

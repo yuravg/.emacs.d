@@ -231,6 +231,32 @@ This is not a safe command, this command should only be used with trusted files.
       (let ((compilation-read-command nil))
         (projectile-run-project nil)))
 
+    ;; see at `modi/revert-all-file-buffers'
+    (defun yura/projectile-revert-all-file-buffers (reverse-modes)
+      "Refresh all open projectile file buffers without confirmation.
+
+Buffers in modified (not yet saved) state in emacs will not be reverted. They
+will be reverted though if they were modified outside emacs.
+Buffers visiting files which do not exist any more or are no longer readable
+will be killed.
+Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
+      (interactive "P")
+      (dolist (buf (projectile-project-buffers))
+        (let ((filename (buffer-file-name buf)))
+          ;; Revert only buffers containing files, which are not modified;
+          ;; do not try to revert non-file buffers like *Messages*.
+          (when (and filename
+                     (not (buffer-modified-p buf)))
+            (if (file-readable-p filename)
+                ;; If the file exists and is readable, revert the buffer.
+                (with-current-buffer buf
+                  (revert-buffer :ignore-auto :noconfirm (unless reverse-modes :preserve-modes)))
+              ;; Otherwise, kill the buffer.
+              (let (kill-buffer buff)
+                (message "Killed non-existing/unreadable file buffer: %s" filename))))))
+      (message "Finished reverting projectile buffers containing unmodified files."))
+    (defalias 'rbp 'yura/projectile-revert-all-file-buffers)
+
     (defhydra hydra-projectile (:color teal
                                 :hint  nil)
       "

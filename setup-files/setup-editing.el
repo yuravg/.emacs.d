@@ -640,8 +640,8 @@ Prefixex with \\[universal-argument] execute:
   (if (not arg)
       (hydra-refactoring/body)
     (cond
-     ((eq major-mode 'org-mode) (hydra-org-refactoring/body))
-     ((eq major-mode 'verilog-mode) (hydra-verilog-refactoring/body))
+     ((equal major-mode 'org-mode) (hydra-org-refactoring/body))
+     ((equal major-mode 'verilog-mode) (hydra-verilog-refactoring/body))
      (t (hydra-refactoring/body)))))
 
 (bind-keys :map modi-mode-map ("C-c M-r" . yura/select-refactoring-hydra-to-run))

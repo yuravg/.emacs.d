@@ -147,7 +147,17 @@ Execute commands: `yas-recompile-all', `yas-reload-all'."
               choices)
              :prompt prompt
              ;; start isearch mode immediately
-             :isearch t)))))))
+             :isearch t)))))
+
+    ;; `yasnippets-quartus' package:
+    ;; This package is downloaded manually(~/.emacs.d/yasnippets-quartus/), if it is needed.
+    ;; `yasnippets-quartus' package has many snippets, load them only when they are needed:
+    ;; - commands to enable snippets:
+    ;;  `yasnippets-quartus-standard-enable', `yasnippets-quartus-professional-enable'
+    ;; - commands to disable snippets:
+    ;;  `yasnippets-quartus-standard-disable', `yasnippets-quartus-professional-disable'
+    (use-package yasnippets-quartus
+      :load-path (lambda () (list (expand-file-name "yasnippets-quartus" user-emacs-directory))))))
 
 
 (provide 'setup-yasnippet)

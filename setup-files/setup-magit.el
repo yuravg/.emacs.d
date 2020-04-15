@@ -152,7 +152,11 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
     ;; OpenSSH passphrase caching, via ssh-agent
     ;; https://github.com/magit/magit/wiki/Pushing-with-Magit-from-Windows
     ;; TODO: enable mini-buffer for OpenSSH passphrase
-    (setenv "SSH_ASKPASS" "git-gui--askpass")))
+    (setenv "SSH_ASKPASS" "git-gui--askpass")
+
+    ;; https://github.com/alphapapa/magit-todos
+    (use-package magit-todos
+      :commands (magit-todos-mode))))
 
 ;;; Magit-log
 (use-package magit-log

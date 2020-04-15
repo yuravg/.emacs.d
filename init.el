@@ -198,6 +198,7 @@ need Org version to be at least 9.x.")
     emojify ;display emojis
     undo-propose
     dumb-jump
+    magit-todos
     )
   "A list of packages to ensure are installed at launch")
 

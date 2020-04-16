@@ -114,7 +114,9 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
 
       ("f" magit-fetch)
       ("P" magit-push)
-      ("h" counsel-git-checkout)
+      ("h" (lambda () (interactive)
+             (call-interactively #'counsel-git-checkout)
+             (magit-refresh-buffer)))
 
       ("!" magit-run)
       ("$" magit-process-buffer)

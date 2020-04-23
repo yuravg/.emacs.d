@@ -52,6 +52,15 @@
      prepend)))
 (font-lock-add-keywords 'git-rebase-mode magit-log-hkeywords)
 
+;; (font-lock-add-keywords
+;;  'magit-status-mode
+;;  '(("\\((.*\\)\\(modified content\\)\\(.*)\\)" 2 'font-lock-warning-face prepend)))
+
+;; (font-lock-add-keywords
+;;  'magit-status-mode
+;;  '(("non-ff" 0 'font-lock-warning-face prepend)))
+
+
 ;; copy-past regexpression from `magit-log-propertize-keywords'
 ;; highlight for 'commit editing' buffer
 (defvar magit-log-4text-mode-hkeywords

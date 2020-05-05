@@ -10,9 +10,7 @@
   ("ar"    auto-revert-mode "auto revert")
   ("aw"    adaptive-wrap-prefix-mode "adaptive wrap")
   ("b"     duplicate-current-window "double window(C-u: del other)") ; C-u available for `duplicate-current-window'
-  ("d"     toggle-debug-on-error "debug on error")
-  ("D"     modi/toggle-debug "debug on entry")
-  ("e"     modi/toggle-edebug "edebug")
+  ("e"     ediff-buffers "ebuffers")
   ("f"     toggle-fill-unfill "fill/unfill")
   ("F"     follow-mode "follow mode")
   ("g"     (lambda (arg) (interactive "P")
@@ -53,7 +51,13 @@
   ("C-r"   dired-toggle-read-only "read only/editable") ; generalized `read-only-mode'
   ("v"     view-mode "view mode") ; make buffer read-only, then use SPC/DEL to nav
   ("V"     visible-mode "visible mode") ; view all hidden text in org-mode (e.g. links)
+  ("TAB"   tabify "tabify")
+  ("u"     untabify "untabify")
+  ("C-w"   yura/whitespace-with-newline "whitespace mode" :color red)
   ("w"     yura/whitespace-with-newline "whitespace mode")
+  ("C-e e" modi/toggle-edebug "edebug")
+  ("C-e d" modi/toggle-debug "debug on entry")
+  ("C-e r" toggle-debug-on-error "debug on error")
   ("q"     nil "cancel" :color blue))
 
 (bind-key "s-t" #'hydra-toggle/body)

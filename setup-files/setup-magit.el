@@ -92,13 +92,12 @@ Should usage with:
                            :hint nil)
       "
 Magit:
-^^^^     Status/Log                  ^^  File                             ^^ Repository           ^^  Other                     ^^  Refine-hunk
-^^^^---------------------------------^^-----------------------------------^^----------------------^^----------------------------^^----------------------------
-_s_/_g_: status                     _c_: checkout file(rewrite)         _f_: fetch               _!_: run                      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
-^^  _l_: log current              _C-c_: find file(open new)            _P_: push                _$_: process buffer           _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
+^^^^     Status/Log                  ^^  Checkout/Find file               ^^ Repository           ^^  Misc                      ^^ Search         ^^  Refine-hunk
+^^^^---------------------------------^^-----------------------------------^^----------------------^^----------------------------^^----------------^^---------------------------
+_s_/_g_: status                     _c_: checkout file(rewrite)         _f_: fetch               _!_: run                   _M-g_: in files      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
+^^  _l_: log current              _C-c_: find file(open new)            _P_: push                _$_: process buffer        _M-l_: in log        _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
 _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: checkout            _m_: git-timemachine
-^^_C-l_: log current buffer       _C-f_: find Git file                    ^^                   _M-r_: git checkout all
-^^^^                                 ^^
+^^_C-l_: log current buffer       _C-f_: find Git file                  _g_: grep              _M-r_: git checkout all
 "
       ("g" magit-status)
       ("s" magit-status)
@@ -117,6 +116,9 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
       ("h" (lambda () (interactive)
              (call-interactively #'counsel-git-checkout)
              (magit-refresh-buffer)))
+
+      ("M-g" counsel-git-grep)
+      ("M-l" counsel-git-log)
 
       ("!" magit-run)
       ("$" magit-process-buffer)

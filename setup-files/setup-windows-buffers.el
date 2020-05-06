@@ -799,6 +799,11 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
 (defun buffer-to-fullscreen-frame ()
   (interactive)
   (yura/buffer-to-new-frame 16))
+(defun yura/counsel-recentf-new-frame ()
+  "Make new frame and launch `counsel-recentf'."
+  (interactive)
+  (select-frame (make-frame))
+  (counsel-recentf))
 
 ;;; Help mode
 (bind-keys
@@ -875,7 +880,8 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
  ("C-c 5" . revert-buffer)              ;Alternative to f5 for terminal mode
  ("<S-f5>" . modi/revert-all-file-buffers)
  ("C-x 5 n" . buffer-to-maximized-frame)
- ("C-x 5 C-n" . buffer-to-fullscreen-frame))
+ ("C-x 5 C-n" . buffer-to-fullscreen-frame)
+ ("C-x 5 o" . yura/counsel-recentf-new-frame)) ;default binding `other-frame'
 
 (defalias 'arm 'auto-revert-mode)
 (defalias 'ff 'toggle-frame-fullscreen)

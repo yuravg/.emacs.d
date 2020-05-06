@@ -257,38 +257,51 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
       (message "Finished reverting projectile buffers containing unmodified files."))
     (defalias 'rbp 'yura/projectile-revert-all-file-buffers)
 
+    ;; TODO: should usage current frame parameters for new frame
+    (defun yura/projectile-switch-buffer-new-frame ()
+      "Make new frame, launch `projectile-switch-to-buffer'."
+      (interactive)
+      (select-frame (make-frame))
+      (projectile-switch-to-buffer))
+    (defun yura/projectile-find-file-new-frame ()
+      "Make new frame, launch `projectile-find-file'."
+      (interactive)
+      (select-frame (make-frame))
+      (projectile-find-file))
+
     (defhydra hydra-projectile (:color teal
                                 :hint  nil)
+      ;; show path to projectile useful if there are sub-projects
       "
-     Projectile: %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\")
-
-^^       Find             ^^^^         Search/Tags             ^^   Buffers              ^^   Cache                    ^^^^         Project     ^^   Other
-^^------------------------^^^^---------------------------------^^------------------------^^----------------------------^^^^---------------------^^------------------------------------------
-    _f_: file             ^^      _a_: ag                      _i_: Ibuffer              _c_: cache clear              _M-c_/_C-c_: compile     _E_: edit project's .dir-locals.el
-    _F_: file dwim        ^^      _G_: update gtags            _b_: switch to buffer     _x_: remove known project     _M-t_/_C-t_: test        _p_: switch to other project
-    _d_: file curr dir    ^^      _o_: multi-occur             _k_: kill all buffers     _X_: cleanup non-existing     _M-r_/_C-r_: run         _g_: switch to Magit status of other project
-    _l_: file literally     _C-s_/_s_: counsel rg            _C-m_: revert               _z_: cache current            ^^^^                     _P_: switch to an open project
-    _r_: recent file      _C-a_/_C-g_: counsel ag/grep       _M-m_: revert with modes    ^^                            ^^^^                     _D_: find dir
-  _C-f_: Git file         ^^      _w_: source code warnings    ^^                        ^^                            ^^^^                     _4_: other window
+Projectile %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\"):
+^^     Find            ^^^^           Search                 ^^^^     Buffers                 ^^   Cache/Tags             ^^^^         Run/compile              ^^   Other
+^^---------------------^^^^----------------------------------^^^^-----------------------------^^--------------------------^^^^----------------------------------^^------------------------------------------
+  _f_: file                  _s_/_a_: counsel rg/ag          ^^  _i_: Ibuffer                 _c_: cache clear            _M-c_/_C-c_: compile/force compile    _E_: edit project's .dir-locals.el
+  _F_: file dwim         _C-s_/_C-a_: rg/ag                _b_/_C-b_: switch/other window     _x_: remove known project   _M-t_/_C-t_: test/force test          _p_: switch to other project
+  _l_: file literally  ^^        _o_: multi-occur        _M-b_/_M-f_: switch/find new frame   _X_: cleanup non-existing   _M-r_/_C-r_: run/force run            _g_: switch to Magit status of other project
+  _r_: recent file     ^^      _M-g_: git-grep               ^^  _k_: kill all                _z_: cache current          ^^^^                                  _P_: switch to an open project
+_C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all              _G_: update gtags           ^^^^                                  _D_: find dir
+^^                     ^^^^                                  ^^_M-m_: revert all with modes   ^^                          ^^^^                                  _4_: other window
 "
       ("f"   projectile-find-file)
       ("F"   projectile-find-file-dwim)
-      ("d"   projectile-find-file-in-directory)
       ("l"   modi/projectile-find-file-literally)
       ("r"   projectile-recentf)
       ("C-f" counsel-git)
 
-      ("a"   projectile-ag)
-      ("G"   ggtags-update-tags)
-      ("o"   projectile-multi-occur)
-      ("C-s" counsel-projectile-rg)
       ("s"   counsel-projectile-rg)
-      ("C-a" counsel-projectile-ag)
-      ("C-g" counsel-projectile-grep)
+      ("a"   counsel-projectile-ag)
+      ("C-s" projectile-ripgrep)
+      ("C-a" projectile-ag)
+      ("o"   projectile-multi-occur)
+      ("M-g" counsel-git-grep)
       ("w"   yura/projectile-src-warning)
 
       ("i"   projectile-ibuffer)
       ("b"   projectile-switch-to-buffer)
+      ("C-b" projectile-switch-to-buffer-other-window)
+      ("M-b" yura/projectile-switch-buffer-new-frame)
+      ("M-f" yura/projectile-find-file-new-frame)
       ("k"   projectile-kill-buffers)
       ("C-m" yura/projectile-revert-all-file-buffers)
       ("M-m" (yura/projectile-revert-all-file-buffers :reverse-modes))
@@ -297,6 +310,7 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
       ("x"   projectile-remove-known-project)
       ("X"   projectile-cleanup-known-projects)
       ("z"   projectile-cache-current-file)
+      ("G"   ggtags-update-tags)
 
       ("C-c" yura/projectile-compile-project)
       ("C-t" yura/projectile-test-project)

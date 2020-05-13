@@ -1614,6 +1614,10 @@ buffer should do the right thing.. `eww-reload' in eww,
 (bind-key "RET" #'kill-ring-save indent-rigidly-map)
 
 (bind-keys
+ :map occur-mode-map
+ ("C-j" . occur-mode-goto-occurrence))
+
+(bind-keys
  :map modi-mode-map
  ("C-x d" . delete-region)
  ("C-x \\" . align-regexp) ; align selected region to the entered regexp

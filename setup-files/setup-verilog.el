@@ -949,7 +949,8 @@ Examples: endmodule                 → endmodule : module_name
                   (while (re-search-forward (concat "^\\s-*\\<" keyword) nil :noerror)
                     (if (or (string-match-p "task" keyword)
                             (string-match-p "function" keyword)
-                            (string-match-p "module" keyword))
+                            (string-match-p "module" keyword)
+                            (string-match-p "program" keyword))
                         (progn (re-search-forward "(\\|;" nil :noerror)
                                (re-search-backward "\\w" nil :noerror))
                       (forward-char 2))
@@ -961,6 +962,7 @@ Examples: endmodule                 → endmodule : module_name
                     (cond
                      ((string= "package" keyword) (search-forward "endpackage"))
                      ((string= "interface" keyword) (search-forward "endinterface"))
+                     ((string= "program" keyword) (search-forward "endprogram"))
                      (t (electric-verilog-forward-sexp)))
                     (insert (format " : %s tmp" name))
                     (backward-char 4)
@@ -969,7 +971,7 @@ Examples: endmodule                 → endmodule : module_name
                     (unless (string= "package" keyword)
                       (electric-verilog-backward-sexp))
                     (forward-line))))
-              '("task" "class" "function" "interface" "package" "module"
+              '("task" "class" "function" "interface" "package" "module" "program"
                 "virtual function"
                 "protected function" "virtual protected function"
                 "virtual task"

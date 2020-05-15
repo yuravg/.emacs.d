@@ -145,47 +145,47 @@ If nil, show the same in the minibuffer.")
       :config
       (progn
         (setq rm-blacklist
-              '(" WK"        ;which-key
-                " hc"        ;hardcore mode
-                " AC"        ;auto-complete
-                " vl"        ;global visual line mode enabled
-                " Wrap"      ;shows up if visual-line-mode is enabled for that buffer
-                " Omit"      ;omit mode in dired
-                " yas"       ;yasnippet
-                " drag"      ;drag-stuff-mode
-                " VHl"       ;volatile highlights
-                " ctagsU"    ;ctags update
-                " Undo-Tree" ;undo tree
-                " wr"        ;Wrap Region
-                " SliNav"    ;elisp-slime-nav
-                " Fly"       ;Flyspell
-                " PgLn"      ;page-line-break
-                " ElDoc"     ;eldoc
-                " GG"        ;ggtags
-                " hs"        ;hideshow
-                " hs+"       ;
-                " ez-esc"    ;easy-escape
-                " ivy"       ;ivy
-                " h"         ;hungry-delete-mode
-                " pair"      ;autopair
-                " eV"        ; easy-verilog
-                " P4:edit"   ;P4(perfoce)
-                " Elpy"      ; elpy-mode
-                " ||"        ; highlight-indentation-mode
-                " (*)"       ;beacon
-                " =>"        ;aggressive indent
-                " ws"        ;whitespace mode
-                " ing"       ;indent-guide
-                " h-i-g"     ;highlight-indent-guides-mode
+              '(" (*)"			;beacon
+                " =>"			;aggressive indent
+                " AC"			;auto-complete
+                " Abbrev"		;abbrev-mode
+                " Compiling"	;tex-buf mode
+                " ElDoc"		;eldoc
+                " Elpy"			;elpy-mode
+                " Fly"			;Flyspell
+                " GG"			;ggtags
+                " HSA"			;auto-highlight-symbol-mode
+                " Omit"			;omit mode in dired
+                " Outshine"		;outshine-mode
+                " P4:edit"		;P4(perfoce)
+                " PgLn"			;page-line-break
+                " Projectile"	;Projectile(there is at: magit-status-mode)
+                " Rbow"			;rainbow-mode
+                " SMerge"		;smerge-mode
+                " SliNav"		;elisp-slime-nav
+                " Undo-Tree"	;undo tree
+                " VHl"			;volatile highlights
+                " WK"			;which-key
+                " Wrap"			;shows up if visual-line-mode is enabled for that buffer
+                " ctagsU"		;ctags update
+                " drag"			;drag-stuff-mode
+                " eV"			;easy-verilog
+                " ez-esc"		;easy-escape
+                " h"			;hungry-delete-mode
+                " h-i-g"		;highlight-indent-guides-mode
+                " hc"			;hardcore mode
                 " hl-highlight" ;hl-highlight
-                " Outshine"  ;outshine-mode
-                " Projectile";Projectile(there is at: magit-status-mode)
-                "​P"         ;Projectile
-                " Abbrev"    ;abbrev-mode
-                " HSA"       ;auto-highlight-symbol-mode
-                " Rbow"      ;rainbow-mode
-                " SMerge"    ;smerge-mode
-                " Compiling" ;tex-buf mode
+                " hs"			;hideshow
+                " hs+"			;
+                " ing"			;indent-guide
+                " ivy"			;ivy
+                " pair"			;autopair
+                " vl"			;global visual line mode enabled
+                " wr"			;Wrap Region
+                " ws"			;whitespace mode
+                " yas"			;yasnippet
+                " ||"			;highlight-indentation-mode
+                "​P"			;Projectile
                 ))
         (setq rm-text-properties '(("\\` Ovwrt\\'" 'face 'font-lock-warning-face) ;Overwrite
                                    ("\\` mc:[0-9]+ *\\'" 'face 'font-lock-keyword-face) ;Multiple cursors

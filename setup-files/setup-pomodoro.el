@@ -34,7 +34,8 @@
       ("x" pomodoro-stop   "stop")
       ("p" pomodoro-pause  "pause")
       ("r" pomodoro-resume "resume")
-      ("q" nil "cancel"))))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))))
 
 
 (provide 'setup-pomodoro)

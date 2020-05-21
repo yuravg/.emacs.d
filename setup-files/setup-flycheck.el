@@ -157,7 +157,8 @@ Non-nil if all C/C++ checkers installed.
       ("p" flycheck-previous-error "previous error")
       ("d" flycheck-disable-checker "disable checker")
       ("v" flycheck-verify-setup "verify setup")
-      ("q" nil "cancel"))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
 
     (defalias 'fm 'flycheck-mode)
     (defalias 'fl 'flycheck-list-errors)

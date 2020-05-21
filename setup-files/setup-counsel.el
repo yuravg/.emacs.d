@@ -268,7 +268,8 @@ Setup by variables:
       ("g" yura/counsel-rg-bcmd-iglob-set-update)
       ("d" yura/counsel-rg-bcmd-maxdepth-set-update)
       ("r" yura/counsel-rg-base-command-reinit)
-      ("q" nil "cancel" :color blue))
+      ("q" nil "cancel" :color blue)
+      ("C-g" nil "cancel" :color blue))
     (defalias 'rgs 'hydra-counsel-rg-base-command/body
       "Setup command `counsel-rg-base-command'")
 
@@ -394,7 +395,8 @@ Show source code warnings(%(message src-warning-expression-rg)) for:
       ("d" yura/buffer-dir-only-src-warning)
       ("D" yura/buffer-dir-src-warning)
       ("p" yura/projectile-src-warning)
-      ("q" nil "cancel" :color blue))
+      ("q" nil "cancel" :color blue)
+      ("C-g" nil "cancel" :color blue))
 
     ;; Counsel and Org tags
     (defun modi/counsel-org-tag (&optional option)

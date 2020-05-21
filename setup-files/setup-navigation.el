@@ -257,6 +257,7 @@ Sets variables `ffap-string-at-point' and `ffap-string-at-point-region'.
   ("n" next-error "next")
   ("p" previous-error "prev")
   ("q" nil "cancel")
+  ("C-g" nil "cancel")
   ("<return>" nil "cancel"))
 
 ;; Avy Jump

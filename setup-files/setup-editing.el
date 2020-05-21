@@ -669,7 +669,8 @@ another indentation changed to spaces."
   ("o" hydra-org-refactoring/body :color teal)
   ("v" hydra-verilog-refactoring/body :color teal)
 
-  ("q" nil "cancel" :color blue))
+  ("q" nil "cancel" :color blue)
+  ("C-g" nil "cancel" :color blue))
 
 (defun yura/select-refactoring-hydra-to-run (&optional arg)
   "Select refactoring hydra to execute it.
@@ -1120,7 +1121,8 @@ _b_   _f_      _k_   cut         _r_eset         _o_pen (create blank rectangle 
   ("o"   open-rectangle :color blue)
   ("X"   delete-whitespace-rectangle :color blue)
   ("N"   rectangle-number-lines :color blue)
-  ("q"   nil "cancel" :color blue))
+  ("q"   nil "cancel" :color blue)
+  ("C-g"   nil "cancel" :color blue))
 (bind-key "C-x SPC" #'hydra-rectangle/body modi-mode-map)
 (bind-key "r" #'hydra-rectangle/body region-bindings-mode-map)
 
@@ -1206,7 +1208,8 @@ _C_apitalize        _u_PCASE        _l_owercase        _<SPC>_ →Cap→UP→dow
   ("d"     modi/downcase)
   ("<SPC>" xah-cycle-letter-case :color red)
   ("M-c"   xah-cycle-letter-case :color red)
-  ("q"     nil "cancel" :color blue))
+  ("q"     nil "cancel" :color blue)
+  ("C-g"   nil "cancel" :color blue))
 
 (bind-keys
  :map modi-mode-map

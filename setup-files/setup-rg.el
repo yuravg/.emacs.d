@@ -170,7 +170,8 @@
       ("T" yura/rg-toggle-truncate-lines)
       ("S" rg-save-search-as-name)
       ("l" rg-list-searches)
-      ("q" nil "cancel" :color blue))
+      ("q" nil "cancel" :color blue)
+      ("C-g" nil "cancel" :color blue))
 
     (bind-keys
      :map rg-mode-map

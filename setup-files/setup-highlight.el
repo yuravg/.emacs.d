@@ -269,7 +269,8 @@ If LOCAL is non-nil, un-highlight only in the current buffer."
       ("f" hi-lock-face-buffer)
       ("d" hi-lock-unface-buffer)
       ("l" highlight-lines-matching-regexp)
-      ("q" nil "cancel"))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
     (bind-key "C-c h" #'hydra-hl-anything/body modi-mode-map)))
 
 ;;; Colors for highlight

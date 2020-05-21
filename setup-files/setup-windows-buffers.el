@@ -315,6 +315,7 @@ Usage: execute this command after copying the Russian text to the utf-8 buffer."
       ("=" balance-windows "Balance")
       ("+" balance-windows nil)
       ("q" nil "cancel" :color blue)
+      ("C-g" nil "cancel" :color blue)
       ("<return>" nil "cancel" :color blue))))
 
 ;;; Reopen Killed File
@@ -760,7 +761,8 @@ Scroll other window, up/down lines: _p_/_n_: one  _C-p_/_C-n_: ten  _M-p_/_M-p_:
   ("C-M-n" (scroll-other-window    ))
   ("b"     beginning-of-buffer-other-window)
   ("e"     end-of-buffer-other-window)
-  ("q" nil "cancel" :color blue))
+  ("q"     nil "cancel" :color blue)
+  ("C-g"   nil "cancel" :color blue))
 (bind-keys :map modi-mode-map ("C-c C-'" . hydra-scroll-other-window/body))
 
 ;;; Resize frame

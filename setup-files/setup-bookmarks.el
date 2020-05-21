@@ -115,7 +115,8 @@ Bookmarks
       ("s"   bookmark-set :exit t)
       ("j"   counsel-bookmark :exit t)
       ("l"   bookmark-bmenu-list :exit t)
-      ("q"   nil "cancel"))))
+      ("q"   nil "cancel")
+      ("C-g" nil "cancel"))))
 
 ;;; bookmark+ (bmkp)
 ;; https://www.emacswiki.org/emacs/BookmarkPlus

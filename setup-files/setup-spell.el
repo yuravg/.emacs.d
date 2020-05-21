@@ -119,7 +119,8 @@
           ("i" ispell-word)
           ("C-n" flyspell-goto-next-error)
           ("b" flyspell-buffer)
-          ("q" nil "cancel"))
+          ("q" nil "cancel")
+          ("C-g" nil "cancel"))
         (bind-keys
          :map modi-mode-map
          ("C-c s" . hydra-flyspell/body))

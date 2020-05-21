@@ -80,7 +80,8 @@ _C-i_: ivy                 _?_: list snippets
       ("C" yura/yas-recompile-and-reload)
       ("x" yas-expand)
       ("?" yas-describe-tables)
-      ("q" nil "cancel" :color blue))
+      ("q" nil "cancel" :color blue)
+      ("C-g" nil "cancel" :color blue))
 
     (defun yura/yas-recompile-and-reload ()
       "Recompile and reload YASnippet.\n

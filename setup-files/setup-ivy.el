@@ -108,7 +108,29 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
 
     (bind-keys
      :map ivy-occur-grep-mode-map
+     ("C-j" . yura/ivy-occur-goto-file-line)
      ("q" . modi/quit-and-kill-window))
+
+    (use-package ffap
+      :config
+      (progn
+        (defun yura/ivy-occur-goto-file-line (other-window)
+          "Open file under point from `ivy-occur-grep-mode' and go to demanded line.
+
+Prefixed with \\[universal-argument], open file in another window."
+          (interactive "P")
+          (forward-line 0)
+          (let* ((filename-line (ffap-string-at-point))
+                 (file-name (replace-regexp-in-string ":.*" "" filename-line))
+                 (line-num (string-to-number (replace-regexp-in-string ".*:" "" filename-line))))
+            (if (file-exists-p file-name)
+                (progn
+                  (if other-window
+                      (find-file-other-window file-name)
+                    (find-file file-name))
+                  (unless (= line-num 0)
+                    (goto-line line-num)))
+              (message "Error! Cannot find file: file-name"))))))
 
     (with-eval-after-load 'setup-windows-buffers
       (bind-keys

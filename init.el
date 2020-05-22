@@ -199,6 +199,7 @@ need Org version to be at least 9.x.")
     undo-propose
     dumb-jump
     magit-todos
+    auctex
     )
   "A list of packages to ensure are installed at launch")
 

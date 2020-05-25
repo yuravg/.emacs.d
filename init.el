@@ -50,53 +50,71 @@ need Org version to be at least 9.x.")
 (defconst my-packages
   '(ace-window
     adaptive-wrap ; indented line wrapping
-    ag wgrep wgrep-ag s ; ag > ack > grep
-                                        ; wgrep+wgrep-ag allow editing files
-                                        ; directly in ag buffer
+    ag wgrep wgrep-ag s ; ag > ack > grep; wgrep+wgrep-ag allow editing files; directly in ag buffer
+    aggressive-indent
     all all-ext ; edit ALL lines matching regex
+    anaconda-mode
     anzu   ; shows total search hits in mode line, > query-replace
     ascii-art-to-unicode
+    auctex
     auto-complete fuzzy
     auto-highlight-symbol
+    autopair
     avy ; > ace-jump-mode
     beacon ; visual flash to show the cursor position
     benchmark-init
+    bitbake
     bm ; visual bookmarks
     buffer-move
     command-log-mode ; for logging commands; useful when demoing emacs
+    counsel-projectile
     deft ; quick note taking and management
     diff-hl
     dired-single dired-collapse
+    docker
+    dockerfile-mode
     drag-stuff
+    dumb-jump
     easy-escape ; Make the \\ escape chars more pleasant looking in elisp regexps
     el2markdown ; Generate README.md files from Commentary section in .el files
     elfeed
+    elpy
+    emojify ;display emojis
     engine-mode ; search engines
-    expand-region
     eww-lnum ; jump to links in eww buffer ace-jump style
+    expand-region
     fill-column-indicator
     flycheck                    ; sh-shellcheck
+    flycheck-pos-tip
     flyspell-correct-ivy ; ivy interface for correct spelling suggestions
     fold-this
+    ggtags ctags-update
     gist
     git-timemachine ; walk through git revisions
-    ggtags ctags-update
+    gitattributes-mode gitconfig-mode gitignore-mode ;git-modes
+    google-translate
     hardcore-mode
     hideshow-org
+    highlight-indent-guides
+    hl-anything
     htmlize
     hungry-delete
     hydra
     ibuffer-projectile
+    ido-vertical-mode flx-ido ;< ivy, counsel; use for: yasnippet: `yas-ido-expand', magit: `magit-branch-checkout', `magit-log-buffer-file'
     imenu-list
     indent-guide
     interleave ; takes notes associated to pdf files in org mode
     isend-mode ; used in setup-perl.el
     ivy swiper counsel
+    ivy-yasnippet
     iy-go-to-char ; Go to next char which is similar to "f" and "t" in vim
     key-chord ; map pairs of simultaneously pressed keys to commands
     keyfreq ; find which commands you use the most
     kurecolor ; Quick tweaks to color codes in CSS files
+    list-environment
     magit ; for git management
+    magit-todos
     manage-minor-mode
     markdown-mode
     minibuffer-line
@@ -108,15 +126,22 @@ need Org version to be at least 9.x.")
     org-tree-slide
     outorg navi-mode ; supporting packages for outshine
     outshine ; org-mode navigation and organization outside org-mode
-    paradox ; package menu improvements
+    p4
     page-break-lines ; Convert the ^L (form feed) chars to horizontal lines
+    paradox ; package menu improvements
     pomodoro
     poporg ; edit comments from any other mode in org mode
+    powershell
+    projectile ; I don't use Projectile fork
+    pylint
     rainbow-delimiters
     rainbow-mode
     region-bindings-mode ; complements really well with multiple-cursors
+    rg ripgrep
     rpn-calc
+    rust-mode
     shackle
+    shell-command
     smart-compile
     smart-mark
     smart-mode-line popup rich-minority
@@ -126,6 +151,8 @@ need Org version to be at least 9.x.")
     tiny
     tldr                ;Concise "man pages"
     transpose-frame ; for the priceless `rotate-frame' and `transpose-frame'
+    try
+    undo-propose
     undo-tree ; supercool undo visualization
     use-package use-package-chords ; optimize package loading
     visual-regexp
@@ -141,19 +168,9 @@ need Org version to be at least 9.x.")
     yafolding ; indentation detected code folding
     yaml-mode ; Useful for editing Octopress' _config.yml
     yasnippet
+    yasnippet-snippets
     zop-to-char
-    p4
 
-    ;; Themes
-    ;; zenburn-theme ; < fork
-    ;; smyx-theme ; < fork
-    ample-theme ; ample, ample-flat, ample-light
-    darktooth-theme ; coffee
-    leuven-theme ; awesome white background theme
-    planet-theme ; dark blue
-    tao-theme ; monochrome
-    twilight-bright-theme
-    twilight-anti-bright-theme
     ;; Crypt
     ;; nlinum ; better performance than linum ; Sticking to frozen version 1.7 in my config
     ;; bookmark+ ; able to bookmark desktop sessions
@@ -167,40 +184,17 @@ need Org version to be at least 9.x.")
     ;; helm-gtags ; < ggtags
     ;; projectile ; Better than fiplr < fork
 
-    ;; YuraVG:
-    projectile ; I don't use Projectile fork
-    yasnippet-snippets
-    ivy-yasnippet
-    ;; use ido for:
-    ;; - yasnippet: `yas-ido-expand'
-    ;; - magit: `magit-branch-checkout', `magit-log-buffer-file'
-    ido-vertical-mode flx-ido ;< ivy, counsel
-    hl-anything
-    flycheck-pos-tip
-    pylint
-    autopair
-    aggressive-indent
-    shell-command
-    elpy
-    anaconda-mode
-    counsel-projectile
-    google-translate
-    list-environment
-    highlight-indent-guides
-    powershell
-    bitbake
-    rust-mode
-    try
-    dockerfile-mode
-    docker
-    rg ripgrep
-    gitattributes-mode gitconfig-mode gitignore-mode ;git-modes
-    emojify ;display emojis
-    undo-propose
-    dumb-jump
-    magit-todos
-    auctex
-    )
+    ;; Themes
+    ;; zenburn-theme ; < fork
+    ;; smyx-theme ; < fork
+    ample-theme ; ample, ample-flat, ample-light
+    darktooth-theme ; coffee
+    leuven-theme ; awesome white background theme
+    planet-theme ; dark blue
+    tao-theme ; monochrome
+    twilight-anti-bright-theme
+    twilight-bright-theme)
+
   "A list of packages to ensure are installed at launch")
 
 ;; Basic requires
@@ -394,7 +388,6 @@ need Org version to be at least 9.x.")
 ;; Place `setup-personal.el' with `(provide 'setup-personal)' in `user-personal-directory'
 (require 'setup-personal nil :noerror)
 
-;; YuraVG:
 (require 'setup-cc)
 (require 'setup-grep)
 (require 'setup-compilation)

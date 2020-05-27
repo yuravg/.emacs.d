@@ -235,24 +235,24 @@ It is assumed that the author has only one or two names."
 
     ;; The `git-timemachine-help' is defined in `git-timemachine' package.
     ;; To add commands to `git-timemachine-help' I overwrite it.
-    (define-transient-command git-timemachine-help ()
+    (transient-define-prefix git-timemachine-help ()
       "Show online help."
       ["Navigate"
-       [("P" "show previous revision(show patch)" yura/git-timemachine-show-previous-revision-commit)
-        ("N" "show next revision(show patch)" yura/git-timemachine-show-next-revision-commit)
-        ("p" "show previous revision" git-timemachine-show-previous-revision)
-        ("n" "show next revision" git-timemachine-show-next-revision)
-        ("g" "show nth revision" git-timemachine-show-nth-revision)
-        ("t" "show fuzzy revision" git-timemachine-show-revision-fuzzy)]]
+       ("P" "show previous revision(show patch)" yura/git-timemachine-show-previous-revision-commit)
+       ("N" "show next revision(show patch)" yura/git-timemachine-show-next-revision-commit)
+       ("p" "show previous revision" git-timemachine-show-previous-revision)
+       ("n" "show next revision" git-timemachine-show-next-revision)
+       ("g" "show N-th revision" git-timemachine-show-nth-revision)
+       ("t" "show fuzzy revision" git-timemachine-show-revision-fuzzy)]
       ["Kill current revision"
-       [("w" "kill abbreviated revision" git-timemachine-kill-abbreviated-revision)
-        ("W" "kill revision" git-timemachine-kill-revision)]]
+       ("w" "kill abbreviated revision" git-timemachine-kill-abbreviated-revision)
+       ("W" "kill revision" git-timemachine-kill-revision)]
       ["Misc"
-       [("b" "blame current revision" git-timemachine-blame)
-        ("c" "show commit" yura/git-timemachine-show-commit)
-        ("C" "show commit(and jump)" git-timemachine-show-commit)
-        ("?" "show help" git-timemachine-help)
-        ("q" "quit" git-timemachine-quit)]])
+       ("b" "blame current revision" git-timemachine-blame)
+       ("c" "show commit" yura/git-timemachine-show-commit)
+       ("C" "show commit(and jump)" git-timemachine-show-commit)
+       ("?" "show help" git-timemachine-help)
+       ("q" "quit" git-timemachine-quit)])
 
     (bind-keys
      :map git-timemachine-mode-map

@@ -13,6 +13,7 @@
 ;;
 
 (use-package tex
+  :defer 10
   :config
   (progn
     (load "auctex.el" nil t t)

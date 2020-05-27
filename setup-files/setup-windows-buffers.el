@@ -31,6 +31,7 @@
 ;;  Other Window/Buffer
 ;;  Resize frame
 ;;  Open at new frame
+;;  Temporary buffer for read-only
 ;;  Help mode
 ;;  *Messages* Auto-tail
 ;;  Bindings
@@ -806,6 +807,32 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
   (interactive)
   (select-frame (make-frame))
   (counsel-recentf))
+
+;;; Temporary buffer for read-only
+;; new temporary buffer, which is read-only
+;; https://github.com/jackkamm/undo-propose-el
+(use-package undo-propose
+  :commands undo-propose
+  :bind
+  (:map undo-propose-mode-map
+   ("?" . hydra-undo-propose/body))
+  :config
+  (progn
+    ;; Open undo-propose buffer in a new window
+    (setq undo-propose-pop-to-buffer t)
+    (defhydra hydra-undo-propose (:color teal :hint nil)
+      "
+[undo-propose mode (mode-map prefix: 'C-c')]
+  _C-c_: commit
+  _C-s_: squash commit
+  _C-d_: diff
+  _C-k_: cancel
+"
+      ("C-c" undo-propose-commit)
+      ("C-s" undo-propose-squash-commit)
+      ("C-d" undo-propose-diff)
+      ("C-k" undo-propose-cancel)
+      ("q" nil "quit" :color blue))))
 
 ;;; Help mode
 (bind-keys

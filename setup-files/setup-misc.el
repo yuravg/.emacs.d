@@ -235,30 +235,6 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
 (use-package try
   :commands (try))
 
-;; https://github.com/jackkamm/undo-propose-el
-(use-package undo-propose
-  :commands undo-propose
-  :bind
-  (:map undo-propose-mode-map
-   ("?" . hydra-undo-propose/body))
-  :config
-  (progn
-    ;; Open undo-propose buffer in a new window
-    (setq undo-propose-pop-to-buffer t)
-    (defhydra hydra-undo-propose (:color teal :hint nil)
-      "
-[undo-propose mode (mode-map prefix: 'C-c')]
-  _C-c_: commit
-  _C-s_: squash commit
-  _C-d_: diff
-  _C-k_: cancel
-"
-      ("C-c" undo-propose-commit)
-      ("C-s" undo-propose-squash-commit)
-      ("C-d" undo-propose-diff)
-      ("C-k" undo-propose-cancel)
-      ("q" nil "quit" :color blue))))
-
 ;; Tue Jul 30 13:49:35 EDT 2019 - kmodi
 ;; Commenting out the below as I do not think they are needed.
 ;; Or rather, I need to better understand if and how these settings

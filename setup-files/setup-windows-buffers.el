@@ -816,6 +816,9 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
   :bind
   (:map undo-propose-mode-map
    ("?" . hydra-undo-propose/body))
+  :init
+  (progn
+    (defalias 'tb 'undo-propose))
   :config
   (progn
     ;; Open undo-propose buffer in a new window

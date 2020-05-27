@@ -812,6 +812,7 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
 ;; new temporary buffer, which is read-only
 ;; https://github.com/jackkamm/undo-propose-el
 (use-package undo-propose
+  :defer 10
   :commands undo-propose
   :bind
   (:map undo-propose-mode-map

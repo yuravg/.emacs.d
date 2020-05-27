@@ -822,7 +822,7 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
     (setq undo-propose-pop-to-buffer t)
     (defhydra hydra-undo-propose (:color teal :hint nil)
       "
-[undo-propose mode (mode-map prefix: 'C-c')]
+Undo-propose (map prefix: C-c):
   _C-c_: commit
   _C-s_: squash commit
   _C-d_: diff
@@ -832,7 +832,8 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
       ("C-s" undo-propose-squash-commit)
       ("C-d" undo-propose-diff)
       ("C-k" undo-propose-cancel)
-      ("q" nil "quit" :color blue))))
+      ("q"   nil "cancel" :color blue)
+      ("C-g" nil "cancel" :color blue))))
 
 ;;; Help mode
 (bind-keys

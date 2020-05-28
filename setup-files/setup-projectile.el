@@ -270,9 +270,11 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
       (select-frame (make-frame))
       (projectile-find-file))
 
+    ;; Showing the root directory of a project is useful if there are sub-projects.
+    ;; Some hydra-projectile commands are not from projectile package but I think it is
+    ;; convenient to have them in one place.
     (defhydra hydra-projectile (:color teal
                                 :hint  nil)
-      ;; show path to projectile useful if there are sub-projects
       "
 Projectile %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\"):
 ^^     Find            ^^^^           Search                 ^^^^     Buffers                 ^^   Cache/Tags             ^^^^         Run/compile              ^^   Other
@@ -283,6 +285,7 @@ Projectile %(if (fboundp 'projectile-project-root) (projectile-project-root) \"T
   _r_: recent file     ^^      _M-g_: git-grep               ^^  _k_: kill all                _z_: cache current          ^^^^                                  _P_: switch to an open project
 _C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all              _G_: update gtags           ^^^^                                  _D_: find dir
 ^^                     ^^^^                                  ^^_M-m_: revert all with modes   ^^                          ^^^^                                  _4_: other window
+^^                     ^^^^                                  ^^  _O_: submodules list
 "
       ("f"   projectile-find-file)
       ("F"   projectile-find-file-dwim)
@@ -306,6 +309,7 @@ _C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all
       ("k"   projectile-kill-buffers)
       ("C-m" yura/projectile-revert-all-file-buffers)
       ("M-m" (yura/projectile-revert-all-file-buffers :reverse-modes))
+      ("O"   magit-list-submodules)
 
       ("c"   projectile-invalidate-cache)
       ("x"   projectile-remove-known-project)

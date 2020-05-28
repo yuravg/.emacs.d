@@ -12,15 +12,15 @@
   :defer t
   :init
   (progn
-    (defvar modi/outline-minor-mode-hooks '(verilog-mode-hook
-                                            emacs-lisp-mode-hook
-                                            tcl-mode-hook
-                                            sh-mode-hook
+    (defvar modi/outline-minor-mode-hooks '(conf-mode-hook ;conf-space-mode-hook not enough for conf-mode
+                                            conf-space-mode-hook ;For .tmux.conf
                                             cperl-mode-hook
-                                            makefile-mode-hook
+                                            emacs-lisp-mode-hook
                                             makefile-gmake-mode-hook
-                                            conf-mode-hook ;conf-space-mode-hook not enough for conf-mode
-                                            conf-space-mode-hook) ;For .tmux.conf
+                                            makefile-mode-hook
+                                            sh-mode-hook
+                                            tcl-mode-hook
+                                            verilog-mode-hook)
       "List of hooks of major modes in which `outline-minor-mode' should be enabled.")
 
     (defun modi/turn-on-outline-minor-mode ()

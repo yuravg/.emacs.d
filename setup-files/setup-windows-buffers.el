@@ -439,7 +439,9 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
           (let (kill-buffer-query-functions) ;No query done when killing buffer
             (kill-buffer buf)
             (message "Killed non-existing/unreadable file buffer: %s" filename))))))
-  (message "Finished reverting buffers containing unmodified files."))
+  (if reverse-modes
+      (message "Finished reverting buffers and reinitialize modes.")
+    (message "Finished reverting buffers.")))
 (defalias 'rba 'modi/revert-all-file-buffers)
 
 (defun modi/revert-noconfirm-help-buffers (&rest args)
@@ -452,7 +454,10 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
 
 Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
   (interactive "P")
-  (revert-buffer :ignore-auto :noconfirm (unless reverse-modes :preserve-modes)))
+  (revert-buffer :ignore-auto :noconfirm (unless reverse-modes :preserve-modes))
+  (if reverse-modes
+      (message "Finished reverting buffer and reinitialize modes.")
+    (message "Finished reverting buffer.")))
 (defalias 'rb 'yura/revert-buffer-no-confirm)
 
 ;;; Frame setup

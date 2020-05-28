@@ -255,7 +255,9 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
               ;; Otherwise, kill the buffer.
               (let (kill-buffer buff)
                 (message "Killed non-existing/unreadable file buffer: %s" filename))))))
-      (message "Finished reverting projectile buffers containing unmodified files."))
+      (if reverse-modes
+          (message "Finished reverting buffers and reinitialize modes.")
+        (message "Finished reverting buffers.")))
     (defalias 'rbp 'yura/projectile-revert-all-file-buffers)
 
     ;; TODO: should usage current frame parameters for new frame

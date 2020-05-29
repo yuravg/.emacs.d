@@ -144,7 +144,7 @@
              "vcover" "onbreak" " resume" "echo" "run" "radix" "define" "noupdate" "divider"
              "height" "namecolwidth" "valuecolwidth" "justifyvalue" "signalnamewidth"
              "snapdistance" "datasetprefix" "rowmargin" "childrowmargin" "gridoffset"
-             "gridperiod" "griddelta" "timeline" "timelineunits")
+             "gridperiod" "griddelta" "timeline" "timelineunits" "expand")
            t)
           "\\_>")
   "ModelSim option keywords.")
@@ -153,7 +153,7 @@
 (defvar modelsim-option2-hkeywords
   (concat "\\_<"
           (regexp-opt
-           '("hexadecimal" "SetDefaultTree" "Cursor" "resume")
+           '("hexadecimal" "unsigned" "decimal" "SetDefaultTree" "Cursor" "resume")
            t)
           "\\_>")
   "ModelSim option keywords(without prefix char '-').")

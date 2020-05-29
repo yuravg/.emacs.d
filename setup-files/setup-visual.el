@@ -484,7 +484,6 @@ Font Size:     _C--_/_-_ Decrease     _C-=_/_=_ Increase     _C-0_/_0_ Reset    
 - The frame size is reduced.
 - All windows other than the current one are deleted.
 - Font size is increased.
-- Theme is toggled from the default dark theme to light theme.
 
 Toggling off this mode reverts everything to their original states."
   :init-value nil
@@ -496,14 +495,12 @@ Toggling off this mode reverts everything to their original states."
         (setq prez-mode--frame-configuration (current-frame-configuration))
         (set-frame-size nil 110 40)     ;Rows and columns w h
         (delete-other-windows)
-        (modi/global-font-size-adj +3 :absolute)
-        (toggle-theme))
+        (modi/global-font-size-adj +3 :absolute))
     ;; Disable prez mode
     (progn
       (set-frame-configuration prez-mode--frame-configuration)
       (switch-to-buffer prez-mode--buffer-name)
-      (modi/global-font-size-reset)
-      (toggle-theme))))
+      (modi/global-font-size-reset))))
 (define-globalized-minor-mode global-prez-mode prez-mode prez-mode)
 
 ;; F8 key can't be used as it launches the VNC menu

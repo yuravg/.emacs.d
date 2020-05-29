@@ -43,14 +43,15 @@
   ("m"     modi-mode "Modi mode")
   ("n"     neotree-toggle "neotree")
   ("o"     modi/toggle-one-window "one window" :color red)
-  ("p"     prez-mode "presentation mode")
+  ("p"     autopair-mode "autopair")
   ("r"     yura/revert-buffer-no-confirm "revert buffer(C-u: & modes)") ; C-u available for `yura/revert-buffer-no-confirm'
   ("sa"    scroll-all-mode "scroll all mode")
   ("t"     (lambda (arg) (interactive "P")
              (if arg (google-translate-at-point-reverse) (google-translate-at-point))) "translate(C-u: reverse)")
   ("M-t"     (lambda (arg) (interactive "P")
                (if arg (google-translate-query-translate-reverse) (google-translate-query-translate))) "translate query(C-u: reverse)")
-  ("C-t"   toggle-truncate-lines "truncate lines" :color red)
+  ("C-c"   toggle-truncate-lines "truncate lines" :color red)
+  ("c"     toggle-truncate-lines "truncate lines")
   ("C-r"   dired-toggle-read-only "read only/editable") ; generalized `read-only-mode'
   ("v"     view-mode "view mode") ; make buffer read-only, then use SPC/DEL to nav
   ("V"     visible-mode "visible mode") ; view all hidden text in org-mode (e.g. links)

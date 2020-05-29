@@ -9,6 +9,9 @@
   ("af"    auto-fill-mode "auto fill")
   ("ar"    auto-revert-mode "auto revert")
   ("aw"    adaptive-wrap-prefix-mode "adaptive wrap")
+  ("at"    set-align-regexp-with-tab "align with tab")
+  ("as"    set-align-regexp-with-spaces "align with spaces")
+  ("ad"    set-align-regexp-with-default "align default")
   ("b"     duplicate-current-window "double window(C-u: del other)") ; C-u available for `duplicate-current-window'
   ("e"     ediff-buffers "ebuffers")
   ("f"     toggle-fill-unfill "fill/unfill")

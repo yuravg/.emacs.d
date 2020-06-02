@@ -869,6 +869,7 @@ VARIABLE-INDENT(default 1) set indentation to variable name,
         (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\w+\\(;\\|,\\|\\(\\(\\s-*\\)=\\)\\)" 1 variable-indent nil)
         (message "Alignment done.")))
     (defalias 'vav 'verilog-alignment-of-variables-declaration-in-region)
+    (bind-key "v" #'verilog-alignment-of-variables-declaration-in-region region-bindings-mode-map)
 
 ;;;; Refactoring
     (defun verilog-refactoring-of-alignment ()
@@ -911,6 +912,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                   ;; FIXME: disable in module declaration
                   ("\\(reg\\|logic\\|wire\\|bit\\|input\\|output\\|inout\\)\\[" . "\\1 ["))))
         (message "Refactoring of alignment is complete.")))
+    (bind-key "i" #'verilog-refactoring-of-alignment region-bindings-mode-map)
 
     ;; extended version of `hydra-refactoring/body'
     (defhydra hydra-verilog-refactoring (:color pink :hint nil)

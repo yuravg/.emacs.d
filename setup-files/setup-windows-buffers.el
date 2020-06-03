@@ -920,7 +920,8 @@ Undo-propose (map prefix: C-c):
  ("<S-f5>" . modi/revert-all-file-buffers)
  ("C-x 5 n" . buffer-to-maximized-frame)
  ("C-x 5 C-n" . buffer-to-fullscreen-frame)
- ("C-x 5 o" . yura/counsel-recentf-new-frame)) ;default binding `other-frame'
+ ("C-x 5 o" . yura/counsel-recentf-new-frame) ;default binding `other-frame'
+ ("C-x 5 M-o" . yura/counsel-recentf-new-frame)) ; same as: M-o - binding for `counsel-recentf'
 
 (defalias 'arm 'auto-revert-mode)
 (defalias 'ff 'toggle-frame-fullscreen)

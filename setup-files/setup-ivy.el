@@ -122,7 +122,9 @@ Prefixed with \\[universal-argument], open file in another window."
           (forward-line 0)
           (let* ((filename-line (ffap-string-at-point))
                  (file-name (replace-regexp-in-string ":.*" "" filename-line))
-                 (line-num (string-to-number (replace-regexp-in-string ".*:" "" filename-line))))
+                 ;; filename-line: <file_name:48:some_text> or <file_name:48:>
+                 (line-num (string-to-number (replace-regexp-in-string ".*:\\([0-9]+\\)\\(:.*\\)*" "\\1"
+                                                                       filename-line))))
             (if (file-exists-p file-name)
                 (progn
                   (if other-window

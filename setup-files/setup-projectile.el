@@ -281,10 +281,10 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
 Projectile %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\"):
 ^^     Find            ^^^^           Search                 ^^^^     Buffers                 ^^   Cache/Tags             ^^^^         Run/compile              ^^   Other
 ^^---------------------^^^^----------------------------------^^^^-----------------------------^^--------------------------^^^^----------------------------------^^------------------------------------------
-  _f_: file                  _s_/_a_: counsel rg/ag          ^^  _i_: Ibuffer                 _c_: cache clear            _M-c_/_C-c_: compile/force compile    _E_: edit project's .dir-locals.el
-  _F_: file dwim         _C-s_/_C-a_: rg/ag                _b_/_C-b_: switch/other window     _x_: remove known project   _M-t_/_C-t_: test/force test          _p_: switch to other project
+  _f_: file                  _s_/_a_: counsel rg/ag          ^^  _i_: Ibuffer                 _c_: cache clear            _M-c_/_C-c_: compile/force compile    _p_: switch to an open project
+  _F_: file dwim         _C-s_/_C-a_: rg/ag                _b_/_C-b_: switch/other window     _x_: remove known project   _M-t_/_C-t_: test/force test          _P_: switch to other project
   _l_: file literally  ^^        _o_: multi-occur        _M-b_/_M-f_: switch/find new frame   _X_: cleanup non-existing   _M-r_/_C-r_: run/force run            _g_: switch to Magit status of other project
-  _r_: recent file     ^^      _M-g_: git-grep               ^^  _k_: kill all                _z_: cache current          ^^^^                                  _P_: switch to an open project
+  _r_: recent file     ^^      _M-g_: git-grep               ^^  _k_: kill all                _z_: cache current          ^^^^                                  _E_: edit project's .dir-locals.el
 _C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all              _G_: update gtags           ^^^^                                  _D_: find dir
 ^^                     ^^^^                                  ^^_M-m_: revert all with modes   ^^                          ^^^^                                  _4_: other window
 ^^                     ^^^^                                  ^^  _O_: submodules list
@@ -327,10 +327,10 @@ _C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all
       ("M-t" projectile-test-project)
       ("M-r" projectile-run-project)
 
-      ("E"   projectile-edit-dir-locals)
-      ("p"   projectile-switch-project)
+      ("p"   projectile-switch-open-project)
+      ("P"   projectile-switch-project)
       ("g"   modi/projectile-switch-project-magit-status)
-      ("P"   projectile-switch-open-project)
+      ("E"   projectile-edit-dir-locals)
       ("D"   projectile-find-dir)
       ("4"   hydra-projectile-other-window/body)
 

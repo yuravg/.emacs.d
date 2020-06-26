@@ -421,6 +421,9 @@ Buffers visiting files which do not exist any more or are no longer readable
 will be killed.
 Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
   (interactive "P")
+  (if reverse-modes
+      (message "Reverting and reinitialize modes ...")
+    (message "Reverting ..."))
   (dolist (buf (buffer-list))
     (let ((filename (buffer-file-name buf)))
       ;; (message "buf:%s  filename:%s  modified:%s  filereadable:%s"

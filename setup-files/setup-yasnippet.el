@@ -87,10 +87,10 @@ _C-i_: ivy                 _?_: list snippets
       "Recompile and reload YASnippet.\n
 Execute commands: `yas-recompile-all', `yas-reload-all'."
       (interactive)
-      (progn
-        (yas-recompile-all)
-        (yas-reload-all)
-        (message "Yasnippet has been recompiled and reloaded")))
+      (message "Compilation ...") ;useful because `yas-recompile-all' takes more couple seconds
+      (yas-recompile-all)
+      (yas-reload-all)
+      (message "Yasnippet has been recompiled and reloaded"))
 
     (use-package ivy-yasnippet
       :config

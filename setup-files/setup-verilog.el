@@ -1000,7 +1000,7 @@ and you should edit file after launch this command."
         (forward-word 2)
         (setq name (symbol-at-point))
         (goto-char beg)
-        (re-search-forward "\\(\\<endfunction \\)\\|\\(\\<endtask \\)")
+        (re-search-forward "\\(\\<endfunction\\>\\)\\|\\(\\<endtask\\>\\)")
         (move-end-of-line nil)
         (setq end (point))
         (copy-region-as-kill beg end)

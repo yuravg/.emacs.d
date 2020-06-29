@@ -13,6 +13,8 @@
   ("as"    set-align-regexp-with-spaces "align with spaces")
   ("ad"    set-align-regexp-with-default "align default")
   ("b"     duplicate-current-window "double window(C-u: del other)") ; C-u available for `duplicate-current-window'
+  ("C-b"   (lambda () (interactive)
+             (duplicate-current-window t)) "double window, del other")
   ("e"     ediff-buffers "ebuffers")
   ("f"     toggle-fill-unfill "fill/unfill")
   ("F"     follow-mode "follow mode")
@@ -45,6 +47,8 @@
   ("o"     modi/toggle-one-window "one window" :color red)
   ("p"     autopair-mode "autopair")
   ("r"     yura/revert-buffer-no-confirm "revert buffer(C-u: & modes)") ; C-u available for `yura/revert-buffer-no-confirm'
+  ("C-r"   (lambda () (interactive)
+             (yura/revert-buffer-no-confirm t)) "revert buffer & modes")
   ("sa"    scroll-all-mode "scroll all mode")
   ("t"     (lambda (arg) (interactive "P")
              (if arg (google-translate-at-point-reverse) (google-translate-at-point))) "translate(C-u: reverse)")
@@ -52,7 +56,6 @@
                (if arg (google-translate-query-translate-reverse) (google-translate-query-translate))) "translate query(C-u: reverse)")
   ("C-c"   toggle-truncate-lines "truncate lines" :color red)
   ("c"     toggle-truncate-lines "truncate lines")
-  ("C-r"   dired-toggle-read-only "read only/editable") ; generalized `read-only-mode'
   ("v"     view-mode "view mode") ; make buffer read-only, then use SPC/DEL to nav
   ("V"     visible-mode "visible mode") ; view all hidden text in org-mode (e.g. links)
   ("TAB"   tabify "tabify")

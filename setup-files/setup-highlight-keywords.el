@@ -10,6 +10,7 @@
 ;;  Natural Docs
 ;;  Simulation, compilation
 ;;  Verilog
+;;    Module name
 ;;    Preprocessor
 ;;    Identifier
 ;;    Class name
@@ -216,6 +217,13 @@
  '((" \\<\\([Tt]ime\\|Iteration\\)\\>:" 0 '(:background nil) prepend)))
 
 ;;; Verilog
+;;;; Module name
+;; Highlight 'name' of module, which is define as: module name;
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("^\\(\\s-*\\)\\(module\\s-+\\)\\(\\w+\\);"
+    3 'font-lock-function-name-face)))
+
 ;;;; Preprocessor
 (font-lock-add-keywords
  'verilog-mode

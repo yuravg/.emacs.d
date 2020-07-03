@@ -3,7 +3,7 @@
 ;;;; Fold setup
 
 (defface modi/fold-face
-  '((t (:foreground "deep sky blue" :slant italic)))
+  '((t (:foreground "magenta" :background "snow2" :slant normal :weight bold)))
   "Face used for fold ellipsis.")
 
 ;;; Fold This - Fold selected

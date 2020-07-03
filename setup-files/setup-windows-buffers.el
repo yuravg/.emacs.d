@@ -14,10 +14,8 @@
 ;;  Switch/revert file/buffer coding system
 ;;  Windmove
 ;;  Reopen Killed File
-;;  Transpose Frame
 ;;  Current File Buffer Actions
 ;;  Revert buffer
-;;  Frame setup
 ;;  Scratch-and-Back
 ;;  Scratch buffer
 ;;  Minibuffer and Recursive Edit
@@ -29,8 +27,11 @@
 ;;  One Window Toggle
 ;;  Kill/Bury Buffer
 ;;  Other Window/Buffer
-;;  Resize frame
-;;  Open at new frame
+;;  Frame
+;;    Frame setup
+;;    Transpose Frame
+;;    Resize frame
+;;    Open at new frame
 ;;  Temporary buffer for read-only
 ;;  Help mode
 ;;  *Messages* Auto-tail
@@ -339,13 +340,6 @@ Usage: execute this command after copying the Russian text to the utf-8 buffer."
       (find-file (pop killed-file-list))
     (message "No recently killed file found to reopen.")))
 
-;;; Transpose Frame
-;; http://www.emacswiki.org/emacs/transpose-frame.el
-(use-package transpose-frame
-  :bind (:map modi-mode-map
-         ("C-c o" . rotate-frame)
-         ("C-c C-\\" . transpose-frame))) ;Toggles between horz/vert splits
-
 ;;; Current File Buffer Actions
 ;; Delete current buffer file
 (defun modi/delete-current-buffer-file ()
@@ -462,26 +456,6 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
       (message "Finished reverting buffer and reinitialize modes.")
     (message "Finished reverting buffer.")))
 (defalias 'rb 'yura/revert-buffer-no-confirm)
-
-;;; Frame setup
-(defun modi/frame-setup-1 ()
-  "Set the frame to fill the center screen."
-  (interactive)
-  (let ((frame-resize-pixelwise t))   ;Do not round frame sizes to character h/w
-    (set-frame-position nil 2560 0)   ;Pixels x y from upper left
-    (set-frame-size nil 2540 1380 :pixelwise))) ;Width, height
-
-(defun modi/frame-width-2x (double)
-  "Set the frame text width to half the current width.
-If DOUBLE is non-nil, the frame text width is doubled. "
-  (interactive "P")
-  (let ((frame-resize-pixelwise t)    ;Do not round frame sizes to character h/w
-        (factor (if double 2 0.5)))
-    (set-frame-size nil
-                    (round (* factor (frame-text-width))) (frame-text-height)
-                    :pixelwise)))
-
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;;; Scratch-and-Back
 ;; http://emacs.stackexchange.com/a/81/115
@@ -774,7 +748,35 @@ Scroll other window, up/down lines: _p_/_n_: one  _C-p_/_C-n_: ten  _M-p_/_M-p_:
   ("C-g"   nil "cancel" :color blue))
 (bind-keys :map modi-mode-map ("C-c C-'" . hydra-scroll-other-window/body))
 
-;;; Resize frame
+;;; Frame
+;;;; Frame setup
+(defun modi/frame-setup-1 ()
+  "Set the frame to fill the center screen."
+  (interactive)
+  (let ((frame-resize-pixelwise t))   ;Do not round frame sizes to character h/w
+    (set-frame-position nil 2560 0)   ;Pixels x y from upper left
+    (set-frame-size nil 2540 1380 :pixelwise))) ;Width, height
+
+(defun modi/frame-width-2x (double)
+  "Set the frame text width to half the current width.
+If DOUBLE is non-nil, the frame text width is doubled. "
+  (interactive "P")
+  (let ((frame-resize-pixelwise t)    ;Do not round frame sizes to character h/w
+        (factor (if double 2 0.5)))
+    (set-frame-size nil
+                    (round (* factor (frame-text-width))) (frame-text-height)
+                    :pixelwise)))
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;;;; Transpose Frame
+;; http://www.emacswiki.org/emacs/transpose-frame.el
+(use-package transpose-frame
+  :bind (:map modi-mode-map
+         ("C-c o" . rotate-frame)
+         ("C-c C-\\" . transpose-frame))) ;Toggles between horz/vert splits
+
+;;;; Resize frame
 (defun yura/resize-frame ()
   "Resize the current frame to the next size.
 
@@ -787,7 +789,7 @@ Size list: default, maximized, full both, full height, full width."
      (selected-frame)
      (list (cons 'fullscreen next)))))
 
-;;; Open at new frame
+;;;; Open at new frame
 (defun yura/buffer-to-new-frame (arg)
   "Open current buffer at new frame.
 Perform an action based on ARG described below.

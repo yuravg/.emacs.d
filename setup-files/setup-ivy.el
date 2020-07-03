@@ -153,53 +153,52 @@ Prefixed with \\[universal-argument], open file in another window."
      :map ivy-switch-buffer-map
      ("C-k" . modi/ivy-kill-buffer)))
 
+  ;; https://github.com/Yevgnen/ivy-rich
+  ;; Richer "C-x b" buffer-switching Ivy interface.
+  (use-package ivy-rich
+    :ensure t
+    :preface
+    ;; https://github.com/seagle0128/.emacs.d
+    (defun ivy-rich-bookmark-name (candidate)
+      (car (assoc candidate bookmark-alist)))
+    :init
+    (setq ivy-rich-display-transformers-list
+          '(ivy-switch-buffer
+            (:columns
+             ((ivy-rich-candidate (:width 40))
+              (ivy-rich-switch-buffer-indicators (:width 4 :face font-lock-comment-face :align right))
+              (ivy-rich-switch-buffer-project (:width 20 :face font-lock-comment-face))
+              (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3)))
+                                            :face font-lock-comment-face)))
+             :predicate
+             (lambda (cand) (get-buffer cand)))
+            counsel-M-x
+            (:columns
+             ((counsel-M-x-transformer (:width 50))
+              (ivy-rich-counsel-function-docstring (:face font-lock-comment-face))))
+            counsel-describe-function
+            (:columns
+             ((counsel-describe-function-transformer (:width 40))
+              (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+            counsel-describe-variable
+            (:columns
+             ((counsel-describe-variable-transformer (:width 40))
+              (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
+            counsel-recentf
+            (:columns
+             ((ivy-rich-candidate (:width 0.8))
+              (ivy-rich-file-last-modified-time (:face font-lock-comment-face))))
+            counsel-bookmark
+            (:columns
+             ((ivy-rich-bookmark-type (:face font-lock-comment-delimiter-face))
+              (ivy-rich-bookmark-name (:width 40))
+              (ivy-rich-bookmark-info (:face font-lock-comment-face))))))
+    :config
+    (progn
+      (ivy-rich-mode)))
+
   (use-package ivy-describe-modes
     :load-path "elisp/manually-synced/ivy-describe-modes"))
-
-;; https://github.com/Yevgnen/ivy-rich
-;; Richer "C-x b" buffer-switching Ivy interface.
-(use-package ivy-rich
-  :after ivy
-  :ensure t
-  :preface
-  ;; https://github.com/seagle0128/.emacs.d
-  (defun ivy-rich-bookmark-name (candidate)
-    (car (assoc candidate bookmark-alist)))
-  :init
-  (setq ivy-rich-display-transformers-list
-        '(ivy-switch-buffer
-          (:columns
-           ((ivy-rich-candidate (:width 40))
-            (ivy-rich-switch-buffer-indicators (:width 4 :face font-lock-comment-face :align right))
-            (ivy-rich-switch-buffer-project (:width 20 :face font-lock-comment-face))
-            (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3)))
-                                          :face font-lock-comment-face)))
-           :predicate
-           (lambda (cand) (get-buffer cand)))
-          counsel-M-x
-          (:columns
-           ((counsel-M-x-transformer (:width 50))
-            (ivy-rich-counsel-function-docstring (:face font-lock-comment-face))))
-          counsel-describe-function
-          (:columns
-           ((counsel-describe-function-transformer (:width 40))
-            (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
-          counsel-describe-variable
-          (:columns
-           ((counsel-describe-variable-transformer (:width 40))
-            (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
-          counsel-recentf
-          (:columns
-           ((ivy-rich-candidate (:width 0.8))
-            (ivy-rich-file-last-modified-time (:face font-lock-comment-face))))
-          counsel-bookmark
-          (:columns
-           ((ivy-rich-bookmark-type (:face font-lock-comment-delimiter-face))
-            (ivy-rich-bookmark-name (:width 40))
-            (ivy-rich-bookmark-info (:face font-lock-comment-face))))))
-  :config
-  (progn
-    (ivy-rich-mode)))
 
 
 (provide 'setup-ivy)

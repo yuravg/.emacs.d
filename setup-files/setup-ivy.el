@@ -151,7 +151,10 @@ Prefixed with \\[universal-argument], open file in another window."
       (ivy-done))
     (bind-keys
      :map ivy-switch-buffer-map
-     ("C-k" . modi/ivy-kill-buffer))))
+     ("C-k" . modi/ivy-kill-buffer)))
+
+  (use-package ivy-describe-modes
+    :load-path "elisp/manually-synced/ivy-describe-modes"))
 
 ;; https://github.com/Yevgnen/ivy-rich
 ;; Richer "C-x b" buffer-switching Ivy interface.

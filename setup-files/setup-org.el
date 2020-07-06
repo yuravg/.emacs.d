@@ -1419,7 +1419,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
     (bind-keys
      :map org-agenda-mode-map
-     ("C-j". org-agenda-switch-to)
+     ("C-j" . org-agenda-switch-to)
      ("x" . sacha/org-agenda-done)
      ("X" . sacha/org-agenda-mark-done-and-add-followup)
      ("N" . sacha/org-agenda-new))))

@@ -15,7 +15,6 @@
     (setq-default fci-rule-use-dashes t)
     (setq-default fci-dash-pattern 1.0)
     (setq-default fci-rule-color "grey85")
-    (setq-default fci-rule-column 96)
 
     (defconst modi/fci-mode-hooks yura/major-modes-hooks
       "List of hooks of major modes in which fci mode should be enabled.")

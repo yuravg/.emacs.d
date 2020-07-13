@@ -195,6 +195,12 @@ files in Fundamental mode."
       (let ((projectile-switch-project-action #'magit-status))
         (call-interactively #'projectile-switch-project)))
 
+    (defun yura/projectile-switch-open-project-magit-status ()
+      "Switch to a project which currently opened and open Magit status there."
+      (interactive)
+      (let ((projectile-switch-project-action #'magit-status))
+        (call-interactively #'projectile-switch-open-project)))
+
     (defhydra hydra-projectile-other-window (:color teal)
       "projectile-other-window"
       ("b" projectile-switch-to-buffer-other-window "buffer")

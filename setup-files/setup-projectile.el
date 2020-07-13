@@ -288,15 +288,15 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
                                 :hint  nil)
       "
 Projectile %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\"):
-^^     Find            ^^^^           Search                 ^^^^     Buffers                 ^^   Cache/Tags             ^^^^         Run/compile              ^^   Other
-^^---------------------^^^^----------------------------------^^^^-----------------------------^^--------------------------^^^^----------------------------------^^------------------------------------------
-  _f_: file                  _s_/_a_: counsel rg/ag          ^^  _i_: Ibuffer                 _c_: cache clear            _M-c_/_C-c_: compile/force compile    _p_: switch to an open project
-  _F_: file dwim         _C-s_/_C-a_: rg/ag                _b_/_C-b_: switch/other window     _x_: remove known project   _M-t_/_C-t_: test/force test          _P_: switch to other project
-  _l_: file literally  ^^        _o_: multi-occur        _M-b_/_M-f_: switch/find new frame   _X_: cleanup non-existing   _M-r_/_C-r_: run/force run            _g_: switch to Magit status of other project
-  _r_: recent file     ^^      _M-g_: git-grep               ^^  _k_: kill all                _z_: cache current          ^^^^                                  _E_: edit project's .dir-locals.el
-_C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all              _G_: update gtags           ^^^^                                  _D_: find dir
-^^                     ^^^^                                  ^^_M-m_: revert all with modes   ^^                          ^^^^                                  _4_: other window
-^^                     ^^^^                                  ^^  _O_: submodules list
+^^     Find            ^^^^           Search               ^^^^     Buffers                   ^^^^   Cache/Tags             ^^^^         Run/compile              ^^   Other
+^^---------------------^^^^--------------------------------^^^^-------------------------------^^^^--------------------------^^^^----------------------------------^^------------------------------------------
+  _f_: file                  _s_/_a_: counsel rg/ag        ^^  _i_: Ibuffer                   ^^_c_: cache clear            _M-c_/_C-c_: compile/force compile    _p_/_P_: switch to an open/other project
+  _F_: file dwim         _C-s_/_C-a_: rg/ag              _b_/_C-b_: switch/other window       ^^_x_: remove known project   _M-t_/_C-t_: test/force test          _g_/_G_: switch to Magit status of open/other project
+  _l_: file literally  ^^        _o_: multi-occur      _M-b_/_M-f_: switch/find new frame     ^^_X_: cleanup non-existing   _M-r_/_C-r_: run/force run            _E_: edit project's .dir-locals.el
+  _r_: recent file     ^^      _M-g_: git-grep             ^^  _k_: kill all                  ^^_z_: cache current          ^^^^                                  _D_: find dir
+_C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all              _u_/_U_: gtags update/create    ^^^^                                  _4_: other window
+^^                     ^^^^                                ^^_M-m_: revert all with modes   ^^^^                            ^^^^
+^^                     ^^^^                                ^^  _O_: submodules list
 "
       ("f"   projectile-find-file)
       ("F"   projectile-find-file-dwim)
@@ -326,7 +326,8 @@ _C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all
       ("x"   projectile-remove-known-project)
       ("X"   projectile-cleanup-known-projects)
       ("z"   projectile-cache-current-file)
-      ("G"   ggtags-update-tags)
+      ("U"   ggtags-create-tags)
+      ("u"   ggtags-update-tags)
 
       ("C-c" yura/projectile-compile-project)
       ("C-t" yura/projectile-test-project)
@@ -338,7 +339,8 @@ _C-f_: Git file        ^^        _w_: src-warnings           ^^_C-m_: revert all
 
       ("p"   projectile-switch-open-project)
       ("P"   projectile-switch-project)
-      ("g"   modi/projectile-switch-project-magit-status)
+      ("g"   yura/projectile-switch-open-project-magit-status)
+      ("G"   modi/projectile-switch-project-magit-status)
       ("E"   projectile-edit-dir-locals)
       ("D"   projectile-find-dir)
       ("4"   hydra-projectile-other-window/body)

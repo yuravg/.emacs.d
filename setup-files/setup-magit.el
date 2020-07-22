@@ -210,7 +210,7 @@ It is assumed that the author has only one or two names."
     (defun yura/git-commit-mode-customization ()
       "Set Git message body limits to 72. https://chris.beams.io/posts/git-commit."
       (setq-local fill-column 72)
-      (setq-local fci-rule-column 73))
+      (setq-local fci-rule-column 72))
     (add-hook 'git-commit-mode-hook #'yura/git-commit-mode-customization)))
 
 ;;; Git-timemachine

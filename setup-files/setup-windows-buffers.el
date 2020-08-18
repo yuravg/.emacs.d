@@ -98,7 +98,7 @@ If the file does not exist it will be created."
 (defun duplicate-current-window (arg)
   "Duplicate the current window to the next window.
 
-Prefixex with \\[universal-argument] delete other windows."
+Prefixed with \\[universal-argument] delete other windows."
   (interactive "P")
   (if arg
       (delete-other-windows))

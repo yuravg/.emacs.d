@@ -932,8 +932,8 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
       ("r" hydra-refactoring/body :color teal)
       ("v" hydra-refactoring/body :color teal)
 
-      ("q" nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
 
     (defun yura/verilog-overwrite-identifiers ()
       "Overwrite Verilog identifiers.

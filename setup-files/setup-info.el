@@ -341,7 +341,7 @@ Info-mode:
       ("?"   Info-summary "Info summary")
       ("h"   Info-help "Info help")
       ("q"   Info-exit "Info exit")
-      ("C-g" nil "cancel" :color blue))
+      ("C-g" nil "cancel"))
 
     (bind-keys
      :map Info-mode-map

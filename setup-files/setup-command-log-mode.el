@@ -29,8 +29,8 @@
       ("t" clm/toggle-command-log-buffer "toggle log buffer")
       ("s" clm/save-command-log "save log")
       ("x" clm/close-command-log-buffer "close log buffer")
-      ("q" nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))))
 
 
 (provide 'setup-command-log-mode)

@@ -151,8 +151,8 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
   ("t" yura/compilation-toggle-truncate-lines)
   ("h" (lambda () (interactive) (yura/compilation-toggle-finish-function t)))
   ("s" yura/compilation-toggle-scroll-output)
-  ("q" nil "cancel" :color blue)
-  ("C-g" nil "cancel" :color blue))
+  ("q" nil "cancel")
+  ("C-g" nil "cancel"))
 (with-eval-after-load 'compile
   (bind-key "?" #'hydra-compilation/body compilation-mode-map))
 

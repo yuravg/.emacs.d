@@ -33,8 +33,8 @@ Get          _gj_ ^^ brightness      _gk_ ^^ saturation      _gl_ ^^ hue
       ("rh" kurecolor-cssrgb-at-point-or-region-to-hex :color blue)
       ("hr" kurecolor-hexcolor-at-point-or-region-to-css-rgb :color blue)
       ("hR" kurecolor-hexcolor-at-point-or-region-to-css-rgba :color blue)
-      ("q"  nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))))
+      ("q"  nil "cancel")
+      ("C-g" nil "cancel"))))
 
 
 (provide 'setup-kurecolor)

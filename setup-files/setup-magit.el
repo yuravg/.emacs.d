@@ -132,8 +132,8 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
       ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
       ("T" yura/magit-diff-refine-hunk-toggle :color red)
 
-      ("q"   nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))
+      ("q"   nil "cancel")
+      ("C-g" nil "cancel"))
 
     (use-package git-rebase
       :bind (:map git-rebase-mode-map

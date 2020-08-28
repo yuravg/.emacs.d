@@ -799,8 +799,8 @@ line, or if a region is selected.  Else call
       ("r" hydra-refactoring/body :color teal)
       ("o" hydra-refactoring/body :color teal)
 
-      ("q" nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
 
 ;;; Bindings
     (defun modi/reset-local-set-keys ()
@@ -1505,8 +1505,8 @@ function is ever added to that hook."
              (org-table-beginning-of-field arg)))
       ("n" next-line)
       ("p" previous-line)
-      ("q" nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
 
     (bind-keys
      :map org-mode-map

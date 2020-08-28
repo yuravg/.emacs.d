@@ -25,8 +25,8 @@
 _t_runcate line
 "
   ("t" grep-toggle-truncate-lines)
-  ("q" nil "cancel" :color blue)
-  ("C-g" nil "cancel" :color blue))
+  ("q" nil "cancel")
+  ("C-g" nil "cancel"))
 (with-eval-after-load 'grep
   (bind-key "?" #'hydra-grep/body grep-mode-map))
 

@@ -200,8 +200,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
       ("C" smerge-combine-with-next)
       ("r" smerge-resolve)
       ("k" smerge-kill-current)
-      ("q" nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))))
 
 
 (provide 'setup-diff)

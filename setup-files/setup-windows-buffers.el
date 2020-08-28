@@ -317,9 +317,9 @@ Usage: execute this command after copying the Russian text to the utf-8 buffer."
       ("}" modi/move-splitter-down nil) ;Shift + ]
       ("=" balance-windows "Balance")
       ("+" balance-windows nil)
-      ("q" nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue)
-      ("<return>" nil "cancel" :color blue))))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel")
+      ("<return>" nil "cancel"))))
 
 ;;; Reopen Killed File
 ;; http://emacs.stackexchange.com/a/3334/115
@@ -745,8 +745,8 @@ Scroll other window, up/down lines: _p_/_n_: one  _C-p_/_C-n_: ten  _M-p_/_M-p_:
   ("C-M-n" (scroll-other-window    ))
   ("b"     beginning-of-buffer-other-window)
   ("e"     end-of-buffer-other-window)
-  ("q"     nil "cancel" :color blue)
-  ("C-g"   nil "cancel" :color blue))
+  ("q"     nil "cancel")
+  ("C-g"   nil "cancel"))
 (bind-keys :map modi-mode-map ("C-c C-'" . hydra-scroll-other-window/body))
 
 ;;; Frame
@@ -858,8 +858,8 @@ Undo-propose (map prefix: C-c):
       ("C-s" undo-propose-squash-commit)
       ("C-d" undo-propose-diff)
       ("C-k" undo-propose-cancel)
-      ("q"   nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))))
+      ("q"   nil "cancel")
+      ("C-g" nil "cancel"))))
 
 ;;; Help mode
 (bind-keys

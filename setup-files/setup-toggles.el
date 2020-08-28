@@ -65,8 +65,8 @@
   ("C-e e" modi/toggle-edebug "edebug")
   ("C-e d" modi/toggle-debug "debug on entry")
   ("C-e r" toggle-debug-on-error "debug on error")
-  ("q"     nil "cancel" :color blue)
-  ("C-g"   nil "cancel" :color blue))
+  ("q"     nil "cancel")
+  ("C-g"   nil "cancel"))
 
 (bind-key "s-t" #'hydra-toggle/body)
 (bind-key "C-c t" #'hydra-toggle/body)

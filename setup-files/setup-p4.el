@@ -81,8 +81,8 @@ escape codes."
       ("h"   p4-help            "Help")                                    ;help
       ("?"   p4-help            "Help")
       ("V"   p4-version         "Version")                                 ;version
-      ("q"   nil                "cancel" :color blue)
-      ("C-g" nil                "cancel" :color blue))
+      ("q"   nil                "cancel")
+      ("C-g" nil                "cancel"))
 
     (bind-key "s-4" #'hydra-p4/body)
     (bind-key "C-c 4" #'hydra-p4/body)))

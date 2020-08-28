@@ -207,8 +207,8 @@ files in Fundamental mode."
       ("D" projectile-find-dir-other-window "dir")
       ("f" projectile-find-file-other-window "file")
       ("F" projectile-find-file-dwim-other-window "file dwim")
-      ("q" nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
 
     ;; 'native' projectile-indexing method takes too much time in the Windows OS.
     (if (eq system-type 'windows-nt)
@@ -345,8 +345,8 @@ _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all  
       ("D"   projectile-find-dir)
       ("4"   hydra-projectile-other-window/body)
 
-      ("q"   nil "cancel" :color blue)
-      ("C-g" nil "cancel" :color blue))
+      ("q"   nil "cancel")
+      ("C-g" nil "cancel"))
 
     (projectile-mode)))
 

@@ -46,14 +46,14 @@
   ("<SPC>"   hydra-launch-freq/body "launch freq")
   ("<s-SPC>" hydra-launch-freq/body nil)
   (":"       eval-expression "eval")
-  ("C-g"     nil "cancel" :color blue))
+  ("C-g"     nil "cancel"))
 
 (defhydra hydra-launch-freq (:color teal
                              :columns 6)
   "Frequently accessed files"
   ("e" (find-file (expand-file-name "init.el" user-emacs-directory)) "emacs init")
-  ("q" nil "cancel" :color blue)
-  ("C-g" nil "cancel" :color blue))
+  ("q" nil "cancel")
+  ("C-g" nil "cancel"))
 
 (bind-key "<s-SPC>" #'hydra-launch/body modi-mode-map)
 ;; Bind C-c SPC in global-map so that the org-mode-map binding is not overridden.

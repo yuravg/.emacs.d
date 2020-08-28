@@ -360,7 +360,7 @@ font size."
                              :color red
                              :hint nil)
   "
-Font Size:     _C--_/_-_ Decrease     _C-=_/_=_ Increase     _C-0_/_0_ Reset     _q_ Cancel
+Font Size:     _C--_/_-_ Decrease     _C-=_/_=_ Increase     _C-0_/_0_ Reset
 "
   ;; Hydra entry bindings
   ("C--" modi/global-font-size-decr)
@@ -371,7 +371,8 @@ Font Size:     _C--_/_-_ Decrease     _C-=_/_=_ Increase     _C-0_/_0_ Reset    
   ("="   modi/global-font-size-incr :bind nil)
   ("+"   modi/global-font-size-incr :bind nil)
   ("0"   modi/global-font-size-reset :bind nil)
-  ("q"   nil :color blue))
+  ("q"   nil "cancel")
+  ("C-g" nil "cancel"))
 
 (bind-keys
  :map modi-mode-map

@@ -80,7 +80,8 @@ If NO-WHITESPACE is non-nil, ignore all white space when doing diff."
       ("]" diff-hl-next-hunk "next hunk")
       ("n" diff-hl-next-hunk "next hunk")
       ("a" modi/add-change-log-entry-other-window-and-return "add change log entry")
-      ("q" nil "cancel"))
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
 
     (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))

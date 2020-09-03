@@ -15,7 +15,7 @@
 ;;  Kill region or word
 ;;  Move region
 ;;  Managing white spaces and empty newlines
-;;  Untabify
+;;  Tabs and Untabify
 ;;  Align
 ;;    Align repeat
 ;;    Change `align-regexp' behaviour
@@ -417,9 +417,9 @@ Do not do anything if `do-not-delete-trailing-whitespace' is non-nil."
 
 (defalias 'dw 'delete-trailing-whitespace)
 
-;;; Untabify
+;;; Tabs and Untabify
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)  ;Use spaces instead of tabs for indentation
-
 (defun modi/untabify-buffer ()
   "Untabify the current buffer.
 

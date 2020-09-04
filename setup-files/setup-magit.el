@@ -100,7 +100,7 @@ _s_/_g_: status                     _c_: checkout file(rewrite)         _f_: fet
 ^^  _l_: log current              _C-c_: find file(open new)            _P_: push                _$_: process buffer        _M-l_: in log        _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
 _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: checkout            _m_: git-timemachine
 ^^_C-l_: log current buffer       _C-f_: find Git file                  _g_: grep              _M-r_: git checkout all
-^^  _O_: submodules list
+^^  _o_: submodules list
 "
       ("g" magit-status)
       ("s" magit-status)
@@ -108,7 +108,7 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
       ("b" magit-log-all-branches)
       ("L" magit-log-branches)
       ("C-l" magit-log-buffer-file)
-      ("O" magit-list-submodules)
+      ("o" magit-list-submodules)
 
       ("c" magit-file-checkout)
       ("C-c" magit-find-file)

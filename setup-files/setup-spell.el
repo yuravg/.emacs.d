@@ -101,7 +101,7 @@
           :init
           (setq flyspell-correct-interface #'flyspell-correct-ivy))
 
-        (defhydra hydra-flyspell (:color teal
+        (defhydra hydra-flyspell (:color pink
                                   :hint nil)
           "
 ^^^^      Correct word:                   ^^GoTo:                           ^^Spell:
@@ -111,14 +111,14 @@
 ^^   _c_: flyspell at point
 ^^   _i_: ispell
 "
-          ("w" flyspell-correct-wrapper)
-          ("f" flyspell-correct-wrapper)
-          ("p" flyspell-correct-previous)
-          ("n" flyspell-correct-next)
-          ("c" flyspell-correct-at-point)
-          ("i" ispell-word)
+          ("w" flyspell-correct-wrapper :color teal)
+          ("f" flyspell-correct-wrapper :color teal)
+          ("p" flyspell-correct-previous :color teal)
+          ("n" flyspell-correct-next :color teal)
+          ("c" flyspell-correct-at-point :color teal)
+          ("i" ispell-word :color teal)
           ("C-n" flyspell-goto-next-error)
-          ("b" flyspell-buffer)
+          ("b" flyspell-buffer :color teal)
           ("q" nil "cancel")
           ("C-g" nil "cancel"))
         (bind-keys

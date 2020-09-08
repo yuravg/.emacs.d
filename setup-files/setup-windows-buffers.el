@@ -32,6 +32,7 @@
 ;;    Transpose Frame
 ;;    Resize frame
 ;;    Open at new frame
+;;    Select frame
 ;;  Temporary buffer for read-only
 ;;  Help mode
 ;;  *Messages* Auto-tail
@@ -818,6 +819,17 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
   (select-frame (make-frame))
   (counsel-recentf))
 
+;;;; Select frame
+(defun other-frame-next (arg)
+  "Select next visible frame.
+
+Without ARG will be selected next frame in the opposite order(from left to right).
+Prefixed with \\[universal-argument] will be selected next frame in the forward order."
+  (interactive "P")
+  (if arg
+      (other-frame 1)
+    (other-frame -1)))
+
 ;;; Temporary buffer for read-only
 ;; new temporary buffer, which is read-only
 ;; https://github.com/jackkamm/undo-propose-el
@@ -904,6 +916,7 @@ Undo-propose (map prefix: C-c):
  ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'
  ("<f12>" . yura/resize-frame)
  ("C-x M-o" . other-frame)
+ ("C-c C-o" . other-frame-next) ;Default: `org-open-at-point', rebind it in setup-org.el
  ("C-x 1" . modi/toggle-one-window) ;Default binding to `delete-other-windows'
  ("C-x <delete>" . modi/delete-current-buffer-file) ;Default binding to `backward-kill-sentence'
  ("C-x C-p" . modi/copy-buffer-file-name) ;Default binding to `mark-page'

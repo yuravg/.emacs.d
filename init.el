@@ -1,4 +1,4 @@
-;; Time-stamp: <2020-07-11 15:43:05 kmodi>
+;; Time-stamp: <2020-09-10 21:53:21 kmodi>
 ;; Author: Kaushal Modi
 
 ;; Global variables
@@ -286,6 +286,8 @@ need Org version to be at least 9.x.")
 (require 'setup-highlight)
 (require 'setup-htmlize)
 ;; (require 'setup-hugo)
+(when (executable-find "hugo")
+  (require 'setup-hugo))
 (require 'setup-hungry-delete)
 (require 'setup-ibuffer)
 (require 'setup-ido)

@@ -483,6 +483,7 @@ If LOCAL is non-nil, un-highlight only in the current buffer."
   "Face for hi-lock mode."
   :group 'hi-lock-faces)
 
+;; Overwrite deffaces from hi-lock.el:
 (face-spec-set 'hi-black-b
                '((((background dark)) (:weight bold :foreground "black"))
                  (t (:weight bold :foreground "black")))

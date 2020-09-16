@@ -889,6 +889,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                 '(("(\\(\\s-+\\)"   . "(")
                   ("(\\(\\s-+\\)"   . "(")
                   ("\\(\\s-+\\))"   . ")")
+                  ("\\(\\s-+\\),"   . ",")
                   ("\\(\\s-+\\)\\["  . "[")
                   ("{\\(\\s-+\\)"   . "{")
                   ("\\(\\s-+\\)}"   . "}")
@@ -909,6 +910,8 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                   ("\\b$display (" . "$display(")
                   ("\\balways@"    . "always @")
                   ("\\balways_ff@" . "always_ff @")
+                  ;<instance_name>_[0-9] (  →  <instance_name>_[0-9](
+                  ("\\(_[0-9]\\)\\s-+\\((\\)" . "\\1\\2")
                   ;; FIXME: disable in module declaration
                   ("\\(reg\\|logic\\|wire\\|bit\\|input\\|output\\|inout\\)\\[" . "\\1 ["))))
         (message "Refactoring of alignment is complete.")))

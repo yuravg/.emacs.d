@@ -465,6 +465,12 @@ the project."
                 ;; Search only through verilog type files.
                 ;; See "ag --list-file-types".
                 (add-to-list 'ag-arguments "--verilog" :append)
+                ;; Remove argument "--ignore" "#*#" to fix Error:
+                ;; ERR: Error opening directory <message>
+                (when (memq system-type '(ms-dos windows-nt))
+                  (setq ag-arguments (seq-difference
+                                      ag-arguments
+                                      '("--ignore" "#*#"))))
                 (ag-regexp module-instance-pcre (projectile-project-root))))))))
 
 ;;;; modi/verilog-selective-indent

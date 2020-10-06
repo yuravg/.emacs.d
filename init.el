@@ -93,6 +93,7 @@ need Org version to be at least 9.x.")
     git-timemachine ; walk through git revisions
     gitattributes-mode gitconfig-mode gitignore-mode ;git-modes
     google-translate
+    grip-mode
     hardcore-mode
     hideshow-org
     highlight-indent-guides

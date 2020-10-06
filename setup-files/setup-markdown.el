@@ -55,6 +55,17 @@
             indent-tabs-mode nil))
     (add-hook 'markdown-mode-hook #'yura/markdown-set-indentation)
 
+    ;; https://github.com/seagle0128/grip-mode
+    ;; FIXME: markdown-mode-command-map not available
+    (use-package grip-mode
+      :ensure t
+      :bind (:map markdown-mode-command-map
+             ("g" . grip-mode))
+      :config
+      ;; Update the grip review after every text change when non-nil.
+      ;; When nil, only update the preview on file save.
+      (setq grip-update-after-change nil))
+
     (bind-keys
      :map markdown-mode-map
      ;; Mimicking the org-export style bindings

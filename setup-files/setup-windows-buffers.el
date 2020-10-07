@@ -417,7 +417,7 @@ will be killed.
 Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
   (interactive "P")
   (if reverse-modes
-      (message "Reverting and reinitialize modes ...")
+      (message "Reverting and reinitializing ...")
     (message "Reverting ..."))
   (dolist (buf (buffer-list))
     (let ((filename (buffer-file-name buf)))
@@ -438,7 +438,7 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
             (kill-buffer buf)
             (message "Killed non-existing/unreadable file buffer: %s" filename))))))
   (if reverse-modes
-      (message "Finished reverting buffers and reinitialize modes.")
+      (message "Finished reverting buffers and reinitializing their modes.")
     (message "Finished reverting buffers.")))
 (defalias 'rba 'modi/revert-all-file-buffers)
 

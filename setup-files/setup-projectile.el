@@ -249,7 +249,7 @@ will be killed.
 Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
       (interactive "P")
       (if reverse-modes
-          (message "Reverting and reinitialize modes ...")
+          (message "Reverting and reinitializing ...")
         (message "Reverting ..."))
       (dolist (buf (projectile-project-buffers))
         (let ((filename (buffer-file-name buf)))
@@ -265,7 +265,7 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
               (let (kill-buffer buff)
                 (message "Killed non-existing/unreadable file buffer: %s" filename))))))
       (if reverse-modes
-          (message "Finished reverting buffers and reinitialize modes.")
+          (message "Finished reverting buffers and reinitializing their modes.")
         (message "Finished reverting buffers.")))
     (defalias 'rbp 'yura/projectile-revert-all-file-buffers)
 

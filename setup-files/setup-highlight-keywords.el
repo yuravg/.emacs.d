@@ -52,9 +52,17 @@
      prepend)))
 (font-lock-add-keywords 'git-rebase-mode magit-log-hkeywords)
 
-;; (font-lock-add-keywords
-;;  'magit-status-mode
-;;  '(("\\((.*\\)\\(modified content\\)\\(.*)\\)" 2 'font-lock-warning-face prepend)))
+(font-lock-add-keywords
+ 'magit-status-mode
+ '(("\\(modified.*\\)modified.*content" 2 'font-lock-warning-face prepend)))
+
+(font-lock-add-keywords
+ 'magit-mode
+ '(("\\(modified.*\\)modified.*content" 2 'font-lock-warning-face prepend)))
+
+(font-lock-add-keywords
+ 'magit-mode
+ '(("\\(modified.*\\)untracked content" 2 'warning prepend)))
 
 ;; (font-lock-add-keywords
 ;;  'magit-status-mode

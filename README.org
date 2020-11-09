@@ -84,6 +84,12 @@ packages in the =my-packages= list defined in the =init.el=.
   - =ps2pdf=
   - =xelatex=
   - =ag=
+* Using in Windows OS
+[[https://ftp.gnu.org/gnu/emacs/windows/][Emacs]] (download and unpack to c:\emacs)
+- [[https://github.com/ggreer/the_silver_searcher][ag]] - copy binary to PATH directory (download and unpack to c:\emacs\bin)
+- [[https://www.gnu.org/software/global/download.html][GLOBAL]] - copy binary to PATH directory (download and unpack to c:\emacs\bin)
+- [[https://github.com/universal-ctags/ctags][Universal Ctags]] - copy binary to PATH directory (download and unpack to c:\emacs\bin, overwrite default ctags.exe)
+
 * Feedback
 I am looking forward to suggestions, corrections.
 

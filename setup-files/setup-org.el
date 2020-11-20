@@ -813,6 +813,7 @@ line, or if a region is selected.  Else call
     (bind-keys
      :map org-mode-map
      ("C-j" . org-open-at-point)
+     ("C-c M-o" . browse-url) ;`browse-url' was bind to 'C-c C-o', but now this key is bind to `other-frame-next'
      ("C-m" . modi/org-return-no-indent)
      ("<" . modi/org-template-maybe)
      ("M-p" . org-previous-visible-heading)

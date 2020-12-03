@@ -3,8 +3,14 @@
 
 ;; https://github.com/atykhonov/google-translate
 (use-package google-translate
+  :custom
+  (google-translate-backend-method 'curl)
   :config
   (progn
+    ;; To fix error: google-translate--search-tkk: Search failed: ",tkk:'"
+    ;; https://github.com/atykhonov/google-translate/issues/52#issuecomment-727920888
+    (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
+
     (use-package google-translate-default-ui
       :config
       (progn

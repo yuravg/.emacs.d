@@ -2,7 +2,8 @@
 ;; Setup major mode for editing DOS/Windows scripts
 
 (use-package bat
-  :mode (("\\.\\(?:bat\\|com\\)$" . bat-mode))
+  :mode (("\\.bat\\'" . bat-mode)
+         ("\\.com\\'" . bat-mode))
   :init
   (progn
     (defun yura/bat-set-indentation () (setq tab-width 4 indent-tabs-mode t))

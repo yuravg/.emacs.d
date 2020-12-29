@@ -2,10 +2,10 @@
 ;; Hexl
 
 (use-package hexl
-  :mode (("\\.bin" . hexl-mode)
-         ("\\.dll" . hexl-mode)
-         ("\\.pof" . hexl-mode)
-         ("\\.sof" . hexl-mode))
+  :mode (("\\.bin\\'" . hexl-mode)
+         ("\\.dll\\'" . hexl-mode)
+         ("\\.pof\\'" . hexl-mode)
+         ("\\.sof\\'" . hexl-mode))
   :bind (:map hexl-mode-map
          ("M-j" . hexl-goto-hex-address) ;default binding to `hexl-goto-address'
          ("C-M-j" . hexl-goto-address))

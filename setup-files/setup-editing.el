@@ -1694,6 +1694,7 @@ the cons elements are strings."
  ("C-h" . backward-delete-char) ; Default binding to `help-command'
  ("C-x C-h" . help-command)
  ("C-c d" . duplicate-current-line-or-region)
+ ("C-c M-o" . org-open-at-point)
  ;; Override M-backspace to always do `backward-kill-word' using `modi-mode-map'.
  ;; Below is required so that `verilog-mode' does not bind it to `kill-word'.
  ("<M-delete>" . backward-kill-word)

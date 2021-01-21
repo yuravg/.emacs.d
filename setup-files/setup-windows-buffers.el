@@ -841,7 +841,8 @@ Prefixed with \\[universal-argument] will be selected next frame in the forward 
    ("?" . hydra-undo-propose/body))
   :init
   (progn
-    (defalias 'tb 'undo-propose))
+    (defalias 'tb 'undo-propose)  ;Temp Buffer
+    (defalias 'up 'undo-propose)) ;Undo-Propose
   :config
   (progn
     ;; Open undo-propose buffer in a new window

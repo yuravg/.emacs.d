@@ -164,6 +164,7 @@ If nil, show the same in the minibuffer.")
                 " SMerge"       ;smerge-mode
                 " SliNav"       ;elisp-slime-nav
                 " Undo-Tree"    ;undo tree
+                " UndoP"        ;undo-propose
                 " VHl"          ;volatile highlights
                 " WK"           ;which-key
                 " Wrap"         ;shows up if visual-line-mode is enabled for that buffer

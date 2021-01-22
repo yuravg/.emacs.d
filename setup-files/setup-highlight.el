@@ -387,6 +387,12 @@ If LOCAL is non-nil, un-highlight only in the current buffer."
   "Face for hi-lock mode."
   :group 'hi-lock-faces)
 
+(defface hi-gray95
+  '((((background dark)) (:background "gray95" :foreground "black"))
+    (t (:background "gray95")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
 (defface hi-gray90
   '((((background dark)) (:background "gray90" :foreground "black"))
     (t (:background "gray90")))

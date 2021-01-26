@@ -20,6 +20,7 @@ mc-lists
 patch/
 places
 projectile-bookmarks.eld
+quartus-prime-snippets/
 recentf
 request/
 server*/
@@ -28,4 +29,3 @@ snippets/
 tramp
 transient/
 url*/
-yasnippets-quartus/

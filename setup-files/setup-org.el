@@ -1675,7 +1675,9 @@ If this forcing is not done, and if `shell-file-name' is tcsh,
 Instead it's simpler to use bash."
       (let ((shell-file-name (executable-find "bash")))
         (apply orig-fun args)))
-    (advice-add 'org-babel-execute:plantuml :around #'modi/advice-org-babel-execute:plantuml)))
+    (advice-add 'org-babel-execute:plantuml :around #'modi/advice-org-babel-execute:plantuml)
+    ;; https://emacs.stackexchange.com/questions/30520/org-mode-c-c-c-c-to-display-inline-image
+    (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)))
 
 ;;;; Python
 (use-package ob-python

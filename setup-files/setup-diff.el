@@ -70,7 +70,7 @@ If NO-WHITESPACE is non-nil, ignore all white space when doing diff."
     (dolist (hook modi/diff-hl-mode-hooks)
       (add-hook hook #'diff-hl-mode))
 
-    (defhydra hydra-diff-hl (:color red)
+    (defhydra hydra-diff-hl (:color pink)
       "diff-hl"
       ("=" diff-hl-diff-goto-hunk "goto hunk")
       ("<RET>" diff-hl-diff-goto-hunk "goto hunk")

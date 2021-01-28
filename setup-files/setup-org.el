@@ -1682,8 +1682,19 @@ Instead it's simpler to use bash."
       (let ((shell-file-name (executable-find "bash")))
         (apply orig-fun args)))
     (advice-add 'org-babel-execute:plantuml :around #'modi/advice-org-babel-execute:plantuml)
+
+    ;; Display PlantUML images after babel execute
     ;; https://emacs.stackexchange.com/questions/30520/org-mode-c-c-c-c-to-display-inline-image
-    (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)))
+    (defun yura/turn-off-org-babel-execute-plantuml ()
+      "Tunr off display PlantUML images after babel execute."
+      (interactive)
+      (remove-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
+
+    (defun yura/turn-on-org-babel-execute-plantuml ()
+      "Tunr on display PlantUML images after babel execute."
+      (interactive)
+      (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
+    (yura/turn-on-org-babel-execute-plantuml)))
 
 ;;;; Python
 (use-package ob-python

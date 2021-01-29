@@ -58,3 +58,6 @@
 [submodule "elisp/easy-verilog"]
 	path = elisp/easy-verilog
 	url = https://github.com/yuravg/easy-verilog
+[submodule "software"]
+	path = elisp/software
+	url = https://github.com/yuravg/software2emacs

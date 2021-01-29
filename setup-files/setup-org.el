@@ -1655,7 +1655,7 @@ the languages in `modi/ob-enabled-languages'."
     ;; http://pages.sachachua.com/.emacs.d/Sacha.html
     (setq org-ditaa-jar-path (expand-file-name
                               "ditaa.jar"
-                              (concat user-emacs-directory "software/")))))
+                              (concat user-emacs-directory "elisp/software/")))))
 
 (use-package ob-plantuml
   :defer t
@@ -1663,7 +1663,7 @@ the languages in `modi/ob-enabled-languages'."
   (progn
     (setq org-plantuml-jar-path (expand-file-name
                                  "plantuml.jar"
-                                 (concat user-emacs-directory "software/")))
+                                 (concat user-emacs-directory "elisp/software/")))
 
     (defun modi/advice-org-babel-execute:plantuml (orig-fun &rest args)
       "Force `shell-file-name' to be bash as the \">\" operator is used for redirection.

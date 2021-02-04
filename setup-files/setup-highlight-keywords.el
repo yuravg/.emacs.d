@@ -240,7 +240,7 @@
 (font-lock-add-keywords
  'verilog-mode
  '(("\\<\\(\\(synopsys\\|synthesis\\) translate_\\(off\\|on\\)\\)\\>" 1 'font-lock-preprocessor-face prepend)
-   ("\\(altera message_off [0-9]\\{5,6\\}\\)" 1 'font-lock-preprocessor-face prepend)))
+   ("\\(altera \\(message_off\\|message_on\\) [0-9]\\{5,6\\}\\)" 1 'font-lock-preprocessor-face prepend)))
 
 ;;;; Identifier
 (font-lock-add-keywords

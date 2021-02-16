@@ -257,7 +257,7 @@ Toggle `yura/enable-org-agenda-file'."
 
     ;; Hiding markup(emphasis) elements in org-mode
     (setq org-hide-emphasis-markers t)
-    (defun org-toggle-emphasis-markers ()
+    (defun yura/org-toggle-emphasis-markers ()
       "Toggle display of the emphasis-markers."
       (interactive)
       (if org-hide-emphasis-markers
@@ -269,7 +269,7 @@ Toggle `yura/enable-org-agenda-file'."
                (message "Hide org-mode emphasis markers"))))
 
     ;; https://emacs.stackexchange.com/questions/5387/show-org-mode-hyperlink-as-plain-text
-    (defun org-toggle-link-display ()
+    (defun yura/org-toggle-link-display ()
       "Toggle the literal or descriptive display of links."
       (interactive)
       (if org-descriptive-links

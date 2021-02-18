@@ -567,30 +567,31 @@ Then execute `indent-region'."
            ("PP" . yura/indent-paragraph-region)))
 
 ;;; Refactoring
-(defun delete-spaces-near-brackets ()
-  "Delete spaces near brackets.
+(defun yura/pretty-spaces-near-brackets (&optional arg region)
+  "Align the number of spaces near the brackets.
 
-Delete spaces for selected region or for entire buffer, if no region is selected."
-  (interactive)
+Delete spaces near brackets.
+Prefixed with \\[universal-argument] insert one space near brackets.
+
+Align the number of spaces for selected region or for entire buffer, if no region is selected."
+  (interactive "P\np")
   (save-excursion
     (let ((beg (if (use-region-p) (region-beginning) (point-min)))
-          (end (if (use-region-p) (region-end) (point-max))))
+          (end (if (use-region-p) (region-end) (point-max)))
+          (replace-pair '(
+                          ("\\([({\\[]\\)\\(\\s-+\\)"   . "\\1")
+                          ("\\(\\s-+\\)\\([\]\)\}]\\)" . "\\2")
+                          ("(\\(\\s-+\\))" . "()")
+                          ("{\\(\\s-+\\)}" . "{}"))))
       (mapc (lambda (pair)
               (let ((in-expr (car pair))
                     (out-expr (cdr pair)))
                 (goto-char beg)
                 (while (re-search-forward in-expr end :noerror)
                   (replace-match out-expr))))
-            '(("(\\(\\s-+\\)"  . "(")
-              ("\\(\\s-+\\))"  . ")")
-              ("{\\(\\s-+\\)"  . "{")
-              ("\\(\\s-+\\)}"  . "}")
-              ("\\(\\s-+\\)]"  . "]")
-              ("\\[\\(\\s-+\\)" . "[")
-              ("(\\(\\s-+\\))" . "()")
-              ("{\\(\\s-+\\)}" . "{}")))))
+            replace-pair)))
   (message "Deleting spaces completed."))
-(bind-key "b" #'delete-spaces-near-brackets region-bindings-mode-map)
+(bind-key "b" #'yura/pretty-spaces-near-brackets region-bindings-mode-map)
 
 (defun delete-spaces-with-newline-before-brace ()
   "Delete spaces with a new line characters before the brace.
@@ -646,7 +647,7 @@ another indentation changed to spaces."
 "
   ("i" yura/indent-paragraph-region)
   ("t" yura/refactoring-tabs-and-spaces)
-  ("b" delete-spaces-near-brackets)
+  ("b" yura/pretty-spaces-near-brackets)
 
   ("e" align-regexp)
   ("E" align-regexp-repeat)

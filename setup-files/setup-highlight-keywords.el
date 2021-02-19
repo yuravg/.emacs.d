@@ -360,7 +360,7 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
 ;;; Tcl
 (font-lock-add-keywords
  'tcl-mode
- '(("\\<\\(require\\|provide\\)\\>"
+ '(("\\<\\(forget\\|ifneeded\\|names\\|present\\|provide\\|require\\|unknown\\|vcompare\\|versions\\|yvsatisfies\\)\\>"
     1 font-lock-keyword-face)))
 
 (font-lock-add-keywords

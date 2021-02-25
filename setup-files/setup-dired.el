@@ -105,7 +105,7 @@ For the reverse sorting order should usage with negative prefix ARG \\[universal
          ((equal sort-by "time")
           (setq switches (concat yura/dired-listing-switches " -t" order)))
          ((equal sort-by "size")
-          (setq switches (concat yura/dired-listing-switches " -S -r" order)))
+          (setq switches (concat yura/dired-listing-switches " -S" order)))
          ((equal sort-by "expression")
           (setq switches (concat yura/dired-listing-switches " -X" order)))
          ((equal sort-by "create-time")

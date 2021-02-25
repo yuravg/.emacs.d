@@ -96,9 +96,9 @@ For the reverse sorting order should usage with negative prefix ARG \\[universal
                        "" " -r"))
             (sort-by)
             (switches))
-        (setq sort-by (ivy-completing-read "Sort by:"
-                                           '( "name" "time" "size" "expression" "create-time"
-                                              "access-time")))
+        (setq sort-by (ivy-completing-read
+                       "Sort by:"
+                       '("name" "time" "size" "expression" "create-time" "access-time")))
         (cond
          ((equal sort-by "name")
           (setq switches (concat yura/dired-listing-switches order)))

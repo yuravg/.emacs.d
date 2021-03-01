@@ -198,8 +198,8 @@ Setup by variables:
                 (setq cmd (replace-regexp-in-string " --no-heading" " --hidden" cmd))
               (setq cmd (concat cmd " --hidden"))))
         (if noignore
-            (if (string-match " --ignore" cmd)
-                (setq cmd (replace-regexp-in-string " --ignore" " --no-ignore" cmd))
+            (if (string-match " --ignore-file" cmd)
+                (setq cmd (replace-regexp-in-string " --ignore-file" " --no-ignore --ignore-file" cmd))
               (setq cmd (concat cmd " --no-ignore"))))
         (if maxdepth
             (setq cmd (concat cmd " --maxdepth " maxdepth)))

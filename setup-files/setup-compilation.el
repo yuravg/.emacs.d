@@ -37,37 +37,37 @@ compilation buffer by `compilation-mode-hook'."
   (toggle-logical-value yura/compilation-truncate-lines)
   (message "Truncate line (compile mode), set: '%s'" yura/compilation-truncate-lines))
 
-;;;; compilation-finish-function
-(defvar yura/compilation-finish-function nil
-  "Value to override `compilation-finish-function'.")
+;;;; compilation-finish-functions
+(defvar yura/compilation-finish-functions nil
+  "Value to override `compilation-finish-functions'.")
 
 (defun yura/compilation-toggle-finish-function (&optional show-msg)
-  "Toggle `yura/compilation-finish-function'.
+  "Toggle `yura/compilation-finish-functions'.
 
-`yura/compilation-finish-function' modify `compilation-finish-function'
+`yura/compilation-finish-functions' modify `compilation-finish-functions'
 after restart compilation buffer by `compilation-mode-hook'.
 
 Available values:
 - nil
-- `yura/compilation-finish-function-implicit-show-time'.
+- `yura/compilation-finish-functions-implicit-show-time'.
 
-SHOW-MSG allows to display `compilation-finish-function' name."
+SHOW-MSG allows to display `compilation-finish-functions' name."
   (interactive "P")
-  (setq yura/compilation-finish-function
-        (if (bound-and-true-p yura/compilation-finish-function)
+  (setq yura/compilation-finish-functions
+        (if (bound-and-true-p yura/compilation-finish-functions)
             nil
-          (yura/compilation-finish-function-implicit-show-time)))
+          (yura/compilation-finish-functions-implicit-show-time)))
   (if show-msg
       (let ((status-message "none"))
-        (if (bound-and-true-p yura/compilation-finish-function)
+        (if (bound-and-true-p yura/compilation-finish-functions)
             (setq status-message "Auto hide compilation buffer"))
         (message "compilation process finishes function: %s" status-message))))
 
 ;; https://emacs.stackexchange.com/questions/62/hide-compilation-window
-(defun yura/set-compilation-finish-function-hide-buffer (&optional time)
-  "Edit `yura/compilation-finish-function'.
+(defun yura/set-compilation-finish-functions-hide-buffer (&optional time)
+  "Edit `yura/compilation-finish-functions'.
 
-Sets the compilation finish function by `yura/compilation-finish-function' to:
+Sets the compilation finish function by `yura/compilation-finish-functions' to:
 If compilation is successful(without errors),
 compilation buffer will be kill in a TIME seconds.
 TIME default value: \"2sec\""
@@ -75,7 +75,7 @@ TIME default value: \"2sec\""
   (let ((show-time (if time
                        time
                      "2 sec")))
-    (setq yura/compilation-finish-function
+    (setq yura/compilation-finish-functions
           `(lambda (buf str)
              (if (null (string-match ".*exited abnormally.*" str))
                  (progn
@@ -91,7 +91,7 @@ TIME default value: \"2sec\""
   "Time for a single use by command to kill *compilation* buffer.
 This variable is cleared after use.")
 
-(defun yura/compilation-finish-function-show-time ()
+(defun yura/compilation-finish-functions-show-time ()
   "Compilation finish function to hide *compilation* buffer.
 
 If compilation is successful(without errors),
@@ -105,7 +105,7 @@ the *compilation* buffer will be displayed for `yura/compilation-buffer-show-tim
                         :kill)
            (message "No Compilation Errors!")))))
 
-(defun yura/compilation-finish-function-implicit-show-time ()
+(defun yura/compilation-finish-functions-implicit-show-time ()
   "Compilation finish function to hide *compilation* buffer.
 
 If compilation is successful(without errors),
@@ -132,8 +132,8 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
        (setq yura/compilation-buffer-show-time default-time
              yura/compilation-buffer-single-show-time nil))))
 
-(setq yura/compilation-finish-function
-      (yura/compilation-finish-function-implicit-show-time))
+(setq yura/compilation-finish-functions
+      (yura/compilation-finish-functions-implicit-show-time))
 
 ;;; Hydra
 (defhydra hydra-compilation (:color red
@@ -144,7 +144,7 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
 --------------------------------------
   auto _j_ump to first error  (%(if compilation-auto-jump-to-first-error t nil))
   _t_runcate line             (%(if yura/compilation-truncate-lines t nil))
-  _h_ide compilation buffer   (%(if (not (null yura/compilation-finish-function)) t nil))
+  _h_ide compilation buffer   (%(if (not (null yura/compilation-finish-functions)) t nil))
   _s_croll compilation output (%(if compilation-scroll-output t nil))
 "
   ("j" yura/compilation-toggle-auto-jump-to-first-error)
@@ -162,9 +162,9 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
 
 Replace local variables of `compilation-mode':
 `truncate-lines' with `yura/compilation-truncate-lines',
-`compilation-finish-function' with `yura/compilation-finish-function'."
+`compilation-finish-functions' with `yura/compilation-finish-functions'."
   (setq truncate-lines yura/compilation-truncate-lines)
-  (setq compilation-finish-function yura/compilation-finish-function)
+  (setq compilation-finish-functions yura/compilation-finish-functions)
   ;; Line wrapping
   (set (make-local-variable 'truncate-partial-width-windows) nil))
 (add-hook 'compilation-mode-hook #'yura/compilation-mode-hook)

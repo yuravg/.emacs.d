@@ -99,7 +99,7 @@ Magit:
 _s_/_g_: status                     _c_: checkout file(rewrite)         _f_: fetch           ^^    _!_: run                   _M-g_: in files      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
 ^^  _l_: log current              _C-c_: find file(open new)            _P_: push            ^^    _$_: process buffer        _M-l_: in log        _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
 _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: checkout        ^^    _m_: git-timemachine
-^^_C-l_: log current buffer       _C-f_: find Git file                  _g_: grep            ^^  _M-r_: git checkout all
+^^_C-l_: log current buffer       _C-f_: find Git file                   ^^                  ^^  _M-r_: git checkout all
 ^^  _o_: submodules list          _C-o_: submodule                       ^^                  _rc_/_rh_: reflog current/head
 ^^^^                                 ^^                                  ^^                  ^^  _M-b_: blame
 "
@@ -123,9 +123,6 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
              (call-interactively #'counsel-git-checkout)
              (magit-refresh-buffer)))
 
-      ("M-g" counsel-git-grep)
-      ("M-l" counsel-git-log)
-
       ("!" magit-run)
       ("$" magit-process-buffer)
       ("m" git-timemachine)
@@ -133,6 +130,9 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
       ("rc" magit-reflog-current)
       ("rh" magit-reflog-head)
       ("M-b" magit-blame)
+
+      ("M-g" counsel-git-grep)
+      ("M-l" counsel-git-log)
 
       ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
       ("T" yura/magit-diff-refine-hunk-toggle :color red)

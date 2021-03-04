@@ -140,13 +140,16 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
 ;;; Default ag arguments
 ;; https://github.com/ggreer/the_silver_searcher
 (defconst modi/ag-arguments
-  '("--nogroup" ;mandatory argument for ag.el as per https://github.com/Wilfred/ag.el/issues/41
-    ;; "--skip-vcs-ignores"                ;Ignore files/dirs ONLY from `.ignore'
-    "--numbers"                         ;Line numbers
-    "--smart-case"
-    ;; "--one-device"                      ;Do not cross mounts when searching
-    "--follow"                          ;Follow symlinks
-    "--ignore" "#*#") ;Adding "*#*#" or "#*#" to .ignore does not work for ag (works for rg)
+  (append
+   '("--nogroup" ;mandatory argument for ag.el as per https://github.com/Wilfred/ag.el/issues/41
+     ;; "--skip-vcs-ignores"                ;Ignore files/dirs ONLY from `.ignore'
+     "--numbers"                         ;Line numbers
+     "--smart-case"
+     ;; "--one-device"                      ;Do not cross mounts when searching
+     "--follow")                          ;Follow symlinks
+   (when (eq system-type 'gnu/linux)
+     '("--ignore" "#*#")) ;Adding "*#*#" or "#*#" to .ignore does not work for ag (works for rg)
+   )
   "Default ag arguments used in the functions in `ag', `counsel' and `projectile'
 packages.")
 

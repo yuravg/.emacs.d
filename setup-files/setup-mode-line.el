@@ -192,6 +192,7 @@ If nil, show the same in the minibuffer.")
                                    ("\\` mc:[0-9]+ *\\'" 'face 'font-lock-keyword-face) ;Multiple cursors
                                    ("\\` rk\\'" 'display (propertize "​[]" 'face 'font-lock-warning-face)) ;Region bindings
 
+                                   ("\\` Isend\\'" 'display "iS")          ;isend-mode
                                    ("\\` hl-highlight\\'" 'display "​h")   ;hl-highlight
                                    ("\\` Ω.*\\'" 'display ;flycheck-mode
                                     (let ((flycheck-msg (string-remove-prefix " " (flycheck-mode-line-status-text)))

@@ -368,6 +368,12 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  '(("\\<\\(file exists\\)\\>"
     1 font-lock-function-name-face)))
 
+;; name identifier(::)
+(font-lock-add-keywords
+ 'tcl-mode
+ '(("\\(::\\)"
+    1 '(:foreground "navy" :background "gray96"))))
+
 ;;; Backslash
 (defvar backslash-ending-hkeywords
   '(("\\(\\\\\\)\\($\\)" . font-lock-comment-delimiter-face)))

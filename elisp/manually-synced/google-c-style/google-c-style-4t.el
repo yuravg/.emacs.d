@@ -123,11 +123,11 @@ Suitable for inclusion in `c-offsets-alist'."
                              'c-lineup-assignments)
                           ++))
                         (label . /)
-                        (case-label . 0)
+                        (case-label . 4)
                         (statement-case-open . +)
                         (statement-case-intro . +) ; case w/o {
-                        (access-label . -3)
-                        (innamespace . 0))))
+                        (access-label . -4)
+                        (innamespace . 4))))
   "Google C/C++ Programming Style.")
 
 ;;;###autoload

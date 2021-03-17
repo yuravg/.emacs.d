@@ -9,6 +9,9 @@
          ("\\.setup.*\\'" . conf-space-mode))
   :config
   (progn
+    ;Unbind "C-c SPC" to release it for `hydra-launch/body'
+    (unbind-key "C-c SPC" conf-mode-map) ;default: `conf-space-keywords'
+
     (defun modi/conf-quote-normal ()
       "Enable `conf-quote-normal' for *.setup files."
       (when-let* ((fname (buffer-file-name))

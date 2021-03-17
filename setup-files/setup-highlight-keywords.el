@@ -374,6 +374,12 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  '(("\\(::\\)"
     1 '(:foreground "navy" :background "gray96"))))
 
+;; Tcl-Doc header
+(font-lock-add-keywords
+ 'tcl-mode
+ '(("^#\s+\\([A-z0-9\s.:]+\\)\s+--\s*"
+    1 '(:weight bold) prepend)))
+
 ;;; Backslash
 (defvar backslash-ending-hkeywords
   '(("\\(\\\\\\)\\($\\)" . font-lock-comment-delimiter-face)))

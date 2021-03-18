@@ -3,16 +3,17 @@
 ;; Tcl
 
 (use-package tcl
-  :mode (("\\.tcl\\'"   . tcl-mode)
-         ("\\.tcons\\'" . tcl-mode)
-         ("\\.svcf\\'"  . tcl-mode)
-         ("\\.cer\\'"   . tcl-mode)
-         ("\\.qsf\\'"   . tcl-mode)
-         ("\\.qpf\\'"   . tcl-mode)
-         ("\\.qip\\'"   . tcl-mode)
-         ("\\.sdc\\'"   . tcl-mode)
+  :mode (("\\.cer\\'"   . tcl-mode)
+         ("\\.color\\'" . tcl-mode)
          ("\\.do\\'"    . tcl-mode)
-         ("\\.color\\'" . tcl-mode))
+         ("\\.qip\\'"   . tcl-mode)
+         ("\\.qpf\\'"   . tcl-mode)
+         ("\\.qsf\\'"   . tcl-mode)
+         ("\\.sdc\\'"   . tcl-mode)
+         ("\\.svcf\\'"  . tcl-mode)
+         ("\\.tcl\\'"   . tcl-mode)
+         ("\\.tcons\\'" . tcl-mode)
+         ("\\.tm\\'"    . tcl-mode))
   :config
   (progn
     (defun yura/tcl-set-indentation ()

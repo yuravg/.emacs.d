@@ -6,7 +6,7 @@
 (use-package isend-mode
   :bind
   (:map modi-mode-map
-   ("C-x C-i" . isend-associate)
+   ;;  ("C-x C-i" . isend-associate) ; default `indent-rigidly'
    ("C-x i"   . isend-send-buffer)
    ("C-x M-i" . isend-display-buffer)))
 

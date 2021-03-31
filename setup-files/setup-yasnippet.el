@@ -36,9 +36,8 @@
 
     (setq yas-new-snippet-default "# -*- mode: snippet -*-
 # name: $1
-# key: ${2:${1:$(yas--key-from-desc yas-text)}}${3:
-# binding: ${4:direct-keybinding}}${5:
-# expand-env: ((yas-indent-line 'auto) (yas-also-auto-indent-first-line t) (yas-wrap-around-region t))}
+# key: ${2:${1:$(yas--key-from-desc yas-text)}}
+# expand-env: ((yas-indent-line 'auto))
 # --
 $0")
 

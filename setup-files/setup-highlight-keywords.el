@@ -374,6 +374,12 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  '(("\\(::\\)"
     1 '(:foreground "navy" :background "gray96"))))
 
+;; name of variables
+(font-lock-add-keywords
+ 'tcl-mode
+ '(("$\\({?\\(\\sw*_?\\(::\\)?\\)*}?\\)"
+    1 '(:foreground "DodgerBlue4"))))
+
 ;; Tcl-Doc header
 (font-lock-add-keywords
  'tcl-mode

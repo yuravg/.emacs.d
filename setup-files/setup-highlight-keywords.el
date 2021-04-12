@@ -19,6 +19,7 @@
 ;;  Number
 ;;  Make file
 ;;  Tcl
+;;  Perl
 ;;  Backslash
 
 
@@ -224,7 +225,7 @@
  'verilog-mode
  '(("[^&|]\\(&\\||\\)[^&|]" 1 'font-lock-keyword-face)))
 
-;; Logical
+;; Logical operators
 (font-lock-add-keywords
  'verilog-mode
  '(("\\(&&\\|||\\)" 1 'font-lock-type-face)))
@@ -385,6 +386,12 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  'tcl-mode
  '(("^#\s+\\([A-z0-9\s.:]+\\)\s+--\s*"
     1 '(:weight bold) prepend)))
+
+;;; Perl
+;; Logical operators
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\(&&\\|||\\)" 1 'font-lock-type-face)))
 
 ;;; Backslash
 (defvar backslash-ending-hkeywords

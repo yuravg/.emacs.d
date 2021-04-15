@@ -33,7 +33,8 @@
      :map magit-cherry-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)
      :map magit-submodule-list-mode-map
-     ("C-j" . magit-repolist-status))
+     ("C-j" . magit-repolist-status)
+     ("o"   . magit-submodule))
 
     (setq magit-diff-refine-hunk 'all)
     ;; it takes a long time to open a large buffer with show all difference

@@ -295,8 +295,8 @@ Projectile %(if (fboundp 'projectile-project-root) (projectile-project-root) \"T
   _l_: file literally  ^^        _O_: multi-occur      _M-b_/_M-f_: switch/find new frame     ^^_X_: cleanup non-existing   _M-r_/_C-r_: run/force run            ^^  _E_: edit project's .dir-locals.el
   _r_: recent file     ^^      _M-g_: git-grep             ^^  _k_: kill all                  ^^_z_: cache current          ^^^^                                  ^^  _D_: find dir
 _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all              _u_/_U_: gtags update/create    ^^^^                                  ^^  _4_: other window
-^^                     ^^^^                                ^^_M-m_: revert all with modes     ^^^^                          ^^^^                                  ^^_C-o_: submodule
-^^                     ^^^^                                ^^^^                               ^^^^                          ^^^^                                  ^^  _o_: submodules list
+^^                     ^^^^                                ^^_M-m_: revert all with modes     ^^^^                          ^^^^                                  ^^  _o_: submodule
+^^                     ^^^^                                ^^^^                               ^^^^                          ^^^^                                  ^^_C-o_: submodules list
 "
       ("f"   projectile-find-file)
       ("F"   projectile-find-file-dwim)
@@ -320,7 +320,7 @@ _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all  
       ("k"   projectile-kill-buffers)
       ("C-m" yura/projectile-revert-all-file-buffers)
       ("M-m" (yura/projectile-revert-all-file-buffers :reverse-modes))
-      ("o"   magit-list-submodules)
+      ("C-o" magit-list-submodules)
 
       ("c"   projectile-invalidate-cache)
       ("x"   projectile-remove-known-project)
@@ -344,7 +344,7 @@ _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all  
       ("E"   projectile-edit-dir-locals)
       ("D"   projectile-find-dir)
       ("4"   hydra-projectile-other-window/body)
-      ("C-o" magit-submodule)
+      ("o"   magit-submodule)
 
       ("q"   nil "cancel")
       ("C-g" nil "cancel"))

@@ -61,3 +61,6 @@
 [submodule "software"]
 	path = elisp/software
 	url = https://github.com/yuravg/software2emacs
+[submodule "elisp/manually-synced/iy-go-to-char"]
+	path = elisp/manually-synced/iy-go-to-char
+	url = https://github.com/doitian/iy-go-to-char

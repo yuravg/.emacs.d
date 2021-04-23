@@ -1,4 +1,4 @@
-;; Time-stamp: <2020-09-15 17:44:23 kmodi>
+;; Time-stamp: <2021-04-23 16:34:39 kmodi>
 ;; Author: Kaushal Modi
 
 ;; Global variables
@@ -109,7 +109,6 @@ need Org version to be at least 9.x.")
     isend-mode ; used in setup-perl.el
     ivy swiper counsel
     ivy-yasnippet
-    iy-go-to-char ; Go to next char which is similar to "f" and "t" in vim
     key-chord ; map pairs of simultaneously pressed keys to commands
     keyfreq ; find which commands you use the most
     kurecolor ; Quick tweaks to color codes in CSS files

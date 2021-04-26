@@ -313,6 +313,21 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
      . hkeywords-number-face)))
 (font-lock-add-keywords 'verilog-mode verilog-number-hkeyword)
 
+(defvar perl-bin-number-hkeyword
+  '(("\\_<0b[0-1_]+\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'cperl-mode perl-bin-number-hkeyword)
+
+(defvar perl-hex-number-hkeyword
+  '(("\\_<0x[A-Fa-f0-9_]+\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'cperl-mode perl-hex-number-hkeyword)
+
+(defvar perl-number-hkeyword
+  '(("\\_<[-+]??[0-9_]+\\(\\.[0-9_]+\\)??\\([eE][0-9_]+\\)??\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'cperl-mode perl-number-hkeyword)
+
 ;;; Make file
 ;; Highlight conditions
 (defvar make-file-hkeywords

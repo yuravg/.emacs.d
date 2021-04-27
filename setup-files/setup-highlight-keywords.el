@@ -393,6 +393,11 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  'cperl-mode
  '(("\\(&&\\|||\\)" 1 'font-lock-type-face)))
 
+;; Highlight binary operator(to contrast with 'pattern binding': '=~')
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\(=\\s-+~\\)" 1 '(:inherit font-lock-keyword-face :weight bold))))
+
 ;;; Backslash
 (defvar backslash-ending-hkeywords
   '(("\\(\\\\\\)\\($\\)" . font-lock-comment-delimiter-face)))

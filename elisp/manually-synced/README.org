@@ -18,6 +18,7 @@
 | info+                   | https://www.emacswiki.org/emacs/download/info%2b.el                  | https://github.com/melpa/melpa/pull/5008 |
 | intel-hex               | https://github.com/yuravg/intel-hex-mode.git                         | Not available on GNU Elpa or Melpa       |
 | ivy-describe-modes      | https://github.com/jcs-elpa/ivy-describe-modes                       | Not available on GNU Elpa or Melpa       |
+| pod-mode                | https://github.com/renormalist/emacs-pod-mode                        | Not available on GNU Elpa or Melpa       |
 | psvn                    | http://www.xsteve.at/prg/emacs/psvn.el                               | Not available on GNU Elpa or Melpa       |
 | spice-mode              | Not known                                                            | Not available on GNU Elpa or Melpa       |
 |-------------------------+----------------------------------------------------------------------+------------------------------------------|

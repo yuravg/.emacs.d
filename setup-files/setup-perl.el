@@ -66,7 +66,12 @@ Leave 'print' instructions untouched."
           (when (derived-mode-p 'cperl-mode)
             (setq-local isend-send-line-function #'isend--perl)))
 
-        (add-hook 'isend-mode-hook #'isend-default-perl-setup)))))
+        (add-hook 'isend-mode-hook #'isend-default-perl-setup)))
+
+    ;; POD is the Plain Old Documentation format of Perl.
+    (use-package pod-mode
+      :load-path "elisp/manually-synced/pod-mode"
+      :mode (("\\.pod\\'" . pod-mode)))))
 
 
 (provide 'setup-perl)

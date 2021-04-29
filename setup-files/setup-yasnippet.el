@@ -66,7 +66,7 @@ Example: My Figure → my_figure"
 Yasnippet:
 ^^     Insert               ^^  Library                    ^^   Update
 ^^--------------------------^^---------------------------------------------------------
-  _i_: insert              _v_: visit snippet file         _C_: compile and reload all
+  _i_: insert              _v_: visit snippet file       _C-c_: compile and reload all
   _I_: insert ido          _n_: new                        _r_: reload all
 _C-i_: ivy                 _?_: list snippets
   _x_: expand
@@ -77,7 +77,7 @@ _C-i_: ivy                 _?_: list snippets
       ("n" yas-new-snippet)
       ("v" yas-visit-snippet-file)
       ("r" yas-reload-all)
-      ("C" yura/yas-recompile-and-reload)
+      ("C-c" yura/yas-recompile-and-reload)
       ("x" yas-expand)
       ("?" yas-describe-tables)
       ("q" nil "cancel")

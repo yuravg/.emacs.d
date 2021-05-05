@@ -5,7 +5,11 @@
 (use-package eww
   :bind (:map modi-mode-map
          ("M-s M-w" . modi/eww-search-words) ;Bound by default to `eww-search-words'
-         ("M-s M-l" . modi/eww-get-link))
+         ("M-s M-l" . modi/eww-get-link)
+         (:map eww-mode-map
+          ("C-j" . eww-follow-link))
+         (:map eww-bookmark-mode-map
+          ("C-j" . eww-bookmark-browse)))
   :chords (("-=" . eww))
   :commands (modi/eww-im-feeling-lucky
              modi/eww-browse-url-of-file)

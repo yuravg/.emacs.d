@@ -217,21 +217,21 @@ Usage: execute this command after copying the Russian text to the utf-8 buffer."
   (recode-region start end 'utf-8 'cp1252)
   (recode-region start end 'cp1251 'utf-8))
 
-(defun revert-and-recode-buffer-to-utf8-from-cp1251 ()
-  "Revert and recode current buffer to utf-8 form cp1251."
-  (interactive)
-  (progn
-    (revert-buffer-with-coding-system-no-confirm 'utf-8)
-    (recode-region-to-utf8-from-cp1251 (point-min) (point-max))
-    (message "Buffer reverted and recode to: utf-8")))
-
-(defun revert-and-recode-buffer-to-cp1251-from-utf8 ()
-  "Revert and recode current buffer to cp1251 from utf-8."
+(defun revert-and-recode-buffer-from-cp1251-to-utf8 ()
+  "Revert and recode current buffer form cp1251 to utf-8."
   (interactive)
   (progn
     (revert-buffer-with-coding-system-no-confirm 'cp1251)
-    (recode-region-to-cp1251-from-utf8 (point-min) (point-max))
-    (message "Buffer reverted and recode to: cp1251")))
+    (set-buffer-file-coding-system 'utf-8)
+    (message "Buffer reverted and recode: cp1251 -> utf-8")))
+
+(defun revert-and-recode-buffer-from-utf8-to-cp1251 ()
+  "Revert and recode current buffer from utf-8 to cp1251."
+  (interactive)
+  (progn
+    (revert-buffer-with-coding-system-no-confirm 'utf-8)
+    (set-buffer-file-coding-system 'cp1251)
+    (message "Buffer reverted and recode: utf-8 -> cp1251")))
 
 ;;; Windmove
 (use-package windmove

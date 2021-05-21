@@ -235,7 +235,7 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
 (use-package try
   :commands (try))
 
-(use-package eshell
+(use-package esh-mode
   :bind
   (:map eshell-mode-map
    ("C-j" . eshell-send-input)))

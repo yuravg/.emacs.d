@@ -233,6 +233,13 @@ Usage: execute this command after copying the Russian text to the utf-8 buffer."
     (set-buffer-file-coding-system 'cp1251)
     (message "Buffer reverted and recode: utf-8 -> cp1251")))
 
+(defun revert-and-recode-buffer-from-cp866-to-utf-8 ()
+  (interactive)
+  "Revert and recode current buffer from cp866 to utf-8."
+  (revert-buffer-with-coding-system-no-confirm 'cp866)
+  (set-buffer-file-coding-system 'utf-8)
+  (message "Buffer reverted and recode: cp866 -> utf-8"))
+
 ;;; Windmove
 (use-package windmove
   :bind (:map modi-mode-map

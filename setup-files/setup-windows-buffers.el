@@ -170,44 +170,38 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
 (defun revert-buffer-with-cp1251 ()
   "Revert buffer with coding: cp1251."
   (interactive)
-  (progn
-    (revert-buffer-with-coding-system-no-confirm 'cp1251)
-    (message "Buffer reverted with: cp1251")))
+  (revert-buffer-with-coding-system-no-confirm 'cp1251)
+  (message "Buffer reverted with: cp1251"))
 
 (defun revert-buffer-with-utf8 ()
   "Revert buffer with coding: utf-8."
   (interactive)
-  (progn
-    (revert-buffer-with-coding-system-no-confirm 'utf-8)
-    (message "Buffer reverted with: utf-8")))
+  (revert-buffer-with-coding-system-no-confirm 'utf-8)
+  (message "Buffer reverted with: utf-8"))
 
 (defun revert-buffer-with-utf8-dos ()
   "Revert buffer with coding: utf-8-dos."
   (interactive)
-  (progn
-    (revert-buffer-with-coding-system-no-confirm 'utf-8-dos)
-    (message "Buffer reverted with: utf-8-dos")))
+  (revert-buffer-with-coding-system-no-confirm 'utf-8-dos)
+  (message "Buffer reverted with: utf-8-dos"))
 
 (defun revert-buffer-with-utf8-unix ()
   "Revert buffer with coding: utf-8-unix."
   (interactive)
-  (progn
-    (revert-buffer-with-coding-system-no-confirm 'utf-8-unix)
-    (message "Buffer reverted with: utf-8-unix")))
+  (revert-buffer-with-coding-system-no-confirm 'utf-8-unix)
+  (message "Buffer reverted with: utf-8-unix"))
 
 (defun recode-region-from-cp1251-to-utf8 (start end)
   "Call `recode-region' from cp1251 to utf-8, between points START END."
   (interactive "r")
-  (progn
-    (recode-region start end 'cp1251 'utf-8)
-    (message "Region recode to: utf-8")))
+  (recode-region start end 'cp1251 'utf-8)
+  (message "Region recode to: utf-8"))
 
 (defun recode-region-from-utf8-to-cp1251 (start end)
   "Call `recode-region' from utf-8 to cp1251, between points START END."
   (interactive "r")
-  (progn
-    (recode-region start end 'utf-8 'cp1251)
-    (message "Region recode to: cp1251")))
+  (recode-region start end 'utf-8 'cp1251)
+  (message "Region recode to: cp1251"))
 
 (defun recode-region-from-cp1252-to-utf8 (start end)
   "Call `recode-region' from cp1252 to utf-8, between points START END.
@@ -220,18 +214,16 @@ Usage: execute this command after copying the Russian text to the utf-8 buffer."
 (defun revert-and-recode-buffer-from-cp1251-to-utf8 ()
   "Revert and recode current buffer form cp1251 to utf-8."
   (interactive)
-  (progn
-    (revert-buffer-with-coding-system-no-confirm 'cp1251)
-    (set-buffer-file-coding-system 'utf-8)
-    (message "Buffer reverted and recode: cp1251 -> utf-8")))
+  (revert-buffer-with-coding-system-no-confirm 'cp1251)
+  (set-buffer-file-coding-system 'utf-8)
+  (message "Buffer reverted and recode: cp1251 -> utf-8"))
 
 (defun revert-and-recode-buffer-from-utf8-to-cp1251 ()
   "Revert and recode current buffer from utf-8 to cp1251."
   (interactive)
-  (progn
-    (revert-buffer-with-coding-system-no-confirm 'utf-8)
-    (set-buffer-file-coding-system 'cp1251)
-    (message "Buffer reverted and recode: utf-8 -> cp1251")))
+  (revert-buffer-with-coding-system-no-confirm 'utf-8)
+  (set-buffer-file-coding-system 'cp1251)
+  (message "Buffer reverted and recode: utf-8 -> cp1251"))
 
 (defun revert-and-recode-buffer-from-cp866-to-utf-8 ()
   (interactive)

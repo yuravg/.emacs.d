@@ -78,7 +78,8 @@
                              (append '("ag")
                                      modi/ag-arguments
                                      '("--noheading" ;No file names above matching content
-                                       "--nocolor"))
+                                       "--nocolor"
+                                       "--vimgrep"))
                              " ")
                   " %s"            ;This MUST be %s, not %S
                                         ;https://github.com/abo-abo/swiper/issues/427

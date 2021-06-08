@@ -139,7 +139,6 @@ need Org version to be at least 9.x.")
     rpn-calc
     rust-mode
     shackle
-    shell-command
     smart-compile
     smart-mark
     smart-mode-line popup rich-minority

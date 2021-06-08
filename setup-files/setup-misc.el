@@ -235,6 +235,14 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
 (use-package try
   :commands (try))
 
+;; electric-pair-mode
+(use-package elec-pair
+  :config
+  (progn
+    ;; Global enable Electric Pair mode
+    (electric-pair-mode t)
+    (defalias 'ep 'electric-pair-local-mode)))
+
 (use-package esh-mode
   :bind
   (:map eshell-mode-map

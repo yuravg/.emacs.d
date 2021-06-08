@@ -1,4 +1,4 @@
-;; Time-stamp: <2021-06-04 15:30:25 kmodi>
+;; Time-stamp: <2021-06-08 09:57:39 kmodi>
 ;; Author: Kaushal Modi
 
 ;; Global variables
@@ -104,7 +104,7 @@ need Org version to be at least 9.x.")
     ido-vertical-mode flx-ido ;< ivy, counsel; use for: yasnippet: `yas-ido-expand', magit: `magit-branch-checkout', `magit-log-buffer-file'
     imenu-list
     indent-guide
-    interleave ; takes notes associated to pdf files in org mode
+    org-noter ; takes notes associated to pdf files in org mode
     isend-mode ; used in setup-perl.el
     ivy swiper counsel
     ivy-yasnippet

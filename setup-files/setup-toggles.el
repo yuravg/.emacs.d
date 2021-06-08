@@ -45,7 +45,6 @@
   ("m"     modi-mode "Modi mode")
   ("n"     neotree-toggle "neotree")
   ("o"     modi/toggle-one-window "one window" :color red)
-  ("p"     autopair-mode "autopair")
   ("r"     yura/revert-buffer-no-confirm "revert buffer(C-u: & modes)") ; C-u available for `yura/revert-buffer-no-confirm'
   ("C-r"   (lambda () (interactive)
              (yura/revert-buffer-no-confirm t)) "revert buffer & modes")

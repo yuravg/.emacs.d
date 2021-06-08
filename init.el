@@ -59,7 +59,6 @@ need Org version to be at least 9.x.")
     auctex
     auto-complete fuzzy
     auto-highlight-symbol
-    autopair
     avy ; > ace-jump-mode
     beacon ; visual flash to show the cursor position
     bitbake
@@ -401,7 +400,6 @@ need Org version to be at least 9.x.")
 (require 'setup-compilation)
 (require 'setup-bat)
 (require 'setup-highlight-keywords)
-(require 'setup-autopair)
 (require 'setup-aggressive-indent)
 (require 'setup-makefile)
 (require 'setup-shell-command)

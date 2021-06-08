@@ -85,10 +85,32 @@ packages in the =my-packages= list defined in the =init.el=.
   - =xelatex=
   - =ag=
 * Using in Windows OS
-[[https://ftp.gnu.org/gnu/emacs/windows/][Emacs]] (download and unpack to c:\emacs)
-- [[https://github.com/ggreer/the_silver_searcher][ag]] - copy binary to PATH directory (download and unpack to c:\emacs\bin)
-- [[https://www.gnu.org/software/global/download.html][GLOBAL]] - copy binary to PATH directory (download and unpack to c:\emacs\bin)
-- [[https://github.com/universal-ctags/ctags][Universal Ctags]] - copy binary to PATH directory (download and unpack to c:\emacs\bin, overwrite default ctags.exe)
+- [[https://ftp.gnu.org/gnu/emacs/windows/][Emacs]]
+
+  Download and unpack to c:\emacs
+
+- [[https://github.com/universal-ctags/ctags][Universal Ctags]]
+
+  Copy binary to PATH directory (download and unpack to c:\emacs\bin, overwrite default ctags.exe)
+
+- [[https://github.com/BurntSushi/ripgrep][ripgrep]], [[https://www.gnu.org/software/global/download.html][GLOBAL]], [[https://github.com/ggreer/the_silver_searcher][ag]]
+
+  Install with [[https://scoop.sh/][Scoop]]
+  #+begin_src powershell
+  scoop install ripgrep global ag
+  #+end_src
+  or copy binary to PATH directory (download and unpack to c:\emacs\bin).
+
+- [[https://dejavu-fonts.github.io/][DejaVu fonts]]
+
+  Download and install fonts.
+
+- Hunspell
+
+  Install with [[https://www.msys2.org/][Msys2]]
+  #+begin_src shell-script
+  pacman -S mingw-w64-x86_64-hunspell mingw-w64-x86_64-hunspell-en
+  #+end_src
 
 * Feedback
 I am looking forward to suggestions, corrections.

@@ -104,6 +104,7 @@ need Org version to be at least 9.x.")
     imenu-list
     indent-guide
     org-noter ; takes notes associated to pdf files in org mode
+    ipcalc
     isend-mode ; used in setup-perl.el
     ivy swiper counsel
     ivy-yasnippet

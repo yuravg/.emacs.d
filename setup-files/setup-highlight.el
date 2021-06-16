@@ -123,7 +123,7 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
   :init
   (progn
     (bind-to-modi-map "h" #'highlight-global-hl-frame-toggle)
-    (bind-to-modi-map "H" #'highlight-global-clear-hl-frame)))
+    (bind-to-modi-map "u" #'highlight-global-clear-hl-frame)))
 
 ;; ;; Volatile Highlights
 ;; ;; https://github.com/k-talo/volatile-highlights.el

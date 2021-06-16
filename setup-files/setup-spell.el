@@ -96,7 +96,8 @@
 
         ;; https://github.com/d12frosted/flyspell-correct
         (use-package flyspell-correct-ivy
-          :bind ("C-;" . flyspell-correct-wrapper)
+          :bind (("C-;" . flyspell-correct-wrapper)
+                 ("C-ж" . flyspell-correct-wrapper))
           :init
           (setq flyspell-correct-interface #'flyspell-correct-ivy))
 

@@ -248,6 +248,35 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
   (:map eshell-mode-map
    ("C-j" . eshell-send-input)))
 
+;; https://www.emacswiki.org/emacs/AsciiTable
+;; Characters in the coded character set unicode: M-x `list-charset-chars' RET unicode-bmp RET
+(defun ascii-table ()
+  "Display basic ASCII table (0 thru 128)."
+  (interactive)
+  (let ((buffer-name "*ascii*"))
+    (switch-to-buffer buffer-name)
+    (erase-buffer)
+    (setq buffer-read-only nil)        ;; Not need to edit the content, just read mode (added)
+    (local-set-key "q" 'bury-buffer)   ;; Nice to have the option to bury the buffer (added)
+    (setq lower32 '("nul" "soh" "stx" "etx" "eot" "enq" "ack" "bel"
+  		            "bs" "ht" "nl" "vt" "np" "cr" "so" "si"
+  		            "dle" "dc1" "dc2" "dc3" "dc4" "nak" "syn" "etb"
+  		            "can" "em" "sub" "esc" "fs" "gs" "rs" "us"
+  		            ))
+    (save-excursion (let ((i -1))
+                      (insert "ASCII characters 0 thru 127.\n\n")
+                      (insert " Hex  Oct  Dec  Char       |  Hex  Oct  Dec  Char|  Hex  Oct  Dec  Char|  Hex  Oct  Dec  Char\n")
+                      (insert "---------------------------+---------------------+---------------------+---------------------\n")
+                      (while (< i 31)
+                        (insert (format "%4x %4o %4d %4s (%4s) | %4x %4o %4d %4s | %4x %4o %4d %4s | %4x %4o %4d %4s\n"
+                                        (setq i (+ 1  i)) i i (single-key-description i) (elt lower32 i)
+                                        (setq i (+ 32 i)) i i (single-key-description i)
+                                        (setq i (+ 32 i)) i i (single-key-description i)
+                                        (setq i (+ 32 i)) i i (single-key-description i)))
+                        (setq i (- i 96)))))
+    (with-current-buffer buffer-name
+      (help-mode))))
+
 ;; Tue Jul 30 13:49:35 EDT 2019 - kmodi
 ;; Commenting out the below as I do not think they are needed.
 ;; Or rather, I need to better understand if and how these settings

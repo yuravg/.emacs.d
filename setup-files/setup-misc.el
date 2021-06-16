@@ -248,6 +248,37 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
   (:map eshell-mode-map
    ("C-j" . eshell-send-input)))
 
+(use-package re-builder
+  :bind
+  (:map reb-mode-map
+   ("M-?" . hydra-reb/body)
+   ("C-c C-p" . reb-prev-match)
+   ("C-c C-n" . reb-next-match)
+   ("M-p" . reb-prev-match)
+   ("M-n" . reb-next-match))
+  :config
+  (progn
+    (defhydra hydra-reb (:color teal :hint nil)
+      "
+re-builder (map prefix: C-c):
+  _C-b_: change-target-buffer    _C-p_: prev-match (or just M-p)
+  _C-c_: toggle-case             _C-n_: next-match (or just C-n)
+  _C-e_: enter-subexp-mode       _C-u_: force-update
+  _TAB_: change-syntax           _C-w_: copy
+  _C-q_: reb-quit
+"
+      ("C-b" reb-change-target-buffer)
+      ("C-c" reb-toggle-case)
+      ("C-e" reb-enter-subexp-mode)
+      ("TAB" reb-change-syntax)
+      ("C-q" reb-quit)
+      ("C-p" reb-prev-match)
+      ("C-n" reb-next-match)
+      ("C-u" reb-force-update)
+      ("C-w" reb-copy)
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))))
+
 ;; https://www.emacswiki.org/emacs/AsciiTable
 ;; Characters in the coded character set unicode: M-x `list-charset-chars' RET unicode-bmp RET
 (defun ascii-table ()

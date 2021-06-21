@@ -57,7 +57,8 @@ This command is handy to open file form `dired-mode'."
   :bind (:map dired-mode-map
          ("C-j" . dired-find-file)
          ("M-h" . dired-omit-mode)
-         ("C-M-h" . dired-omit-mode))
+         ("C-M-h" . dired-omit-mode)
+         ("s" . yura/dired-sort)) ;default binding to `dired-sort-toggle-or-edit'
   :commands (dired-toggle-read-only ; to toggle read-only state of any buffer
              dired-get-filename) ; called by `dired-single'
   :config

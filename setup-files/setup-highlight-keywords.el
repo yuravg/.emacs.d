@@ -297,19 +297,29 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
   :group 'hkeywords-face)
 
 (defvar number-hkeyword
-  '(("\\_<[-+]??[0-9]+\\(\\.[0-9]+\\)??\\_>"
+  '(("\\_<[+-]?[0-9]+\\(?:\\.[0-9]+\\)?\\_>"
      . hkeywords-number-face)))
 (mapc (lambda (mode)
         (font-lock-add-keywords mode number-hkeyword))
       yura/major-modes)
 
-(defvar python-number-hkeyword
-  '(("\\_<0x[A-Fa-f0-9]+\\_>"
+(defvar python-bin-number-hkeyword
+  '(("\\_<0[bB][0-1_]+\\_>"
      . hkeywords-number-face)))
-(font-lock-add-keywords 'python-mode python-number-hkeyword)
+(font-lock-add-keywords 'python-mode python-bin-number-hkeyword)
+
+(defvar python-oct-number-hkeyword
+  '(("\\_<0[oO][0-8_]+\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'python-mode python-oct-number-hkeyword)
+
+(defvar python-hex-number-hkeyword
+  '(("\\_<0[xX][A-Fa-f0-9]+\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'python-mode python-hex-number-hkeyword)
 
 (defvar verilog-number-hkeyword
-  '(("[['][bhd]]?[A-Fa-f0-9_]+\\_>"
+  '(("\\_<[0-9]*'[bBhHdD][A-Fa-f0-9_]+\\_>"
      . hkeywords-number-face)))
 (font-lock-add-keywords 'verilog-mode verilog-number-hkeyword)
 
@@ -324,7 +334,7 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
 (font-lock-add-keywords 'cperl-mode perl-hex-number-hkeyword)
 
 (defvar perl-number-hkeyword
-  '(("\\_<[-+]??[0-9_]+\\(\\.[0-9_]+\\)??\\([eE][0-9_]+\\)??\\_>"
+  '(("\\_<[-+]?[0-9_]+\\(?:\\.[0-9_]+\\)?\\(?:[eE]-?[0-9_]+\\)?\\_>"
      . hkeywords-number-face)))
 (font-lock-add-keywords 'cperl-mode perl-number-hkeyword)
 

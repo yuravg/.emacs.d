@@ -111,6 +111,7 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
     go-mode
     java-mode
     js-mode
+    lisp-mode
     makefile-gmake-mode
     makefile-mode
     markdown-mode

@@ -16,6 +16,7 @@
                                             conf-space-mode-hook ;For .tmux.conf
                                             cperl-mode-hook
                                             emacs-lisp-mode-hook
+                                            lisp-mode-hook
                                             makefile-gmake-mode-hook
                                             makefile-mode-hook
                                             sh-mode-hook

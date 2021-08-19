@@ -717,6 +717,7 @@ Replace for selected region or for whole buffer, if region don't selected."
               ("—" . "-")
               ("–"  . "-")
               ("…"   . "...")
+              ("˜"   . "~")
               ("ˆ"   . "^"))))
     (message "Replacement is complete.")))
 

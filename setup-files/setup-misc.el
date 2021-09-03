@@ -370,15 +370,6 @@ https://lists.gnu.org/archive/html/emacs-devel/2016-07/msg00519.html "
 
 (bind-key "C-j" #'push-button package-menu-mode-map)
 
-;; Links to my files
-;; This file contains links to my files, books
-;; and provide an easy way to open them from org-mode files.
-(if (file-exists-p "~/notes/links/setup-links2file.el")
-    (progn
-      (add-to-list 'load-path "~/notes/links/")
-      (require 'setup-links2file))
-  (message "Can't load file with personal links."))
-
 
 (provide 'setup-misc)
 

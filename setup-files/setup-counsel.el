@@ -327,62 +327,56 @@ Modified version of `counsel-prompt-function-dir'."
     (ivy-set-prompt 'counsel-rg #'yura/counsel-prompt-function-dir)
 
 ;;; Source code warnings navigation
-    (defvar src-warning-expression-rg "FIXME|TODO"
-      "Expression to search for source code warnings with `counsel-rg'.")
-    (defvar src-warning-expression-grep "FIXME\\|TODO"
-      "Expression to search for source code warnings with `grep'.")
+    (defvar yura/src-warning-expression "\\(FIXME\\|TODO\\)"
+      "Expression to search for source code warnings.")
 
     (defun yura/buffer-src-warning ()
       "Search for source code warnings in current buffer.
-Search for `src-warning-expression-grep' with `counsel-grep-or-swiper'."
+Search for `yura/src-warning-expression' with `counsel-grep-or-swiper'."
       (interactive)
-      (counsel-grep-or-swiper (if (<= (buffer-size)
-                                      (/ counsel-grep-swiper-limit
-                                         (if (eq major-mode 'org-mode) 4 1)))
-                                  src-warning-expression-grep
-                                src-warning-expression-rg)))
+      (counsel-grep-or-swiper yura/src-warning-expression))
 
     (defun yura/buffer-dir-src-warning ()
       "Search for source code warnings in current buffer's directory(including all subdirectories).
-Search for `src-warning-expression-rg' with `counsel-rg' in buffer's directory."
+Search for `yura/src-warning-expression' with `counsel-rg' in buffer's directory."
       (interactive)
-      (counsel-rg src-warning-expression-rg
+      (counsel-rg yura/src-warning-expression
                   (file-name-directory buffer-file-name)))
 
     (defun yura/buffer-dir-only-src-warning ()
       "Search for source code warnings in current buffer's directory only(with minimal depth).
-Search for `src-warning-expression-rg' with `counsel-rg' in buffer's directory."
+Search for `yura/src-warning-expression' with `counsel-rg' in buffer's directory."
       (interactive)
-      (counsel-rg src-warning-expression-rg
+      (counsel-rg yura/src-warning-expression
                   (file-name-directory buffer-file-name) " --maxdepth 1"))
 
     (defun yura/projectile-src-warning ()
       "Search for source code warnings in projectile root directory.
-Search for `src-warning-expression-rg' with `counsel-rg' in `projectile-project-root'."
+Search for `yura/src-warning-expression' with `counsel-rg' in `projectile-project-root'."
       (interactive)
-      (counsel-rg src-warning-expression-rg
+      (counsel-rg yura/src-warning-expression
                   (projectile-project-root)))
 
     (defun yura/selected-dir-only-src-warning ()
       "Search for source code warnings in selected directory(with minimal depth).
-Search for `src-warning-expression-rg' with `counsel-rg' in selected directory."
+Search for `yura/src-warning-expression' with `counsel-rg' in selected directory."
       (interactive)
       (let ((dir (read-directory-name "In directory: "
                                       nil default-directory t)))
-        (counsel-rg src-warning-expression-rg dir " --maxdepth 1")))
+        (counsel-rg yura/src-warning-expression dir " --maxdepth 1")))
 
     (defun yura/selected-dir-src-warning ()
       "Search for source code warnings in selected directory(including all subdirectories).
-Search for `src-warning-expression-rg' with `counsel-rg' in selected directory."
+Search for `yura/src-warning-expression' with `counsel-rg' in selected directory."
       (interactive)
       (let ((dir (read-directory-name "In directory: "
                                       nil default-directory t)))
-        (counsel-rg src-warning-expression-rg dir)))
+        (counsel-rg yura/src-warning-expression dir)))
 
     (defhydra hydra-source-code-warnings (:color teal
                                           :hint nil)
       "
-Show source code warnings(%(message src-warning-expression-rg)) for:
+Show source code warnings(%(message yura/src-warning-expression)) for:
 
       ^^_b_: buffer
     _d_/_D_: buffer's directory(only/subdir): %(file-name-directory buffer-file-name)

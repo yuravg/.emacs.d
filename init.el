@@ -127,6 +127,7 @@ need Org version to be at least 9.x.")
     p4
     page-break-lines ; Convert the ^L (form feed) chars to horizontal lines
     paradox ; package menu improvements
+    plantuml-mode
     pomodoro
     poporg ; edit comments from any other mode in org mode
     powershell
@@ -306,6 +307,7 @@ need Org version to be at least 9.x.")
 (require 'setup-news)
 (require 'setup-nov)
 (require 'setup-org)
+(require 'setup-plantuml)
 (require 'setup-outshine)
 (when (executable-find "p4")
   (require 'setup-p4))

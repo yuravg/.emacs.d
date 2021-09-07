@@ -4,6 +4,13 @@
 ;; https://plantuml.com/
 
 (use-package plantuml-mode
+  ;; Default: *.plantuml, *.pum, *.plu
+  :mode
+  (("\\.wsd\\'"      . plantuml-mode)
+   ("\\.pu\\'"       . plantuml-mode)
+   ("\\.puml\\'"     . plantuml-mode)
+   ("\\.plantuml\\'" . plantuml-mode)
+   ("\\.iuml\\'"     . plantuml-mode))
   :after
   (org ob ob-plantuml)
   :config

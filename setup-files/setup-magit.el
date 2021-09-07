@@ -315,6 +315,7 @@ It is assumed that the author has only one or two names."
     (dolist (hook '(git-commit-mode-hook
                     git-rebase-mode-hook
                     magit-diff-mode-hook
+                    magit-status-mode-hook
                     magit-log-mode-hook))
       (add-hook hook #'emojify-turn-on-emojify-mode))))
 

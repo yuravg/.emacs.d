@@ -118,6 +118,7 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
     nim-mode
     org-mode
     org-src-mode
+    plantuml-mode
     powershell-mode
     python-mode
     rst-mode

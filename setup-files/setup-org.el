@@ -1656,9 +1656,7 @@ the languages in `modi/ob-enabled-languages'."
   (progn
     ;; http://pages.sachachua.com/.emacs.d/Sacha.html
     (setq org-ditaa-jar-path (expand-file-name
-                              (if (eq system-type 'windows-nt)
-                                  "ditaa.winlnk.jar"
-                                "ditaa.jar")
+                              "ditaa.jar"
                               (concat user-emacs-directory "software/")))))
 
 (use-package ob-plantuml
@@ -1666,9 +1664,7 @@ the languages in `modi/ob-enabled-languages'."
   :config
   (progn
     (setq org-plantuml-jar-path (expand-file-name
-                                 (if (eq system-type 'windows-nt)
-                                     "plantuml.winlnk.jar"
-                                   "plantuml.jar")
+                                 "plantuml.jar"
                                  (concat user-emacs-directory "software/")))
 
     (defun modi/advice-org-babel-execute:plantuml (orig-fun &rest args)

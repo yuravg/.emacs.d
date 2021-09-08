@@ -1659,7 +1659,7 @@ the languages in `modi/ob-enabled-languages'."
                               (if (eq system-type 'windows-nt)
                                   "ditaa.winlnk.jar"
                                 "ditaa.jar")
-                              (concat user-emacs-directory "elisp/software/")))))
+                              (concat user-emacs-directory "software/")))))
 
 (use-package ob-plantuml
   :defer t
@@ -1669,7 +1669,7 @@ the languages in `modi/ob-enabled-languages'."
                                  (if (eq system-type 'windows-nt)
                                      "plantuml.winlnk.jar"
                                    "plantuml.jar")
-                                 (concat user-emacs-directory "elisp/software/")))
+                                 (concat user-emacs-directory "software/")))
 
     (defun modi/advice-org-babel-execute:plantuml (orig-fun &rest args)
       "Force `shell-file-name' to be bash as the \">\" operator is used for redirection.

@@ -58,12 +58,12 @@
 [submodule "elisp/easy-verilog"]
 	path = elisp/easy-verilog
 	url = https://github.com/yuravg/easy-verilog
-[submodule "software"]
-	path = elisp/software
-	url = https://github.com/yuravg/software2emacs
 [submodule "elisp/manually-synced/iy-go-to-char"]
 	path = elisp/manually-synced/iy-go-to-char
 	url = https://github.com/doitian/iy-go-to-char
 [submodule "elisp/manually-synced/benchmark-init-el"]
 	path = elisp/manually-synced/benchmark-init-el
 	url = https://github.com/kekeimiku/benchmark-init-el
+[submodule "software"]
+	path = software
+	url = https://github.com/yuravg/software2emacs.git

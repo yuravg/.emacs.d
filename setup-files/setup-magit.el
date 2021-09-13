@@ -37,6 +37,10 @@
     ;; helpful and only add to runtime costs.
     (setq magit-revision-insert-related-refs nil)
 
+    ;; The function used to actually bury or kill the current buffer
+    ;; `magit-bury-buffer-function' bind to 'q' for magit-status, magit-log buffers.
+    (setq magit-bury-buffer-function #'magit-restore-window-configuration)
+
     (bind-keys
      :map magit-status-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)

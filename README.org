@@ -97,7 +97,7 @@ packages in the =my-packages= list defined in the =init.el=.
 
   Install with [[https://scoop.sh/][Scoop]]
   #+begin_src powershell
-  scoop install ripgrep global ag
+  scoop install ripgrep global ag shellcheck
   #+end_src
   or copy binary to PATH directory (download and unpack to c:\emacs\bin).
 

@@ -52,7 +52,7 @@ sdc_command \\
     ;; therefore it better not to add newline.
     (defun tcl-qsf-do-not-add-newlines ()
       "Set `require-final-newline' local variable to nil for qsf-files."
-      (when (and (derived-mode-p 'tcl)
+      (when (and (derived-mode-p 'tcl-mode)
                  (string= (file-name-extension buffer-file-name) "qsf"))
         (setq-local require-final-newline nil)))
 

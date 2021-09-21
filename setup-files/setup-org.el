@@ -38,6 +38,7 @@
 ;;  Org Babel Tangle
 ;;    Diagrams
 ;;    Python
+;;    Perl
 ;;  Other Org Packages
 ;;    Org Tree Slide
 ;;    Org Cliplink
@@ -1698,6 +1699,17 @@ Instead it's simpler to use bash."
   :config
   (progn
     (setq org-babel-python-command "python3"))) ;Default to python 3.x
+
+;;;; Perl
+(use-package ob-perl
+  :config
+  (progn
+    ;; Use `org-babel-execute' for Perl
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((perl . t)))
+    ;; Support CPerl (`cperl-mode') for `org-babel-execute'
+    (defalias 'org-babel-execute:cperl 'org-babel-execute:perl)))
 
 ;;; Other Org Packages
 

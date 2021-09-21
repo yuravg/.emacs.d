@@ -39,6 +39,7 @@
 ;;    Diagrams
 ;;    Python
 ;;    Perl
+;;    Shell-script
 ;;  Other Org Packages
 ;;    Org Tree Slide
 ;;    Org Cliplink
@@ -1710,6 +1711,17 @@ Instead it's simpler to use bash."
      '((perl . t)))
     ;; Support CPerl (`cperl-mode') for `org-babel-execute'
     (defalias 'org-babel-execute:cperl 'org-babel-execute:perl)))
+
+;;;; Shell-script
+(use-package ob-shell
+  :config
+  (progn
+    ;; Use `org-babel-execute' for Shell-script
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((shell . t)))
+    ;; Support Shell-script (`sh-mode') for `org-babel-execute', by default 'shell'.
+    (defalias 'org-babel-execute:shell-script 'org-babel-execute:shell)))
 
 ;;; Other Org Packages
 

@@ -1687,7 +1687,7 @@ Instead it's simpler to use bash."
       (remove-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
 
     (defun yura/turn-on-org-babel-execute-plantuml ()
-      "Tunr on display PlantUML images after babel execute."
+      "Turn on display PlantUML images after babel execute."
       (interactive)
       (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
     (yura/turn-on-org-babel-execute-plantuml)))

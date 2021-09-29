@@ -161,7 +161,15 @@ _b_/_L_: log all/local branches     _F_: file-dispatch                  _h_: che
 
     (use-package git-rebase
       :bind (:map git-rebase-mode-map
-             ("C-j" . git-rebase-show-or-scroll-up)))
+             ("C-j" . git-rebase-show-or-scroll-up)
+             ;; Change the navigation with 'n' and 'p' to look like `git-log-mode', when these
+             ;; bindings show the difference(maigit-diff)
+             ("n". (lambda (arg) (interactive "P")
+                     (forward-line arg) ;default binding to 'n'
+                     (git-rebase-show-or-scroll-up)))
+             ("p". (lambda (arg) (interactive "P")
+                     (git-rebase-backward-line arg) ;default binding to 'p'
+                     (git-rebase-show-or-scroll-up)))))
 
     ;; Enable 'git-commit-mode' yasnippet for the *COMMIT_EDITMSG* buffer
     ;; https://emacs.stackexchange.com/questions/27946/yasnippets-wont-expand-in-git-commit-mode

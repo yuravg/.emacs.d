@@ -363,3 +363,6 @@ It is assumed that the author has only one or two names."
 ;;   2. `magit-log-buffer-file' (hydra-magit, 'C-l')
 ;;   3. go to a desired commits
 ;;   4. `magit-find-file' (hydra-magit/body, 'C-c')
+;;
+;; `magit-dispatch' 'C-x M-g'
+;; `magit-file-dispatch' 'C-c M-g'

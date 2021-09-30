@@ -13,7 +13,8 @@
 (use-package magit
   :bind (:map modi-mode-map
          ("C-x g" . magit-status)
-         ("C-c g". hydra-magit/body))
+         ("C-c g". hydra-magit/body)
+         ("C-c C-g" . magit-run))
   :init
   ;; Mark the `yura/magit-diff-rh-auto-set-enable' variable as safe so that it can be
   ;; set in `.dir-locals.el' files or set in Local Variables.

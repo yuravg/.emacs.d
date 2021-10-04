@@ -6,6 +6,7 @@
 ;;  TO-DO
 ;;  Tips
 ;;  Magit
+;;  C/C++
 ;;  Synopsys, Altera(Quartus) and Mentor(ModelSim/QuestaSim)
 ;;  Natural Docs
 ;;  Simulation, compilation
@@ -57,6 +58,13 @@
      'font-lock-warning-face
      prepend)))
 (font-lock-add-keywords 'text-mode magit-log-4text-mode-hkeywords)
+
+;;; C/C++
+;; Logical operators
+(font-lock-add-keywords
+ 'c++-mode
+ '(("\\(\\s-&&[\s\n]\\)" 1 'font-lock-keyword-face) ;do not highlight reference
+   ("\\(||\\)" 1 'font-lock-keyword-face)))
 
 ;;; Synopsys, Altera(Quartus) and Mentor(ModelSim/QuestaSim)
 ;; <Quartus_root_dir>/version/quartus/common/tcl/auto_completion/: project.cmds, sdc.cmds, sdc_ext.cmds

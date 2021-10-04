@@ -138,6 +138,15 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
       (insert (buffer-file-name (window-buffer (minibuffer-selected-window))))
     (insert (buffer-name))))
 
+;; Insert file name in Minibuffer
+;; Used for example after `compile' command
+(bind-keys
+ :map minibuffer-local-map
+ ("C-c f" . (lambda (filename)
+              (interactive "*fInsert file name: P")
+              (insert (file-relative-name filename)))) ;insert relative path
+ ("C-c M-f" . insert-file-name))                       ;insert full path and other(`insert-file-name')
+
 ;;; Switch/revert file/buffer coding system
 ;; http://www.emacswiki.org/emacs/EndOfLineTips
 (defun unix-file ()

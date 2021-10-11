@@ -6,11 +6,6 @@
 ;;    Run current buffer in shell
 ;;    Package Comint
 
-(use-package simple
-  :config
-  (progn
-    (defalias 'sc 'shell-command)))
-
 ;;;; Run current buffer in shell
 (defun run-buffer-in-shell ()
   "Run current buffer in existing shell as command: ./<buffer_name>."

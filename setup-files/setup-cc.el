@@ -62,7 +62,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                        ;; variables:
                        ;; $(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $<
                        (let ((file (file-name-nondirectory buffer-file-name)))
-                         (format "%s -o %s %s %s %s"
+                         (format "%s -o %s.out %s %s %s"
                                  (or (getenv "CC") "gcc")
                                  (file-name-sans-extension file)
                                  (or (getenv "CPPFLAGS") "-DDEBUG=9")
@@ -77,7 +77,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                        ;; variables:
                        ;; $(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $<
                        (let ((file (file-name-nondirectory buffer-file-name)))
-                         (format "%s -o %s %s %s %s"
+                         (format "%s -o %s.out %s %s %s"
                                  (or (getenv "CC") "g++")
                                  (file-name-sans-extension file)
                                  (or (getenv "CPPFLAGS") "-DDEBUG=9")

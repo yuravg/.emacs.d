@@ -9,6 +9,8 @@
   :bind (:map modi-mode-map
          ("s-y" . hydra-yas/body)
          ("C-c y" . hydra-yas/body))
+  :bind (:map yas-keymap
+         ("C-w" . yas-clear-field))
   :chords (:map modi-mode-map
            ("YY" . yas-insert-snippet)
            ("yy" . yas-ido-expand)

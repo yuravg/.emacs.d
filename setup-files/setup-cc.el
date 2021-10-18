@@ -53,36 +53,34 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
 
     ;; Compile command
     ;; https://www.emacswiki.org/emacs/CompileCommand
-    (add-hook 'c-mode-hook
-              (lambda ()
-                (unless (file-exists-p "Makefile")
-                  (set (make-local-variable 'compile-command)
-                       ;; emulate make's .c.o implicit pattern rule, but with
-                       ;; different defaults for the CC, CPPFLAGS, and CFLAGS
-                       ;; variables:
-                       ;; $(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $<
-                       (let ((file (file-name-nondirectory buffer-file-name)))
-                         (format "%s -o %s.out %s %s %s"
-                                 (or (getenv "CC") "gcc")
-                                 (file-name-sans-extension file)
-                                 (or (getenv "CPPFLAGS") "-DDEBUG=9")
-                                 (or (getenv "CFLAGS") "-ansi -pedantic -Wall -Wextra -g")
-                                 file))))))
-    (add-hook 'c++-mode-hook
-              (lambda ()
-                (unless (file-exists-p "Makefile")
-                  (set (make-local-variable 'compile-command)
-                       ;; emulate make's .c.o implicit pattern rule, but with
-                       ;; different defaults for the CC, CPPFLAGS, and CFLAGS
-                       ;; variables:
-                       ;; $(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $<
-                       (let ((file (file-name-nondirectory buffer-file-name)))
-                         (format "%s -o %s.out %s %s %s"
-                                 (or (getenv "CC") "g++")
-                                 (file-name-sans-extension file)
-                                 (or (getenv "CPPFLAGS") "-DDEBUG=9")
-                                 (or (getenv "CFLAGS") "-g -Wall -lstdc++ -std=c++17")
-                                 file))))))))
+    ;;
+    ;; emulate make's .c.o implicit pattern rule, but with
+    ;; different defaults for the CC, CPPFLAGS, and CFLAGS
+    ;; variables:
+    ;; $(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $<
+    (defun yura/c-compile-command ()
+      (unless (file-exists-p "Makefile")
+        (set (make-local-variable 'compile-command)
+             (let ((file (file-name-nondirectory buffer-file-name)))
+               (format "%s -o %s.out %s %s %s"
+                       (or (getenv "CC") "gcc")
+                       (file-name-sans-extension file)
+                       (or (getenv "CPPFLAGS") "-DDEBUG=9")
+                       (or (getenv "CFLAGS") "-ansi -pedantic -Wall -Wextra -g")
+                       file)))))
+    (defun yura/c++-compile-command ()
+      (unless (file-exists-p "Makefile")
+        (set (make-local-variable 'compile-command)
+             (let ((file (file-name-nondirectory buffer-file-name)))
+               (format "%s -o %s.out %s %s %s"
+                       (or (getenv "CC") "g++")
+                       (file-name-sans-extension file)
+                       (or (getenv "CPPFLAGS") "-DDEBUG=9")
+                       (or (getenv "CFLAGS") "-g -Wall -lstdc++ -std=c++17")
+                       file)))))
+
+    (add-hook 'c-mode-hook #'yura/c-compile-command)
+    (add-hook 'c++-mode-hook #'yura/c++-compile-command)))
 
 
 (provide 'setup-cc)

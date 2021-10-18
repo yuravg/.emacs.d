@@ -33,6 +33,14 @@
     (defvar yura/compilation-truncate-lines nil
       "Truncate lines for compilation buffer.")
 
+    (defvar yura/compile-compiled-output-enable nil
+      "Run compiled program after compilation and display its output in the *compilation* buffer.")
+    (defun yura/compilation-toggle-compiled-output-enable ()
+      "Toggle `yura/compile-compiled-output-enable' variable."
+      (interactive)
+      (toggle-logical-value yura/compile-compiled-output-enable)
+      (message "Set script output '%s'" yura/compile-compiled-output-enable))
+
     (defun yura/compilation-toggle-scroll-output ()
       "Toggle `compilation-scroll-output' variable."
       (interactive)
@@ -161,11 +169,13 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
   _t_runcate line             (%(if yura/compilation-truncate-lines t nil))
   _h_ide compilation buffer   (%(if (not (null yura/compilation-finish-functions)) t nil))
   _s_croll compilation output (%(if compilation-scroll-output t nil))
+  display _o_utput            (%(if yura/compile-compiled-output-enable t nil)) (you need to update the buffer modes for the changes to take effect)
 "
       ("j" yura/compilation-toggle-auto-jump-to-first-error)
       ("t" yura/compilation-toggle-truncate-lines)
       ("h" (lambda () (interactive) (yura/compilation-toggle-finish-function t)))
       ("s" yura/compilation-toggle-scroll-output)
+      ("o" yura/compilation-toggle-compiled-output-enable)
       ("q" nil "cancel")
       ("C-g" nil "cancel"))
     (with-eval-after-load 'compile

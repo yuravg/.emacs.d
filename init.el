@@ -396,7 +396,6 @@ need Org version to be at least 9.x.")
 
 (require 'setup-cc)
 (require 'setup-grep)
-(require 'setup-compilation)
 (require 'setup-bat)
 (require 'setup-highlight-keywords)
 (require 'setup-aggressive-indent)

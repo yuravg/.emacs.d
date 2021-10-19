@@ -11,6 +11,8 @@
 ;;; Compile
 (use-package compile
   :defer t
+  :bind (:map modi-mode-map
+         ("C-c C-M-c" . hydra-compilation/body))
   :config
   (progn
 ;;;; ansi-color

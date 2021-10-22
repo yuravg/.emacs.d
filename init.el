@@ -75,7 +75,6 @@ need Org version to be at least 9.x.")
     dumb-jump
     easy-escape ; Make the \\ escape chars more pleasant looking in elisp regexps
     el2markdown ; Generate README.md files from Commentary section in .el files
-    elfeed
     elpy
     emojify ;display emojis
     engine-mode ; search engines
@@ -264,7 +263,6 @@ need Org version to be at least 9.x.")
 (require 'setup-devdocs)
 (require 'setup-dired)
 (require 'setup-drag-stuff)
-(require 'setup-elfeed)
 (when (executable-find "tmux")
   (require 'setup-emamux))
 (require 'setup-eww)

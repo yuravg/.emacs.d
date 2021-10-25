@@ -131,9 +131,18 @@ Non-nil if all C/C++ checkers installed.
             ;; If you not use  cppcheck . You have need to change  flycheck-add-next-checker .
             ;; (flycheck-add-next-checker 'c/c++-clang
             ;;                         '(warning . c/c++-googlelint))
+            ;;
+            ;; To custom or disable CppLint your may add to `.dir-locals.el':
+            ;; (c++-mode . ((eval .
+            ;;                    (setq flycheck-googlelint-filter
+            ;;                          (concat flycheck-googlelint-filter
+            ;;                                  ",+whitespace/braces")))
+            ;;              (flycheck-disabled-checkers . (c/c++-googlelint))))
             (custom-set-variables
              '(flycheck-googlelint-verbose "1")
              '(flycheck-googlelint-filter "-whitespace/tab,
+-whitespace/braces,
+-runtime/indentation_namespace,
 -legal/copyright,
 -build/include_subdir,
 -build/header_guard,

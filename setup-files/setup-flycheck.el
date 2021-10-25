@@ -134,17 +134,13 @@ Non-nil if all C/C++ checkers installed.
             (custom-set-variables
              '(flycheck-googlelint-verbose "1")
              '(flycheck-googlelint-filter "-whitespace/tab,
-                                    -legal/copyright,
-                                    -build/include_subdir,
-                                    -build/header_guard,
-                                    -build/include,
-                                    -readability/todo")
+-legal/copyright,
+-build/include_subdir,
+-build/header_guard,
+-build/include,
+-readability/todo")
              '(flycheck-googlelint-root "project/src")
-             '(flycheck-googlelint-linelength "99"))
-            ;; -whitespace/indent,
-            ;; +whitespace/braces,
-            ;; -whitespace,+whitespace/braces,
-            )))
+             '(flycheck-googlelint-linelength "99")))))
 
     (defhydra hydra-flycheck (:color amaranth
                               :columns 4)

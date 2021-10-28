@@ -163,13 +163,13 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
                                  :hint nil)
       "
 [compilation mode]
-    Toggles
+^^     Toggles
 --------------------------------------
-  auto _j_ump to first error  (%(if compilation-auto-jump-to-first-error t nil))
-  _t_runcate line             (%(if yura/compilation-truncate-lines t nil))
-  _h_ide compilation buffer   (%(if (not (null yura/compilation-finish-functions)) t nil))
-  _s_croll compilation output (%(if compilation-scroll-output t nil))
-  display _o_utput            (%(if yura/compile-compiled-output-enable t nil)) (you need to update the buffer modes for the changes to take effect)
+  _j_: auto Jump to first error  (%(if compilation-auto-jump-to-first-error t nil))
+  _t_: Truncate line             (%(if yura/compilation-truncate-lines t nil))
+  _h_: Hide compilation buffer   (%(if (not (null yura/compilation-finish-functions)) t nil))
+  _s_: Scroll compilation output (%(if compilation-scroll-output t nil))
+  _o_: show Output               (%(if yura/compile-compiled-output-enable t nil)) (need to update the buffer modes for the changes to take effect)
 "
       ("j" yura/compilation-toggle-auto-jump-to-first-error)
       ("t" yura/compilation-toggle-truncate-lines)

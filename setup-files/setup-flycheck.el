@@ -44,7 +44,10 @@
 
     ;;; Flycheck Variables
     (setq flycheck-flake8-maximum-line-length 99)
-    (setq flycheck-checker-error-threshold 800)
+    (setq flycheck-checker-error-threshold 400)
+    (setq flycheck-display-errors-delay 2)
+    (setq flycheck-idle-buffer-switch-delay 1)
+    (setq flycheck-idle-change-delay 2)
 
     ;; Enable C++ exceptions
     (add-to-list 'flycheck-clang-args "-fcxx-exceptions")

@@ -279,6 +279,11 @@ re-builder (map prefix: C-c):
       ("q" nil "cancel")
       ("C-g" nil "cancel"))))
 
+;; rmsbolt - a compiler output viewer(https://godbolt.org/)
+;; http://gitlab.com/jgkamat/rmsbolt
+(use-package rmsbolt
+  :defer t)
+
 ;; https://www.emacswiki.org/emacs/AsciiTable
 ;; Characters in the coded character set unicode: M-x `list-charset-chars' RET unicode-bmp RET
 (defun ascii-table ()

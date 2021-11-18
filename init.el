@@ -136,6 +136,7 @@ need Org version to be at least 9.x.")
     rainbow-mode
     region-bindings-mode ; complements really well with multiple-cursors
     rg ripgrep
+    rmsbolt
     rpn-calc
     rust-mode
     shackle

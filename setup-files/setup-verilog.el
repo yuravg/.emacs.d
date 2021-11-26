@@ -1078,7 +1078,7 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
                               " && "
                               "vsim -c "
                               (file-name-sans-extension fname)
-                              " -do 'run -all'")))
+                              " -do 'run -all; quit'")))
         (setq yura/compilation-finish-function nil) ;clean `compilation-finish-function'
         (compile command))
       (if is-function (yura/compilation-toggle-finish-function))) ;restore `compilation-finish-function'

@@ -1085,7 +1085,7 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
 
     (bind-keys
      :map verilog-mode-map
-     ("C-c M-q" . yura/questasim-vsim))
+     ("C-c M-c" . yura/questasim-vsim))
 
 ;;;; Compilation after save
     (defvar yura/verilog-compilation-after-save-enable nil

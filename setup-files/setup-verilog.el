@@ -1034,7 +1034,7 @@ and you should edit file after launch this command."
 ;;; Verilog compile
     (defvar verilog-linter-command nil
       "Verilog lint command.")
-    (setq verilog-linter-modelsim "vlog -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
+    (setq verilog-linter-modelsim "vlog -incr -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
     (setq verilog-linter-verilator "verilator --lint-only")
     (setq verilog-linter-command verilog-linter-modelsim)
 

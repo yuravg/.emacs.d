@@ -1036,13 +1036,21 @@ and you should edit file after launch this command."
         (insert (format "%s::" name))))
 
 ;;; Verilog compile
-    (defvar verilog-linter-command nil
+    (defvar yura/verilog-compiler-command nil
       "Verilog lint command.")
-    (setq verilog-linter-modelsim "vlog -incr -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
-    (setq verilog-linter-verilator "verilator --lint-only")
-    (setq verilog-linter-command verilog-linter-modelsim)
+    (setq yura/verilog-modelsim-compile-command "vlog -incr -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
+    (setq yura/verilog-verilator-lint-command "verilator --lint-only")
+    (setq yura/verilog-compiler-command yura/verilog-modelsim-compile-command)
 
-    (setq verilog-linter verilog-linter-command)
+    (setq verilog-compiler yura/verilog-compiler-command)
+    (setq verilog-linter yura/verilog-verilator-lint-command)
+
+    ;; (setq verilog-simulator (let* ((fname (file-name-nondirectory buffer-file-name)))
+    ;;                               (concat yura/verilog-modelsim-compile-command " " fname
+    ;;                                       " && "
+    ;;                                       "vsim -c "
+    ;;                                       (file-name-sans-extension fname)
+    ;;                                       " -do 'run -all; quit'")))
 
     (defun verilog-get-list-verilog-files-in-current-directory ()
       "Returns a list of all Verilog files in the current directory
@@ -1054,23 +1062,23 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
         (setq list (append list (directory-files-recursive "." 0 nil "\\.sv$" "\\(_if.sv\\|_pkg\\|\\#\\|~\\)")))
         list))
 
-    (defun verilog-compile-all-files ()
-      "Execute `verilog-linter-command' for current file and files in its directory and sub-directories."
+    (defun yura/verilog-compile-all-files ()
+      "Execute `yura/verilog-compiler-command' for current file and files in its directory and sub-directories."
       (interactive)
       (let ((files (convert-list-to-string
                     (verilog-get-list-verilog-files-in-current-directory) " ")))
-        (compile (concat verilog-linter-command " " files))))
+        (compile (concat yura/verilog-compiler-command " " files))))
 
-    (defun verilog-compile-current-file ()
-      "Execute `verilog-linter-command' for current file."
+    (defun yura/verilog-compile-current-file ()
+      "Execute `yura/verilog-compiler-command' for current file."
       (interactive)
       (let ((fname (file-name-nondirectory buffer-file-name)))
-        (compile (concat verilog-linter-command " " fname))))
+        (compile (concat yura/verilog-compiler-command " " fname))))
 
     (bind-keys
      :map verilog-mode-map
-     ("C-c C-c" . verilog-compile-current-file)
-     ("C-c C-a" . verilog-compile-all-files))
+     ("C-c C-c" . yura/verilog-compile-current-file)
+     ("C-c C-a" . yura/verilog-compile-all-files))
 
 ;;; Simulation
     (defun yura/questasim-vsim ()
@@ -1078,7 +1086,7 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
       (interactive)
       (let* ((is-function (if (bound-and-true-p yura/compilation-finish-function) t nil))
              (fname (file-name-nondirectory buffer-file-name))
-             (command (concat verilog-linter-modelsim " " fname
+             (command (concat yura/verilog-modelsim-compile-command " " fname
                               " && "
                               "vsim -c "
                               (file-name-sans-extension fname)
@@ -1107,12 +1115,12 @@ Compilation by `yura/verilog-compilation-after-save'.")
 
     (defun yura/verilog-compilation-after-save ()
       "Starts compiling the current buffer after saving it.
-Execute `verilog-compile-current-file' after saving the current buffer,
+Execute `yura/verilog-compile-current-file' after saving the current buffer,
 if variable `yura/verilog-compilation-after-save-enable' is t."
       (add-hook 'after-save-hook
                 (lambda() (if yura/verilog-compilation-after-save-enable
                          (progn (setq yura/compilation-buffer-single-show-time "0 sec")
-                                (verilog-compile-current-file))))
+                                (yura/verilog-compile-current-file))))
                 nil :local))
     (add-hook 'verilog-mode-hook #'yura/verilog-compilation-after-save)
 

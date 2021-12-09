@@ -1295,6 +1295,7 @@ _a_lways         _f_or              _g_enerate         _O_utput
      ;; Unbind `electric-verilog-semi-with-comment'; binding to `flyspell-correct-wrapper'
      ("C-;" . nil)
      ;;
+     ("C-j"       . ag-kill-other-buffers)  ;to exit after `modi/verilog-find-parent-module'
      ("C-c C-t"   . hydra-verilog-template/body)
      ("C-^"       . modi/verilog-jump-to-header-dwim)
      ("C-&"       . modi/verilog-jump-to-header-dwim-fwd)

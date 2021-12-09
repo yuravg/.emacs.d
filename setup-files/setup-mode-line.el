@@ -168,6 +168,7 @@ If nil, show the same in the minibuffer.")
                 " VHl"          ;volatile highlights
                 " WK"           ;which-key
                 " Wrap"         ;shows up if visual-line-mode is enabled for that buffer
+                " counsel"      ;counsel-mode
                 " ctagsU"       ;ctags update
                 " drag"         ;drag-stuff-mode
                 " eV"           ;easy-verilog

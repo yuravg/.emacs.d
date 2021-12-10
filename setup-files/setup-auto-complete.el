@@ -3,7 +3,7 @@
 ;; Auto complete
 
 (use-package auto-complete-config
-  :defer 15
+  :defer 5
   :config
   (progn
     (setq ac-stop-words (quote ("/" "//" "/*" "//*" "///" "////")))

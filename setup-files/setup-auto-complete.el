@@ -16,13 +16,17 @@
       "Execute completion/expand text.
 
 If `auto-complete-mode' enable, will be execute `auto-complete'.
-Prefixed with one \\[universal-argument], execute `dabbrev-completion'.
+
+Prefixed with \\[universal-argument], execute `dabbrev-completion'.
+Prefixed with \\[universal-argument] \\[universal-argument], execute `company-complete'
+
 If disable `auto-complete-mode' execute `hippie-expand'."
       (interactive "p")
       (if auto-complete-mode
           (cl-case arg
             (0 (auto-complete))
             (4 (dabbrev-completion))
+            (16 (company-complete))
             (t (auto-complete)))
         (hippie-expand nil)))
 

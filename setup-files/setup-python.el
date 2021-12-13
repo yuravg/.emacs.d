@@ -67,29 +67,50 @@
          ("C-j". company-complete-selection))))
 
 ;;; Anaconda-mode
-    ;; https://github.com/proofit404/anaconda-mode
-    ;; https://pypi.python.org/pypi/anaconda_mode
-    ;;
-    ;; Install: M-x package-install RET anaconda-mode RET,
-    ;; for setup files to .emacs.d/anaconda-mode/0.x.x/
-    ;; (prevent error message: No matching distribution found for anaconda-mode==0.x.x)
-    ;;
-    ;; Anaconda-mode require setup packages: json-rpc, jedi
-    ;; installation: pip install jedi json-rpc --upgrade
+    ;; https://github.com/pythonic-emacs/anaconda-mode
     (use-package anaconda-mode
+      :bind (:map python-mode-map
+             ("C-c C-a" . hydra-anaconda/body))
       :defer 10
       :config
       (progn
-        ;; |------------+--------------------------------|
-        ;; | Keybinding | Description                    |
-        ;; |------------+--------------------------------|
-        ;; | C-M-i      | anaconda-mode-complete         |
-        ;; | M-.        | anaconda-mode-find-definitions |
-        ;; | M-,        | anaconda-mode-find-assignments |
-        ;; | M-r        | anaconda-mode-find-references  |
-        ;; | M-*        | anaconda-mode-go-back          |
-        ;; | M-?        | anaconda-mode-show-doc         |
-        ;; |------------+--------------------------------|
+        (defhydra hydra-anaconda (:color teal
+                                  :hint nil)
+          "
+Anaconda:
+^^       Complete          ^^     Find
+^^-------------------------^^------------------------
+_C-M-i_: complete          _M-._: find-definition
+^^                         _M-=_: find-assignments
+^^                         _M-r_: find-references
+^^                         _M-?_: show-doc
+"
+          ("C-M-i" anaconda-mode-complete)
+
+          ("M-." anaconda-mode-find-definitions)
+          ("M-=" anaconda-mode-find-assignments)
+          ("M-r" anaconda-mode-find-references)
+          ("M-?" anaconda-mode-show-doc)
+
+          ("q"   nil "cancel")
+          ("C-g" nil "cancel"))
+
+        ;; |------------+---------------------------------------------|
+        ;; | Keybinding | Description                                 |
+        ;; |------------+---------------------------------------------|
+        ;; | C-M-i      | anaconda-mode-complete                      |
+        ;; | M-.        | anaconda-mode-find-definitions              |
+        ;; | C-x 4 .    | anaconda-mode-find-definitions-other-window |
+        ;; | C-x 5 .    | anaconda-mode-find-definitions-other-frame  |
+        ;; | M-=        | anaconda-mode-find-assignments              |
+        ;; | C-x 4 =    | anaconda-mode-find-assignments-other-window |
+        ;; | C-x 5 =    | anaconda-mode-find-assignments-other-frame  |
+        ;; | M-r        | anaconda-mode-find-references               |
+        ;; | C-x 4 r    | anaconda-mode-find-references-other-window  |
+        ;; | C-x 5 r    | anaconda-mode-find-references-other-frame   |
+        ;; | M-,        | xref-pop-marker-stack                       |
+        ;; | M-?        | anaconda-mode-show-doc                      |
+        ;; |------------+---------------------------------------------|
         (add-hook 'python-mode-hook #'anaconda-mode)
         (add-hook 'python-mode-hook #'anaconda-eldoc-mode)))))
 

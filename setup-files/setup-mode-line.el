@@ -149,6 +149,7 @@ If nil, show the same in the minibuffer.")
                 " =>"           ;aggressive indent
                 " AC"           ;auto-complete
                 " Abbrev"       ;abbrev-mode
+                " Anaconda"     ;anaconda-mode
                 " Compiling"    ;tex-buf mode
                 " ElDoc"        ;eldoc
                 " Elpy"         ;elpy-mode

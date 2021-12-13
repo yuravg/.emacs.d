@@ -38,7 +38,7 @@
             indent-tabs-mode nil))
     (add-hook 'python-mode-hook #'yura/python-set-indentation)
 
-    ;;; Elpy
+;;; Elpy
     ;; https://github.com/jorgenschaefer/elpy
     ;; https://elpy.readthedocs.io/en/latest/index.html
     ;; https://realpython.com/blog/python/emacs-the-best-python-editor/
@@ -66,7 +66,7 @@
          ("C-p" . company-select-previous)
          ("C-j". company-complete-selection))))
 
-    ;;; Anaconda-mode
+;;; Anaconda-mode
     ;; https://github.com/proofit404/anaconda-mode
     ;; https://pypi.python.org/pypi/anaconda_mode
     ;;
@@ -77,7 +77,7 @@
     ;; Anaconda-mode require setup packages: json-rpc, jedi
     ;; installation: pip install jedi json-rpc --upgrade
     (use-package anaconda-mode
-      :disabled
+      :defer 10
       :config
       (progn
         ;; |------------+--------------------------------|

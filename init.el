@@ -65,6 +65,7 @@ need Org version to be at least 9.x.")
     bm ; visual bookmarks
     buffer-move
     command-log-mode ; for logging commands; useful when demoing emacs
+    company ; completion framework
     counsel-projectile
     deft ; quick note taking and management
     diff-hl

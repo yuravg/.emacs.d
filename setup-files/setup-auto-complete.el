@@ -12,6 +12,9 @@
     (setq ac-trigger-key "TAB")
     (setq ac-disable-faces nil)  ;; enable auto complete between quotation marks
 
+    (use-package company
+      :commands (company-complete))
+
     (defun yura/completion (arg)
       "Execute completion/expand text.
 

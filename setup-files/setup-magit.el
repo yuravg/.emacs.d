@@ -334,9 +334,6 @@ It is assumed that the author has only one or two names."
   (with-eval-after-load 'easy-escape
     (add-hook 'gitconfig-mode-hook #'easy-escape-minor-mode)))
 
-(use-package gitignore-mode
-  :mode (("\\.gitignore_global\\'". gitignore-mode)))
-
 ;;; Emojify
 ;; https://github.com/iqbalansari/emacs-emojify
 (use-package emojify

@@ -18,7 +18,12 @@
     ;; Use my local plantuml.jar file
     (setq plantuml-default-exec-mode 'jar)
     ;; Set path to my local plantuml.jar file
-    (setq plantuml-jar-path org-plantuml-jar-path)))
+    (setq plantuml-jar-path org-plantuml-jar-path)
+
+    ;; JSON
+    (use-package json-mode
+      :bind
+      (("C-c C-c" . plantuml-preview)))))
 
 ;; TIPS:
 

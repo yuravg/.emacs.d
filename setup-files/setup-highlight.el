@@ -272,6 +272,15 @@ If LOCAL is non-nil, un-highlight only in the current buffer."
       ("C-g" nil "cancel"))
     (bind-key "C-c h" #'hydra-hl-anything/body modi-mode-map)))
 
+;; r -- highlight-regexp
+;; u -- unhighlight-regexp
+;; l -- highlight-lines-matching-regexp
+;; p -- highlight-phrase
+;; . -- highlight-symbol-at-point
+;; w -- hi-lock-write-interactive-patterns
+;; f -- hi-lock-find-patterns
+
+
 ;;; Colors for highlight
 (defface hi-tomato1
   '((((background dark)) (:background "tomato1" :foreground "black"))

@@ -57,8 +57,9 @@
             (setq python-shell-prompt-detect-failure-warning nil))
 
         ;; Release "C-c C-f" for modi/fold-dwim:
-        (unbind-key "C-c C-f" elpy-mode-map)   ; default bind: elpy-find-file
-        (unbind-key "C-c C-f" python-mode-map) ; default bind: python-eldoc-at-point
+        (unbind-key "C-c C-f" elpy-mode-map)   ; default bind: `elpy-find-file'
+        (unbind-key "C-c C-f" python-mode-map) ; default bind: `python-eldoc-at-point'
+        (unbind-key "C-c C-p" elpy-mode-map)   ; defautl bind: `elpy-flymake-previous-error'
 
         (bind-keys
          :map company-active-map

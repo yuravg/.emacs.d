@@ -118,5 +118,5 @@ _C-M-i_: complete          _M-._: find-definition
 
 (provide 'setup-python)
 
-;; | C-c C-p | Start the python shell        |
-;; | C-c C-c | Send current buffer to python |
+;; | C-c C-p | Start the python shell        | `run-python'               |
+;; | C-c C-c | Send current buffer to python | `python-shell-send-buffer' |

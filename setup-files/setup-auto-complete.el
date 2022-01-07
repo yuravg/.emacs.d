@@ -13,7 +13,10 @@
     (setq ac-disable-faces nil)  ;; enable auto complete between quotation marks
 
     (use-package company
-      :commands (company-complete))
+      :defer 5
+      :config
+      (progn
+        (setq company-global-modes t)))
 
     (defun yura/completion (arg)
       "Execute completion/expand text.

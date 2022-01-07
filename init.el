@@ -55,6 +55,8 @@ need Org version to be at least 9.x.")
     all all-ext ; edit ALL lines matching regex
     anaconda-mode
     anzu   ; shows total search hits in mode line, > query-replace
+    arduino-cli-mode
+    arduino-mode
     ascii-art-to-unicode
     auctex
     auto-complete fuzzy
@@ -414,6 +416,7 @@ need Org version to be at least 9.x.")
 (require 'setup-docker)
 (require 'setup-vhdl)
 (require 'setup-rst)
+(require 'setup-arduino)
 
 ;; The `setup-misc' must be the last package to be required except for
 ;; `setup-desktop'.

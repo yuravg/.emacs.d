@@ -51,6 +51,12 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
         (add-hook 'c-mode-common-hook #'google-set-c-style-4t)
         (add-hook 'c-mode-common-hook #'google-make-newline-indent)))
 
+    (use-package google-c-style
+      :load-path "elisp/manually-synced/google-c-style"
+      :config
+      (progn
+        (add-hook 'c-mode-common-hook #'google-set-c-style)))
+
     ;; Compile command
     ;; https://www.emacswiki.org/emacs/CompileCommand
     ;;

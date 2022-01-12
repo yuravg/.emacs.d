@@ -168,6 +168,7 @@ If nil, show the same in the minibuffer.")
                 " UndoP"        ;undo-propose
                 " VHl"          ;volatile highlights
                 " WK"           ;which-key
+                " arduino-cli"  ;arduino-cli-mode
                 " Wrap"         ;shows up if visual-line-mode is enabled for that buffer
                 " counsel"      ;counsel-mode
                 " ctagsU"       ;ctags update

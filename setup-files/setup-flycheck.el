@@ -12,7 +12,8 @@
   :config
   (progn
     (setq flycheck-mode-line-prefix "Ω")
-    (defconst modi/flycheck-mode-hooks '(c++-mode-hook
+    (defconst modi/flycheck-mode-hooks '(arduino-mode-hook
+                                         c++-mode-hook
                                          c-mode-hook
                                          cperl-mode-hook
                                          emacs-lisp-mode-hook

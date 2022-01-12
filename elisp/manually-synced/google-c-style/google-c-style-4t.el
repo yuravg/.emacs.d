@@ -128,7 +128,7 @@ Suitable for inclusion in `c-offsets-alist'."
                         (statement-case-intro . +) ; case w/o {
                         (access-label . -4)
                         (innamespace . 4))))
-  "Google C/C++ Programming Style.")
+  "Modified Google C/C++ Programming Style(with Tab and 4 spaces).")
 
 ;;;###autoload
 (defun google-set-c-style-4t ()
@@ -137,7 +137,7 @@ Suitable for inclusion in `c-offsets-alist'."
   (interactive)
   (make-local-variable 'c-tab-always-indent)
   (setq c-tab-always-indent t)
-  (c-add-style "Google" google-c-style-4t t))
+  (c-add-style "Google4Tab" google-c-style-4t t))
 
 ;;;###autoload
 (defun google-make-newline-indent ()

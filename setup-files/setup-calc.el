@@ -13,15 +13,14 @@
                               (concat user-emacs-directory "setup-files/"))))
   :config
   (progn
-    (defun modi/calc (regular-calc)
-      "Launch `quick-calc' by default.
+    (defun modi/calc (arg)
+      "Launch `quick-calc' by default or `calc'.
 
-But if REGULAR-CALC is 1 (C-1 or M-1 prefix),launch `calc`.
-
-Note that `C-u COMMAND' will launch `quick-calc', but
-also paste the results of the calculations in the current buffer."
+Prefixed AREG with \\[universal-argument] launch `
+Note: `quick-calc' may or may not insert the results of calculations into the current buffer,
+it depends on RET or 'C-j' ending keys."
       (interactive "P")
-      (if (eq regular-calc 1) ; C-1 prefix
+      (if arg
           (let (current-prefix-arg)
             (call-interactively #'calc))
         (call-interactively #'quick-calc)))

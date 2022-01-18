@@ -112,6 +112,7 @@ need Org version to be at least 9.x.")
     key-chord ; map pairs of simultaneously pressed keys to commands
     kurecolor ; Quick tweaks to color codes in CSS files
     list-environment
+    literate-calc-mode
     magit ; for git management
     magit-todos
     manage-minor-mode

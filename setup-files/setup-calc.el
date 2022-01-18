@@ -77,6 +77,37 @@ because 2^3 = 8 comes next after 7 |  ceil(log(x)/log(2))"
      ("C-j" . rpn-calc-self-insert)
      ("C-i" . rpn-calc-select))))
 
+;;; literate-calc-mode
+(use-package literate-calc-mode
+  :config
+  (progn
+    (defalias 'cx 'literate-calc-set-radix)
+    (defalias 'cl 'literate-calc-eval-line)
+
+    (defhydra hydra-literate-calc (:color teal
+                                   :hint nil)
+      "
+Literate calc(LCM)
+^^   Eval                           ^^ View                          ^^  Mode
+^^----------------------------------^^-------------------------------^^-----------------
+_d_: radix                        _i_: insert results
+_e_: eval line                    _o_: clear overlays               _m_: LCM minor mode
+_b_: eval buffer                  _r_: remove results               _M_: LCM mode
+"
+      ("d" literate-calc-set-radix)
+      ("e" literate-calc-eval-line)
+      ("b" literate-calc-eval-buffer)
+
+      ("i" literate-calc-insert-results)
+      ("o" literate-calc-clear-overlays)
+      ("r" literate-calc-remove-results)
+
+      ("m" literate-calc-minor-mode)
+      ("M" literate-calc-mode)
+
+      ("q"   nil "cancel")
+      ("C-g" nil "cancel"))))
+
 
 (provide 'setup-calc)
 

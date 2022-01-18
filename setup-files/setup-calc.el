@@ -2,6 +2,14 @@
 
 ;; Calculator
 
+;; Contents:
+;;
+;;  Calc
+;;  rpn-calc
+;;  literate-calc-mode
+
+
+;;; Calc
 (use-package calc
   :defer t
   :bind (:map modi-mode-map
@@ -58,6 +66,7 @@ it depends on RET or 'C-j' ending keys."
 because 2^3 = 8 comes next after 7 |  ceil(log(x)/log(2))"
       (calcFunc-ceil (math-div (calcFunc-log10 x) (calcFunc-log10 2))))))
 
+;;; rpn-calc
 (use-package rpn-calc
   :bind (:map modi-mode-map
          ("C-~" . rpn-calc))

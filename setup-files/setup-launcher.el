@@ -8,6 +8,7 @@
   ("a"       counsel-ag "ag cwd")
   ("b"       bookmark-jump "bookmark jump")
   ("cc"      calc "calc")
+  ("cl"      hydra-literate-calc/body "calc literate")
   ("cg"      browse-url-chrome "google chrome")
   ("cr"      calendar "calendar")
   ("d"       dired-single-magic-buffer-current-dir "dired cwd")

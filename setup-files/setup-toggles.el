@@ -15,6 +15,7 @@
   ("b"     duplicate-current-window "double window(C-u: del other)") ; C-u available for `duplicate-current-window'
   ("C-b"   (lambda () (interactive)
              (duplicate-current-window t)) "double window, del other")
+  ("d"     yura/toggle-delete-trailing-whitespace "delete before save")
   ("e"     ediff-buffers "ebuffers")
   ("f"     toggle-fill-unfill "fill/unfill")
   ("F"     follow-mode "follow mode")

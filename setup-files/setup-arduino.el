@@ -5,6 +5,12 @@
 (use-package arduino-mode
   :config
   (progn
+    (defun yura/set-c++-comment-style ()
+      "Set C++ comment style."
+      (setq comment-start "//")
+      (setq comment-end ""))
+    (add-hook 'arduino-mode-hook #'yura/set-c++-comment-style)
+
     (with-eval-after-load 'google-c-style
       (add-hook 'arduino-mode-hook #'google-set-c-style))))
 ;; |-----------------------+-----------|

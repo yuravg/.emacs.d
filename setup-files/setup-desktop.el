@@ -17,6 +17,7 @@ saved desktop at startup:
 
     ;; Immediately load 10 buffers and lazy-load the rest.
     (setq desktop-restore-eager 10)
+    (setq desktop-lazy-verbose nil)
 
     (setq desktop-base-file-name (concat "emacs_" emacs-version-short
                                          "_" (>=e "25.0" (system-name) system-name)

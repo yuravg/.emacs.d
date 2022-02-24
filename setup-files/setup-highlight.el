@@ -291,6 +291,12 @@ If LOCAL is non-nil, un-highlight only in the current buffer."
   "Face for hi-lock mode."
   :group 'hi-lock-faces)
 
+(defface hi-lemon
+  '((((background dark)) (:background "LemonChiffon" :foreground "black"))
+    (t (:background "LemonChiffon")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
 (defface hi-pink
   '((((background dark)) (:background "pink" :foreground "black"))
     (t (:background "pink")))
@@ -324,6 +330,12 @@ If LOCAL is non-nil, un-highlight only in the current buffer."
 (defface hi-tan
   '((((background dark)) (:background "tan" :foreground "black"))
     (t (:background "tan")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface hi-sea-green
+  '((((background dark)) (:background "DarkSeaGreen1" :foreground "black"))
+    (t (:background "DarkSeaGreen1")))
   "Face for hi-lock mode."
   :group 'hi-lock-faces)
 

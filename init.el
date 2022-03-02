@@ -105,7 +105,6 @@ need Org version to be at least 9.x.")
     ido-vertical-mode flx-ido ;< ivy, counsel; use for: yasnippet: `yas-ido-expand', magit: `magit-branch-checkout', `magit-log-buffer-file'
     imenu-list
     indent-guide
-    org-noter ; takes notes associated to pdf files in org mode
     isend-mode ; used in setup-perl.el
     ivy swiper counsel
     ivy-yasnippet
@@ -124,6 +123,7 @@ need Org version to be at least 9.x.")
     nov    ;Ebook (.epub) reader
     org
     org-cliplink ; paste copied links as well-formatted org-mode links with desc
+    org-noter ; takes notes associated to pdf files in org mode
     org-tree-slide
     outorg navi-mode ; supporting packages for outshine
     outshine ; org-mode navigation and organization outside org-mode

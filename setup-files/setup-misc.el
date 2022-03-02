@@ -1,4 +1,4 @@
-;; Time-stamp: <2019-07-30 13:50:27 kmodi>
+;; Time-stamp: <2025-03-18 11:08:42 gritsenko>
 
 ;; Miscellaneous config not categorized in other setup-* files
 
@@ -144,6 +144,11 @@ If the buffer major-mode is `clojure-mode', run `cider-load-buffer'."
             #'browse-url-firefox)
            (t
             #'browse-url-default-browser)))))
+
+(use-package ipcalc
+  :ensure t)
+;; TIPS
+;; Eval expression: (ipcalc "192.168.0.23/20")
 
 ;; Unset keys
 (global-unset-key (kbd "C-z"))          ;Bound to `suspend-frame' by default

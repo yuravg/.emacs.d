@@ -145,6 +145,9 @@ If the buffer major-mode is `clojure-mode', run `cider-load-buffer'."
            (t
             #'browse-url-default-browser)))))
 
+(use-package ipcalc
+  :ensure t)
+
 ;; Unset keys
 (global-unset-key (kbd "C-z"))          ;Bound to `suspend-frame' by default
 ;; `suspend-frame' can be called using C-x C-z too.

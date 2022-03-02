@@ -105,6 +105,7 @@ need Org version to be at least 9.x.")
     ido-vertical-mode flx-ido ;< ivy, counsel; use for: yasnippet: `yas-ido-expand', magit: `magit-branch-checkout', `magit-log-buffer-file'
     imenu-list
     indent-guide
+    ipcalc
     isend-mode ; used in setup-perl.el
     ivy swiper counsel
     ivy-yasnippet

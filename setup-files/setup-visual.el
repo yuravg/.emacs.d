@@ -240,7 +240,6 @@ the smart-mode-line theme."
 (add-hook 'window-setup-hook (lambda () (funcall default-theme-fn)))
 
 ;;;; Leuven-gray theme
-;; FIXME: loading Leuven-gray theme before the first Emacs start(how todo?)
 (defvar yura/leuven-gray-package-file
   (expand-file-name "elisp/emacs-leuven-theme/leuven-dark-theme.el" user-emacs-directory))
 (if (file-exists-p yura/leuven-gray-package-file)

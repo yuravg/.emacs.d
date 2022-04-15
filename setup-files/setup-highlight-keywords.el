@@ -327,7 +327,7 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
 (font-lock-add-keywords 'python-mode python-hex-number-hkeyword)
 
 (defvar verilog-number-hkeyword
-  '(("\\_<[0-9]*'[bBhHdD][A-Fa-f0-9_]+\\_>"
+  '(("[0-9]*'[bBhHdD]\\s-\\{0,4\\}[A-Fa-f0-9_]+\\_>"
      . hkeywords-number-face)))
 (font-lock-add-keywords 'verilog-mode verilog-number-hkeyword)
 

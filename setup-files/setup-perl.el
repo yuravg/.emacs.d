@@ -7,6 +7,7 @@
   :interpreter (("perl"     . cperl-mode)
                 ("perl5"    . cperl-mode)
                 ("miniperl" . cperl-mode))
+  :bind (("C-c C-c" . compile))
   :config
   (progn
     (setq cperl-indent-parens-as-block t)

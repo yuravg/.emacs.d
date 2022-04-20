@@ -138,7 +138,7 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
       (insert (buffer-file-name (window-buffer (minibuffer-selected-window))))
     (insert (buffer-name))))
 
-;; Insert file name in Minibuffer
+;; Insert file name in the 'Minibuffer'
 ;; Used for example after `compile' command
 (bind-keys
  :map minibuffer-local-map
@@ -148,6 +148,8 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
  ("C-M-j" . (lambda (filename)
               (interactive "*fInsert file name: P")
               (insert (file-relative-name filename)))) ;insert relative path
+ ;; insert current buffer name(it is recent for the 'Minibuffer')
+ ("C-M-f" . (lambda () (interactive) (insert (message "%s" (other-buffer (current-buffer) 1)))))
  ("C-c M-f" . insert-file-name))                       ;insert full path and other(`insert-file-name')
 
 ;;; Switch/revert file/buffer coding system

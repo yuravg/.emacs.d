@@ -145,6 +145,9 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
  ("C-c f" . (lambda (filename)
               (interactive "*fInsert file name: P")
               (insert (file-relative-name filename)))) ;insert relative path
+ ("C-M-j" . (lambda (filename)
+              (interactive "*fInsert file name: P")
+              (insert (file-relative-name filename)))) ;insert relative path
  ("C-c M-f" . insert-file-name))                       ;insert full path and other(`insert-file-name')
 
 ;;; Switch/revert file/buffer coding system

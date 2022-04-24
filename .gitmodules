@@ -70,3 +70,6 @@
 [submodule "elisp/google-c-style"]
 	path = elisp/google-c-style
 	url = https://github.com/yuravg/google-c-style.git
+[submodule "elisp/org-contrib"]
+	path = elisp/org-contrib
+	url = https://git.sr.ht/~bzg/org-contrib

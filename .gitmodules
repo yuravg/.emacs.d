@@ -67,3 +67,6 @@
 [submodule "software"]
 	path = software
 	url = https://github.com/yuravg/software2emacs.git
+[submodule "elisp/google-c-style"]
+	path = elisp/google-c-style
+	url = https://github.com/yuravg/google-c-style.git

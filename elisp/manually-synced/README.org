@@ -10,7 +10,6 @@
 | etags-select            | https://www.emacswiki.org/emacs/download/etags-select.el             | https://github.com/melpa/melpa/pull/5008                                                         |
 | etags-table             | https://www.emacswiki.org/emacs/download/etags-table.el              | https://github.com/melpa/melpa/pull/5008                                                         |
 | flycheck-google-cpplint | https://github.com/flycheck/flycheck-google-cpplint/                 | Not available on GNU Elpa or Melpa                                                               |
-| google-c-style          | https://github.com/google/styleguide/blob/gh-pages/google-c-style.el | Not available on GNU Elpa or Melpa                                                               |
 | header2                 | https://www.emacswiki.org/emacs/download/header2.el                  | https://github.com/melpa/melpa/pull/5008                                                         |
 | help-fns+               | https://www.emacswiki.org/emacs/download/help-fns%2b.el              | https://github.com/melpa/melpa/pull/5008                                                         |
 | hideshowvis             | https://github.com/sheijk/hideshowvis                                | Not available on GNU Elpa or Melpa                                                               |

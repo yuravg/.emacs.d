@@ -45,17 +45,18 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
      ("C-c C-h" . ff-find-other-file))
 
     (use-package google-c-style-4t
-      :load-path "elisp/manually-synced/google-c-style"
+      :load-path "elisp/google-c-style"
       :config
       (progn
         (add-hook 'c-mode-common-hook #'google-set-c-style-4t)
         (add-hook 'c-mode-common-hook #'google-make-newline-indent)))
 
-    (use-package google-c-style
-      :load-path "elisp/manually-synced/google-c-style"
+    (use-package google-c-style-2s
+      :load-path "elisp/google-c-style"
       :config
       (progn
-        (add-hook 'c-mode-common-hook #'google-set-c-style)))
+        (add-hook 'c-mode-common-hook #'google-set-c-style-2s)
+        (add-hook 'c-mode-common-hook #'google-make-newline-indent)))
 
     ;; Compile command
     ;; https://www.emacswiki.org/emacs/CompileCommand

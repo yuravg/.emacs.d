@@ -238,6 +238,11 @@
  'verilog-mode
  '(("\\(&&\\|||\\)" 1 'font-lock-type-face)))
 
+;; Event
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("\\(->\\)" 1 'font-lock-type-face)))
+
 ;;;; Module name
 ;; Highlight 'name' of module, which is define as: module name;
 (font-lock-add-keywords

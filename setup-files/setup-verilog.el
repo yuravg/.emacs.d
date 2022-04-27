@@ -942,10 +942,10 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
       ("q" nil "cancel")
       ("C-g" nil "cancel"))
 
-    (defun yura/verilog-overwrite-identifiers ()
-      "Overwrite Verilog identifiers.
+    (defun yura/verilog-add-or-overwrite-identifiers ()
+      "Add or overwrite Verilog identifiers.
 
-Overwrite identifiers for Verilog:
+Add or Overwrite identifiers for Verilog:
 task, class, function, interface, package, module.
 
 Examples: endmodule                 → endmodule : module_name

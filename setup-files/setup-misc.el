@@ -313,6 +313,40 @@ re-builder (map prefix: C-c):
     (with-current-buffer buffer-name
       (help-mode))))
 
+;; https://stackoverflow.com/questions/12003231/how-do-i-convert-a-string-of-hex-into-ascii-using-elisp
+;; ASCII-HEX converion
+(defun my/hex-decode-string (hex-string)
+  (let ((res nil))
+    (dotimes (i (/ (length hex-string) 2) (apply #'concat (reverse res)))
+      (let ((hex-byte (substring hex-string (* 2 i) (* 2 (+ i 1)))))
+        (push (format "%c" (string-to-number hex-byte 16)) res)))))
+
+(defun my/hex-encode-string (ascii-string)
+  (let ((res nil))
+    (dotimes (i (length ascii-string) (apply #'concat (reverse res)))
+      (let ((ascii-char (substring ascii-string i  (+ i 1))))
+        (push (format "%x" (string-to-char ascii-char)) res)))))
+
+(defun my/hex-decode-region (start end)
+  "Decode a hex string in the selected region."
+  (interactive "r")
+  (save-excursion
+    (let* ((decoded-text
+            (my/hex-decode-string
+             (buffer-substring start end))))
+      (delete-region start end)
+      (insert decoded-text))))
+
+(defun my/hex-encode-region (start end)
+  "Encode a hex string in the selected region."
+  (interactive "r")
+  (save-excursion
+    (let* ((encoded-text
+            (my/hex-encode-string
+             (buffer-substring start end))))
+      (delete-region start end)
+      (insert encoded-text))))
+
 ;; Tue Jul 30 13:49:35 EDT 2019 - kmodi
 ;; Commenting out the below as I do not think they are needed.
 ;; Or rather, I need to better understand if and how these settings

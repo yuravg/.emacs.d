@@ -205,9 +205,9 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
       (setq current-directory-list (cdr current-directory-list)))
     files-list))
 
-;; Conver list to string
-(defun list-convert-to-string (list delimiter)
-  "Return input LIST as string in which elements of LIST separated by DELIMITER."
+;; Convert list to string
+(defun convert-list-to-string (list delimiter)
+  "Return the input LIST as a string with LIST elements separated by DELIMITER."
   (let ((str ""))
     (while list
       (let ((i (car list)))

@@ -1053,7 +1053,7 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
     (defun verilog-compile-all-files ()
       "Execute `verilog-linter-command' for current file and files in its directory and sub-directories."
       (interactive)
-      (let ((files (list-convert-to-string
+      (let ((files (convert-list-to-string
                     (verilog-get-list-verilog-files-in-current-directory) " ")))
         (compile (concat verilog-linter-command " " files))))
 

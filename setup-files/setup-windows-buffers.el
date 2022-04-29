@@ -977,3 +977,9 @@ Undo-propose (map prefix: C-c):
 ;; scrolls the window so that point is on the topmost screen line.  Typing a
 ;; third C-l scrolls the window so that point is on the bottom-most screen
 ;; line. Each successive C-l cycles through these three positions.
+;;
+;; (2) Minibuffer
+;; Insert buffer name in minibufer for compile command (see at: setup-windows-buffers.el):
+;; `C-c f', `C-M-j' - select buffer name and insert its relative path into 'Minibuffer'
+;; `C-M-f' - insert current buffer name into 'Minibuffer'
+;; `C-c M-f' - select buffer name and insert its full path into 'Minibuffer'

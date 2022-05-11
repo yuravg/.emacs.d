@@ -957,35 +957,39 @@ Examples: endmodule                 → endmodule : module_name
                 (let ((name))
                   (goto-char (point-min))
                   (while (re-search-forward (concat "^\\s-*\\<" keyword) nil :noerror)
+                    ;; Get the instance name
                     (if (or (string-match-p "task" keyword)
                             (string-match-p "function" keyword)
                             (string-match-p "module" keyword)
                             (string-match-p "program" keyword))
                         (progn (re-search-forward "(\\|;" nil :noerror)
                                (re-search-backward "\\w" nil :noerror))
-                      (forward-char 2))
+                      (re-search-forward "\\w" nil :noerror))
                     (setq name (symbol-at-point))
+                    ;; Move to end of the instance
                     (cond
-                     ((string-match-p "task" keyword) (search-backward "task"))
-                     ((string-match-p "function" keyword) (search-backward "function"))
-                     (t (back-to-indentation)))
-                    (cond
-                     ((string= "package" keyword) (search-forward "endpackage"))
-                     ((string= "interface" keyword) (search-forward "endinterface"))
-                     ((string= "program" keyword) (search-forward "endprogram"))
-                     (t (electric-verilog-forward-sexp)))
+                     ((string-match-p "class" keyword) (search-forward "endclass"))
+                     ((string-match-p "task" keyword) (search-forward "endtask"))
+                     ((string-match-p "function" keyword) (search-forward "endfunction"))
+                     ((string-match-p "interface" keyword) (search-forward "endinterface"))
+                     ((string-match-p "package" keyword) (search-forward "endpackage"))
+                     ((string-match-p "module" keyword) (search-forward "endmodule")))
+                    ;; Insert new identifier, remove old one
                     (insert (format " : %s tmp" name))
                     (backward-char 4)
-                    (kill-line)
-                    (back-to-indentation)
-                    (unless (string= "package" keyword)
-                      (electric-verilog-backward-sexp))
-                    (forward-line))))
+                    (kill-line))))
               '("task" "class" "function" "interface" "package" "module" "program"
+                "virtual class"
+                "static function"
                 "virtual function"
-                "protected function" "virtual protected function"
+                "protected function"
+                "virtual protected function"
+                "local function"
+                "static task"
                 "virtual task"
-                "protected task" "virtual protected task"))))
+                "protected task"
+                "virtual protected task"
+                "local task"))))
 
     (defun yura/verilog-task-func-move-from-class (arg)
       "Move a Verilog 'task' or 'function' from class - make them 'extern'.

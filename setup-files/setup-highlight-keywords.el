@@ -236,7 +236,15 @@
 ;; Logical operators
 (font-lock-add-keywords
  'verilog-mode
- '(("\\(&&\\|||\\)" 1 'font-lock-type-face)))
+ '(("\\(&&\\|||\\)" 1 'font-lock-builtin-face)))
+
+;; Comparison operators
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("[^=]\\(==\\)[^=]" 1 'font-lock-builtin-face)))
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("\\(!=\\)" 1 'font-lock-builtin-face)))
 
 ;; Event
 (font-lock-add-keywords

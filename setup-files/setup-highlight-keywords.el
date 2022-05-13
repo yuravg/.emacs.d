@@ -433,6 +433,11 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
  '(("^#\s+\\([A-z0-9\s.:]+\\)\s+--\s*"
     1 '(:weight bold) prepend)))
 
+;; Comparison operator
+(font-lock-add-keywords
+ 'tcl-mode
+ '(("[^=]\\(==\\)[^=]" 1 'font-lock-builtin-face)))
+
 ;;; Perl
 ;; Logical operators
 (font-lock-add-keywords

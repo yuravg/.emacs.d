@@ -1075,9 +1075,21 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
       (let ((fname (file-name-nondirectory buffer-file-name)))
         (compile (concat yura/verilog-compiler-command " " fname))))
 
+    (defun yura/verilog-compile (arg)
+      "Compile Verilog/SystemVerilog.
+
+Without Arg run `yura/verilog-compile-current-file'.
+If ARG is \\[universal-argument] run `yura/questasim-vsim'.
+If ARG is \\[universal-argument] \\[universal-argument] run `compiler' interactively."
+      (interactive "p")
+      (cl-case arg
+        (4 (yura/questasim-vsim))
+        (16 (call-interactively 'compile))
+        (t (yura/verilog-compile-current-file))))
+
     (bind-keys
      :map verilog-mode-map
-     ("C-c C-c" . yura/verilog-compile-current-file)
+     ("C-c C-c" . yura/verilog-compile)
      ("C-c C-a" . yura/verilog-compile-all-files))
 
 ;;; Simulation

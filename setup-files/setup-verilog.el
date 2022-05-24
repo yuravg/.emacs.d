@@ -609,8 +609,8 @@ for all the `included files."
 
 ;;;;; Verilog styles
     ;; Add an analog of style - commands to set verilog variables to different values.
-    (defun yura/verilog-set-style-tab-4width ()
-      "Set `verilog-mode' indent with tabs and 4 `tab-width'."
+    (defun yura/verilog-set-style-4tab-autoindent ()
+      "Set `verilog-mode' indent with tabs and 4 `tab-width', auto select indent for module and delcaration."
       (interactive)
       (let ((toggle-indent (save-excursion
                              (if (or (progn (goto-char (point-min))
@@ -637,7 +637,7 @@ for all the `included files."
         (setq-local verilog-cexp-indent              4)
         (setq-local tab-width        4)
         (setq-local indent-tabs-mode t)
-        (setq-local yura/verilog-buffer-style 'tab-4width)))
+        (setq-local yura/verilog-buffer-style '4tab-autoindent)))
 
     (defun yura/verilog-set-style-uvm ()
       "Set `verilog-mode' indent with spaces and 2 `tab-width'."
@@ -709,22 +709,22 @@ for all the `included files."
       (setq-local yura/verilog-buffer-style 'modi))
 
     ;; Select the style depending on local variable which describe current style.
-    (defvar-local yura/verilog-buffer-style 'tab-4width
+    (defvar-local yura/verilog-buffer-style '4tab-autoindent
       "Variable to store `verilog-mode' style for current buffer.
 
-If `tab-4width' is selected, then `verilog-mode' style set with `yura/verilog-set-style-tab-4width'.
+If `4tab-autoindent' is selected, then `verilog-mode' style set with `yura/verilog-set-style-4tab-autoindent'.
 If `uvm' is selected, then `verilog-mode' style set with `yura/verilog-set-style-uvm'.
 If `default' is selected, then `verilog-mode' style set with `yura/verilog-set-style-default'.")
     (put 'yura/verilog-buffer-style 'safe-local-variable
-         '(lambda (x) (memq x '(tab-4width uvm default))))
+         '(lambda (x) (memq x '(4tab-autoindent uvm default))))
 
     (defun yura/verilog-select-style ()
       "Set indents for `verilog-mode' depending on `yura/verilog-buffer-style'."
       (cl-case yura/verilog-buffer-style
-        (tab-4width (yura/verilog-set-style-tab-4width))
-        (uvm        (yura/verilog-set-style-uvm))
-        (default    (yura/verilog-set-style-default))
-        (otherwise  (yura/verilog-set-style-tab-4width))))
+        (4tab-autoindent (yura/verilog-set-style-4tab-autoindent))
+        (uvm             (yura/verilog-set-style-uvm))
+        (default         (yura/verilog-set-style-default))
+        (otherwise       (yura/verilog-set-style-4tab-autoindent))))
 
     (defun yura/verilog-show-style ()
       "Inform caller of the current verilog style(`yura/verilog-buffer-style')."

@@ -817,6 +817,7 @@ line, or if a region is selected.  Else call
      ("C-c M-o" . org-open-at-point)
      ("C-c C-x m" . yura/org-toggle-emphasis-markers)
      ("C-c C-x l" . yura/org-toggle-link-display)
+     ("C-c C-x i" . org-toggle-inline-images)
      ("C-M-<return>" . org-insert-subheading) ;may be handy, as C-<return> bind to `org-insert-heading-respect-content'
      ("C-m" . modi/org-return-no-indent)
      ("<" . modi/org-template-maybe)

@@ -17,6 +17,7 @@
 ;;    Identifier
 ;;    Class name
 ;;    Formal verification
+;;    UVM
 ;;  Number
 ;;  Make file
 ;;  Tcl
@@ -307,6 +308,13 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
     1
     font-lock-comment-delimiter-face
     prepend)))
+
+;;;; UVM
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("\\<\\(uvm_resource_db\\|uvm_config_db\\)\\>"
+    1
+    font-lock-function-name-face)))
 
 ;;; Number
 (defvar hkeywords-number-face 'hkeywords-number-face

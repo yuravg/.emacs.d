@@ -1083,7 +1083,11 @@ and you should edit file after launch this command."
         (re-search-backward "\\(\\<function \\)\\|\\(\\<task \\)")
         (search-forward "(")
         (backward-word 1)
-        (insert (format "%s::" name))))
+        (insert (format "%s::" name))
+        (indent-region (move-beginning-of-line nil)
+                       ((re-search-forward "\\(\\<endfunction\\>\\)\\|\\(\\<endtask\\>\\)")
+                        (move-end-of-line nil)
+                        (point)))))
 
 ;;; Verilog compile
     (defvar yura/verilog-compiler-command nil

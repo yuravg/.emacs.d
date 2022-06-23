@@ -57,6 +57,29 @@
     ;; `magit-bury-buffer-function' bind to 'q' for magit-status, magit-log buffers.
     (setq magit-bury-buffer-function #'magit-restore-window-configuration)
 
+    ;; https://scripter.co/view-github-pull-requests-in-magit/
+    ;; https://endlessparentheses.com/automatically-configure-magit-to-access-github-prs.html
+    (defun modi/add-PR-fetch-ref (&optional remote-name)
+      "If refs/pull is not defined on a GH repo, define it.
+
+If REMOTE-NAME is not specified, it defaults to the `remote' set
+for the \"main\" or \"master\" branch."
+      (let* ((remote-name (or remote-name
+                              (magit-get "branch" "main" "remote")
+                              (magit-get "branch" "master" "remote")))
+             (remote-url (magit-get "remote" remote-name "url"))
+             (fetch-refs (and (stringp remote-url)
+                              (string-match "github" remote-url)
+                              (magit-get-all "remote" remote-name "fetch")))
+             ;; https://oremacs.com/2015/03/11/git-tricks/
+             (fetch-address (format "+refs/pull/*/head:refs/pull/%s/*" remote-name)))
+        (unless (member fetch-address fetch-refs)
+          (magit-git-string "config"
+                            "--add"
+                            (format "remote.%s.fetch" remote-name)
+                            fetch-address))))
+    (add-hook 'magit-mode-hook #'modi/add-PR-fetch-ref)
+
     (bind-keys
      :map magit-status-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)

@@ -327,12 +327,13 @@ It is assumed that the author has only one or two names."
 
 ;;; Git-modes
 ;; The 'git-modes' package is not available from Melpa
-(use-package gitattributes-mode)
-
-(use-package gitconfig-mode
+(use-package git-modes
   :config
-  (with-eval-after-load 'easy-escape
-    (add-hook 'gitconfig-mode-hook #'easy-escape-minor-mode)))
+  (use-package gitconfig-mode
+    :config
+    (progn
+      (with-eval-after-load 'easy-escape
+        (add-hook 'gitconfig-mode-hook #'easy-escape-minor-mode)))))
 
 ;;; Emojify
 ;; https://github.com/iqbalansari/emacs-emojify

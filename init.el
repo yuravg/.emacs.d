@@ -90,8 +90,8 @@ need Org version to be at least 9.x.")
     fold-this
     ggtags ctags-update
     gist
+    git-modes
     git-timemachine ; walk through git revisions
-    gitattributes-mode gitconfig-mode gitignore-mode ;git-modes
     google-translate
     grip-mode
     hardcore-mode

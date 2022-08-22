@@ -154,6 +154,7 @@ If nil, show the same in the minibuffer.")
                 " ElDoc"        ;eldoc
                 " Elpy"         ;elpy-mode
                 " Fly"          ;Flyspell
+                " Fly/en"       ;Flyspell
                 " GG"           ;ggtags
                 " HSA"          ;auto-highlight-symbol-mode
                 " Omit"         ;omit mode in dired

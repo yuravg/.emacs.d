@@ -121,7 +121,6 @@ need Org version to be at least 9.x.")
     multiple-cursors
     neotree
     nov    ;Ebook (.epub) reader
-    org
     org-cliplink ; paste copied links as well-formatted org-mode links with desc
     org-noter ; takes notes associated to pdf files in org mode
     org-tree-slide

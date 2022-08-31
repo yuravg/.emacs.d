@@ -41,6 +41,11 @@ You can start using my emacs setup by following these steps:
    =<MY-EMACSD-DIR>=, you will need to do =\emacs -Q -l
    <MY-EMACSD-DIR>/init.el=.
 
+5. Install [[https://orgmode.org/][Org Mode]] via GNU ELPA (built-in package is not used by
+   default, see =modi/org-version-select= local variable for more information):
+   - =M-x package-install RET org RET=
+   - =M-x list-packages RET=; open =org=; push =install= button
+
 That's it!
 
 The first start will take a couple of minutes as it auto-installs all

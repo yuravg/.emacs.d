@@ -1046,11 +1046,10 @@ Examples: endmodule                 → endmodule : module_name
 
 To execute command should move point below the Verilog 'task' or 'function'.
 If called without prefix ARG move after class.
-If prefixed with \\[universal-argument], move to the end of page.
-NOTE: this command is dangerous(makes numerous changes),
-and you should edit file after launch this command."
+If prefixed with \\[universal-argument], move to the end of page."
       (interactive "P")
-      (let ((beg)
+      (save-excursion
+        (let ((beg)
             (end)
             (name))
         (move-end-of-line nil)
@@ -1088,7 +1087,7 @@ and you should edit file after launch this command."
                               (point))
                        (progn (re-search-forward "\\(\\<endfunction\\>\\)\\|\\(\\<endtask\\>\\)")
                               (move-end-of-line nil)
-                              (point)))))
+                              (point))))))
 
 ;;; Verilog compile
     (defvar yura/verilog-compiler-command nil

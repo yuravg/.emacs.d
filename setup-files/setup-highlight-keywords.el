@@ -22,6 +22,7 @@
 ;;  Make file
 ;;  Tcl
 ;;  Perl
+;;  PlantUML
 ;;  Backslash
 
 
@@ -456,6 +457,13 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
 (font-lock-add-keywords
  'cperl-mode
  '(("\\(=\\s-+~\\)" 1 '(:inherit font-lock-keyword-face :weight bold))))
+
+;;; PlantUML
+(defvar plantuml-elements-keywords
+  '(("\\_<abstract\\|abstract class\\|annotation circle\\|()\\|class\\|diamond\\|<>\\|entity\\|enum\\|interface\\|\\
+protocol\\|struct\\|package\\_>"
+     . font-lock-builtin-face)))
+(font-lock-add-keywords 'plantuml-mode plantuml-elements-keywords)
 
 ;;; Backslash
 (defvar backslash-ending-hkeywords

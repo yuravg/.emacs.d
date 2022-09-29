@@ -961,6 +961,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                   ("\\bwhile("     . "while (")
                   ("\\bwait("      . "wait (")
                   ("\\bfor("       . "for (")
+                  ("\\bforeach("   . "foreach (")
                   ("\\b$display (" . "$display(")
                   ("\\balways@"    . "always @")
                   ("\\balways_ff@" . "always_ff @")

@@ -313,7 +313,8 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\)\
 ;;;; UVM
 (font-lock-add-keywords
  'verilog-mode
- '(("\\<\\(uvm_resource_db\\|uvm_config_db\\)\\>"
+ '(("\\<\\(uvm_resource_db\\|uvm_config_db\\|uvm_event\\|uvm_tlm_analysis_fifo\\|\
+uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
     1
     font-lock-function-name-face)))
 

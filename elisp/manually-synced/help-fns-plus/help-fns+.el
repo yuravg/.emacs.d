@@ -4,22 +4,26 @@
 ;; Description: Extensions to `help-fns.el'.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 2007-2018, Drew Adams, all rights reserved.
+;; Copyright (C) 2007-2022, Drew Adams, all rights reserved.
 ;; Created: Sat Sep 01 11:01:42 2007
 ;; Version: 0
 ;; Package-Requires: ()
-;; Last-Updated: Thu May 10 15:48:56 2018 (-0700)
+;; Last-Updated: Thu Jun  9 14:28:00 2022 (-0700)
 ;;           By: dradams
-;;     Update #: 2428
+;;     Update #: 2582
 ;; URL: https://www.emacswiki.org/emacs/download/help-fns%2b.el
 ;; Doc URL: https://emacswiki.org/emacs/HelpPlus
 ;; Keywords: help, faces, characters, packages, description
-;; Compatibility: GNU Emacs: 22.x, 23.x, 24.x, 25.x, 26.x
+;; Compatibility: GNU Emacs: 22.x, 23.x, 24.x, 25.x, 26.x, 27.x
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `button', `cl', `cl-lib', `gv', `help-fns', `help-mode', `info',
-;;   `macroexp', `naked', `radix-tree', `wid-edit', `wid-edit+'.
+;;   `auth-source', `backquote', `button', `bytecomp', `cconv', `cl',
+;;   `cl-generic', `cl-lib', `cl-macs', `eieio', `eieio-core',
+;;   `eieio-loaddefs', `epg-config', `gv', `help-fns', `help-mode',
+;;   `info', `macroexp', `naked', `package', `password-cache',
+;;   `radix-tree', `seq', `tabulated-list', `url-handlers',
+;;   `url-parse', `url-vars', `wid-edit', `wid-edit+'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -117,6 +121,38 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2022/06/09 dadams
+;;     describe-variable (Emacs 23+): Don't fill var value, as that loses significant whitespace.
+;; 2022/01/14 dadams
+;;     Soft-require package.el, so describe-package gets redefined.
+;; 2021/08/18 dadams
+;;     describe-variable: Say var is lexically scoped, if that's the case.
+;; 2021/06/26 dadams
+;;     describe-variable (all versions): Disallow nil (as a symbol) for the default value.
+;; 2021/03/17 dadams
+;;      Use buffer-string, not buffer-substring, for whole buffer.
+;; 2021/02/22 dadams
+;;     describe-variable (latest): Inserted a blank line before 'Its value is' (Emacs bug #46702).
+;; 2020/10/22 dadams
+;;     Require cl-lib (or cl, for Emacs < 24), for gentemp.
+;;     Info-make-manuals-xref: Restore missing let binding for var search-now-p.
+;; 2020/10/09 dadams
+;;     help-cross-reference-manuals: nil cdr for default value now.
+;;     Info-make-manuals-xref: Allow non-nil cdr to open an Info Index buffer even for just Emacs and Elisp manuals.
+;; 2020/10/08 dadams
+;;     help-info-manual-lookup button: Use info-lookup-symbol if BOOKS is the symbol emacs-elisp.
+;;     help-cross-reference-manuals: Change default value to have non-nil cdr.  Update doc about car = emacs + elisp.
+;;     Info-make-manuals-xref: If MANUALS-SPEC is the help-cross-reference-manuals default then use "see", not "check".
+;; 2020/08/18 dadams
+;;     help-substitute-command-keys: Corrected handling \= by advancing ii to jj after skipping \=.
+;; 2020/08/14 dadams
+;;     describe-function, describe-variable (< Emacs 23): Use help-print-return-message, not print-help-return-message.
+;; 2020/05/06 
+;;     help-documentation: Corrected last change (paren-scope typo):
+;;       ADD-HELP-BUTTONS is separate arg to help-substitute-command-keys.
+;;     help-fns--signature, describe-function-1: Use help-commands-to-key-buttons, not (help-)substitute-command-keys.
+;; 2019/11/15 dadams
+;;     help-documentation: Added optional arg REMOVE-SIG.  Use it in describe-mode, to fix Emacs bug #38222.
 ;; 2018/05/10 dadams
 ;;     describe-face: Correct face-at-point call for Emacs 23.
 ;; 2018/04/15 dadams
@@ -155,7 +191,7 @@
 ;; 2015/08/30 dadams
 ;;     describe-function-1: Typo: auto-do-load -> autoload-do-load.
 ;; 2015/08/22 dadams
-;;     describe-keymap: Allow arg to be a keymap (not a keymap variable), when not interactive.  Suggestion by erjoalgo.
+;;     describe-keymap: Allow arg to be a keymap (not a keymap variable), when not interactive.  Suggested by erjoalgo.
 ;; 2015/08/13 dadams
 ;;     describe-variable:
 ;;       PREDICATE arg to completing-read needs to use original buffer, not minibuffer, when test boundp.
@@ -182,7 +218,7 @@
 ;;     describe-variable: Use face describe-variable-value always.  Fill region for value always.
 ;;                        Control number of newlines before and after Value:, and after manuals xref.
 ;; 2014/11/12 dadams
-;;     describe-package: Added version for Emacs 24.4+ - Use package-alist, package--builtins, or package-archive-contents.
+;;     describe-package: Added Emacs 24.4+ version: Use package-alist, package--builtins, or package-archive-contents.
 ;; 2014/11/08 dadams
 ;;     describe-mode-1: Show major-mode and mode-function also, on a separate line (Emacs bug #18992), filling.
 ;; 2014/08/10 dadams
@@ -234,7 +270,8 @@
 ;; 2012/09/24 dadams
 ;;     describe-file: Added optional arg NO-ERROR-P.
 ;; 2012/09/22 dadams
-;;     Info-index-occurrences, Info-first-index-occurrence: Replace Info-directory call by short version.  Better Searching msg.
+;;     Info-index-occurrences, Info-first-index-occurrence:
+;;       Replace Info-directory call by short version.  Better Searching msg.
 ;; 2012/09/21 dadams
 ;;     Renamed Info-any-index-occurrences-p to Info-first-index-occurrence.
 ;;     Info-any-index-occurrences-p: Return the first successful lookup, not t.
@@ -412,7 +449,12 @@
 (when (or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
   (require 'info)) ;; Info-virtual-files
 
-(eval-when-compile (require 'cl)) ;; case, gentemp
+(require 'package nil t) ;; describe-package
+
+(eval-when-compile (require 'cl)) ;; case
+
+(unless (require 'cl-lib nil t) ;; gentemp - Emacs 24+
+  (require 'cl))                ;; Emacs < 24
 
 
 ;; Quiet the byte-compiler.
@@ -449,12 +491,19 @@
 ;; Need Emacs 23 for version of `make-text-button' that accepts a string.
 (when (> emacs-major-version 22)
 
-  (defun help-documentation (function &optional raw add-help-buttons)
-    "Same as `documentation', but optionally adds buttons for help.
+  (defun help-documentation (function &optional raw add-help-buttons remove-sig)
+    "Like `documentation', but maybe add help buttons and remove signature.
 Non-nil optional arg ADD-HELP-BUTTONS does that, adding buttons to key
-descriptions, which link to the key's command help."
+ descriptions, which link to the key's command help.
+Non-nil optional arg REMOVE-SIG means do not include `(fn...)' at end."
     (let ((raw-doc  (documentation function 'RAW)))
-      (if raw raw-doc (help-substitute-command-keys raw-doc add-help-buttons))))
+      (if raw
+          raw-doc
+        (help-substitute-command-keys
+         (if remove-sig ; Use in `describe-mode' to fix Emacs bug #38222.
+             (replace-regexp-in-string "\n\n(fn[^)]*?)\\'" "" raw-doc)
+           raw-doc)
+         add-help-buttons))))
 
   (defun help-documentation-property (symbol prop &optional raw add-help-buttons)
     "Same as `documentation-property', but optionally adds buttons for help.
@@ -525,7 +574,7 @@ descriptions, which link to the key's command help."
                              newstrg  (if odd
                                           (concat newstrg
                                                   (substring strg 0 escaped) ; Before \='s
-                                                  (substring strg (+ 2 escaped) ii)) ; After \='s
+                                                  (substring strg (+ 2 escaped) (setq ii  jj))) ; After \='s
                                         (concat newstrg (substring strg 0 ii)))))))))
 
           (when ma
@@ -596,24 +645,38 @@ Clicking the button shows the help for COMMAND."
 (when (boundp 'Info-virtual-files)      ; Emacs 23.2+
 
   (defcustom help-cross-reference-manuals '(("emacs" "elisp"))
-    "*Manuals to search, for a `*Help*' buffer link to the manuals.
-A cons.
+    "Manuals to search, for a `*Help*' buffer link to the manuals.
+The default value is ((\"emacs\" \"elisp\")).  Clicking the
+cross-reference link in `*Help*' uses `info-lookup-symbol' to take you
+directly to the relevant doc in the Emacs or Elisp manual.  This is
+very quick.
 
- The car is a list of manuals to search, or the symbol `all', to
-  search all.  If nil, then do not create a cross-reference link.
+Any other value means that clicking the link searches the indexes of
+the specified manuals and then opens an Info Index buffer with links
+to the relevant manuals.  This can take a while, and if there are no
+matches then the `*info*' buffer shown is empty.  The advantage of
+this approach is that you can get to a hit in more than one manual.
 
- The cdr is a boolean:
+The option value is a cons: (MANUALS . SEARCH-FIRST).
 
-  Non-`nil' means search the manuals, then create a cross-ref link:
-        create it only if some search hits are found.
+ MANUALS is the list of manuals to search, or the symbol `all', to
+  search all.  If `nil' then do not create a cross-reference link.
 
-  `nil' means create a cross-ref link without searching manuals
-        first (but only if there are some manuals to search)."
+ SEARCH-FIRST is a Boolean value.  If MANUALS specifies other than
+ just the Emacs and Elisp manuals (both) then:
+
+  * `nil' SEARCH-FIRST means create a cross-reference link
+    immediately, whether or not there are actually any matches.
+
+  * Non-`nil' SEARCH-FIRST means search the indexes, and create a link
+    only if there are matches.  The indexes are thus searched before
+    populating buffer `*Help*', which takes time.  You probably do not
+    want to use this possibility."
     :set #'(lambda (sym defs) (custom-set-default sym defs) (setq Info-indexed-nodes  ()))
     :type '(cons
             (choice :tag "Which Manuals"
-             (repeat :tag "Specific Manuals (files)" string)
-             (const  :tag "All Manuals" all))
+                    (repeat :tag "Specific Manuals (files)" string)
+                    (const  :tag "All Manuals"              all))
             (boolean :tag "Search Before Creating Button?"))
     :group 'help)
 
@@ -652,6 +715,7 @@ so that matches are exact (ignoring case).")
             (insert (format "* %-38s (%s)%s.%s\n"  (format "%s [%s]:" (nth 1 entry) (nth 0 entry))
                             (nth 0 entry)  (nth 2 entry)
                             (if (nth 3 entry) (format " (line %s)" (nth 3 entry)) ""))))))))
+
   (add-to-list 'Info-virtual-files '("\\`\\*Indexed\\*\\'"
                                      (find-file . Info-indexed-find-file)
                                      (find-node . Info-indexed-find-node)
@@ -659,7 +723,7 @@ so that matches are exact (ignoring case).")
                                      ))
 
   (defun Info-make-manuals-xref (object &optional no-newlines-after-p manuals-spec nomsg)
-    "Create a cross-ref link for index entries for OBJECT in manuals.
+    "Create a cross-ref link for entries for OBJECT in manuals.
 Non-`nil' optional arg NO-NEWLINES-AFTER-P means do not add two
 newlines after the cross reference.
 
@@ -668,35 +732,70 @@ the same form as option `help-cross-reference-manuals', and it
 defaults to the value of that option.
 
 Do nothing if the car of MANUALS-SPEC is nil (no manuals to search).
-If its cdr is `nil' then create the link without first searching any
-manuals.  Otherwise, create the link only if there are search hits in
-the manuals."
+
+Otherwise, there are 3 cases:
+
+1. The cdr is `nil' and the car has the two manuals \"emacs\" and
+   \"elisp\", and only these (this is the default).
+
+   Create the link without first searching any manuals.  Clicking the
+   link uses `help-lookup-symbol'.
+
+2. The cdr is `nil' and the car does not have just those two manuals.
+
+   Create the link without first searching any manuals.  Clicking the
+   link then searches the manuals.
+
+3. The cdr is non-`nil'.
+
+   Create the link only if there are search hits in the manuals.
+   This takes time.
+
+In cases #1 and #2, clicking the link might find that there are no
+search hits in the manuals.  In case #3, if there is a link then it is
+sure to lead to hits.
+
+In cases #2 and #3, clicking the link brings up an Info index buffer
+for the manuals with hits.  In case #1, clicking the link takes you
+directly to a hit in one of the manuals, Emacs or Elisp.
+
+Cases #1 and #2 create the `*Help'* buffer quickly.  Case #3 takes
+time to create it - possibly considerable time."
     (when (or (stringp object)  (symbolp object)) ; Exclude, e.g., a keymap as OBJECT.
       (unless manuals-spec (setq manuals-spec  help-cross-reference-manuals))
       (when (car manuals-spec) ; Create no link if no manuals to search.
-        (let ((books         (car manuals-spec))
-              (search-now-p  (cdr manuals-spec))
-              (symb-name     (if (stringp object) object (symbol-name object))))
+        (let ((books      (car manuals-spec))
+              (symb-name  (if (stringp object) object (symbol-name object)))
+              search-now-p)
+          (when (or (equal books '("emacs" "elisp"))  (equal books '("elisp" "emacs")))
+            (setq books  'emacs-elisp))
+          (setq search-now-p  (cdr manuals-spec))
           (when (or (not search-now-p)
+                    (eq books 'emacs-elisp)
                     (save-current-buffer (Info-first-index-occurrence symb-name () books nomsg)))
             (let ((buffer-read-only  nil)
                   (nl-before         (cond ((and (eq ?\n (char-before)) ; Quicker than `looking-back', apparently.
                                                  (eq ?\n (char-before (1- (point))))) "")
                                            ((eq ?\n (char-before))                    "\n")
                                            (t                                         "\n\n"))))
-              (insert (format "%sFor more information %s the " nl-before (if (cdr manuals-spec) "see" "check")))
-              (help-insert-xref-button "manuals" 'help-info-manual-lookup symb-name () books)
+              (insert (format "%sFor more information %s the "
+                              nl-before (if (or (eq books 'emacs-elisp)  search-now-p) "see" "check")))
+              (help-insert-xref-button "manuals" 'help-info-manual-lookup symb-name () books search-now-p)
               (insert ".")
               (unless no-newlines-after-p (insert "\n\n"))))))))
+
 
   (when (and (> emacs-major-version 21)
              (condition-case nil (require 'help-mode nil t) (error nil))
              (get 'help-xref 'button-category-symbol)) ; In `button.el'
     (define-button-type 'help-info-manual-lookup
-        :supertype 'help-xref
-        'help-function #'(lambda (string &optional index-nodes books nomsg)
-                           (Info-index-entries-across-manuals string () books nomsg))
-        'help-echo "mouse-2, RET: Look it up in the manuals"))
+      :supertype 'help-xref
+      'help-function #'(lambda (string &optional index-nodes books search-now-p nomsg)
+                         (if (and (eq books 'emacs-elisp)  (not search-now-p))
+                             (info-lookup-symbol (intern string))
+                           (when (eq books 'emacs-elisp) (setq books  (list "emacs" "elisp")))
+                           (Info-index-entries-across-manuals string () books nomsg)))
+      'help-echo "mouse-2, RET: Look it up in the manuals"))
 
   (defun Info-index-entries-across-manuals (string &optional index-nodes manuals nomsg)
     "Look up STRING in Info MANUALS on your system.
@@ -827,10 +926,10 @@ Optional arg NOMSG non-nil means do not display a progress message."
                                     (while (progn (goto-char (point-min))
                                                   (when (re-search-forward pattern nil t)
                                                     (throw 'Info-first-index-occurrence
-                                                      (list manual
-                                                            (match-string-no-properties 1)
-                                                            (match-string-no-properties 2)
-                                                            (match-string-no-properties 3))))
+                                                           (list manual
+                                                                 (match-string-no-properties 1)
+                                                                 (match-string-no-properties 2)
+                                                                 (match-string-no-properties 3))))
                                                   (setq index-nodes  (cdr index-nodes)
                                                         node         (car index-nodes)))
                                       (Info-goto-node node))))
@@ -946,7 +1045,7 @@ have their own back/forward buttons."
                   (save-excursion
                     (fill-region-as-paragraph (line-beginning-position 0) (line-end-position 0) nil t t))
                   (with-current-buffer standard-output
-                    (insert (help-documentation mode-function nil 'ADD-HELP-BUTTONS)))
+                    (insert (help-documentation mode-function nil 'ADD-HELP-BUTTONS 'REMOVE-SIGNATURE)))
                   (Info-make-manuals-xref mode-function
                                           t nil (not (called-interactively-p 'interactive)))) ; Link manuals.
                 (insert-button pretty-minor-mode 'action (car help-button-cache)
@@ -974,7 +1073,7 @@ have their own back/forward buttons."
             (save-excursion
               (fill-region-as-paragraph (line-beginning-position 0) (line-end-position 0) nil t t))))
         (let* ((maj      major-mode)
-               (maj-doc  (help-documentation maj nil 'ADD-HELP-BUTTONS)))
+               (maj-doc  (help-documentation maj nil 'ADD-HELP-BUTTONS 'REMOVE-SIGNATURE)))
           (with-current-buffer standard-output
             (insert maj-doc)
             (Info-make-manuals-xref
@@ -1052,7 +1151,9 @@ Return the description that was displayed, as a string."
               ;; Use " is " instead of ": " so it is easier to get the function name using `forward-sexp'.
               (princ " is ")
               (describe-function-1 function)
-              (print-help-return-message)
+              (if (fboundp 'help-print-return-message)
+                  (help-print-return-message)
+                (print-help-return-message))
               (with-current-buffer standard-output (buffer-string))))))))) ; Return help text.
 
 
@@ -1173,8 +1274,7 @@ Return the description that was displayed, as a string."
                                 ((let ((fun  function))
                                    (while (and (symbolp fun)
                                                (setq fun  (symbol-function fun))
-                                               (not (setq usage  (help-split-fundoc (documentation fun)
-                                                                                    function)))))
+                                               (not (setq usage  (help-split-fundoc (documentation fun) function)))))
                                    usage)
                                  (car usage))
                                 ((or (stringp def)  (vectorp def))
@@ -1203,7 +1303,7 @@ Return the description that was displayed, as a string."
 ;; 1. Call `Info-make-manuals-xref' to create a cross-ref link to manuals.
 ;; 2. Add key-description buttons to command help.
 ;;
-(when (and (boundp 'Info-virtual-files)      ; Emacs 23.2 through 24.2
+(when (and (boundp 'Info-virtual-files) ; Emacs 23.2 through 24.2
            (not (fboundp 'help-fns--autoloaded-p)))
 
   (defun describe-function-1 (function)
@@ -1373,7 +1473,6 @@ Return the description that was displayed, as a string."
               (when (and doc  (boundp 'Info-virtual-files)) ; Emacs 23.2+
                 (Info-make-manuals-xref function)) ; Link to manuals.  (With progress message.)
               (insert (or doc  "Not documented."))))))))
-
   )
 
 (when (fboundp 'help-fns--autoloaded-p) ; Emacs 24.3+
@@ -1430,7 +1529,8 @@ Return the description that was displayed, as a string."
 
   ;; REPLACE ORIGINAL in `help-fns.el'
   ;;
-  ;; Add key-description buttons to command help: Use `help-documentation', not `documentation'.
+  ;; Add key-description buttons to command help:
+  ;; Use `help-documentation', not `documentation' and `help-commands-to-key-buttons', not `substitute-command-keys'.
   ;;
   (defun help-fns--signature (function doc real-def real-function buffer)
     "Insert usage at point and return docstring."
@@ -1467,7 +1567,7 @@ Return the description that was displayed, as a string."
                            (let (subst-use1 subst-doc)
                              (with-current-buffer buffer
                                (setq subst-use1  (substitute-command-keys use1)
-                                     subst-doc   (substitute-command-keys doc)))
+                                     subst-doc   (help-commands-to-key-buttons doc)))
                              (help-highlight-arguments subst-use1 subst-doc))
                          (cons use1 doc))))
           (let ((fill-begin  (point))
@@ -1554,7 +1654,7 @@ Return the description that was displayed, as a string."
                                   help-enable-auto-load
                                   (string-match "\\([^\\]=\\|[^=]\\|\\`\\)\\\\[[{<]" doc-raw)
                                   (load (cadr real-def) t))
-                             (help-substitute-command-keys doc-raw 'ADD-HELP-BUTTONS)
+                             (help-commands-to-key-buttons doc-raw)
                            (condition-case err
                                (help-documentation function nil 'ADD-HELP-BUTTONS)
                              (error (format "No Doc! %S" err))))))
@@ -1568,7 +1668,6 @@ Return the description that was displayed, as a string."
             (when (and doc  (boundp 'Info-virtual-files)) ; Emacs 23.2+
               (Info-make-manuals-xref function)) ; Link to manuals.  (With progress message.)
             (insert (or doc  "Not documented.")))))))
-
   )
 
 (when (or (= emacs-major-version 25)  (and (= emacs-major-version 24)  (> emacs-minor-version 3)))
@@ -1595,7 +1694,9 @@ Return the description that was displayed, as a string."
            (sig-key        (if (subrp def) (indirect-function real-def) real-def))
            (file-name      (find-lisp-object-file-name function (if aliased 'defun def)))
            (pt1            (with-current-buffer (help-buffer) (point)))
-           (beg            (if (and (or (byte-code-function-p def)  (keymapp def)  (memq (car-safe def) '(macro lambda closure)))
+           (beg            (if (and (or (byte-code-function-p def)
+                                        (keymapp def)
+                                        (memq (car-safe def) '(macro lambda closure)))
                                     (stringp file-name)
                                     (help-fns--autoloaded-p function file-name))
                                (if (commandp def) "an interactive autoloaded " "an autoloaded ")
@@ -1664,7 +1765,7 @@ Return the description that was displayed, as a string."
                                         help-enable-auto-load
                                         (string-match "\\([^\\]=\\|[^=]\\|\\`\\)\\\\[[{<]" doc-raw)
                                         (autoload-do-load real-def))
-                                   (help-substitute-command-keys doc-raw 'ADD-HELP-BUTTONS)
+                                   (help-commands-to-key-buttons doc-raw)
                                  (condition-case err
                                      (help-documentation function nil 'ADD-HELP-BUTTONS)
                                    (error (format "No Doc! %S" err))))))
@@ -1684,7 +1785,6 @@ Return the description that was displayed, as a string."
             (unless (and (boundp 'text-quoting-style) ; Emacs 25+
                          (memq text-quoting-style '(straight grave)))
               (set-buffer-file-coding-system 'utf-8)))))))
-
   )
 
 (when (> emacs-major-version 25)
@@ -1695,9 +1795,8 @@ Return the description that was displayed, as a string."
       (with-current-buffer (help-buffer)
         (fill-region-as-paragraph (save-excursion (goto-char pt1) (forward-line 0) (point)) (point))))
     (terpri)(terpri)
-
     (pcase-let* ((`(,real-function ,def ,_aliased ,real-def)
-                   (help-fns--analyze-function function))
+                  (help-fns--analyze-function function))
                  (doc-raw
                   (condition-case nil
                       ;; FIXME: Maybe `documentation' should return nil for invalid functions, not signal an error.
@@ -1705,35 +1804,35 @@ Return the description that was displayed, as a string."
                     ((invalid-function void-function) nil))) ; E.g., an alias for a not yet defined function.
                  (key-bind-buf  (current-buffer))
                  (doc
-                  ;; If the function is autoloaded, and its docstring has key substitution constructs, then load the library.
-                  ;; In any case, add help buttons to doc.
+                  ;; If the function is autoloaded, and its docstring has key substitution constructs,
+                  ;; then load the library.  In any case, add help buttons to doc.
                   (if (and (autoloadp real-def)
                            doc-raw
                            help-enable-auto-load
                            (string-match-p "\\([^\\]=\\|[^=]\\|\\`\\)\\\\[[{<]" doc-raw)
                            (autoload-do-load real-def))
-                      (help-substitute-command-keys doc-raw 'ADD-HELP-BUTTONS)
+                      (help-commands-to-key-buttons doc-raw)
                     (condition-case err
                         (help-documentation function nil 'ADD-HELP-BUTTONS)
                       (error (format "No Doc! %S" err))))))
-                (help-fns--key-bindings function)
-                (with-current-buffer standard-output
-                  (setq doc  (condition-case nil
-                                 ;; FIXME:
-                                 ;; Maybe `help-fns--signature' should return `doc' for invalid functions, not signal error.
-                                 (help-fns--signature function doc-raw (if (subrp def) (indirect-function real-def) real-def)
-                                                      real-function key-bind-buf)
-                               ((invalid-function void-function) doc-raw))) ; E.g., an alias for a not yet defined function.
-                  (run-hook-with-args 'help-fns-describe-function-functions function)
-                  (insert "\n")
-                  (when (and doc  (boundp 'Info-virtual-files))
-                    (Info-make-manuals-xref function)) ; Link to manuals.  (With progress message.)
-                  (insert (or doc  "Not documented."))
-                  (when (or (function-get function 'pure)  (function-get function 'side-effect-free))
-                    (insert "\nThis function does not change global state, including the match data."))
-                  ;; Avoid asking user questions if she decides to save help buffer, when locale's codeset is not UTF-8.
-                  (unless (memq text-quoting-style '(straight grave)) (set-buffer-file-coding-system 'utf-8)))))
-
+      (help-fns--key-bindings function)
+      (with-current-buffer standard-output
+        (setq doc  (condition-case nil
+                       ;; FIXME: Maybe `help-fns--signature' should return `doc' for invalid functions,
+                       ;; not signal error.
+                       (help-fns--signature
+                        function doc-raw (if (subrp def) (indirect-function real-def) real-def)
+                        real-function key-bind-buf)
+                     ((invalid-function void-function) doc-raw))) ; E.g., alias for not yet defined function.
+        (run-hook-with-args 'help-fns-describe-function-functions function)
+        (insert "\n")
+        (when (and doc  (boundp 'Info-virtual-files))
+          (Info-make-manuals-xref function)) ; Link to manuals.  (With progress message.)
+        (insert (or doc  "Not documented."))
+        (when (or (function-get function 'pure)  (function-get function 'side-effect-free))
+          (insert "\nThis function does not change global state, including the match data."))
+        ;; Avoid asking user questions if decides to save help buffer, when locale's codeset isn't UTF-8.
+        (unless (memq text-quoting-style '(straight grave)) (set-buffer-file-coding-system 'utf-8)))))
   )
 
 
@@ -1799,7 +1898,7 @@ it is displayed along with the global value."
                                `(lambda (vv) (with-current-buffer ',curbuf (user-variable-p vv)))
                              `(lambda (vv) (with-current-buffer ',curbuf
                                         (or (boundp vv)  (get vv 'variable-documentation)))))
-                   t nil nil (and (symbolp symb)  (boundp symb)  (symbol-name symb))))
+                   t nil nil (and symb  (boundp symb)  (symbol-name symb))))
        (list (if (equal val "") symb (intern val))
              nil
              current-prefix-arg)))
@@ -1935,7 +2034,9 @@ it is displayed along with the global value."
                   (with-current-buffer standard-output
                     (save-excursion (re-search-backward (concat "\\(" customize-label "\\)") nil t)
                                     (help-xref-button 1 'help-customize-variable variable)))))
-              (print-help-return-message)
+              (if (fboundp 'help-print-return-message)
+                  (help-print-return-message)
+                (print-help-return-message))
               (with-current-buffer standard-output (buffer-string)))))))) ; Return the text displayed.
   )
 
@@ -1954,8 +2055,8 @@ nor the buffers in the buffer list.  See also `with-temp-buffer'."
     `(let ((,old-frame   (selected-frame))
            (,old-buffer  (current-buffer)))
        (unwind-protect
-            (progn (if (> emacs-major-version 22) (select-frame ,frame 'NORECORD) (select-frame ,frame))
-                   ,@body)
+           (progn (if (> emacs-major-version 22) (select-frame ,frame 'NORECORD) (select-frame ,frame))
+                  ,@body)
          (when (frame-live-p ,old-frame)
            (if (> emacs-major-version 22) (select-frame ,old-frame 'NORECORD) (select-frame ,old-frame)))
          (when (buffer-live-p ,old-buffer) (set-buffer ,old-buffer))))))
@@ -1999,7 +2100,7 @@ it is displayed along with the global value."
                        `(lambda (vv) (with-current-buffer ',curbuf (user-variable-p vv)))
                      `(lambda (vv) (with-current-buffer ',curbuf
                                 (or (get vv 'variable-documentation)  (and (boundp vv)  (not (keywordp vv)))))))
-                   t nil nil (and (symbolp symb)  (boundp symb)  (symbol-name symb))))
+                   t nil nil (and symb  (boundp symb)  (symbol-name symb))))
        (list (if (equal val "") symb (intern val))
              nil
              nil
@@ -2199,8 +2300,8 @@ file local variable.\n")
 
   (defface describe-variable-value '((((background dark)) (:foreground "#58DFFA4FFFFF")) ; a dark cyan
                                      (t (:foreground "Firebrick")))
-           "*Face used to highlight the variable value, for `describe-variable'."
-           :group 'help :group 'faces)
+    "*Face used to highlight the variable value, for `describe-variable'."
+    :group 'help :group 'faces)
 
   (defun describe-variable (variable &optional buffer frame optionp)
     "Display the full documentation of VARIABLE (a symbol).
@@ -2228,7 +2329,7 @@ the global value."
                       `(lambda (vv) (with-current-buffer ',curbuf (user-variable-p vv)))
                     `(lambda (vv) (with-current-buffer ',curbuf
                                (or (get vv 'variable-documentation)  (and (boundp vv)  (not (keywordp vv)))))))
-                  t nil nil (and (symbolp symb)  (boundp symb)  (symbol-name symb))))
+                  t nil nil (and symb  (boundp symb)  (symbol-name symb))))
        (list (if (equal val "") symb (intern val))
              nil
              nil
@@ -2266,6 +2367,7 @@ the global value."
                            (with-current-buffer standard-output
                              (save-excursion (re-search-backward "`\\([^`']+\\)'" nil t)
                                              (help-xref-button 1 'help-variable-def variable file-name)))
+                           (terpri)
                            (if valvoid (princ "It is void as a variable.") (princ "Its ")))
                   (if valvoid (princ " is void as a variable.") (princ "'s "))))
               (unless valvoid
@@ -2283,9 +2385,11 @@ the global value."
                       (unless (or (numberp val)  (symbolp val)  (characterp val)
                                   (and (stringp val)  (string-match-p "[\n]" val)))
                         (terpri))
-                      (let ((opoint  (point)))
-                        (pp val)
-                        (save-excursion (fill-region-as-paragraph opoint (point) nil t t)))
+                      ;; Can't fill value, as that breaks values (e.g. strings) where whitespace is significant.
+                      ;; (let ((opoint  (point)))
+                      ;;   (pp val)
+                      ;;   (save-excursion (fill-region-as-paragraph opoint (point) nil t t)))
+                      (pp val)
                       (when (stringp val) (terpri))
                       (put-text-property from (point) 'face 'describe-variable-value)
                       (if (< (point) (+ 68 (line-beginning-position 0)))
@@ -2302,9 +2406,11 @@ the global value."
                         (unless (or (numberp origval)  (symbolp origval)  (characterp origval)
                                     (and (stringp origval)  (string-match-p "[\n]" origval)))
                           (terpri))
-                        (let ((opoint  (point)))
-                          (pp origval)
-                          (save-excursion (fill-region-as-paragraph opoint (point) nil t t)))
+                        ;; Can't fill value, as that breaks values (e.g. strings) where whitespace is significant.
+                        ;; (let ((opoint  (point)))
+                        ;;   (pp origval)
+                        ;;   (save-excursion (fill-region-as-paragraph opoint (point) nil t t)))
+                        (pp origval)
                         (put-text-property from (point) 'face 'describe-variable-value)
                         (when (< (point) (+ from 20)) (delete-region (1- from) from) (terpri)))))))
               (terpri)
@@ -2327,12 +2433,12 @@ the global value."
                       (if (eq val global-val)
                           (progn (princ " the same.") (terpri))
                         (princ ":") (terpri) (terpri)
-                        ;; Fixme: `pp' can take an age if you happen to ask for a very large expression.
-                        ;; We should probably print it raw once and check whether it is a sensible size,
-                        ;; before prettyprinting.  -- fx
+                        ;; Fixme: `pp' can be slow for a very large expression.  We should maybe print it raw once
+                        ;; and check whether it is a sensible size, before prettyprinting.  -- fx
                         (let ((opoint  (point)))
                           (pp global-val)
-                          (save-excursion (fill-region-as-paragraph opoint (point) nil t t))
+                          ;; Can't fill value, as that breaks values (e.g. strings) where whitespace is significant.
+                          ;; (save-excursion (fill-region-as-paragraph opoint (point) nil t t))
                           (put-text-property opoint (point) 'face 'describe-variable-value)
                           ;; See previous comment for this function.  (help-xref-on-pp opoint (point))
                           (when (< (point) (+ opoint 20)) (delete-region (1- opoint) opoint))))))))
@@ -2380,6 +2486,9 @@ the global value."
                       ((not permanent-local))
                       ((bufferp locus)  (princ "  This variable's buffer-local value is permanent.\n"))
                       (t (princ "  This variable's value is permanent when it is given a local binding.\n")))
+                (unless (or (special-variable-p variable)  (not lexical-binding)) ; Say it's lexically scoped.
+                  (setq extra-line  t)
+                  (princ "  This variable is lexically scoped in the current context.\n"))                  
                 (unless (eq alias variable) ; Mention if it's an alias.
                   (setq extra-line  t)
                   (princ (format "  This variable is an alias for `%s'.\n" alias)))
@@ -2449,7 +2558,8 @@ the global value."
                                        ((looking-at "[\n]")          1)
                                        (t                            0))))
                     (delete-region (- (line-beginning-position) nb-nls) (line-beginning-position)))))
-              (with-current-buffer standard-output (buffer-string))))))))) ; Return the text displayed.
+              (with-current-buffer standard-output (buffer-string)))))))) ; Return the text displayed.
+  )
 
 ;;;###autoload
 (defun describe-option (variable &optional buffer) ; Bound to `C-h o'
@@ -2804,9 +2914,9 @@ Non-nil optional arg NO-ERROR-P prints an error message but does not
                                                      help-echo "`mouse-2' or `RET': Show full image"
                                                      keymap (keymap
                                                              (mouse-2 . (lambda (e) (interactive "e")
-                                                                           (find-file ,filename)))
+                                                                          (find-file ,filename)))
                                                              (13 . (lambda () (interactive)
-                                                                      (find-file ,filename))))))))
+                                                                     (find-file ,filename))))))))
              (image-info       (and (require 'image-dired nil t)
                                     (fboundp 'image-file-name-regexp)
                                     (if (fboundp 'string-match-p)
@@ -2882,7 +2992,7 @@ Non-nil optional arg NO-ERROR-P prints an error message but does not
     (unless (eq 0 (call-process shell-file-name nil t nil shell-command-switch
                                 (format "exiftool -All \"%s\"" file)))
       (error "Could not get EXIF data"))
-    (buffer-substring (point-min) (point-max))))
+    (buffer-string)))
 
 (defun describe-keymap (keymap &optional search-symbols-p) ; Bound to `C-h M-k'
   "Describe key bindings in KEYMAP.
@@ -2963,28 +3073,23 @@ Non-interactively:
     (defun describe-package (package)
       "Display the full documentation of PACKAGE (a symbol)."
       (interactive
-       (let* ((guess (function-called-at-point)))
+       (let* ((guess  (function-called-at-point)))
          (require 'finder-inf nil t)
          ;; Load the package list if necessary (but don't activate them).
-         (unless package--initialized
-           (package-initialize t))
-         (let ((packages (append (mapcar 'car package-alist)
-                                 (mapcar 'car package-archive-contents)
-                                 (mapcar 'car package--builtins))))
-           (unless (memq guess packages)
-             (setq guess nil))
-           (setq packages (mapcar 'symbol-name packages))
-           (let ((val
-                  (completing-read (if guess
-                                       (format "Describe package (default %s): "
-                                               guess)
-                                     "Describe package: ")
-                                   packages nil t nil nil guess)))
+         (unless package--initialized (package-initialize t))
+         (let ((packages  (append (mapcar 'car package-alist)
+                                  (mapcar 'car package-archive-contents)
+                                  (mapcar 'car package--builtins))))
+           (unless (memq guess packages) (setq guess  nil))
+           (setq packages  (mapcar 'symbol-name packages))
+           (let ((val  (completing-read (if guess
+                                            (format "Describe package (default %s): " guess)
+                                          "Describe package: ")
+                                        packages nil t nil nil guess)))
              (list (intern val))))))
-      (if (not (or (package-desc-p package) (and package (symbolp package))))
+      (if (not (or (package-desc-p package)  (and package  (symbolp package))))
           (message "No package specified")
-        (help-setup-xref (list #'describe-package package)
-                         (called-interactively-p 'interactive))
+        (help-setup-xref (list #'describe-package package) (called-interactively-p 'interactive))
         (with-help-window (help-buffer)
           (with-current-buffer standard-output
             (describe-package-1 package)
@@ -3017,7 +3122,7 @@ Non-interactively:
                                         packages nil t nil nil guess)))
              (list (if (equal val "") guess (intern val)))))))
       (if (not (or (and (fboundp 'package-desc-p)  (package-desc-p package))
-                   (and package (symbolp package))))
+                   (and package  (symbolp package))))
           (when (called-interactively-p 'interactive) (message "No package specified"))
         (help-setup-xref (list #'describe-package package) (called-interactively-p 'interactive))
         (with-help-window (help-buffer)
@@ -3026,7 +3131,6 @@ Non-interactively:
             (when (fboundp 'package-desc-name)  (setq package  (package-desc-name package))) ; Emacs 24.4
             (Info-make-manuals-xref (concat (symbol-name package) " package")
                                     nil nil (not (called-interactively-p 'interactive)))))))) ; Link to manuals
-
   )
 
 

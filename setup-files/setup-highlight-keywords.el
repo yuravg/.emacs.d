@@ -459,6 +459,31 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
  'cperl-mode
  '(("\\(=\\s-+~\\)" 1 '(:inherit font-lock-keyword-face :weight bold))))
 
+;; Scalar ${var}, $var
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\(${[A-z0-9_]+}\\|$[A-z0-9_]+\\)" 1 'font-lock-variable-name-face)))
+
+;; Reference ${$var}
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\(${$[A-z0-9_]+}\\)" 1 'font-lock-variable-name-face)))
+
+;; Default array
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\(@_\\)" 1 'cperl-array-face)))
+
+;; Hash like: %{$name}
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\(%{$\\w+}\\)" 1 'cperl-hash-face)))
+
+;; Function
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\([A-z0-9_]+\\)(.*)" 1 'font-lock-function-name-face)))
+
 ;;; PlantUML
 (defvar plantuml-elements-keywords
   '(("\\_<abstract\\|abstract class\\|annotation circle\\|()\\|class\\|diamond\\|<>\\|entity\\|enum\\|interface\\|\\

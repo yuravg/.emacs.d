@@ -4,6 +4,7 @@
 ;; Contents:
 ;;
 ;;    Run current buffer in shell
+;;    Repeat last shell command
 ;;    Package Comint
 
 ;;;; Run current buffer in shell
@@ -20,6 +21,14 @@
       (comint-send-input)
       (switch-to-buffer-other-window bname))))
 (key-chord-define-global "CC" #'run-buffer-in-shell)
+
+;;;; Repeat last shell command
+(defun yura-repeat-last-shell-command ()
+  (interactive)
+  (let ((cmd (cadr (assoc 'shell-command
+                          command-history))))
+    (message "Shell command: %s" cmd)
+    (shell-command cmd)))
 
 ;;;; Package Comint
 (use-package comint

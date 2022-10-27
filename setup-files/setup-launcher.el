@@ -40,6 +40,7 @@
   ("r"       counsel-rg "ripgrep cwd")
   ("sa"      async-shell-command "shell async cmd")
   ("ss"      shell-command "shell cmd")
+  ("sl"      yura-repeat-last-shell-command "repeat shell")
   ("se"      (sx-tab-all-questions nil "emacs") "emacs.SE")
   ("t"       shell "shell")
   ("C-t"     multi-term "terminal")

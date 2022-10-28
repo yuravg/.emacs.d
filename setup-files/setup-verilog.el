@@ -1012,7 +1012,10 @@ Examples: endmodule                 → endmodule : module_name
                     (if (or (string-match-p "task" keyword)
                             (string-match-p "function" keyword)
                             (string-match-p "module" keyword)
-                            (string-match-p "program" keyword))
+                            (string-match-p "program" keyword)
+                            (string-match-p "covergroup" keyword)
+                            (string-match-p "sequence" keyword)
+                            (string-match-p "property" keyword))
                         (progn (re-search-forward "(\\|;" nil :noerror)
                                (re-search-backward "\\w" nil :noerror))
                       (re-search-forward "\\w" nil :noerror))
@@ -1024,7 +1027,10 @@ Examples: endmodule                 → endmodule : module_name
                      ((string-match-p "function" keyword) (search-forward "endfunction"))
                      ((string-match-p "interface" keyword) (search-forward "endinterface"))
                      ((string-match-p "package" keyword) (search-forward "endpackage"))
-                     ((string-match-p "module" keyword) (search-forward "endmodule")))
+                     ((string-match-p "module" keyword) (search-forward "endmodule"))
+                     ((string-match-p "covergroup" keyword) (search-forward "endgroup"))
+                     ((string-match-p "sequence" keyword) (search-forward "endsequence"))
+                     ((string-match-p "property" keyword) (search-forward "endproperty")))
                     ;; Insert new identifier, remove old one
                     (insert (format " : %s tmp" name))
                     (backward-char 4)
@@ -1040,7 +1046,10 @@ Examples: endmodule                 → endmodule : module_name
                 "virtual task"
                 "protected task"
                 "virtual protected task"
-                "local task"))))
+                "local task"
+                "covergroup"
+                "sequence"
+                "property"))))
 
     (defun yura/verilog-task-func-move-from-class (arg)
       "Move a Verilog 'task' or 'function' from class - make them 'extern'.

@@ -272,7 +272,7 @@
  '(("\\(^\\s-*\\)\
 \\<\\(begin\\|end\\|join\\|join_any\\|join_none\\|endfunction\\|endtask\\|endclocking\\|endchecker\\|endgroup\\|endmodule\\|\
 endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\|endsequence\\|endproperty\\)\\>\
-\\( : \\<\\w+\\>\\)"
+\\([ ]?: \\<\\w+\\>\\)"
     3 'font-lock-comment-delimiter-face)))
 
 ;; block identifier

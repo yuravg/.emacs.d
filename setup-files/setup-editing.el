@@ -1701,7 +1701,9 @@ the cons elements are strings."
  ;; Override M-backspace to always do `backward-kill-word' using `modi-mode-map'.
  ;; Below is required so that `verilog-mode' does not bind it to `kill-word'.
  ("<M-delete>" . backward-kill-word)
- ("<C-M-backspace>" . backward-kill-sexp))
+ ("<C-M-backspace>" . backward-kill-sexp)
+ ("C-x C-h M-c")          ;default `describe-copying'
+ ("C-x C-h C-w"))         ;default `describe-no-warranty'
 (bind-to-modi-map "=" #'modi/align-to-equals)
 
 

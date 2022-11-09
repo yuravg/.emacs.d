@@ -194,16 +194,6 @@
         tcl-mode))
 
 ;;; Simulation, compilation
-;; Keywords for QuestaSim/ModelSim
-(font-lock-add-keywords
- 'shell-mode
- '(("\\<\\(Fatal\\|Error\\|Failure\\):" 1 '(:weight bold :background "tomato1") prepend)
-   ("\\<\\(Warning\\):" 1 '(:weight bold :background "yellow1") prepend)
-   ("\\<\\(UVM_FATAL @\\)" 1 '(:background "tomato1") prepend)
-   ("\\<\\(TEST FAILED\\)" 1 '(:background "yellow") prepend)
-   ("\\<\\(TEST PASSED\\)" 1 '(:background "light green") prepend)
-   ("\\<\\(UVM Report Summary\\)" 1 '(:background "gray89") prepend)))
-
 (font-lock-add-keywords
  'compilation-mode
  '(("\\<\\(Fatal\\|Error\\|Failure\\):" 1 '(:weight bold :background "tomato1") prepend)

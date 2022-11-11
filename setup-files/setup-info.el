@@ -378,7 +378,9 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 (defhydra hydra-info-to (:hint nil
                          :color teal)
   "
-_i_nfo      _o_rg      e_l_isp      e_L_isp intro      _e_macs      _c_alc      _g_rep emacs info      _p_ython"
+Open info:
+  _i_nfo      _o_rg      e_l_isp      e_L_isp intro      _e_macs      _c_alc      _g_rep emacs info      _p_ython
+"
   ("i" info)
   ("o" (ora-open-info "org" "*Org Info*"))
   ("l" (ora-open-info "elisp" "*Elisp Info*"))
@@ -387,7 +389,9 @@ _i_nfo      _o_rg      e_l_isp      e_L_isp intro      _e_macs      _c_alc      
   ("c" (ora-open-info "calc" "*Calc Info*"))
   ("C" (ora-open-info "cl" "* Emacs Common Lisp Info*"))
   ("p" (ora-open-info "python3" "*Python 3 Info*"))
-  ("g" counsel-ag-emacs-info))
+  ("g" counsel-ag-emacs-info)
+  ("q"   nil "cancel")
+  ("C-g" nil "cancel"))
 ;; Bind `hydra-info-to/body' should at setup-editing.el or setup-misc.el,
 ;; because there is a rebinding "C-x C-h" at setup-editing.el,
 ;; and binding to "C-x C-h i" at this place will not work

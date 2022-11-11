@@ -449,12 +449,14 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
  'cperl-mode
  '(("\\(=\\s-+~\\)" 1 '(:inherit font-lock-keyword-face :weight bold))))
 
-;; Scalar ${var}, $var
+;; Scalar: ${var}, $var, $var::var1::...
 (font-lock-add-keywords
  'cperl-mode
- '(("\\(${[A-z0-9_]+}\\|$[A-z0-9_]+\\)" 1 'font-lock-variable-name-face)))
+ '(("\\(${[A-z0-9_]+\\(::[A-z0-9_]+\\)*}\\|$[A-z0-9_]+\\(::[A-z0-9_]+\\)*\\)"
+    1
+    'font-lock-variable-name-face)))
 
-;; Reference ${$var}
+;; Reference: ${$var}
 (font-lock-add-keywords
  'cperl-mode
  '(("\\(${$[A-z0-9_]+}\\)" 1 'font-lock-variable-name-face)))
@@ -469,10 +471,10 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
  'cperl-mode
  '(("\\(%{$\\w+}\\)" 1 'cperl-hash-face)))
 
-;; Function
+;; Function: name(..); Lib1::Lib2->name(..)
 (font-lock-add-keywords
  'cperl-mode
- '(("\\([A-z0-9_]+\\)(.*)" 1 'font-lock-function-name-face)))
+ '(("\\(\\(\\([A-z0-9_]+::\\)*[A-z0-9_]+->\\)?[A-z0-9_]+\\)\(" 1 'font-lock-function-name-face)))
 
 ;;; PlantUML
 (defvar plantuml-elements-keywords

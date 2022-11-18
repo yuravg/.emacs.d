@@ -48,6 +48,11 @@
           (delete ".git" projectile-project-root-files-bottom-up))
     (add-to-list 'projectile-project-root-files ".git")
 
+    ;; Makefile and GNUMakefile can not be projectile project
+    (dolist (item '("Makefile" "GNUMakefile"))
+      (setq projectile-project-root-files (remove item
+                                                  projectile-project-root-files)))
+
     (setq projectile-project-root-files-functions
           '(projectile-root-local
             projectile-root-top-down ; First look for projects in top-down order

@@ -230,13 +230,13 @@
  'verilog-mode
  '(("\\(&&\\|||\\)" 1 'font-lock-builtin-face)))
 
-;; Comparison operators
+;; Operators: !=, !, ~
 (font-lock-add-keywords
  'verilog-mode
  '(("[^=]\\(==\\)[^=]" 1 'font-lock-builtin-face)))
 (font-lock-add-keywords
  'verilog-mode
- '(("\\(!=\\)" 1 'font-lock-builtin-face)))
+ '(("\\(!=\\|!\\|~\\)" 1 'font-lock-builtin-face)))
 
 ;; Event
 (font-lock-add-keywords

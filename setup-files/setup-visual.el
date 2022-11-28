@@ -56,7 +56,7 @@
      ((modi/is-font "Monoid") 11)
      ((modi/is-font "Pragmata") 13)
      ((modi/is-font "Iosevka SS08") 14)
-     ((modi/is-font "DejaVu Sans Mono") 13)
+     ((modi/is-font "DejaVu Sans Mono") (if (string-equal system-type "windows-nt") 13 14))
      (t 12))
     "Default font size in points."))
 
@@ -316,7 +316,7 @@ See `mode-line-format' to get help on the %-identifers used in this function."
         (setq-default line-spacing 1))
     (set-frame-font "Courier New-10" t t)))
  ((string-equal system-type "gnu/linux")
-  (set-frame-font "DejaVu Sans Mono-10" t t)))
+  (set-frame-font "DejaVu Sans Mono-11" t t)))
 
 ;;;; Global Font Resize
 (defun modi/global-font-size-adj (scale &optional absolute)

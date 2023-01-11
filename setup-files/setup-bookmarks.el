@@ -13,7 +13,12 @@
 (use-package bookmark
   :bind (:map bookmark-bmenu-mode-map
          ("C-j" . bookmark-bmenu-this-window)
-         ("q" . switch-to-prev-buffer)))
+         ("q" . switch-to-prev-buffer))
+  :config
+  (progn
+    ;; Disable bookmark fringe indicator
+    (>=e "28.1"
+        (setq bookmark-set-fringe-mark nil))))
 
 (defalias 'bs 'bookmark-set)
 (defalias 'bj 'bookmark-jump)

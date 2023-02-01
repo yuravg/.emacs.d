@@ -153,8 +153,8 @@ Execute commands: `yas-recompile-all', `yas-reload-all'."
              :isearch t)))))
 
     ;; `quartus-prime-snippets' package:
-    ;; This package is downloaded manually(~/.emacs.d/yasnippets-quartus/), if it is needed.
-    ;; `yasnippets-quartus' package has many snippets, load them only when they are needed:
+    ;; This package is downloaded manually(~/.emacs.d/quartus-prime-snippets/), if it is needed.
+    ;; `quartus-prime-snippets' package has many snippets, load them only when they are needed:
     ;; Commands to enable snippets:
     ;; `quartus-standard-snippets-enable', `quartus-professional-snippets-enable'
     ;; Commands to disable snippets:

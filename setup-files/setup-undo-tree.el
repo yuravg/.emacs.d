@@ -46,6 +46,8 @@
 ;;
 ;; * `undo-tree-visualize' bindings
 ;;
+;; C-x u - `undo-tree-visualize'
+;;
 ;; | [remap previous-line] | undo-tree-visualize-undo |
 ;; | [remap next-line]     | undo-tree-visualize-redo |
 ;; | C-p                   | undo-tree-visualize-undo |

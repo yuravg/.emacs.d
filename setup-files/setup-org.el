@@ -277,10 +277,12 @@ Toggle `yura/enable-org-agenda-file'."
       (if org-descriptive-links
           (progn (org-remove-from-invisibility-spec '(org-link))
                  (org-restart-font-lock)
-                 (setq org-descriptive-links nil))
+                 (setq org-descriptive-links nil)
+                 (message "Show org-mode descriptive links"))
         (progn (add-to-invisibility-spec '(org-link))
                (org-restart-font-lock)
-               (setq org-descriptive-links t))))
+               (setq org-descriptive-links t)
+               (message "Hide org-mode descriptive links"))))
 
 ;;; Org Defuns
     ;; http://emacs.stackexchange.com/a/13854/115

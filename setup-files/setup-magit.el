@@ -68,6 +68,7 @@
      ("C-j" . magit-diff-show-or-scroll-up)
      ("C-o" . magit-list-submodules)
      ("M-C-o" . magit-list-submodules)
+     ("M-r" . magit-diff-range)
      :map magit-diff-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)
      :map magit-cherry-mode-map

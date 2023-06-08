@@ -62,8 +62,12 @@
     (bind-keys
      :map magit-status-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)
+     ("C-o" . magit-list-submodules)
+     ("M-C-o" . magit-list-submodules)
      :map magit-log-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)
+     ("C-o" . magit-list-submodules)
+     ("M-C-o" . magit-list-submodules)
      :map magit-diff-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)
      :map magit-cherry-mode-map

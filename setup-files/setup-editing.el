@@ -404,7 +404,7 @@ Do not do anything if `do-not-delete-trailing-whitespace' is non-nil."
 (add-hook 'before-save-hook #'modi/delete-trailing-whitespace-buffer)
 ;; (remove-hook 'before-save-hook #'modi/delete-trailing-whitespace-buffer)
 
-(defun yura/toggle-delete-trailing-whitespace ()
+(defun yura/toggle-delete-trailing-whitespace-before-save ()
   "Toggle variable `do-not-delete-trailing-whitespace'."
   (interactive)
   (if do-not-delete-trailing-whitespace

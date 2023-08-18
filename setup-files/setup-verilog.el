@@ -1007,7 +1007,7 @@ Examples: endmodule                 → endmodule : module_name
         (mapc (lambda (keyword)
                 (let ((name))
                   (goto-char (point-min))
-                  (while (re-search-forward (concat "^\\s-*\\<" keyword) nil :noerror)
+                  (while (re-search-forward (concat "^\\s-*\\<" keyword "\\s-+") nil :noerror)
                     ;; Get the instance name
                     (if (or (string-match-p "task" keyword)
                             (string-match-p "function" keyword)

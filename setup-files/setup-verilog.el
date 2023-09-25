@@ -1029,10 +1029,10 @@ Examples: endmodule                 → endmodule : module_name
                     ;; Move to end of the instance
                     (cond
                      ((string-match-p "class" keyword) (search-forward "endclass"))
-                     ((string-match-p "task" keyword) (search-forward "endtask"))
-                     ((string-match-p "function" keyword) (search-forward "endfunction"))
                      ((string-match-p "interface" keyword) (search-forward "endinterface"))
                      ((string-match-p "package" keyword) (search-forward "endpackage"))
+                     ((string-match-p "task" keyword) (search-forward "endtask"))
+                     ((string-match-p "function" keyword) (search-forward "endfunction"))
                      ((string-match-p "module" keyword) (search-forward "endmodule"))
                      ((string-match-p "covergroup" keyword) (search-forward "endgroup"))
                      ((string-match-p "sequence" keyword) (search-forward "endsequence"))

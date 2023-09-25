@@ -1034,6 +1034,7 @@ Examples: endmodule                 → endmodule : module_name
                      ((string-match-p "task" keyword) (search-forward "endtask"))
                      ((string-match-p "function" keyword) (search-forward "endfunction"))
                      ((string-match-p "module" keyword) (search-forward "endmodule"))
+                     ((string-match-p "program" keyword) (search-forward "endprogram"))
                      ((string-match-p "covergroup" keyword) (search-forward "endgroup"))
                      ((string-match-p "sequence" keyword) (search-forward "endsequence"))
                      ((string-match-p "property" keyword) (search-forward "endproperty")))

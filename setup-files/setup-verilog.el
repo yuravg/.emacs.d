@@ -40,7 +40,8 @@
          ("\\.f\\'"           . verilog-mode) ;verilog file lists
          ("\\.psl\\'"         . verilog-mode)
          ("\\.vams\\'"        . verilog-mode)
-         ("\\.vinc\\'"        . verilog-mode))
+         ("\\.vinc\\'"        . verilog-mode)
+         ("\\.[s]?v.tpl\\'"   . verilog-mode)) ;.sv.tpl, .v.tpl templates
   :config
   (progn
 

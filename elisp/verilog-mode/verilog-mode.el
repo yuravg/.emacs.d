@@ -9,7 +9,7 @@
 ;; Keywords: languages
 ;; The "Version" is the date followed by the decimal rendition of the Git
 ;;     commit hex.
-;; Version: 2023.06.06.141322628
+;; Version: 2023.10.14.154754834
 
 ;; Yoni Rabkin <yoni@rabkins.net> contacted the maintainer of this
 ;; file on 19/3/2008, and the maintainer agreed that when a bug is
@@ -124,7 +124,7 @@
 ;;
 
 ;; This variable will always hold the version number of the mode
-(defconst verilog-mode-version "2023-06-06-86c6984-vpo"
+(defconst verilog-mode-version "2023-10-14-9395f12-vpo"
   "Version of this Verilog mode.")
 (defconst verilog-mode-release-emacs nil
   "If non-nil, this version of Verilog mode was released with Emacs itself.")
@@ -2556,11 +2556,13 @@ find the errors."
 (defconst verilog-assignment-operation-re-2
   (concat "\\(.*?\\)" verilog-assignment-operator-re))
 
+;; Loosely related to IEEE 1800's concurrent_assertion_statement
+(defconst verilog-concurrent-assertion-statement-re
+  "\\(\\<\\(assert\\|assume\\|cover\\|restrict\\)\\>\\s-+\\<\\(property\\|sequence\\)\\>\\)\\|\\(\\<assert\\>\\)")
+
 (defconst verilog-label-re (concat verilog-identifier-sym-re "\\s-*:\\s-*"))
 (defconst verilog-property-re
-  (concat "\\(" verilog-label-re "\\)?"
-          ;; "\\(assert\\|assume\\|cover\\)\\s-+property\\>"
-	  "\\(\\(assert\\|assume\\|cover\\)\\>\\s-+\\<property\\>\\)\\|\\(assert\\)"))
+  (concat "\\(" verilog-label-re "\\)?" verilog-concurrent-assertion-statement-re))
 
 (defconst verilog-no-indent-begin-re
   (eval-when-compile
@@ -2715,7 +2717,6 @@ find the errors."
    "\\(\\<fork\\>\\)\\|"			 ; 7
    "\\(\\<if\\>\\)\\|"
    verilog-property-re "\\|"
-   "\\(\\(" verilog-label-re "\\)?\\<assert\\>\\)\\|"
    "\\(\\<clocking\\>\\)\\|"
    "\\(\\<task\\>\\)\\|"
    "\\(\\<function\\>\\)\\|"
@@ -4843,7 +4844,7 @@ Uses `verilog-scan' cache."
 	      (not (or (looking-at "\\<") (forward-word-strictly -1)))
 	      ;; stop if we see an assertion (perhaps labeled)
 	      (and
-	       (looking-at "\\(\\w+\\W*:\\W*\\)?\\(\\<\\(assert\\|assume\\|cover\\)\\>\\s-+\\<property\\>\\)\\|\\(\\<assert\\>\\)")
+	       (looking-at (concat "\\(\\w+\\W*:\\W*\\)?" verilog-concurrent-assertion-statement-re))
 	       (progn
 		 (setq h (point))
 		 (save-excursion
@@ -5374,10 +5375,7 @@ primitive or interface named NAME."
                                 (goto-char (match-end 0))
                                 (setq there (point))
                                 (setq err nil)
-                                (setq str (concat " // " cntx (verilog-get-expr))))
-
-                               (;-- otherwise...
-                                (setq str " // auto-endcomment confused "))))
+                                (setq str (concat " // " cntx (verilog-get-expr))))))
 
                              ((and
                                (verilog-in-case-region-p) ;-- handle case item differently
@@ -6271,12 +6269,16 @@ Return a list of two elements: (INDENT-TYPE INDENT-LEVEL)."
                 (throw 'nesting 'defun))))
 
              ;;
-             ((looking-at "\\<property\\>")
+             ((looking-at "\\<\\(property\\|sequence\\)\\>")
               ;; *sigh*
-              ;;    {assert|assume|cover} property (); are complete
-              ;;   and could also be labeled: - foo: assert property
-              ;; but
-              ;;    property ID () ... needs endproperty
+              ;;    - {assert|assume|cover|restrict} property (); are complete
+              ;;    - cover sequence (); is complete
+              ;; and could also be labeled:
+              ;;    - foo: assert property
+              ;;    - bar: cover sequence
+              ;; but:
+              ;;    - property ID () ... needs endproperty
+              ;;    - sequence ID () ... needs endsequence
               (verilog-beg-of-statement)
               (if (looking-at verilog-property-re)
                   (throw 'continue 'statement) ; We don't need an endproperty for these
@@ -9758,7 +9760,10 @@ Inserts the list of signals found, using submodi to look up each port."
 	;; We intentionally ignore (non-escaped) signals with .s in them
 	;; this prevents AUTOWIRE etc from noticing hierarchical sigs.
 	(when port
-          (cond ((looking-at "[^\n]*AUTONOHOOKUP"))
+          (cond ((and verilog-auto-ignore-concat
+                      (looking-at "[({]"))
+                 nil) ; {...} or (...) historically ignored with auto-ignore-concat
+                ((looking-at "[^\n]*AUTONOHOOKUP"))
                 ((looking-at "\\([a-zA-Z_][a-zA-Z_0-9]*\\)\\s-*)")
 		 (verilog-read-sub-decls-sig
                   submoddecls par-values comment port
@@ -11439,7 +11444,7 @@ This repairs those mis-inserted by an AUTOARG."
           (while (string-match
                   (concat "\\([[({:*/<>+-]\\)"  ; - must be last
                           "(\\<\\([0-9A-Za-z_]+\\))"
-                          "\\([])}:*/<>+-]\\)")
+                          "\\([])}:*/<>.+-]\\)")
                   out)
             (setq out (replace-match "\\1\\2\\3" nil nil out)))
           (while (string-match
@@ -11534,7 +11539,8 @@ This repairs those mis-inserted by an AUTOARG."
 ;;(verilog-simplify-range-expression "[(TEST[1])-1:0]")
 ;;(verilog-simplify-range-expression "[1<<2:8>>2]")  ; [4:2]
 ;;(verilog-simplify-range-expression "[2*4/(4-2) +2+4 <<4 >>2]")
-;;(verilog-simplify-range-expression "[WIDTH*2/8-1:0]")
+;;(verilog-simplify-range-expression "[WIDTH*2/8-1:0]")  ; "[WIDTH*2/8-1:0]"
+;;(verilog-simplify-range-expression "[(FOO).size:0]")  ; "[FOO.size:0]"
 
 (defun verilog-clog2 (value)
   "Compute $clog2 - ceiling log2 of VALUE."

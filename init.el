@@ -159,6 +159,7 @@ need Org version to be at least 9.x.")
     use-package use-package-chords ; optimize package loading
     visual-regexp
     ;; volatile-highlights
+    ;; wavedrom-mode for Emacs >= 29.1
     web-mode
     webpaste   ; Paste code snippets to ptpb.pw (default), ix.io, etc.
     which-key ; > guide-key
@@ -420,6 +421,8 @@ need Org version to be at least 9.x.")
 (require 'setup-rst)
 (require 'setup-lua)
 (require 'setup-arduino)
+(>=e "29.1"
+    (require 'setup-wavedrom))
 
 ;; The `setup-misc' must be the last package to be required except for
 ;; `setup-desktop'.

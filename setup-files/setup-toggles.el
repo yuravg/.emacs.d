@@ -1,4 +1,4 @@
-;; Time-stamp: <2017-05-11 13:40:41 kmodi>
+;; Time-stamp: <2024-01-26 18:45:13 kmodi>
 
 ;; Toggles
 
@@ -43,7 +43,6 @@
                  (nlinum-mode -1))))
    "line numbers(C-u: jit-lock)")
   ("m"     modi-mode "Modi mode")
-  ("n"     neotree-toggle "neotree")
   ("o"     modi/toggle-one-window "one window" :color red)
   ("p"     electric-pair-local-mode "electric-pair")
   ("r"     my/revert-buffer-no-confirm "revert buffer(C-u: & modes)") ; C-u available for `my/revert-buffer-no-confirm'

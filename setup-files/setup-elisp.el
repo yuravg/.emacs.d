@@ -6,6 +6,9 @@
 ;; outside a `use-package' wrapper
 ;; http://emacs.stackexchange.com/q/7643/115
 
+(use-package elisp-mode
+  :mode (( ".dir-locals.el" . elisp-mode)))
+
 ;; Edebug a defun or defmacro
 (defvar modi/fns-in-edebug nil
   "List of functions for which `edebug' is instrumented.")

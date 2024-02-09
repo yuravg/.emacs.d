@@ -51,6 +51,37 @@ If NOSELECT is non-nil, do not select the imenu-list buffer."
      ("M-j" . imenu-list-smart-toggle))
     (key-chord-define-global "II" #'modi/imenu-list-display-toggle)
 
+    (defhydra hydra-imenu (:color blue
+                           :hint nil)
+      "
+[imenu mode]
+^^^^           Buffer                    ^^^^             Imenu
+^^^^-------------------------------------^^^^---------------------------------------
+_M-j_/_M-C-j_: jump & quit-imenu                 _n_/_p_: navigation
+                                         ^^^^_C-n_/_C-p_: navigation & scroll buffer
+      ^^_C-j_: jump                                ^^_j_: scroll buffer
+                                         ^^^^      ^^_f_: fold
+                                         ^^^^      ^^_g_: refresh
+                                         ^^^^      ^^_q_: quit
+
+"
+      ("M-C-j" imenu-list-smart-toggle)
+      ("M-j" imenu-list-smart-toggle)
+      ("C-j" imenu-list-goto-entry)
+
+      ("n" next-line)
+      ("p" previous-line)
+      ("C-n" (lambda ()(interactive) (progn (forward-line) (imenu-list-display-entry))))
+      ("C-p" (lambda ()(interactive) (progn (forward-line -1) (imenu-list-display-entry))))
+      ("j" imenu-list-display-entry)
+      ("g" imenu-list-refresh)
+      ("f" hs-toggle-hiding)
+
+      ("q" imenu-list-quit-window)
+      ("C-g" nil "cancel"))
+    (with-eval-after-load 'imenu-list
+      (bind-key "?" #'hydra-imenu/body imenu-list-major-mode-map))
+
     (defun modi/imenu-auto-update (orig-fun &rest args)
       "Auto update the *Ilist* buffer if visible."
       (prog1 ; Return value of the advising fn needs to be the same as ORIG-FUN

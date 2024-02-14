@@ -16,6 +16,7 @@
 ;;    Preprocessor
 ;;    Identifier
 ;;    Class name
+;;    Instence of parameterized class
 ;;    Formal verification
 ;;    UVM
 ;;  Number
@@ -291,6 +292,12 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\|e
  'verilog-mode
  '(("^\\(\\s-*\\|\\s-*virtual \\|\\s-*pure virtual \\)\\(task\\s-+\\)\\(\\w+\\)::\\w+"
     3 'font-lock-constant-face)))
+
+;;;; Instence of parameterized class
+;; Instence of parameterized class
+;; clss_name#(variable,variable)::object_name
+;; clss_name#(variable,variable)(...
+
 
 ;;;; Formal verification
 (font-lock-add-keywords

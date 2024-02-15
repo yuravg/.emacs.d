@@ -977,8 +977,9 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                   ("\\(\\(task\\|function\\) [_a-z0-9]+\\)\\s-+\\((\\)" . "\\1\\3")
                   ; )   begin or )begin → ) begin
                   ("\\([)]\\)\\(\\s-\\{2,\\}\\|[\t]\\)?\\(begin\\)" . "\\1 \\3")
-                  ; <name>#( or <name>   #( → <name> #(
-                  ("\\([_a-z0-9]+\\)\\(\\s-\\{2,\\}\\|[\t]\\)?\\(#(\\)" . "\\1 \\3")
+                  ; <name>   #( → <name>#(
+                  ;; FIXME: disable in class declaration
+                  ("\\([_a-z0-9]+\\)\\(\\s-+\\)\\(#(\\)" . "\\1\\3")
                   ;; FIXME: disable in module declaration
                   ("\\(reg\\|logic\\|wire\\|bit\\|input\\|output\\|inout\\)\\[" . "\\1 ["))))
         (message "Refactoring of alignment is complete.")))

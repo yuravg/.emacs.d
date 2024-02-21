@@ -295,8 +295,8 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\|e
 
 ;;;; Instence of parameterized class
 ;; Instence of parameterized class
-;; clss_name#(variable,variable)::object_name
-;; clss_name#(variable,variable)(...
+;; class_name#(variable,variable)::object_name
+;; font-lock-function-name-face
 
 
 ;;;; Formal verification

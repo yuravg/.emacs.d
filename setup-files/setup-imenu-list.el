@@ -51,7 +51,7 @@ If NOSELECT is non-nil, do not select the imenu-list buffer."
      ("M-j" . imenu-list-smart-toggle))
     (key-chord-define-global "II" #'modi/imenu-list-display-toggle)
 
-    (defhydra hydra-imenu (:color blue
+    (defhydra hydra-imenu (:color pink
                            :hint nil)
       "
 [imenu mode]

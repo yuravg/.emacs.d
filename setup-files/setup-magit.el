@@ -66,6 +66,7 @@
      ("M-C-o" . magit-list-submodules)
      :map magit-log-mode-map
      ("C-j" . magit-diff-show-or-scroll-up)
+     ("M-C-j" . magit-show-commit)
      ("C-o" . magit-list-submodules)
      ("M-C-o" . magit-list-submodules)
      ("M-r" . magit-diff-range)

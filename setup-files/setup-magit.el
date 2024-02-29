@@ -137,14 +137,14 @@ Should usage with:
                            :hint nil)
       "
 Magit:
-^^^^     Status/Log                  ^^  Checkout/Find file      ^^       ^^ Repository      ^^^^       Misc                      ^^ Git Search     ^^  Refine-hunk
-^^^^---------------------------------^^--------------------------^^-------^^-----------------^^^^---------------------------------^^----------------^^---------------------------
-_s_/_g_: status                     _c_: checkout file(rewrite)   _f_/_M-f_: fetch/fetch-branch^^  _!_: run                   _M-g_: in files      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
-^^  _l_: log current              _C-c_: find file(open new)     ^^     _P_: push            ^^    _$_: process buffer        _M-l_: in log        _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
-_b_/_L_: log all/local branches     _F_: file-dispatch           ^^     _h_: checkout&clr    ^^    _m_: git-timemachine
-^^_C-l_: log current buffer       _C-f_: find Git file           ^^   _C-b_: checkout&create ^^  _M-r_: git checkout all
-^^_C-o_: submodules list            _o_: submodule               ^^      ^^                  _rc_/_rh_: reflog current/head
-^^^^                                 ^^                          ^^      ^^                  ^^  _M-b_: blame
+^^^^     Status/Log                  ^^  Checkout/Find file      ^^       ^^ Repository      ^^^^^^         Misc                      ^^ Git Search     ^^  Refine-hunk
+^^^^---------------------------------^^--------------------------^^-------^^-----------------^^^^^^-----------------------------------^^----------------^^---------------------------
+_s_/_g_: status                     _c_: checkout file(rewrite)   _f_/_M-f_: fetch/fetch-branch  ^^^^  _!_: run                   _M-g_: in files      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
+^^  _l_: log current              _C-c_: find file(open new)     ^^     _P_: push              ^^^^    _$_: process buffer        _M-l_: in log        _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
+_b_/_L_: log all/local branches     _F_: file-dispatch           ^^     _h_: checkout&clr      ^^^^    _m_: git-timemachine
+^^_C-l_: log current buffer       _C-f_: find Git file           ^^   _C-b_: checkout&create   ^^^^  _M-r_: git checkout all
+^^_C-o_: submodules list            _o_: submodule               ^^      ^^                 _rc_/_rh_/_ro_: reflog current/head/other
+^^^^                                 ^^                          ^^      ^^                  ^^^^    _M-b_: blame
 "
       ("g" magit-status)
       ("s" magit-status)
@@ -174,6 +174,7 @@ _b_/_L_: log all/local branches     _F_: file-dispatch           ^^     _h_: che
       ("M-r" yura/git-checkout-all)
       ("rc" magit-reflog-current)
       ("rh" magit-reflog-head)
+      ("ro" magit-reflog-other)
       ("M-b" magit-blame)
 
       ("M-g" counsel-git-grep)

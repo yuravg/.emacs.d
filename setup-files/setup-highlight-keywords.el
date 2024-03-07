@@ -456,6 +456,13 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
     1
     'font-lock-variable-name-face)))
 
+;; Constant:
+(font-lock-add-keywords
+ 'cperl-mode
+ '(("\\<\\(TRUE\\|FALSE\\)\\>"
+    1
+    'font-lock-constant-face)))
+
 ;; Reference: ${$var}
 (font-lock-add-keywords
  'cperl-mode

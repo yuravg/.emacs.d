@@ -194,29 +194,6 @@
         tcl-mode))
 
 ;;; Simulation, compilation
-(font-lock-add-keywords
- 'compilation-mode
- '(("\\<\\(Fatal\\|Error\\|Failure\\):" 1 '(:weight bold :background "tomato1") prepend)
-   ("\\<\\(Warning\\):" 1 '(:weight bold :background "yellow1") prepend)
-   ("\\<\\(UVM_FATAL @\\)" 1 '(:background "tomato1") prepend)
-   ("\\<\\(TEST FAILED\\)" 1 '(:background "yellow") prepend)
-   ("\\<\\(TEST PASSED\\)" 1 '(:background "light green") prepend)
-   ("\\<\\(UVM Report Summary\\)" 1 '(:background "gray89") prepend)
-   ("\\<\\(Error\\ \(suppressible\)\\):" 1 '(:foreground "red" :underline "red" :weight bold) prepend)
-   ("\\<\\(\*\*\ Error\\):" 1 '(:foreground "red" :underline "red" :weight bold) prepend)
-   ("\\<\\(\*\*\ Warning\\):" 1 '(:foreground "IndianRed1" :underline "IndianRed1" :weight bold) prepend)
-   ("\\<\\(Errors\\|Warnings\\):" 1 '(:background "gray95" :underline "black") prepend)))
-
-(font-lock-add-keywords
- 'text-mode
- '(("\\*\\*\\s-?\\(Error\\):" (1 '(compilation-error) prepend))
-   ("\\*\\*\\s-?Error:.+/\\(.+\\)(" (1 '(compilation-error) prepend))
-   ("\\*\\*\\s-?Error:.+(\\([0-9]+\\)" (1 '(compilation-line-number) prepend))))
-
-;; Reset keywords of face; for default it has `font-lock-warning-face'
-(font-lock-add-keywords
- 'compilation-mode
- '((" \\<\\([Tt]ime\\|Iteration\\)\\>:" 0 '(:background nil) prepend)))
 
 ;;; Verilog
 ;;;; Operators

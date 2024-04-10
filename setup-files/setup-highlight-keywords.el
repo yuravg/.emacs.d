@@ -68,6 +68,11 @@
  '(("\\(\\s-&&[\s\n]\\)" 1 'font-lock-keyword-face) ;do not highlight reference
    ("\\(||\\)" 1 'font-lock-keyword-face)))
 
+(defvar c++-number-hkeyword
+  '(("\\_<0x[A-Fa-f0-9']+\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'c++-mode c++-number-hkeyword)
+
 ;;; Synopsys, Altera(Quartus) and Mentor(ModelSim/QuestaSim)
 ;; <Quartus_root_dir>/version/quartus/common/tcl/auto_completion/: project.cmds, sdc.cmds, sdc_ext.cmds
 (defvar quartus-sdc-cmds-hkeywords

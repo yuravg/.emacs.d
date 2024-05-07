@@ -326,6 +326,11 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
      . hkeywords-number-face)))
 (font-lock-add-keywords 'verilog-mode verilog-number-hkeyword)
 
+(defvar verilog-number-decimal-hkeyword
+  '(("\\_<[0-9][0-9_]+[0-9]\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'verilog-mode verilog-number-decimal-hkeyword)
+
 (defvar perl-bin-number-hkeyword
   '(("\\_<0b[0-1_]+\\_>"
      . hkeywords-number-face)))

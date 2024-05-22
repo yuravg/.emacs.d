@@ -1047,7 +1047,7 @@ Examples: endmodule                 → endmodule : module_name
                     ;; Insert new identifier, remove old one
                     (insert (format " : %s tmp" name))
                     (backward-char 4)
-                    (kill-line))))
+                    (delete-region (point) (line-end-position)))))
               '("task" "class" "function" "interface" "package" "module" "program"
                 "virtual class"
                 "static function"

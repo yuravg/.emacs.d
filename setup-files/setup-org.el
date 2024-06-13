@@ -52,6 +52,7 @@
 ;;  Citations
 ;;  org-make-toc
 ;;  Markdown to Org-mode
+;;  Denote
 ;;  Provide
 ;;  Notes
 
@@ -2056,6 +2057,18 @@ current buffer's file name but with .org extension."
                            (format "pandoc -f markdown -t org -o %s"
                                    (concat (file-name-sans-extension (buffer-file-name))
                                            ".org"))))
+
+;;; Denote
+;; https://protesilaos.com/codelog/2022-06-07-denote-introduction/
+;; https://git.sr.ht/~protesilaos/denote
+(use-package denote
+  :load-path "elisp/denote"
+  :defer t
+  :config
+  (progn
+    (setq denote-directory (expand-file-name "~/org/denote/"))
+    (setq denote-link-use-org-id t)))
+
 
 ;;; Provide
 (provide 'setup-org)

@@ -220,10 +220,11 @@
  'verilog-mode
  '(("\\(!=\\|!\\|~\\)" 1 'font-lock-builtin-face)))
 
-;; Event
+;; Events
 (font-lock-add-keywords
  'verilog-mode
- '(("\\(->\\)" 1 'font-lock-type-face)))
+ '(("\\(\\(->\\|@\\)\\s-*\\w+\\)" 1 '(:foreground "DodgerBlue4" :background "gray95"))
+   ("\\(@\\s-*[(]\\s-*\\w+\\s-*[)]\\)" 1 '(:foreground "DodgerBlue4" :background "gray95"))))
 
 ;;;; Module name
 ;; Highlight 'name' of module, which is define as: module name;

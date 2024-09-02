@@ -4,13 +4,13 @@
 ;; Description: Extensions to `info.el'.
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
-;; Copyright (C) 1996-2022, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2024, Drew Adams, all rights reserved.
 ;; Created: Tue Sep 12 16:30:11 1995
 ;; Version: 0
 ;; Package-Requires: ()
-;; Last-Updated: Fri Nov 11 10:49:43 2022 (-0800)
+;; Last-Updated: Mon Jan 29 15:53:30 2024 (-0800)
 ;;           By: dradams
-;;     Update #: 7525
+;;     Update #: 7542
 ;; URL: https://www.emacswiki.org/emacs/download/info%2b.el
 ;; Doc URL: https://www.emacswiki.org/emacs/InfoPlus
 ;; Keywords: help, docs, internal
@@ -21,18 +21,18 @@
 ;;   `apropos', `apropos+', `auth-source', `avoid', `backquote',
 ;;   `bookmark', `bookmark+', `bookmark+-1', `bookmark+-bmu',
 ;;   `bookmark+-key', `bookmark+-lit', `button', `bytecomp', `cconv',
-;;   `cl', `cl-generic', `cl-lib', `cl-macs', `cmds-menu',
-;;   `col-highlight', `crosshairs', `eieio', `eieio-core',
-;;   `eieio-loaddefs', `epg-config', `fit-frame', `font-lock',
-;;   `font-lock+', `frame-fns', `gv', `help+', `help-fns',
-;;   `help-fns+', `help-macro', `help-macro+', `help-mode',
-;;   `hl-line', `hl-line+', `info', `info+', `kmacro', `macroexp',
-;;   `menu-bar', `menu-bar+', `misc-cmds', `misc-fns', `naked',
-;;   `package', `password-cache', `pp', `pp+', `radix-tree', `rect',
-;;   `replace', `second-sel', `seq', `strings', `syntax',
-;;   `tabulated-list', `text-mode', `thingatpt', `thingatpt+',
-;;   `url-handlers', `url-parse', `url-vars', `vline',
-;;   `w32browser-dlgopen', `wid-edit', `wid-edit+'.
+;;   `cl-generic', `cl-lib', `cl-macs', `cmds-menu', `col-highlight',
+;;   `crosshairs', `eieio', `eieio-core', `eieio-loaddefs',
+;;   `epg-config', `fit-frame', `font-lock', `font-lock+',
+;;   `frame-fns', `gv', `help+', `help-fns', `help-fns+',
+;;   `help-macro', `help-macro+', `help-mode', `hl-line', `hl-line+',
+;;   `info', `info+', `kmacro', `macroexp', `menu-bar', `menu-bar+',
+;;   `misc-cmds', `misc-fns', `naked', `package', `password-cache',
+;;   `pp', `pp+', `radix-tree', `rect', `replace', `second-sel',
+;;   `seq', `strings', `syntax', `tabulated-list', `text-mode',
+;;   `thingatpt', `thingatpt+', `url-handlers', `url-parse',
+;;   `url-vars', `vline', `w32browser-dlgopen', `wid-edit',
+;;   `wid-edit+'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -170,7 +170,7 @@
 ;;    `Info-goto-glossary-definition', `info-indented-text-regexp',
 ;;    `Info-insert-breadcrumbs-in-mode-line', `Info-isearch-search-p',
 ;;    `Info-manual-string', `Info-manual-symbol',
-;;    `Info-node-name-at-point', `Info-no-glossary-manuals',
+;;    `Info-node-name-at-point',
 ;;    `Info-read-bookmarked-node-name', `Info-refontify-current-node',
 ;;    `Info-remap-default-face-to-variable-pitch',
 ;;    `Info-restore-history-list' (Emacs 24.4+),
@@ -188,7 +188,8 @@
 ;;    `info-isolated-quote-regexp',
 ;;    `info-last-non-nil-fontify-extra-function',
 ;;    `info-last-non-nil-fontify-glossary-words', `Info-link-faces',
-;;    `Info-merged-map', `Info-mode-syntax-table', `info-nomatch',
+;;    `Info-merged-map', `Info-mode-syntax-table',
+;;    `Info-no-glossary-manuals', `info-nomatch',
 ;;    `info-quotation-regexp', `info-quotation-same-line-regexp',
 ;;    `info-quoted+<>-regexp', `info-quoted+<>-same-line-regexp',
 ;;    `info-remap-default-face-cookie',
@@ -640,6 +641,12 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2024/01/29 dadams
+;;     Info-homoglyph: Fixed typo.  Thx to Anonymous on Emacs Wiki.
+;; 2023/11/29 dadams
+;;     Info-read-node-name: redefinition isn't needed for Emacs 29+.
+;; 2023/05/28 dadams
+;;     Added redefinition of Info-menu-update.
 ;; 2022/11/11 dadams
 ;;     Added back removed editing feature from vanilla Emacs 26.3 (but leave it disabled):
 ;;       Info-edit-mode, Info-edit, Info-cease-edit, Info-edit-mode-hook, Info-edit-mode-map.
@@ -1511,7 +1518,7 @@ By default, face `info-fixed-pitch' is inherited by faces
 ;;;###autoload
 (defface info-homoglyph
   (if (facep 'homoglyph)                ; Emacs 24+
-      '((t :inherit homoglyp))
+      '((t :inherit homoglyph))
     '((((background dark)) :foreground "cyan")
       (((type pc)) :foreground "magenta")
       (t :foreground "brown")))
@@ -2161,7 +2168,7 @@ node links, when` Info-fontify-glossary-words' is non-nil.")
                                         wisent woman auth cl dbus
                                         emacs-mime smtpmail url widget)
   ;; Emacs and Semantic manuals have a glossary.
-  "List of Info manuals that have no manuals.
+  "List of Info manuals that have no glossaries.
 The elements are symbols whose names can be used as string arg to
 `info'.
 
@@ -3621,7 +3628,9 @@ virtual book) using \\<Info-mode-map>`\\[Info-save-current-node]' (`Info-save-cu
   (info)
   (Info-find-node 'toc "Top"))
 
-;; Vanilla Emacs added this from Info+ on 2021-11-11, in response to bug #44895.
+;; Vanilla Emacs added this from Info+ on 2021-11-11, in response to BUG #44895.
+;;
+;; I also filed Emacs BUG #67531 because using (MANUAL)NODE is broken in vanilla Emacs.
 ;;
 ;;;###autoload (autoload 'Info-goto-node-web "info+")
 (defun Info-goto-node-web (node &optional flip-new-win)
@@ -3694,7 +3703,7 @@ manual.  Empty NODE in (MANUAL) defaults to the `Top' node."
     (setq file  (file-name-sans-extension (file-name-nondirectory file)))
     (unless (member file '("emacs" "elisp"))
       (error "Manual cannot be `%s'; it can only be `emacs' or `elisp'" file))
-    (setq node  (mapconcat (lambda (ch)
+    (setq node  (mapconcat (lambda (ch) ; Need to use `and' for Emacs < 24, since <= is only binary.
                              (if (or (< ch 32) ; ^@^A-^Z^[^\^]^^^-
                                      (and (<= 33 ch)   (<= ch 47)) ; !"#$%&'()*+,-./
                                      (and (<= 58 ch)   (<= ch 64)) ; :;<=>?@
@@ -3882,15 +3891,24 @@ form: `(MANUAL) NODE' (e.g.,`(emacs) Modes')."
 ;;
 ;; Added optional arg DEFAULT.
 ;;
-(defun Info-read-node-name (prompt &optional default)
-  (let* ((completion-ignore-case           t)
-         (Info-read-node-completion-table  (Info-build-node-completions))
-         (nodename                         (completing-read
-                                            prompt 'Info-read-node-name-1 nil t nil
-                                            'Info-minibuf-history default)))
-    (if (equal nodename "")
-        (or default  (Info-read-node-name prompt))
-      nodename)))
+(when (< emacs-major-version 29)
+
+  (defun Info-read-node-name (prompt &optional default)
+    "Read an Info node name with completion, prompting with PROMPT.
+A node name can have the form \"NODENAME\", referring to a node
+in the current Info file, or \"(FILENAME)NODENAME\", referring to
+a node in FILENAME.  \"(FILENAME)\" is a short format to go to
+the Top node in FILENAME."
+    (let* ((completion-ignore-case           t)
+           (Info-read-node-completion-table  (Info-build-node-completions))
+           (nodename                         (completing-read
+                                              prompt 'Info-read-node-name-1 nil t nil
+                                              'Info-minibuf-history default)))
+      (if (equal nodename "")
+          (or default  (Info-read-node-name prompt))
+        nodename)))
+
+  )
 
 
 ;; REPLACE ORIGINAL in `info.el':
@@ -4601,6 +4619,60 @@ If `Info-breadcrumbs-in-mode-line-mode' is non-nil, insert breadcrumbs."
 ;;;           ;; Otherwise use Info-read-node-completion-table - e.g. Mac OS
 ;;;           (t (complete-with-action code Info-read-node-completion-table string predicate))))
 
+
+
+;; REPLACE ORIGINAL in `info.el':
+;;
+;; Menus `Menu Item' and `References' are in submenu `Info' > `Navigation', not in main menu `Info'.
+;;
+(defun Info-menu-update ()
+  "Update the Info menu for the current node."
+  (condition-case nil
+      (if (or (not (derived-mode-p 'Info-mode))
+              (equal (list Info-current-file Info-current-node)
+                     Info-menu-last-node))
+          ()
+        ;; Update `Menu Item' menu.
+        (let* ((Info-complete-menu-buffer  (current-buffer))
+               (items                      (nreverse (condition-case nil
+                                                         (Info-complete-menu-item "" nil t)
+                                                       (error nil))))
+               (number                     0)
+               entries current)
+          (while (and items  (< number 9))
+            (setq current  (car items)
+                  items    (cdr items)
+                  number   (1+ number)
+                  entries  (cons `[,current (Info-menu ,current) :keys ,(format "%d" number)] entries)))
+          (when items (setq entries  (cons ["Other..." Info-menu t] entries)))
+          (unless entries (setq entries  (list ["No menu" nil nil] nil :active)))
+          (easy-menu-change '("Info" "Navigation") "Menu Item" (nreverse entries)))
+        ;; Update `Reference' menu.  Vanilla code taken from `Info-follow-reference'.
+        (let ((items             ())
+              (number            0)
+              (case-fold-search  t)
+              str ii entries current)
+          (save-excursion
+            (goto-char (point-min))
+            (while (re-search-forward "\\*note[ \n\t]+\\([^:]*\\):" nil t)
+              (setq str  (match-string 1)
+                    ii   0)
+              (while (setq ii  (string-match "[ \n\t]+" str ii))
+                (setq str  (concat (substring str 0 ii) " " (substring str (match-end 0)))
+                      ii   (1+ ii)))
+              (setq items  (cons str items))))
+          (while (and items  (< number 9))
+            (setq current  (car items)
+                  items    (cdr items)
+                  number   (1+ number)
+                  entries  (cons `[,current (Info-follow-reference ,current) t] entries)))
+          (when items (setq entries  (cons ["Other..." Info-follow-reference t] entries)))
+          (unless entries (setq entries  (list ["No references" nil nil] nil :active)))
+          ;; (easy-menu-change '("Info") "Reference" (nreverse entries)))
+          (easy-menu-change '("Info" "Navigation") "Reference" (nreverse entries)))
+        ;; Update last seen node.
+        (setq Info-menu-last-node  (list Info-current-file Info-current-node)))
+    (error (ding))))
 
 
 ;; REPLACE ORIGINAL in `info.el':

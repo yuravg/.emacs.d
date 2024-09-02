@@ -1,6 +1,7 @@
 ;;; flycheck-google-cpplint.el --- Help to comply with the Google C++ Style Guide
 
 ;; Copyright (C) 2014  Akiha Senda
+;; Copyright (C) 2021-2024  Shen, Jen-Chieh
 
 ;; Author: Akiha Senda <senda.akiha@gmail.com>
 ;; Maintainer: Jen-Chieh Shen <jcs090218@gmail.com>
@@ -132,7 +133,7 @@ See URL
             source-original)
   :error-patterns
   ((warning line-start (file-name) ":" line ":  " (message) line-end))
-  :modes (c-mode c++-mode))
+  :modes (c-mode c++-mode c-ts-mode c++-ts-mode))
 
 (add-to-list 'flycheck-checkers 'c/c++-googlelint 'append)
 

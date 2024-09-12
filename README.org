@@ -43,8 +43,8 @@ You can start using my emacs setup by following these steps:
 
 5. Install [[https://orgmode.org/][Org Mode]] via GNU ELPA (built-in package is not used by
    default, see =modi/org-version-select= local variable for more information):
-   - =M-x package-install RET org RET=
-   - =M-x list-packages RET=; open =org=; push =install= button
+   To install a more recent version, please use command: `M-x list-packages', find "org" in the
+   list, click on it, and click "Install" in the popped up window.
 
 That's it!
 

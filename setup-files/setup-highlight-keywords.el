@@ -323,9 +323,14 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
 (font-lock-add-keywords 'python-mode python-hex-number-hkeyword)
 
 (defvar verilog-number-hkeyword
-  '(("[0-9]*'[bBhHdD]\\s-\\{0,4\\}[A-Fa-f0-9_]+\\_>"
+  '(("[0-9]*'[bBhHdD]\\s-*[A-Fa-f0-9][A-Fa-f0-9_]+\\_>"
      . hkeywords-number-face)))
 (font-lock-add-keywords 'verilog-mode verilog-number-hkeyword)
+
+(defvar verilog-float-number-hkeyword
+  '(("\\_<[-+]?[0-9]+\\(?:\\.[0-9_]+\\)?\\(?:[eE]-?[0-9_]+\\)?\\_>"
+     . hkeywords-number-face)))
+(font-lock-add-keywords 'verilog-mode verilog-float-number-hkeyword)
 
 (defvar verilog-number-decimal-hkeyword
   '(("\\_<[0-9][0-9_]+[0-9]\\_>"

@@ -112,6 +112,7 @@ need Org version to be at least 9.x.")
     kurecolor ; Quick tweaks to color codes in CSS files
     list-environment
     literate-calc-mode
+    lua-mode
     magit ; for git management
     magit-todos
     manage-minor-mode
@@ -416,6 +417,7 @@ need Org version to be at least 9.x.")
 (require 'setup-docker)
 (require 'setup-vhdl)
 (require 'setup-rst)
+(require 'setup-lua)
 (require 'setup-arduino)
 
 ;; The `setup-misc' must be the last package to be required except for

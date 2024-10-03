@@ -15,12 +15,6 @@
          ("C-x g" . magit-status)
          ("C-c g". hydra-magit/body)
          ("C-c C-g" . magit-run))
-  :init
-  ;; Mark the `yura/magit-diff-rh-auto-set-enable' variable as safe so that it can be
-  ;; set in `.dir-locals.el' files or set in Local Variables.
-  ;; Magit package loaded after use-package/commands,
-  ;; so do not put a safe local variable using use-package/config
-  (put 'yura/magit-diff-rh-auto-set-enable 'safe-local-variable #'booleanp)
   :commands (magit-status magit-log-all-branches)
   :config
   (progn
@@ -78,69 +72,14 @@
      ("C-j" . magit-repolist-status)
      ("o"   . magit-submodule))
 
-    (setq magit-diff-refine-hunk 'all)
-    ;; it takes a long time to open a large buffer with show all difference
-    ;; when `magit-diff-refine-hunk' has value 'all
-    (defvar yura/magit-diff-rh-max-chars 10000
-      "Maximum buffer size in chars to usage `magit-diff-refine-hunk' with value 'all.")
-
-    (defun yura/magit-diff-rh-auto-set ()
-      "Toggle `magit-diff-refine-hunk' depending on buffer size.
-
-If buffer size in char more then `yura/magit-diff-rh-max-chars'
-toggle `magit-diff-refine-hunk' to nil.
-Otherwise toggle to 'all.
-
-Should usage with:
-`magit-status-mode-hook', `magit-revision-mode-hook', `magit-diff-mode-hook', `magit-log-mode', etc."
-      (progn
-        (setq magit-diff-refine-hunk nil)
-        ;; Command `magit-refresh-buffer' may and with error:
-        ;; apply: Wrong type argument: number-or-marker-p, magit-log-margin-width
-        ;; perhaps the reason is errors in Git repository
-        (condition-case nil
-            (magit-refresh-buffer)
-          (error nil))
-        (if (< (buffer-size) yura/magit-diff-rh-max-chars)
-            (setq magit-diff-refine-hunk 'all)
-          (setq magit-diff-refine-hunk nil))))
-
-    (defvar yura/magit-diff-rh-auto-set-enable nil
-      "Enable usage `yura/magit-diff-rh-auto-set'.")
-
-    (defun yura/magit-diff-refine-hunk-auto-setting-toggle ()
-      "Toggle usage `yura/magit-diff-rh-auto-set'."
-      (interactive)
-      (if yura/magit-diff-rh-auto-set-enable
-          (progn (remove-hook 'magit-status-mode-hook  #'yura/magit-diff-rh-auto-set)
-                 (remove-hook 'magit-revision-mode-hook #'yura/magit-diff-rh-auto-set)
-                 (remove-hook 'magit-diff-mode-hook #'yura/magit-diff-rh-auto-set)
-                 (remove-hook 'magit-log-mode-hook #'yura/magit-diff-rh-auto-set)
-                 (setq yura/magit-diff-rh-auto-set-enable nil)
-                 (message "Disable auto setting of the variable 'magit-diff-refine-hunk'."))
-        (progn (add-hook 'magit-status-mode-hook #'yura/magit-diff-rh-auto-set)
-               (add-hook 'magit-revision-mode-hook #'yura/magit-diff-rh-auto-set)
-               (add-hook 'magit-diff-mode-hook #'yura/magit-diff-rh-auto-set)
-               (add-hook 'magit-log-mode-hook #'yura/magit-diff-rh-auto-set)
-               (setq yura/magit-diff-rh-auto-set-enable t)
-               (message "Enable auto setting of the variable 'magit-diff-refine-hunk'."))))
-
-    (defun yura/magit-diff-refine-hunk-toggle ()
-      "Toggle value `magit-diff-refine-hunk' from list: nil, t, 'all."
-      (interactive)
-      (let* ((modes '(nil t all))
-             (next (cadr (member magit-diff-refine-hunk modes))))
-        (setq magit-diff-refine-hunk next)
-        (message "Set 'magit-diff-refine-hunk': %s" magit-diff-refine-hunk)))
-
     (defhydra hydra-magit (:color teal
                            :hint nil)
       "
 Magit:
-^^^^     Status/Log                  ^^  Checkout/Find file      ^^       ^^ Repository      ^^^^^^         Misc                      ^^ Git Search     ^^  Refine-hunk
-^^^^---------------------------------^^--------------------------^^-------^^-----------------^^^^^^-----------------------------------^^----------------^^---------------------------
-_s_/_g_: status                     _c_: checkout file(rewrite)   _f_/_M-f_: fetch/fetch-branch  ^^^^  _!_: run                   _M-g_: in files      _t_: auto set refine-hunk(%(if yura/magit-diff-rh-auto-set-enable t nil))
-^^  _l_: log current              _C-c_: find file(open new)     ^^     _P_: push              ^^^^    _$_: process buffer        _M-l_: in log        _T_: toggle refine-hunk(%(message \"%s\" magit-diff-refine-hunk))
+^^^^     Status/Log                  ^^  Checkout/Find file      ^^       ^^ Repository      ^^^^^^         Misc                      ^^ Git Search
+^^^^---------------------------------^^--------------------------^^-------^^-----------------^^^^^^-----------------------------------^^-----------
+_s_/_g_: status                     _c_: checkout file(rewrite)   _f_/_M-f_: fetch/fetch-branch  ^^^^  _!_: run                   _M-g_: in files
+^^  _l_: log current              _C-c_: find file(open new)     ^^     _P_: push              ^^^^    _$_: process buffer        _M-l_: in log
 _b_/_L_: log all/local branches     _F_: file-dispatch           ^^     _h_: checkout&clr      ^^^^    _m_: git-timemachine
 ^^_C-l_: log current buffer       _C-f_: find Git file           ^^   _C-b_: checkout&create   ^^^^  _M-r_: git checkout all
 ^^_C-o_: submodules list            _o_: submodule               ^^      ^^                 _rc_/_rh_/_ro_: reflog current/head/other
@@ -179,9 +118,6 @@ _b_/_L_: log all/local branches     _F_: file-dispatch           ^^     _h_: che
 
       ("M-g" counsel-git-grep)
       ("M-l" counsel-git-log)
-
-      ("t" yura/magit-diff-refine-hunk-auto-setting-toggle :color red)
-      ("T" yura/magit-diff-refine-hunk-toggle :color red)
 
       ("q"   nil "cancel")
       ("C-g" nil "cancel"))

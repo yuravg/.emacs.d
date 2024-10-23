@@ -44,6 +44,7 @@
   ("se"      (sx-tab-all-questions nil "emacs") "emacs.SE")
   ("t"       shell "shell")
   ("C-t"     multi-term "terminal")
+  ("C-c"     compile "compile")
   ("u"       paradox-upgrade-packages "upgrade packages")
   ("w"       modi/weather "weather")
   ("<SPC>"   hydra-launch-freq/body "launch freq")

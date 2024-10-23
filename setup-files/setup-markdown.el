@@ -1,4 +1,4 @@
-;; Time-stamp: <2018-02-02 10:49:18 kmodi>
+;; Time-stamp: <2024-10-23 12:15:57 kmodi>
 
 ;; Markdown Mode
 ;; https://github.com/jrblevin/markdown-mode
@@ -12,6 +12,7 @@
 ;;    pandoc
 ;;    My Customize
 ;;    my/markdown-cleanup-heder-list-numbers-level
+;;    The auto-formatted tables in markdown-mode to be GFM style
 ;;    markdown-mode-map
 ;;  Notes
 
@@ -321,6 +322,53 @@ Example:
         (my/markdown-cleanup-heder-list-numbers-level)))
     (add-hook 'before-save-hook #'my/markdown-cleanup-header-numbers-before-save)
 
+;;;; The auto-formatted tables in markdown-mode to be GFM style
+    ;; Fix the org-table generated tables before each save;
+    ;; changes the `-+-' in the tables to the GFM format `-|-'.
+    ;; https://emacs.stackexchange.com/a/82451/115
+    (defun modi/markdown-next-table ()
+      "Move point to the next table."
+      (interactive)
+      (when (markdown-table-at-point-p)
+        (markdown-forward-paragraph))
+      (while (not (or (eobp) (markdown-table-at-point-p)))
+        (let ((prev-pt (point)))
+          (markdown-forward-paragraph)
+          (backward-char)
+          (when (eq prev-pt (point))
+            (markdown-forward-paragraph))))
+      (when (markdown-table-at-point-p)
+        ;; Go to the beginning of the table.
+        (markdown-backward-paragraph)))
+
+    (defun modi/convert-tablefmt-to-gfm ()
+      "Convert the table format from Org to GFM."
+      (interactive)
+      (save-excursion
+        (goto-char (point-min))
+        (while (not (eobp))
+          (modi/markdown-next-table)
+          (let ((table-end (save-excursion
+                             (markdown-forward-paragraph)
+                             (point))))
+            (while (search-forward "-+-" table-end :noerror)
+              (replace-match "-|-"))))))
+
+    (defun modi/markdown-prev-table ()
+      "Move point to the previous table."
+      (interactive)
+      (when (markdown-table-at-point-p)
+        (markdown-backward-paragraph)
+        (backward-char))
+      (while (not (or (bobp) (markdown-table-at-point-p)))
+        (markdown-backward-paragraph)))
+
+    (defun modi/markdown-mode-customization ()
+      "My customization for `markdown-mode'."
+      ;; Correct the table format.
+      (add-hook 'before-save-hook #'modi/convert-tablefmt-to-gfm nil :local))
+    (add-hook 'markdown-mode-hook #'modi/markdown-mode-customization)
+
 ;;;; markdown-mode-map
     (bind-keys
      :map markdown-mode-map
@@ -330,7 +378,9 @@ Example:
      ("C-c C-s N" . my/markdown-cleanup-heder-list-numbers-level)
      ("C-c C-s n" . markdown-cleanup-list-numbers)
      ("M-p" . markdown-previous-visible-heading)
-     ("M-n" . markdown-next-visible-heading))))
+     ("M-n" . markdown-next-visible-heading)
+     ("M-}" . modi/markdown-next-table)
+     ("M-{" . modi/markdown-prev-table))))
 
 
 (provide 'setup-markdown)

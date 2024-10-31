@@ -1,4 +1,4 @@
-;; Time-stamp: <2024-10-31 16:04:14 kmodi>
+;; Time-stamp: <2024-10-31 17:19:22 kmodi>
 ;; Hi-lock: (("\\(^;\\{3,\\}\\)\\( *.*\\)" (1 'org-hide prepend) (2 '(:inherit org-level-2 :underline t) prepend)))
 ;; Hi-Lock: end
 
@@ -151,7 +151,10 @@ This value must match the `infodir' variable in the Org local.mk.")
 
     ;; Single key command execution when at beginning of a headline
     (setq org-use-speed-commands t)     ;? speed-key opens Speed Keys help
-    (setq org-speed-commands-user '(("m" . org-mark-subtree)))
+    (if (version< (org-version) "9.5")
+        (setq org-speed-commands-user '(("m" . org-mark-subtree)))
+      ;; https://git.savannah.gnu.org/cgit/emacs/org-mode.git/commit/?id=d48276b894ef51c1e657ef3d8caa334f5abd40a3
+      (add-to-list 'org-speed-commands '("m" . org-mark-subtree) :append))
 
     (setq org-hide-leading-stars  t)
     ;; Prevent auto insertion of blank lines before headings and list items

@@ -1,4 +1,4 @@
-;; Time-stamp: <2024-01-26 18:44:11 kmodi>
+;; Time-stamp: <2024-10-31 15:20:40 kmodi>
 ;; Author: Kaushal Modi
 
 ;; Global variables
@@ -71,7 +71,7 @@ need Org version to be at least 9.x.")
      counsel-projectile
      deft ; quick note taking and management
      diff-hl
-     dired-single dired-collapse
+     dired-collapse
      docker
      dockerfile-mode
      drag-stuff

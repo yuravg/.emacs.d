@@ -1,4 +1,4 @@
-;; Time-stamp: <2024-10-31 15:20:40 kmodi>
+;; Time-stamp: <2024-10-31 15:27:42 kmodi>
 ;; Author: Kaushal Modi
 
 ;; Global variables
@@ -150,7 +150,6 @@ need Org version to be at least 9.x.")
      smart-mark
      smart-mode-line popup rich-minority
      sunshine forecast ; weather
-     sx
      tiny
      tldr                ;Concise "man pages"
      toml
@@ -176,6 +175,11 @@ need Org version to be at least 9.x.")
      yasnippet-snippets
      zop-to-char
 
+     ;; Themes
+     ;; zenburn-theme ; < fork
+     ;; smyx-theme ; < fork
+     leuven-theme ; awesome white background theme
+
      ;; Crypt
      ;; nlinum ; better performance than linum ; Sticking to frozen version 1.7 in my config
      ;; bookmark+ ; able to bookmark desktop sessions
@@ -188,17 +192,7 @@ need Org version to be at least 9.x.")
      ;; helm helm-swoop ; < swiper
      ;; helm-gtags ; < ggtags
      ;; projectile ; Better than fiplr < fork
-
-     ;; Themes
-     ;; zenburn-theme ; < fork
-     ;; smyx-theme ; < fork
-     ample-theme ; ample, ample-flat, ample-light
-     darktooth-theme ; coffee
-     leuven-theme ; awesome white background theme
-     planet-theme ; dark blue
-     tao-theme ; monochrome
-     twilight-anti-bright-theme
-     twilight-bright-theme)
+     )
 
    ;; Unix-only packages (terminal emulators don't work on Windows)
    (unless (memq system-type '(windows-nt ms-dos))

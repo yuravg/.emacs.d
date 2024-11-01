@@ -59,7 +59,6 @@ When set to `emacs', the Org version shipped with Emacs is used.")
      auto-complete fuzzy
      auto-highlight-symbol
      avy ; > ace-jump-mode
-     beacon ; visual flash to show the cursor position
      bitbake
      bm ; visual bookmarks
      buffer-move
@@ -257,9 +256,6 @@ When set to `emacs', the Org version shipped with Emacs is used.")
 (require 'setup-all)
 (require 'setup-artist)
 (require 'setup-auto-complete)
-;; Wed Jun 10 16:10:59 EDT 2020 - kmodi
-;; Disabling beacon-mode to see if that solves minor performance glitches
-;; (require 'setup-beacon)
 (require 'setup-bookmarks)
 (require 'setup-buffer-move)
 (require 'setup-calc)

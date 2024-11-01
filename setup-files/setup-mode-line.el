@@ -1,4 +1,4 @@
-;; Time-stamp: <2019-01-14 10:32:08 kmodi>
+;; Time-stamp: <2024-11-01 08:45:29 kmodi>
 
 ;; Customize the mode-line
 
@@ -145,8 +145,7 @@ If nil, show the same in the minibuffer.")
       :config
       (progn
         (setq rm-blacklist
-              '(" (*)"          ;beacon
-                " =>"           ;aggressive indent
+              '(" =>"           ;aggressive indent
                 " AC"           ;auto-complete
                 " Abbrev"       ;abbrev-mode
                 " Anaconda"     ;anaconda-mode

@@ -40,6 +40,7 @@
 ;;    Python
 ;;    Perl
 ;;    Shell-script
+;;  org-babel-import-dir
 ;;  Other Org Packages
 ;;    Org Tree Slide
 ;;    Org Cliplink
@@ -1729,6 +1730,111 @@ Instead it's simpler to use bash."
      '((shell . t)))
     ;; Support Shell-script (`sh-mode') for `org-babel-execute', by default 'shell'.
     (defalias 'org-babel-execute:shell-script 'org-babel-execute:shell)))
+
+;;; org-babel-import-dir
+;; Emacs command to import directory structures as Org Babel source blocks.
+;;
+;;  Features
+;; - Recursive Directory Import: Imports all files from a selected directory structure.
+;; - File Type Detection: Automatically detects code language based on file extensions and
+;; custom configurations.
+;; - Org Babel Integration: Converts each file into Org Babel source blocks with `#+BEGIN_SRC`
+;;   and `#+END_SRC` markers for code execution.
+;; - Tangling Support: Supports the `:tangle` option, allowing exported files to be organized
+;;   from Org-mode.
+;; - Customizable Ignore Lists: Allows excluding specific files and directories based on
+;; `org-babel-import-dir-ignore-files-list'
+
+(defvar org-babel-import-dir-ignore-files-list '("tmp" ".git" "work" "*tmp*")
+  "List of files and directories to ignore during the recursive search.")
+
+(defvar org-babel-import-dir-file-types
+  '(("bat"       . "bat")
+    ("c"         . "c")
+    ("h"         . "c")
+    ("conf"      . "conf")
+    ("cpp"       . "cpp")
+    ("hpp"       . "cpp")
+    ("el"        . "emacs-lisp")
+    ("ini"       . "conf")
+    ("json"      . "json")
+    ("org"       . "org")
+    ("pl"        . "perl")
+    ("plantuml"  . "plantuml")
+    ("pm"        . "perl")
+    ("ps1"       . "powershell")
+    ("py"        . "python")
+    ("rs"        . "rust")
+    ("rst"       . "rst")
+    ("sh"        . "shell-script")
+    ("sv"        . "verilog")
+    ("svh"       . "verilog")
+    ("v"         . "verilog")
+    ("do"        . "tcl")
+    ("tcl"       . "tcl")
+    ("txt"       . "text")
+    ("makefile"  . "makefile")
+    ("Makefile"  . "makefile")
+    ("mk"        . "makefile"))
+  "Mapping of file extensions to Org-Babel languages.")
+
+(defun org-babel-import-dir-ignore-p (path)
+  "Return non-nil if PATH should be ignored based on `org-babel-import-dir-ignore-files-list`."
+  (or (member (file-name-nondirectory path) org-babel-import-dir-ignore-files-list)
+      (seq-some (lambda (pattern)
+                  (string-match-p (wildcard-to-regexp pattern)
+                                  (file-name-nondirectory path)))
+                org-babel-import-dir-ignore-files-list)))
+
+(defun org-babel-import-dir-get-source-lang (file-name ext)
+  "Determine the Org-Babel source language based on FILE-NAME or EXT."
+  (or (cdr (assoc file-name org-babel-import-dir-file-types))
+      (cdr (assoc ext org-babel-import-dir-file-types))
+      "text"))
+
+(defun org-babel-import-dir-process-file (file path level)
+  "Insert FILE as an Org header with its content in a source block.
+Returns: t if the file was processed, nil if ignored by `org-babel-import-dir-ignore-p'."
+  (unless (org-babel-import-dir-ignore-p file)
+    (let* ((file-name (file-name-nondirectory file))
+           (file-extension (or (file-name-extension file)
+                               "text"))
+           (file-content (with-temp-buffer
+                           (insert-file-contents file)
+                           (buffer-string)))
+           (lang (org-babel-import-dir-get-source-lang file-name file-extension))
+           (org-file-dir (file-name-directory (or buffer-file-name default-directory)))
+           (relative-path (file-relative-name file org-file-dir)))
+      (setq relative-path (concat "./" relative-path))
+      (insert (format "%s %s\n#+begin_src %s :tangle %s :mkdirp yes\n%s#+end_src\n\n"
+                      (make-string (1+ level) ?*)
+                      file-name
+                      lang
+                      relative-path
+                      file-content))
+      t)))
+
+(defun org-babel-import-dir-process-directory (dir level)
+  "Process a directory: insert it as a LEVEL Org header and process files inside it.
+Return the count of files processed within this directory."
+  (insert (format "%s %s\n"
+                  (make-string level ?*)
+                  (file-name-nondirectory dir)))
+  (let ((file-count 0))
+    (dolist (entry (directory-files dir t "^[^.].*"))
+      (cond
+       ((file-regular-p entry)
+        (setq file-count (+ file-count (if (org-babel-import-dir-process-file entry dir level) 1 0))))
+       ((file-directory-p entry)
+        (unless (org-babel-import-dir-ignore-p entry)
+          (setq file-count (+ file-count (org-babel-import-dir-process-directory entry (1+ level))))))))
+    file-count))
+
+(defun org-babel-import-dir-insert-directory-content (directory)
+  "Recursively insert contents of DIRECTORY and subdirectories as Org headers and source blocks."
+  (interactive "DSelect directory: ")
+  (let* ((file-count (org-babel-import-dir-process-directory directory 1)))
+    (message "Exported: %d files from directory: %s" file-count (expand-file-name directory))))
 
 ;;; Other Org Packages
 

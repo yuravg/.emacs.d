@@ -40,7 +40,6 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
 
     (bind-keys
      :map c-mode-base-map
-     ("M-q" . fill-paragraph)
      ("C-c C-c" . compile)
      ("C-c C-h" . ff-find-other-file))
 

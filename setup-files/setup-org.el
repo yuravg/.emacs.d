@@ -1330,6 +1330,14 @@ on each save.
     (add-to-list 'org-src-lang-modes '("go-html-template" . html)) ;Go Template
     (add-to-list 'org-src-lang-modes '("go-text-template" . html)) ;Go Template
 
+    ;; Applying custom configurations automatically to src blocks opened with `org-edit-src-code'.
+    ;; Ensure directory-local variables (from .dir-locals.el) are applied to org-mode source editing buffers.
+    (defun my-refresh-dir-locals ()
+      "Reload directory local variables for the current buffer."
+      ;; Apply directory-local variables to a non-file buffer
+      (hack-dir-local-variables-non-file-buffer))
+    (add-hook 'org-src-mode-hook 'my-refresh-dir-locals)
+
     (bind-keys
      :map org-src-mode-map
      ("C-c C-c" . org-edit-src-exit))))

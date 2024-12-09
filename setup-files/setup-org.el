@@ -50,6 +50,8 @@
 ;;    Include Src lines
 ;;    Org TOC
 ;;    Citations
+;;  Other
+;;    Refactoring
 ;;  Provide
 ;;  Notes
 
@@ -2043,6 +2045,56 @@ Return the count of files processed within this directory."
 (use-package citeproc
   :ensure t
   :defer t)
+
+;;; Other
+
+;;;; Refactoring
+(defun yura/replace-to-get-like-org-mode-format ()
+  (interactive)
+  (save-excursion
+    (cl-letf (((symbol-function 'search-and-replace)
+               (lambda (pattern replacement)
+                 (goto-char (point-min))
+                 (while (re-search-forward pattern nil t)
+                   (replace-match replacement nil nil))))
+
+              ((symbol-function 'delete-lines)
+               (lambda (pattern)
+                 (goto-char (point-min))
+                 (while (re-search-forward pattern nil t)
+                   (replace-match "" nil nil)
+                   (forward-line -1)
+                   (delete-region (point) (line-end-position))))))
+      ;; Replace ### **Some message** with *** *Some message*
+      (search-and-replace "^### \\*\\*\\(.*?\\)\\*\\*" "*** *\\1*")
+      ;; Replace ### (Num.)**Some message** with *** *Num. Some message*
+      (search-and-replace "^### \\([0-9]+.\\) \\*\\(.*?\\)\\*\\*" "*** *\\1 \\2*")
+      ;; Replace #### **Some message** with **** *Some message*
+      (search-and-replace "^#### \\*\\*\\(.*?\\)\\*\\*" "**** *\\1*")
+      ;; Replace #### Some message with **** *Some message*
+      (search-and-replace "^##### \\(.*?\\)" "***** \\1")
+      ;; Replace ```text to #+begin_src text
+      (search-and-replace "^```text" "#+begin_src text")
+      ;; Replace ```systemverilog to #+begin_src verilog
+      (search-and-replace "^```json$" "#+begin_src json-ts")
+      ;; Replace ```systemverilog to #+begin_src verilog
+      (search-and-replace "^```systemverilog$" "#+begin_src verilog")
+      ;; Replace ``` to #+end_src
+      (search-and-replace "^```$" "#+end_src")
+      ;; Replace ** with * except when ** is at the beginning of the string or line
+      ;; (search-and-replace "\\(^[^*]\\|[^*]\\)\\*\\*" "\\1*")
+      ;; Remove lines containing '---' followed by an empty line
+      (delete-lines "^---\n\n")
+
+      ;; Replace ``` with #+begin_src text and #+end_src alternately
+      (goto-char (point-min))
+      (let ((state t))
+        (while (re-search-forward "^  ```$" nil t)
+          (if state
+              (replace-match "#+begin_src text" nil nil)
+            (replace-match "#+end_src" nil nil))
+          (setq state (not state))))
+      (message "Conversion to Org-mode format complete!"))))
 
 ;;; Provide
 (provide 'setup-org)

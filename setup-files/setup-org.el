@@ -50,6 +50,8 @@
 ;;    Include Src lines
 ;;    Org TOC
 ;;    Citations
+;;  Other
+;;    Markdown to Org-mode
 ;;  Provide
 ;;  Notes
 
@@ -2043,6 +2045,21 @@ Return the count of files processed within this directory."
 (use-package citeproc
   :ensure t
   :defer t)
+
+;;; Other
+
+;;;; Markdown to Org-mode
+;; https://emacs.stackexchange.com/questions/5465/how-to-migrate-markdown-files-to-emacs-org-mode-format
+
+(defun my/markdown-convert-buffer-to-org ()
+  "Convert the current buffer's content from markdown to orgmode format and save it with the
+current buffer's file name but with .org extension."
+  (interactive)
+  (shell-command-on-region (point-min)
+                           (point-max)
+                           (format "pandoc -f markdown -t org -o %s"
+                                   (concat (file-name-sans-extension (buffer-file-name))
+                                           ".org"))))
 
 ;;; Provide
 (provide 'setup-org)

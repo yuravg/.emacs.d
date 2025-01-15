@@ -1025,12 +1025,14 @@ Examples: endmodule                 → endmodule : module_name
                             (string-match-p "function" keyword)
                             (string-match-p "module" keyword)
                             (string-match-p "program" keyword)
-                            (string-match-p "covergroup" keyword)
                             (string-match-p "sequence" keyword)
                             (string-match-p "property" keyword))
                         (progn (re-search-forward "(\\|;" nil :noerror)
                                (re-search-backward "\\w" nil :noerror))
-                      (re-search-forward "\\w" nil :noerror))
+                      (if (string-match-p "covergroup" keyword)
+                          (progn (re-search-forward "[(; ]" nil :noerror)
+                                 (re-search-backward "\\w" nil :noerror))
+                        (re-search-forward "\\w" nil :noerror)))
                     (setq name (symbol-at-point))
                     ;; Move to end of the instance
                     (cond

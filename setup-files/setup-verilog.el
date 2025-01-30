@@ -758,7 +758,7 @@ for all the `included files."
       (setq-local yura/verilog-buffer-style 'modi))
 
     ;; Select the style depending on local variable which describe current style.
-    (defvar-local yura/verilog-buffer-style '4tab-autoindent
+    (defvar-local yura/verilog-buffer-style '4tab-4indent
       "Variable to store `verilog-mode' style for current buffer.
 
 If `4tab-autoindent' is selected, then `verilog-mode' style set with `yura/verilog-set-style-4tab-autoindent'.
@@ -977,8 +977,9 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                   ("\\(\\(task\\|function\\) [_a-z0-9]+\\)\\s-+\\((\\)" . "\\1\\3")
                   ; )   begin or )begin → ) begin
                   ("\\([)]\\)\\(\\s-\\{2,\\}\\|[\t]\\)?\\(begin\\)" . "\\1 \\3")
-                  ; <name>#( or <name>   #( → <name> #(
-                  ("\\([_a-z0-9]+\\)\\(\\s-\\{2,\\}\\|[\t]\\)?\\(#(\\)" . "\\1 \\3")
+                  ; <name>   #( → <name>#(
+                  ;; FIXME: disable in class declaration
+                  ("\\([_a-z0-9]+\\)\\(\\s-+\\)\\(#(\\)" . "\\1\\3")
                   ;; FIXME: disable in module declaration
                   ("\\(reg\\|logic\\|wire\\|bit\\|input\\|output\\|inout\\)\\[" . "\\1 ["))))
         (message "Refactoring of alignment is complete.")))

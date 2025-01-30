@@ -758,7 +758,7 @@ for all the `included files."
       (setq-local yura/verilog-buffer-style 'modi))
 
     ;; Select the style depending on local variable which describe current style.
-    (defvar-local yura/verilog-buffer-style '4tab-autoindent
+    (defvar-local yura/verilog-buffer-style '4tab-4indent
       "Variable to store `verilog-mode' style for current buffer.
 
 If `4tab-autoindent' is selected, then `verilog-mode' style set with `yura/verilog-set-style-4tab-autoindent'.

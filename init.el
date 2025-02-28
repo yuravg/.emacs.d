@@ -78,6 +78,7 @@ need Org version to be at least 9.x.")
     dumb-jump
     easy-escape ; Make the \\ escape chars more pleasant looking in elisp regexps
     el2markdown ; Generate README.md files from Commentary section in .el files
+    ellama
     elpy
     emojify ;display emojis
     engine-mode ; search engines
@@ -93,6 +94,7 @@ need Org version to be at least 9.x.")
     git-modes
     git-timemachine ; walk through git revisions
     google-translate
+    gptel
     grip-mode
     hardcore-mode
     hideshow-org
@@ -421,6 +423,7 @@ need Org version to be at least 9.x.")
 (require 'setup-rst)
 (require 'setup-lua)
 (require 'setup-arduino)
+(require 'setup-gpt)
 (>=e "29.1"
     (require 'setup-wavedrom))
 

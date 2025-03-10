@@ -2,6 +2,10 @@
 
 ;; Auto complete
 
+;; NOTE: To resolve errors such as "Error running timer 'ac-update-greedy'", you may need to
+;; reinstall the packages 'popup' and 'poporg' (After updating the manually synced packages,
+;; I encountered this error).
+
 (use-package auto-complete-config
   :defer 5
   :config

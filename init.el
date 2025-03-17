@@ -424,6 +424,7 @@ need Org version to be at least 9.x.")
 (require 'setup-lua)
 (require 'setup-arduino)
 (require 'setup-gpt)
+(require 'setup-data-format)
 (>=e "29.1"
     (require 'setup-wavedrom))
 

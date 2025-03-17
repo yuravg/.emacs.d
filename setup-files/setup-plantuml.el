@@ -26,6 +26,32 @@
             indent-tabs-mode nil))
     (add-hook 'plantuml-mode-hook #'yura/plantuml-set-indentaion)
 
+
+    (defun my/plantuml-preview-region-json (prefix begin end)
+      "Preview diagram from the PlantUML json sources in from BEGIN to END.
+Uses the current region when called interactively.
+Uses prefix (as PREFIX) to choose where to display it:
+- 4  (when prefixing the command with C-u) -> new window
+- 16 (when prefixing the command with C-u C-u) -> new frame.
+- else -> new buffer"
+      (interactive "p\nr")
+      (plantuml-preview-string prefix (concat "@startjson\n"
+                                              (buffer-substring-no-properties
+                                               begin end)
+                                              "\n@endjson")))
+
+    (defun my/plantuml-preview-buffer-json (prefix)
+      "Preview diagram from the PlantUML json sources in the current buffer.
+Uses prefix (as PREFIX) to choose where to display it:
+- 4  (when prefixing the command with C-u) -> new window
+- 16 (when prefixing the command with C-u C-u) -> new frame
+- else -> new buffer"
+      (interactive "p")
+      (plantuml-preview-string prefix (concat "@startjson\n"
+                                              (buffer-substring-no-properties
+                                               (point-min) (point-max))
+                                              "\n@endjson")))
+
     ;; JSON
     (use-package json-mode
       :bind

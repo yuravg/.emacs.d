@@ -2,10 +2,6 @@
 
 ;; Auto complete
 
-;; NOTE: To resolve errors such as "Error running timer 'ac-update-greedy'", you may need to
-;; reinstall the packages 'popup' and 'poporg' (After updating the manually synced packages,
-;; I encountered this error).
-
 (use-package auto-complete-config
   :defer 5
   :config
@@ -15,6 +11,12 @@
     (setq ac-use-fuzzy t) ; enable fuzzy auto complete
     (setq ac-trigger-key "TAB")
     (setq ac-disable-faces nil)  ;; enable auto complete between quotation marks
+
+    ;; https://github.com/auto-complete/auto-complete/issues/533
+    ;; Fix Error:
+    ;; Error running timer ‘ac-update-greedy’: (wrong-type-argument sequencep #<obarray n=1>)
+    (add-hook 'auto-complete-mode-hook
+              (lambda () (setq ac-sources (remove 'ac-source-abbrev ac-sources))))
 
     (use-package company
       :defer 5

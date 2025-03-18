@@ -1,6 +1,6 @@
 ;;; verilog-mode.el --- major mode for editing verilog source in Emacs  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 1996-2024 Free Software Foundation, Inc.
+;; Copyright (C) 1996-2025 Free Software Foundation, Inc.
 
 ;; Author: Michael McNamara <mac@verilog.com>
 ;;    Wilson Snyder <wsnyder@wsnyder.org>
@@ -9,7 +9,7 @@
 ;; Keywords: languages
 ;; The "Version" is the date followed by the decimal rendition of the Git
 ;;     commit hex.
-;; Version: 2024.11.07.007162656
+;; Version: 2025.01.26.084345430
 
 ;; Yoni Rabkin <yoni@rabkins.net> contacted the maintainer of this
 ;; file on 19/3/2008, and the maintainer agreed that when a bug is
@@ -124,7 +124,7 @@
 ;;
 
 ;; This variable will always hold the version number of the mode
-(defconst verilog-mode-version "2024-11-07-06d4b20-vpo"
+(defconst verilog-mode-version "2025-01-26-5070256-vpo"
   "Version of this Verilog mode.")
 (defconst verilog-mode-release-emacs nil
   "If non-nil, this version of Verilog mode was released with Emacs itself.")
@@ -691,12 +691,14 @@ Set to 0 to have all directives start at the left side of the screen."
 (defcustom verilog-indent-ignore-multiline-defines t
   "Non-nil means ignore indentation on lines that are part of a multiline define."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type 'boolean)
 (put 'verilog-indent-ignore-multiline-defines 'safe-local-variable #'verilog-booleanp)
 
 (defcustom verilog-indent-ignore-regexp nil
   "Regexp that matches lines that should be ignored for indentation."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type 'boolean)
 (put 'verilog-indent-ignore-regexp 'safe-local-variable #'stringp)
 
@@ -748,6 +750,7 @@ Otherwise, line them up."
   "Non-nil means indent classes inside packages.
 Otherwise, classes have zero indentation."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type 'boolean)
 (put 'verilog-indent-class-inside-pkg 'safe-local-variable #'verilog-booleanp)
 
@@ -761,6 +764,7 @@ Otherwise else is lined up with first character on line holding matching if."
 (defcustom verilog-align-decl-expr-comments t
   "Non-nil means align declaration and expressions comments."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type 'boolean)
 (put 'verilog-align-decl-expr-comments 'safe-local-variable #'verilog-booleanp)
 
@@ -768,18 +772,21 @@ Otherwise else is lined up with first character on line holding matching if."
   "Distance (in spaces) between longest declaration/expression and comments.
 Only works if `verilog-align-decl-expr-comments' is non-nil."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type 'integer)
 (put 'verilog-align-comment-distance 'safe-local-variable #'integerp)
 
 (defcustom verilog-align-assign-expr nil
   "Non-nil means align expressions of continuous assignments."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type 'boolean)
 (put 'verilog-align-assign-expr 'safe-local-variable #'verilog-booleanp)
 
 (defcustom verilog-align-typedef-regexp nil
   "Regexp that matches user typedefs for declaration alignment."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type '(choice (regexp :tag "Regexp")
                  (const :tag "None" nil)))
 (put 'verilog-align-typedef-regexp 'safe-local-variable #'stringp)
@@ -787,6 +794,7 @@ Only works if `verilog-align-decl-expr-comments' is non-nil."
 (defcustom verilog-align-typedef-words nil
   "List of words that match user typedefs for declaration alignment."
   :group 'verilog-mode-indent
+  :version "30.1"
   :type '(repeat string))
 (put 'verilog-align-typedef-words 'safe-local-variable #'listp)
 
@@ -939,6 +947,7 @@ always be saved."
 (defcustom verilog-fontify-variables t
   "Non-nil means fontify declaration variables."
   :group 'verilog-mode-actions
+  :version "30.1"
   :type 'boolean)
 (put 'verilog-fontify-variables 'safe-local-variable #'verilog-booleanp)
 
@@ -3260,15 +3269,15 @@ See also `verilog-font-lock-extra-types'.")
 (defface verilog-font-lock-translate-off-face
   '((((class color)
       (background light))
-     (:background "gray90" :italic t ))
+     (:background "gray90" :slant italic ))
     (((class color)
       (background dark))
-     (:background "gray10" :italic t ))
+     (:background "gray10" :slant italic ))
     (((class grayscale) (background light))
-     (:foreground "DimGray" :italic t))
+     (:foreground "DimGray" :slant italic))
     (((class grayscale) (background dark))
-     (:foreground "LightGray" :italic t))
-    (t (:italic t)))
+     (:foreground "LightGray" :slant italic))
+    (t (:slant italic)))
   "Font lock mode face used to background highlight translate-off regions."
   :group 'font-lock-highlighting-faces)
 
@@ -3278,11 +3287,11 @@ See also `verilog-font-lock-extra-types'.")
 (defface verilog-font-lock-p1800-face
   '((((class color)
       (background light))
-     (:foreground "DarkOrange3" :bold t ))
+     (:foreground "DarkOrange3" :weight bold ))
     (((class color)
       (background dark))
-     (:foreground "orange1" :bold t ))
-    (t (:italic t)))
+     (:foreground "orange1" :weight bold ))
+    (t (:slant italic)))
   "Font lock mode face used to highlight P1800 keywords."
   :group 'font-lock-highlighting-faces)
 (make-obsolete-variable 'verilog-font-lock-p1800-face nil "27.1")
@@ -3293,11 +3302,11 @@ See also `verilog-font-lock-extra-types'.")
 (defface verilog-font-lock-ams-face
   '((((class color)
       (background light))
-     (:foreground "Purple" :bold t ))
+     (:foreground "Purple" :weight bold ))
     (((class color)
       (background dark))
-     (:foreground "orange1" :bold t ))
-    (t (:italic t)))
+     (:foreground "orange1" :weight bold ))
+    (t (:slant italic)))
   "Font lock mode face used to highlight AMS keywords."
   :group 'font-lock-highlighting-faces)
 
@@ -3307,11 +3316,11 @@ See also `verilog-font-lock-extra-types'.")
 (defface verilog-font-lock-grouping-keywords-face
   '((((class color)
       (background light))
-     (:foreground "Purple" :bold t ))
+     (:foreground "Purple" :weight bold ))
     (((class color)
       (background dark))
-     (:foreground "orange1" :bold t ))
-    (t (:italic t)))
+     (:foreground "orange1" :weight bold ))
+    (t (:slant italic)))
   "Font lock mode face used to highlight verilog grouping keywords."
   :group 'font-lock-highlighting-faces)
 

@@ -53,7 +53,6 @@ need Org version to be at least 9.x.")
     ag wgrep wgrep-ag s ; ag > ack > grep; wgrep+wgrep-ag allow editing files; directly in ag buffer
     aggressive-indent
     all all-ext ; edit ALL lines matching regex
-    anaconda-mode
     anzu   ; shows total search hits in mode line, > query-replace
     arduino-cli-mode
     arduino-mode
@@ -79,7 +78,6 @@ need Org version to be at least 9.x.")
     easy-escape ; Make the \\ escape chars more pleasant looking in elisp regexps
     el2markdown ; Generate README.md files from Commentary section in .el files
     ellama
-    elpy
     emojify ;display emojis
     engine-mode ; search engines
     eww-lnum ; jump to links in eww buffer ace-jump style

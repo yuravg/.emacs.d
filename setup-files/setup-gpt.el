@@ -9,7 +9,7 @@
 ;;    Overwrite 'ellama-define-word-prompt-template'
 ;;  Gptel
 ;;    DeepSeek
-;;      https://github.com/karthink/.emacs.d
+;;    User Interface Configuration
 
 ;;; ellama
 
@@ -260,9 +260,9 @@ Word [IPA transcription]\n
     ;; To configure DeepSeek, you need to have an `~/.authinfo.gpg' file containing configuration
     ;; text similar to the followin:
     ;; machine api.deepseek.com login apikey password YOUR-API-KEY
-    (defun get-gptel-api-key ()
+    (defun get-gptel-deepseek-api-key ()
       "Retrieve the DeepSeek API key from auth-source."
-      (let ((creds (auth-source-search :host "api.deepseek.com" :max 1)))
+      (let ((creds (auth-source-search :host "api.deepseek.com" :max 5)))
         (if creds
             (let ((secret (plist-get (car creds) :secret)))
               (if (functionp secret)
@@ -275,7 +275,7 @@ Word [IPA transcription]\n
         :host "api.deepseek.com"
         :endpoint "/chat/completions"
         :stream t
-        :key #'get-gptel-api-key
+        :key #'get-gptel-deepseek-api-key
         :models '(deepseek-chat
                   deepseek-reasoner)))
 
@@ -283,7 +283,8 @@ Word [IPA transcription]\n
                   gptel-backend gptel--deepseek
                   gptel-display-buffer-action '(pop-to-buffer-same-window))
 
-;;;;; https://github.com/karthink/.emacs.d
+;;;; User Interface Configuration
+    ;; https://github.com/karthink/.emacs.d
     (defun my/gptel-code-infill ()
       "Fill in code at point based on buffer context.  Note: Sends the whole buffer."
       (let ((lang (gptel--strip-mode-suffix major-mode)))

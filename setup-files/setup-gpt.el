@@ -9,6 +9,7 @@
 ;;    Overwrite 'ellama-define-word-prompt-template'
 ;;  Gptel
 ;;    DeepSeek
+;;    Anthropic (Claude)
 ;;    User Interface Configuration
 
 ;;; ellama
@@ -282,6 +283,30 @@ Word [IPA transcription]\n
     (setq-default gptel-model 'deepseek-chat
                   gptel-backend gptel--deepseek
                   gptel-display-buffer-action '(pop-to-buffer-same-window))
+
+;;;; Anthropic (Claude)
+    ;; (defun get-gptel-anthropic-api-key ()
+    ;;   "Retrieve the DeepSeek API key from auth-source."
+    ;;   (let ((creds (auth-source-search :host "api.anthropic.com" :max 5)))
+    ;;     (if creds
+    ;;         (let ((secret (plist-get (car creds) :secret)))
+    ;;           (if (functionp secret)
+    ;;               (funcall secret)
+    ;;             (concat "Bearer " secret)))
+    ;;       (error "No API key found for api.anthropic.com in auth-source"))))
+
+    ;; (defvar gptel--anthropic
+    ;;   (gptel-make-anthropic "Anthropic"
+    ;;     :host "api.anthropic.com"
+    ;;     :endpoint "/chat/completions"
+    ;;     :stream t
+    ;;     :key #'get-gptel-anthropic-api-key
+    ;;     :models '(claude-3-7-sonnet-20250219)))
+
+    ;; (setq-default gptel-model 'claude-3-7-sonnet-20250219
+    ;;               gptel-backend gptel--anthropic
+    ;;               gptel-display-buffer-action '(pop-to-buffer-same-window))
+
 
 ;;;; User Interface Configuration
     ;; https://github.com/karthink/.emacs.d

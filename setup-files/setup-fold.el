@@ -28,9 +28,9 @@
         (overlay-put o 'type 'fold-this)
         (overlay-put o 'invisible t)
         (overlay-put o 'keymap fold-this-keymap)
-        (overlay-put o 'face 'modi/fold-face)
+        (overlay-put o 'face 'header-line)
         (overlay-put o 'modification-hooks '(fold-this--unfold-overlay))
-        (overlay-put o 'display (propertize "  «...»  " 'face 'modi/fold-face))
+        (overlay-put o 'display (propertize " ̅̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅  " 'face 'header-line))
         (overlay-put o 'evaporate t)
         (setq modi/fold-this--last-overlay o))
       (deactivate-mark))
@@ -53,7 +53,7 @@
   :config
   (progn
     (setq yafolding-ellipsis-content " ... ")
-    (set-face-attribute 'yafolding-ellipsis-face nil :inherit 'modi/fold-face)))
+    (set-face-attribute 'header-line nil :inherit 'modi/fold-face)))
 
 ;;; Hide-show
 (use-package hideshow

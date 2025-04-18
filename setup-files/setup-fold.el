@@ -3,7 +3,7 @@
 ;;;; Fold setup
 
 (defface modi/fold-face
-  '((t (:foreground "magenta" :background "snow2" :slant normal :weight bold)))
+  '((t (:foreground "CornflowerBlue" :background "snow2" :slant normal :weight bold)))
   "Face used for fold ellipsis.")
 
 ;;; Fold This - Fold selected
@@ -28,9 +28,9 @@
         (overlay-put o 'type 'fold-this)
         (overlay-put o 'invisible t)
         (overlay-put o 'keymap fold-this-keymap)
-        (overlay-put o 'face 'header-line)
+        (overlay-put o 'face '(:foreground "gray30" :background "gray96" :weight bold))
         (overlay-put o 'modification-hooks '(fold-this--unfold-overlay))
-        (overlay-put o 'display (propertize " ̅̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅  " 'face 'header-line))
+        (overlay-put o 'display (propertize " ̅̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅  " 'face '(:foreground "gray30" :background "gray96" :weight bold)))
         (overlay-put o 'evaporate t)
         (setq modi/fold-this--last-overlay o))
       (deactivate-mark))
@@ -52,8 +52,8 @@
 (use-package yafolding
   :config
   (progn
-    (setq yafolding-ellipsis-content " ... ")
-    (set-face-attribute 'header-line nil :inherit 'modi/fold-face)))
+    (setq yafolding-ellipsis-content " «...» ")
+    (set-face-attribute 'yafolding-ellipsis-face nil :inherit 'modi/fold-face)))
 
 ;;; Hide-show
 (use-package hideshow
@@ -86,14 +86,14 @@
       :config
       (progn
         ;; + bitmap
-        (define-fringe-bitmap 'hs-expand-bitmap [0   ; 0 0 0 0 0 0 0 0
+        (define-fringe-bitmap 'hs-expand-bitmap [0   ; 0 0 0 ▮ ▮ 0 0 0
                                                  24  ; 0 0 0 ▮ ▮ 0 0 0
                                                  24  ; 0 0 0 ▮ ▮ 0 0 0
-                                                 126 ; 0 ▮ ▮ ▮ ▮ ▮ ▮ 0
-                                                 126 ; 0 ▮ ▮ ▮ ▮ ▮ ▮ 0
+                                                 126 ; ▮ ▮ ▮ ▮ ▮ ▮ ▮ ▮
+                                                 126 ; ▮ ▮ ▮ ▮ ▮ ▮ ▮ ▮
                                                  24  ; 0 0 0 ▮ ▮ 0 0 0
                                                  24  ; 0 0 0 ▮ ▮ 0 0 0
-                                                 0]) ; 0 0 0 0 0 0 0 0
+                                                 0]) ; 0 0 0 ▮ ▮ 0 0 0
 
         (defface modi/hs-fringe-face
           '((t (:foreground "#888"

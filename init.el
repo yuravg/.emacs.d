@@ -124,6 +124,7 @@ need Org version to be at least 9.x.")
     neotree
     nov    ;Ebook (.epub) reader
     org-cliplink ; paste copied links as well-formatted org-mode links with desc
+    org-make-toc
     org-noter ; takes notes associated to pdf files in org mode
     org-tree-slide
     outorg navi-mode ; supporting packages for outshine

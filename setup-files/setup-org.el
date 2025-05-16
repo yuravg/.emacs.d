@@ -50,6 +50,7 @@
 ;;    Include Src lines
 ;;    Org TOC
 ;;    Citations
+;;    org-make-toc
 ;;  Other
 ;;    Markdown to Org-mode
 ;;    Refactoring
@@ -2046,6 +2047,15 @@ Return the count of files processed within this directory."
 (use-package citeproc
   :ensure t
   :defer t)
+
+;;;; org-make-toc
+;; https://github.com/alphapapa/org-make-toc
+(use-package org-make-toc
+  :ensure t
+  :defer t
+  :config
+  (progn
+    (add-hook 'org-mode-hook #'org-make-toc-mode)))
 
 ;;; Other
 

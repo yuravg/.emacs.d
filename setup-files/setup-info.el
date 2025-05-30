@@ -392,10 +392,8 @@ Open info:
   ("g" counsel-ag-emacs-info)
   ("q"   nil "cancel")
   ("C-g" nil "cancel"))
-;; Bind `hydra-info-to/body' should at setup-editing.el or setup-misc.el,
-;; because there is a rebinding "C-x C-h" at setup-editing.el,
-;; and binding to "C-x C-h i" at this place will not work
-;; (bind-key "C-x C-h i" #'hydra-info-to/body modi-mode-map) ; KModi bind: "C-h i""
-
+;; Binding `hydra-info-to/body' should be in setup-editing.el or setup-misc.el,
+;; because there is an overbinding of "C-x C-h" in setup-editing.el,
+;; and binding to "C-x C-h C-i" at that location will not work.
 
 (provide 'setup-info)

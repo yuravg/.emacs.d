@@ -16,6 +16,7 @@
          ("\\.tm\\'"    . tcl-mode))
   :config
   (progn
+    (unbind-key "C-c C-f" tcl-mode-map) ;default: `tcl-load-file' FILE &optional
     (defun yura/tcl-set-indentation ()
       "Customize the indentation for `tcl-mode'."
       (setq tab-width 4

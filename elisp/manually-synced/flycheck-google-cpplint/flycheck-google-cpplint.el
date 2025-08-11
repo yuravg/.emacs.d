@@ -1,13 +1,13 @@
 ;;; flycheck-google-cpplint.el --- Help to comply with the Google C++ Style Guide
 
 ;; Copyright (C) 2014  Akiha Senda
-;; Copyright (C) 2021-2024  Shen, Jen-Chieh
+;; Copyright (C) 2021-2025  Shen, Jen-Chieh
 
 ;; Author: Akiha Senda <senda.akiha@gmail.com>
 ;; Maintainer: Jen-Chieh Shen <jcs090218@gmail.com>
 ;; URL: https://github.com/flycheck/flycheck-google-cpplint/
 ;; Version: 1.0.2
-;; Package-Requires: ((flycheck "0.20-cvs1"))
+;; Package-Requires: ((emacs "27.1") (flycheck "0.20-cvs1"))
 ;; Keywords: flycheck C C++
 
 ;; This file is not part of GNU Emacs.

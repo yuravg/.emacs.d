@@ -5,8 +5,12 @@
 ;;  Magit
 ;;  Magit-log
 ;;  Git-timemachine
+;;    `git-timemachine' bindings
+;;  `magit-blame' bindings
 ;;  Git-modes
 ;;  Emojify
+;;  `magit' bindings
+;;  TIPS
 
 ;;; Magit
 ;; https://github.com/magit/magit
@@ -255,7 +259,8 @@ It is assumed that the author has only one or two names."
      ("C" . git-timemachine-show-commit)
      ("N" . yura/git-timemachine-show-next-revision-commit)
      ("P" . yura/git-timemachine-show-previous-revision-commit))))
-;; Default key binding in `git-timemachine'
+
+;;;; `git-timemachine' bindings
 ;; |---------+-------------------------------------------------------------------------|
 ;; | Binding | Command                                                                 |
 ;; |---------+-------------------------------------------------------------------------|
@@ -269,6 +274,27 @@ It is assumed that the author has only one or two names."
 ;; | b       | Run magit-blame on the currently visited revision (if magit available). |
 ;; | c       | Show current commit using magit (if magit available).                   |
 ;; |---------+-------------------------------------------------------------------------|
+
+;;; `magit-blame' bindings
+;; |---------+----------------------------------------|
+;; | Binding | Command                                |
+;; |---------+----------------------------------------|
+;; | RET     | magit-show-commit                      |
+;; | SPC     | magit-diff-show-or-scroll-up           |
+;; | B       | magit-blame                            |
+;; | N       | magit-blame-next-chunk-same-commit     |
+;; | P       | magit-blame-previous-chunk-same-commit |
+;; | b       | magit-blame-addition                   |
+;; | c       | magit-blame-cycle-style                |
+;; | f       | magit-blame-reverse                    |
+;; | n       | magit-blame-next-chunk                 |
+;; | p       | magit-blame-previous-chunk             |
+;; | q       | magit-blame-quit                       |
+;; | r       | magit-blame-removal                    |
+;; | DEL     | magit-diff-show-or-scroll-down         |
+;; | S-SPC   | magit-diff-show-or-scroll-down         |
+;; | M-w     | magit-blame-copy-hash                  |
+;; |---------+----------------------------------------|
 
 ;;; Git-modes
 ;; The 'git-modes' package is not available from Melpa
@@ -314,6 +340,7 @@ It is assumed that the author has only one or two names."
 
 (provide 'setup-magit)
 
+;;; `magit' bindings
 ;; |---------+----------------------------------|
 ;; | Binding | Description                      |
 ;; |---------+----------------------------------|
@@ -325,7 +352,7 @@ It is assumed that the author has only one or two names."
 ;; | M-n     | Jump to next sibling section     |
 ;; |---------+----------------------------------|
 
-;; TIPS:
+;;; TIPS
 ;;
 ;;  Adding prefix to above jump commands also expands those sections and
 ;; brings that section to the top of the buffer.

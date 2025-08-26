@@ -235,6 +235,12 @@ If prefix argument is used, `set-selective-display' to the current column."
 
 (provide 'setup-fold)
 
-;; `fold-this'
+;;; TIPS
+;;
+;;;; `hideshow'
+;; - Toggle minor-mode with `modi/hideshow-mode' (or 'C-c t' runs the command hydra-toggle/body, <hs>), if the minor-mode is disabled
+;; - 'C-c @ ' - `hs-minor-mode-map' or mouse-1 at left-fringe
+;;
+;;;; `fold-this'
 ;; Fold the selected region using `fold-this' binding.
 ;; If you move point into the ellipsis and press `RET' or `C-g', it is unfolded.

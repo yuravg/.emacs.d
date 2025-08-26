@@ -9,7 +9,7 @@
 ;; Keywords: languages
 ;; The "Version" is the date followed by the decimal rendition of the Git
 ;;     commit hex.
-;; Version: 2025.01.26.084345430
+;; Version: 2025.07.31.046027612
 
 ;; Yoni Rabkin <yoni@rabkins.net> contacted the maintainer of this
 ;; file on 19/3/2008, and the maintainer agreed that when a bug is
@@ -124,7 +124,7 @@
 ;;
 
 ;; This variable will always hold the version number of the mode
-(defconst verilog-mode-version "2025-01-26-5070256-vpo"
+(defconst verilog-mode-version "2025-07-31-2be535c-vpo"
   "Version of this Verilog mode.")
 (defconst verilog-mode-release-emacs nil
   "If non-nil, this version of Verilog mode was released with Emacs itself.")
@@ -1586,7 +1586,6 @@ If set will become buffer local.")
     (define-key map "\C-c\C-r" #'verilog-label-be)
     (define-key map "\C-c\C-i" #'verilog-pretty-declarations)
     (define-key map "\C-c="    #'verilog-pretty-expr)
-    (define-key map "\C-c\C-b" #'verilog-submit-bug-report)
     (define-key map "\C-c/"    #'verilog-star-comment)
     (define-key map "\C-c\C-c" #'verilog-comment-region)
     (define-key map "\C-c\C-u" #'verilog-uncomment-region)

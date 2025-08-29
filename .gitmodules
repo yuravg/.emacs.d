@@ -73,3 +73,6 @@
 [submodule "elisp/org-contrib"]
 	path = elisp/org-contrib
 	url = https://git.sr.ht/~bzg/org-contrib
+[submodule "elisp/org-directory-importer"]
+	path = elisp/org-directory-importer
+	url = https://github.com/yuravg/org-directory-importer.git

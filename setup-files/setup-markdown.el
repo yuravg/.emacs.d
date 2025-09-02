@@ -66,6 +66,47 @@
       ;; When nil, only update the preview on file save.
       (setq grip-update-after-change nil))
 
+    (use-package pandoc
+      :ensure t
+      :if (executable-find "pandoc")
+      ;; :hook ((markdown-mode . pandoc-mode)
+      ;;        (text-mode . pandoc-mode)
+      ;;        (org-mode . pandoc-mode))
+      :config
+      (progn
+        (defun my/markdown-to-org-current-buffer ()
+          "Convert current markdown buffer to org-mode format."
+          (interactive)
+          (if (derived-mode-p 'markdown-mode)
+              (let* ((input-file (buffer-file-name))
+                     (output-file (concat (file-name-sans-extension input-file) ".org")))
+                (shell-command (format "pandoc -f markdown -t org '%s' -o '%s'"
+                                       input-file output-file))
+                (message "Converted to %s" output-file)
+                (find-file output-file))
+            (message "Current buffer is not in markdown-mode")))
+
+        (defun my/markdown-to-org-new-buffer ()
+          "Convert current markdown buffer to org format in a new buffer."
+          (interactive)
+          (if (derived-mode-p 'markdown-mode)
+              (let ((markdown-content (buffer-string))
+                    (new-buffer-name (concat "*org-from-" (buffer-name) "*")))
+                (with-temp-buffer
+                  (insert markdown-content)
+                  (let ((org-content (shell-command-to-string
+                                      "pandoc -f markdown -t org")))
+                    (with-current-buffer (get-buffer-create new-buffer-name)
+                      (erase-buffer)
+                      (insert org-content)
+                      (org-mode)
+                      (switch-to-buffer-other-window (current-buffer))))))
+            (message "Current buffer is not in markdown-mode")))
+
+        :init
+        (unless (executable-find "pandoc")
+          (message "pandoc command not found in system PATH"))))
+
     (bind-keys
      :map markdown-mode-map
      ;; Mimicking the org-export style bindings

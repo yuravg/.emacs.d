@@ -131,6 +131,7 @@ need Org version to be at least 9.x.")
     outshine ; org-mode navigation and organization outside org-mode
     p4
     page-break-lines ; Convert the ^L (form feed) chars to horizontal lines
+    pandoc ; mode for interacting with Pandoc
     paradox ; package menu improvements
     plantuml-mode
     pomodoro

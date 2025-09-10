@@ -225,6 +225,13 @@ Usage: execute this command after copying the Russian text to the utf-8 buffer."
   (recode-region start end 'utf-8 'cp1252)
   (recode-region start end 'cp1251 'utf-8))
 
+(defun recode-region-from-utf8-to-cp1252 (start end)
+  "Call `recode-region' from utf-8 to cp1252 between points START END.
+
+Usage: preparing patterns to reg-expressions."
+  (interactive "r")
+  (recode-region start end 'latin-1 'cp1251))
+
 (defun revert-and-recode-buffer-from-cp1251-to-utf8 ()
   "Revert and recode current buffer form cp1251 to utf-8."
   (interactive)

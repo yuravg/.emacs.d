@@ -18,6 +18,7 @@
                                             emacs-lisp-mode-hook
                                             gitattributes-mode-hook
                                             lisp-mode-hook
+                                            lua-mode-hook
                                             makefile-gmake-mode-hook
                                             makefile-mode-hook
                                             sh-mode-hook

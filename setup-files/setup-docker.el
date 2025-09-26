@@ -1,12 +1,13 @@
 
 ;; Docker
 
-;; https://github.com/spotify/dockerfile-mode
-(use-package dockerfile-mode)
-
 ;; https://github.com/Silex/docker.el
 (use-package docker
-  :ensure t)
+  :ensure t
+  :bind (("C-c M-d" . docker)))
+
+;; https://github.com/spotify/dockerfile-mode
+(use-package dockerfile-mode)
 
 (provide 'setup-docker)
 

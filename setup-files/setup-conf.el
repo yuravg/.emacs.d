@@ -1,10 +1,15 @@
 ;; Time-stamp: <2017-08-15 12:05:32 kmodi>
 
-;; Conf Mode
+;; Contents:
+;;
+;;  Conf Mode
+;;  TOML Mode
 
+
+;;; Conf Mode
 (use-package conf-mode
-  :mode (("\\.conf\\'" . conf-space-mode)
-         ("\\.dat\\'" . conf-space-mode)
+  :mode (("\\.conf\\'"    . conf-space-mode)
+         ("\\.dat\\'"     . conf-space-mode)
          ("\\.service\\'" . conf-space-mode)
          ("\\.setup.*\\'" . conf-space-mode))
   :config
@@ -19,6 +24,22 @@
         ;; Set the syntax of ' and " to punctuation.
         (conf-quote-normal nil)))
     (add-hook 'conf-space-mode-hook #'modi/conf-quote-normal)))
+
+
+;;; TOML Mode
+(use-package toml-mode
+  :ensure t
+  :mode (("\\.toml\\'"        . toml-mode)
+         ("/Cargo\\.lock\\'"  . toml-mode)
+         ("/Pipfile\\'"      . toml-mode)
+         ("/poetry\\.lock\\'" . toml-mode))
+
+  :config
+  (progn
+    (defun yura/toml-set-indentation ()
+      "Customize the indentation for `conf-toml-mode'."
+      (setq-local tab-width 2))
+    (add-hook 'toml-mode-hook #'yura/toml-set-indentation)))
 
 
 (provide 'setup-conf)

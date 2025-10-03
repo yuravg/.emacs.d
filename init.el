@@ -154,6 +154,7 @@ need Org version to be at least 9.x.")
     sx
     tiny
     tldr                ;Concise "man pages"
+    toml
     transpose-frame ; for the priceless `rotate-frame' and `transpose-frame'
     try
     undo-propose

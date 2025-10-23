@@ -175,6 +175,24 @@ Prefixed FULL-PATH with \\[universal-argument], expand the file name to its full
   (interactive)
   (set-buffer-file-coding-system 'utf-8-dos :force))
 
+(defun recode-cp1251-to-cyrillic (start end)
+  "Fix Cyrillic text that was misinterpreted as Latin-1.
+Converts garbled CP1251 bytes that were incorrectly read as ISO-8859-1,
+converts garbled text like 'Êîíäåíñàòîð' to proper 'Конденсатор'"
+  (interactive "r")
+  (save-excursion
+    (let* ((garbled-text (buffer-substring-no-properties start end))
+           (cp1251-bytes (encode-coding-string garbled-text 'iso-8859-1))
+           (cyrillic-text (decode-coding-string cp1251-bytes 'cp1251)))
+      (delete-region start end)
+      (insert cyrillic-text)
+      (message "Recoded from CP1251-as-Latin1 to proper CP1251 Cyrillic"))))
+
+(defun recode-buffer-cp1251-to-cyrillic ()
+  "Recode entire buffer from CP1251-as-Latin1 to proper Cyrillic by `recode-cp1251-to-cyrillic'."
+  (interactive)
+  (recode-cp1251-to-cyrillic (point-min) (point-max)))
+
 (defun revert-buffer-with-coding-system-no-confirm (coding-system)
   "Change `coding-system-for-read' with CODING-SYSTEM and `revert-buffer' without confirmation."
   (interactive "zCoding system for visited file (default nil): ")

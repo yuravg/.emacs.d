@@ -1255,7 +1255,7 @@ If optional prefix arg NUM is given, start numbering from that number instead of
 ;;; Fill/unfill
 
 (bind-key "f" #'fill-region region-bindings-mode-map)
-(bind-key "а" #'fill-region region-bindings-mode-map) ;; NOTE: 'а' - Russian letter
+(bind-key "а" #'fill-region region-bindings-mode-map) ; Support Rus keyboard layout
 
 ;; par - http://www.nicemice.net/par/
 ;; http://emacs.stackexchange.com/a/26387/115

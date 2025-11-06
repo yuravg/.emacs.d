@@ -19,13 +19,12 @@
     (setq plantuml-default-exec-mode 'jar)
     ;; Set path to my local plantuml.jar file
     (setq plantuml-jar-path org-plantuml-jar-path)
-    (defun yura/plantuml-set-indentaion ()
+    (defun yura/plantuml-set-indentation ()
       "Customize the indentation for `plantuml-mode'."
       (setq tab-width 2
             plantuml-indent-level 2
             indent-tabs-mode nil))
-    (add-hook 'plantuml-mode-hook #'yura/plantuml-set-indentaion)))
-
+    (add-hook 'plantuml-mode-hook #'yura/plantuml-set-indentation)))
 
 
 (provide 'setup-plantuml)

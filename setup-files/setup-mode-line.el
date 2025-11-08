@@ -150,6 +150,8 @@ If nil, show the same in the minibuffer.")
                 " AC"           ;auto-complete
                 " Abbrev"       ;abbrev-mode
                 " Anaconda"     ;anaconda-mode
+                " BufFace"      ;buffer-face-mode
+                " Claude"       ;clade-code
                 " Compiling"    ;tex-buf mode
                 " ElDoc"        ;eldoc
                 " Elpy"         ;elpy-mode
@@ -157,6 +159,7 @@ If nil, show the same in the minibuffer.")
                 " Fly/en"       ;Flyspell
                 " GG"           ;ggtags
                 " HSA"          ;auto-highlight-symbol-mode
+                " Monet"        ;monet
                 " Omit"         ;omit mode in dired
                 " Outshine"     ;outshine-mode
                 " P4:edit"      ;P4(perfoce)
@@ -169,8 +172,8 @@ If nil, show the same in the minibuffer.")
                 " UndoP"        ;undo-propose
                 " VHl"          ;volatile highlights
                 " WK"           ;which-key
-                " arduino-cli"  ;arduino-cli-mode
                 " Wrap"         ;shows up if visual-line-mode is enabled for that buffer
+                " arduino-cli"  ;arduino-cli-mode
                 " counsel"      ;counsel-mode
                 " ctagsU"       ;ctags update
                 " drag"         ;drag-stuff-mode

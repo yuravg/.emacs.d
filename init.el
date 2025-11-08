@@ -65,6 +65,7 @@ need Org version to be at least 9.x.")
     bitbake
     bm ; visual bookmarks
     buffer-move
+    claude-code
     command-log-mode ; for logging commands; useful when demoing emacs
     company ; completion framework
     counsel-projectile
@@ -76,6 +77,7 @@ need Org version to be at least 9.x.")
     drag-stuff
     dumb-jump
     easy-escape ; Make the \\ escape chars more pleasant looking in elisp regexps
+    eat
     el2markdown ; Generate README.md files from Commentary section in .el files
     ellama
     emojify ;display emojis
@@ -162,6 +164,7 @@ need Org version to be at least 9.x.")
     use-package use-package-chords ; optimize package loading
     visual-regexp
     ;; volatile-highlights
+    vterm
     wavedrom-mode
     web-mode
     webpaste   ; Paste code snippets to ptpb.pw (default), ix.io, etc.
@@ -425,6 +428,7 @@ need Org version to be at least 9.x.")
 (require 'setup-lua)
 (require 'setup-arduino)
 (require 'setup-gpt)
+(require 'setup-claude-code)
 (require 'setup-data-format)
 (>=e "29.1"
     (require 'setup-wavedrom))

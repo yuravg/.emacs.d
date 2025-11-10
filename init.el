@@ -47,162 +47,165 @@ need Org version to be at least 9.x.")
   "Hash table to store the states of various variables throughout
   this config.")
 
-(defconst my-packages
-  '(ace-window
-    adaptive-wrap ; indented line wrapping
-    ag wgrep wgrep-ag s ; ag > ack > grep; wgrep+wgrep-ag allow editing files; directly in ag buffer
-    aggressive-indent
-    all all-ext ; edit ALL lines matching regex
-    anzu   ; shows total search hits in mode line, > query-replace
-    arduino-cli-mode
-    arduino-mode
-    ascii-art-to-unicode
-    auctex
-    auto-complete fuzzy
-    auto-highlight-symbol
-    avy ; > ace-jump-mode
-    beacon ; visual flash to show the cursor position
-    bitbake
-    bm ; visual bookmarks
-    buffer-move
-    claude-code
-    command-log-mode ; for logging commands; useful when demoing emacs
-    company ; completion framework
-    counsel-projectile
-    deft ; quick note taking and management
-    diff-hl
-    dired-single dired-collapse
-    docker
-    dockerfile-mode
-    drag-stuff
-    dumb-jump
-    easy-escape ; Make the \\ escape chars more pleasant looking in elisp regexps
-    eat
-    el2markdown ; Generate README.md files from Commentary section in .el files
-    ellama
-    emojify ;display emojis
-    engine-mode ; search engines
-    eww-lnum ; jump to links in eww buffer ace-jump style
-    expand-region
-    fill-column-indicator
-    flycheck                    ; sh-shellcheck
-    flycheck-pos-tip
-    flyspell-correct-ivy ; ivy interface for correct spelling suggestions
-    fold-this
-    ggtags ctags-update
-    gist
-    git-modes
-    git-timemachine ; walk through git revisions
-    google-translate
-    gptel
-    grip-mode
-    hardcore-mode
-    hideshow-org
-    highlight-indent-guides
-    hl-anything
-    htmlize
-    hungry-delete
-    hydra
-    ibuffer-projectile
-    ido-vertical-mode flx-ido ;< ivy, counsel; use for: yasnippet: `yas-ido-expand', magit: `magit-branch-checkout', `magit-log-buffer-file'
-    imenu-list
-    indent-guide
-    ipcalc
-    isend-mode ; used in setup-perl.el
-    ivy swiper counsel
-    ivy-yasnippet
-    key-chord ; map pairs of simultaneously pressed keys to commands
-    kurecolor ; Quick tweaks to color codes in CSS files
-    list-environment
-    literate-calc-mode
-    lua-mode
-    magit ; for git management
-    magit-todos
-    manage-minor-mode
-    markdown-mode
-    minibuffer-line
-    multi-term
-    multiple-cursors
-    neotree
-    nov    ;Ebook (.epub) reader
-    org-cliplink ; paste copied links as well-formatted org-mode links with desc
-    org-make-toc
-    org-noter ; takes notes associated to pdf files in org mode
-    org-tree-slide
-    outorg navi-mode ; supporting packages for outshine
-    outshine ; org-mode navigation and organization outside org-mode
-    p4
-    page-break-lines ; Convert the ^L (form feed) chars to horizontal lines
-    pandoc ; mode for interacting with Pandoc
-    paradox ; package menu improvements
-    plantuml-mode
-    pomodoro
-    poporg ; edit comments from any other mode in org mode
-    powershell
-    projectile ; I don't use Projectile fork
-    pylint
-    rainbow-delimiters
-    rainbow-mode
-    region-bindings-mode ; complements really well with multiple-cursors
-    rg ripgrep
-    rmsbolt
-    rpn-calc
-    rust-mode
-    shackle
-    smart-compile
-    smart-mark
-    smart-mode-line popup rich-minority
-    sunshine forecast ; weather
-    sx
-    tiny
-    tldr                ;Concise "man pages"
-    toml
-    transpose-frame ; for the priceless `rotate-frame' and `transpose-frame'
-    try
-    undo-propose
-    undo-tree ; supercool undo visualization
-    use-package use-package-chords ; optimize package loading
-    visual-regexp
-    ;; volatile-highlights
-    vterm
-    wavedrom-mode
-    web-mode
-    webpaste   ; Paste code snippets to ptpb.pw (default), ix.io, etc.
-    which-key ; > guide-key
-    wolfram ; query wolframalpha; needs user to sign up for a developer AppID
-    wordnut ; offline dictionary (requires installing Wordnet wn application)
-    wrap-region ; wrap selection with punctuations, tags (org-mode, markdown-mode, ..)
-    writegood-mode ; highlight passive voice, weasel words and duplicates
-    xkcd ; comic
-    yafolding ; indentation detected code folding
-    yaml-mode ; Useful for editing Octopress' _config.yml
-    yasnippet
-    yasnippet-snippets
-    zop-to-char
+(defvar my-packages
+  (append
+   '(ace-window
+     adaptive-wrap ; indented line wrapping
+     ag wgrep wgrep-ag s ; ag > ack > grep; wgrep+wgrep-ag allow editing files; directly in ag buffer
+     aggressive-indent
+     all all-ext ; edit ALL lines matching regex
+     anzu   ; shows total search hits in mode line, > query-replace
+     arduino-cli-mode
+     arduino-mode
+     ascii-art-to-unicode
+     auctex
+     auto-complete fuzzy
+     auto-highlight-symbol
+     avy ; > ace-jump-mode
+     beacon ; visual flash to show the cursor position
+     bitbake
+     bm ; visual bookmarks
+     buffer-move
+     command-log-mode ; for logging commands; useful when demoing emacs
+     company ; completion framework
+     counsel-projectile
+     deft ; quick note taking and management
+     diff-hl
+     dired-single dired-collapse
+     docker
+     dockerfile-mode
+     drag-stuff
+     dumb-jump
+     easy-escape ; Make the \\ escape chars more pleasant looking in elisp regexps
+     el2markdown ; Generate README.md files from Commentary section in .el files
+     ellama
+     emojify ;display emojis
+     engine-mode ; search engines
+     eww-lnum ; jump to links in eww buffer ace-jump style
+     expand-region
+     fill-column-indicator
+     flycheck                    ; sh-shellcheck
+     flycheck-pos-tip
+     flyspell-correct-ivy ; ivy interface for correct spelling suggestions
+     fold-this
+     ggtags ctags-update
+     gist
+     git-modes
+     git-timemachine ; walk through git revisions
+     google-translate
+     gptel
+     grip-mode
+     hardcore-mode
+     hideshow-org
+     highlight-indent-guides
+     hl-anything
+     htmlize
+     hungry-delete
+     hydra
+     ibuffer-projectile
+     ido-vertical-mode flx-ido ;< ivy, counsel; use for: yasnippet: `yas-ido-expand', magit: `magit-branch-checkout', `magit-log-buffer-file'
+     imenu-list
+     indent-guide
+     ipcalc
+     isend-mode ; used in setup-perl.el
+     ivy swiper counsel
+     ivy-yasnippet
+     key-chord ; map pairs of simultaneously pressed keys to commands
+     kurecolor ; Quick tweaks to color codes in CSS files
+     list-environment
+     literate-calc-mode
+     lua-mode
+     magit ; for git management
+     magit-todos
+     manage-minor-mode
+     markdown-mode
+     minibuffer-line
+     multiple-cursors
+     neotree
+     nov    ;Ebook (.epub) reader
+     org-cliplink ; paste copied links as well-formatted org-mode links with desc
+     org-make-toc
+     org-noter ; takes notes associated to pdf files in org mode
+     org-tree-slide
+     outorg navi-mode ; supporting packages for outshine
+     outshine ; org-mode navigation and organization outside org-mode
+     p4
+     page-break-lines ; Convert the ^L (form feed) chars to horizontal lines
+     pandoc ; mode for interacting with Pandoc
+     paradox ; package menu improvements
+     plantuml-mode
+     pomodoro
+     poporg ; edit comments from any other mode in org mode
+     powershell
+     projectile ; I don't use Projectile fork
+     pylint
+     rainbow-delimiters
+     rainbow-mode
+     region-bindings-mode ; complements really well with multiple-cursors
+     rg ripgrep
+     rmsbolt
+     rpn-calc
+     rust-mode
+     shackle
+     smart-compile
+     smart-mark
+     smart-mode-line popup rich-minority
+     sunshine forecast ; weather
+     sx
+     tiny
+     tldr                ;Concise "man pages"
+     toml
+     transpose-frame ; for the priceless `rotate-frame' and `transpose-frame'
+     try
+     undo-propose
+     undo-tree ; supercool undo visualization
+     use-package use-package-chords ; optimize package loading
+     visual-regexp
+     ;; volatile-highlights
+     wavedrom-mode
+     web-mode
+     webpaste   ; Paste code snippets to ptpb.pw (default), ix.io, etc.
+     which-key ; > guide-key
+     wolfram ; query wolframalpha; needs user to sign up for a developer AppID
+     wordnut ; offline dictionary (requires installing Wordnet wn application)
+     wrap-region ; wrap selection with punctuations, tags (org-mode, markdown-mode, ..)
+     writegood-mode ; highlight passive voice, weasel words and duplicates
+     xkcd ; comic
+     yafolding ; indentation detected code folding
+     yaml-mode ; Useful for editing Octopress' _config.yml
+     yasnippet
+     yasnippet-snippets
+     zop-to-char
 
-    ;; Crypt
-    ;; nlinum ; better performance than linum ; Sticking to frozen version 1.7 in my config
-    ;; bookmark+ ; able to bookmark desktop sessions
-    ;; ox-twbs ; export to twitter bootstrap html < fork (supports org 9.0+)
-    ;; ox-reveal ; used to export to HTML slides; < git clone
-    ;; git-link ; get git links with line numbers and commit-hash/branch ; < fork
-    ;; ido-vertical-mode flx-ido ido-ubiquitous ; < ivy, counsel
-    ;; git-gutter git-gutter-fringe git-gutter+ git-gutter-fringe+ ; < diff-hl
-    ;; popwin ; < shackle
-    ;; helm helm-swoop ; < swiper
-    ;; helm-gtags ; < ggtags
-    ;; projectile ; Better than fiplr < fork
+     ;; Crypt
+     ;; nlinum ; better performance than linum ; Sticking to frozen version 1.7 in my config
+     ;; bookmark+ ; able to bookmark desktop sessions
+     ;; ox-twbs ; export to twitter bootstrap html < fork (supports org 9.0+)
+     ;; ox-reveal ; used to export to HTML slides; < git clone
+     ;; git-link ; get git links with line numbers and commit-hash/branch ; < fork
+     ;; ido-vertical-mode flx-ido ido-ubiquitous ; < ivy, counsel
+     ;; git-gutter git-gutter-fringe git-gutter+ git-gutter-fringe+ ; < diff-hl
+     ;; popwin ; < shackle
+     ;; helm helm-swoop ; < swiper
+     ;; helm-gtags ; < ggtags
+     ;; projectile ; Better than fiplr < fork
 
-    ;; Themes
-    ;; zenburn-theme ; < fork
-    ;; smyx-theme ; < fork
-    ample-theme ; ample, ample-flat, ample-light
-    darktooth-theme ; coffee
-    leuven-theme ; awesome white background theme
-    planet-theme ; dark blue
-    tao-theme ; monochrome
-    twilight-anti-bright-theme
-    twilight-bright-theme)
+     ;; Themes
+     ;; zenburn-theme ; < fork
+     ;; smyx-theme ; < fork
+     ample-theme ; ample, ample-flat, ample-light
+     darktooth-theme ; coffee
+     leuven-theme ; awesome white background theme
+     planet-theme ; dark blue
+     tao-theme ; monochrome
+     twilight-anti-bright-theme
+     twilight-bright-theme)
+
+   ;; Terminal emulator packages (grouped for future platform-specific handling)
+   '(claude-code
+     eat
+     multi-term
+     vterm))
 
   "A list of packages to ensure are installed at launch")
 

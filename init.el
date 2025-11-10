@@ -201,11 +201,12 @@ need Org version to be at least 9.x.")
      twilight-anti-bright-theme
      twilight-bright-theme)
 
-   ;; Terminal emulator packages (grouped for future platform-specific handling)
-   '(claude-code
-     eat
-     multi-term
-     vterm))
+   ;; Unix-only packages (terminal emulators don't work on Windows)
+   (unless (memq system-type '(windows-nt ms-dos))
+     '(claude-code
+       eat
+       multi-term
+       vterm)))
 
   "A list of packages to ensure are installed at launch")
 
@@ -431,7 +432,8 @@ need Org version to be at least 9.x.")
 (require 'setup-lua)
 (require 'setup-arduino)
 (require 'setup-gpt)
-(require 'setup-claude-code)
+(unless (memq system-type '(windows-nt ms-dos))
+  (require 'setup-claude-code))
 (require 'setup-data-format)
 (>=e "29.1"
     (require 'setup-wavedrom))

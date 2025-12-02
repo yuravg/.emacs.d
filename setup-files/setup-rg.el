@@ -152,13 +152,19 @@
       (setq truncate-lines yura/rg-truncate-lines))
     (add-hook 'rg-mode-hook #'yura/toggle-truncate-lines-rg-mode-hook)
 
+    (defun yura/rg-toggle-hidden ()
+      "Toggle --hidden flag (searches hidden files/dirs)."
+      (interactive)
+      (rg-rerun-toggle-flag "--hidden"))
+
     (defhydra hydra-rg (:color blue
                         :hint nil)
       "
 [rg mode]
   _s_/_t_: search literal                  _d_: directory              _T_: toggle truncate
     ^^_r_: search regexp                   _f_: file pattern           _l_: list searches
-    ^^_c_: toogle case insensitive         _i_: toggle ignore          _S_: save search result
+    ^^_c_: toogle case insensitive         _i_: toggle ignore (-u)     _S_: save search result
+    ^^_h_: toggle hidden files
 "
       ("s" rg-rerun-change-literal)
       ("t" rg-rerun-change-literal)
@@ -167,6 +173,7 @@
       ("d" rg-rerun-change-dir)
       ("f" rg-rerun-change-files)
       ("i" rg-rerun-toggle-ignore)
+      ("h" yura/rg-toggle-hidden)
       ("T" yura/rg-toggle-truncate-lines)
       ("S" rg-save-search-as-name)
       ("l" rg-list-searches)

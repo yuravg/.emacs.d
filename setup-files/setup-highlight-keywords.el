@@ -22,6 +22,7 @@
 ;;  Make file
 ;;  Tcl
 ;;  Perl
+;;  Markdown
 ;;  PlantUML
 ;;  Backslash
 
@@ -475,6 +476,14 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
 (font-lock-add-keywords
  'cperl-mode
  '(("\\(\\(\\([A-z0-9_]+::\\)*[A-z0-9_]+->\\)?[A-z0-9_]+\\)\(" 1 'font-lock-function-name-face)))
+
+
+;;; Markdown
+;; TODO format:
+;; Status: [ ] Not Started | Priority: Low | Effort: Medium
+(font-lock-add-keywords
+ 'markdown-mode
+ '(("\\(^Status.*\\(High\\|Medium\\|Low\\)\\)" 1 '(:inherit font-lock-type-face :background "gray95"))))
 
 ;;; PlantUML
 (defvar plantuml-elements-keywords

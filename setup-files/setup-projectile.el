@@ -26,8 +26,8 @@
 
     ;; (setq projectile-enable-caching nil)
     (setq projectile-enable-caching t) ;Enable caching, otherwise `projectile-find-file'
-                                       ;is really slow for large
-                                       ;projects.
+                                        ;is really slow for large
+                                        ;projects.
     ;; Disable auto-updating of cache each time a file is opened or
     ;; deleted. The `projectile-serialize-cache' call in
     ;; `projectile-cache-current-file' (through
@@ -293,6 +293,16 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
       (select-frame (make-frame))
       (projectile-find-file))
 
+    (defun yura/projectile-edit-claude-todo-locals ()
+      "Edit or create a .claude/TODO.md file of the project."
+      (interactive)
+      (let ((file (expand-file-name ".claude/TODO.md" (projectile-acquire-root))))
+        (find-file file)
+        (when (not (file-exists-p file))
+          (unwind-protect
+              (projectile-skel-dir-locals)
+            (save-buffer)))))
+
     ;; Showing the root directory of a project is useful if there are sub-projects.
     ;; Some hydra-projectile commands are not from projectile package but I think it is
     ;; convenient to have them in one place.
@@ -304,7 +314,7 @@ Projectile %(if (fboundp 'projectile-project-root) (projectile-project-root) \"T
 ^^---------------------^^^^--------------------------------^^^^-------------------------------^^^^--------------------------^^^^----------------------------------^^-------------------------------------------------
   _f_: file                  _s_/_a_: counsel rg/ag        ^^  _i_: Ibuffer                   ^^_c_: cache clear            _M-c_/_C-c_: compile/force compile    _p_/_P_: switch to an open/other project
   _F_: file dwim         _C-s_/_C-a_: rg/ag              _b_/_C-b_: switch/other window       ^^_x_: remove known project   _M-t_/_C-t_: test/force test          _g_/_G_: switch to Magit status of open/other project
-  _l_: file literally  ^^        _O_: multi-occur      _M-b_/_M-f_: switch/find new frame     ^^_X_: cleanup non-existing   _M-r_/_C-r_: run/force run            ^^  _E_: edit project's .dir-locals.el
+  _l_: file literally  ^^        _O_: multi-occur      _M-b_/_M-f_: switch/find new frame     ^^_X_: cleanup non-existing   _M-r_/_C-r_: run/force run            _E_/_C_: edit project's .dir-locals.el / .claude/TODO.md
   _r_: recent file     ^^      _M-g_: git-grep             ^^  _k_: kill all                  ^^_z_: cache current          ^^^^                                  ^^  _D_: find dir
 _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all              _u_/_U_: gtags update/create    ^^^^                                  ^^  _4_: other window
 ^^                     ^^^^                                ^^_M-m_: revert all with modes     ^^^^                          ^^^^                                  ^^  _o_: submodule
@@ -354,6 +364,7 @@ _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all  
       ("g"   yura/projectile-switch-open-project-magit-status)
       ("G"   modi/projectile-switch-project-magit-status)
       ("E"   projectile-edit-dir-locals)
+      ("C"   yura/projectile-edit-claude-todo-locals)
       ("D"   projectile-find-dir)
       ("4"   hydra-projectile-other-window/body)
       ("o"   magit-submodule)

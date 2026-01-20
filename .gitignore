@@ -8,6 +8,9 @@ anaconda-mode/
 bm-repository
 bookmarks
 elfeed_db*/
+ellama-sessions/
+eln-cache/
+elpa/
 elpa_[2-9]*/
 elpy/
 emojis/
@@ -19,12 +22,15 @@ ido.last
 keyfreq
 mc-lists
 patch/
+personal/custom-file.el
 places
 projectile-bookmarks.eld
+projects
 quartus-prime-snippets/
 recentf
 request/
 server*/
+setup-files/*-backup.el
 smex-items
 snippets/
 tramp

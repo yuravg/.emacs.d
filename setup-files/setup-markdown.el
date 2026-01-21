@@ -4,6 +4,19 @@
 ;; https://github.com/jrblevin/markdown-mode
 ;; http://jblevins.org/projects/markdown-mode
 
+;; Contents:
+;;
+;;  markdown-mode
+;;    orgtbl-to-gfm
+;;    grip-mode
+;;    pandoc
+;;    My Customize
+;;    markdown-mode-map
+;;  Notes
+
+;;
+
+;;; markdown-mode
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode)
@@ -30,6 +43,7 @@
         (eww-mode)
         (kill-buffer buf-html)))
 
+;;;; orgtbl-to-gfm
     ;; Seamless editing of Markdown tables (allowed in GFM) using `orgtbl-mode'
     ;; http://stackoverflow.com/a/20912535/1219634
     ;; https://gist.github.com/yryozo/5807243
@@ -46,15 +60,7 @@
         (orgtbl-to-generic table (org-combine-plists params2 params))))
     (add-hook 'markdown-mode-hook #'orgtbl-mode)
 
-    ;; Set to a non-nil value to use asymmetric header styling
-    (setq markdown-asymmetric-header t)
-
-    (defun yura/markdown-set-indentation()
-      "Customize the indentation for `markdown-mode'."
-      (setq tab-width 2
-            indent-tabs-mode nil))
-    (add-hook 'markdown-mode-hook #'yura/markdown-set-indentation)
-
+;;;; grip-mode
     ;; https://github.com/seagle0128/grip-mode
     ;; FIXME: markdown-mode-command-map not available
     (use-package grip-mode
@@ -66,6 +72,7 @@
       ;; When nil, only update the preview on file save.
       (setq grip-update-after-change nil))
 
+;;;; pandoc
     (use-package pandoc
       :ensure t
       :if (executable-find "pandoc")
@@ -101,12 +108,25 @@
                       (insert org-content)
                       (org-mode)
                       (switch-to-buffer-other-window (current-buffer))))))
-            (message "Current buffer is not in markdown-mode")))
+            (message "Current buffer is not in markdown-mode"))))
 
-        :init
-        (unless (executable-find "pandoc")
-          (message "pandoc command not found in system PATH"))))
+      :init
+      (unless (executable-find "pandoc")
+        (message "pandoc command not found in system PATH")))
 
+
+;;;; My Customize
+    ;; Set to a non-nil value to use asymmetric header styling
+    (setq markdown-asymmetric-header t)
+
+    (defun yura/markdown-set-indentation()
+      "Customize the indentation for `markdown-mode'."
+      (setq tab-width 2
+            indent-tabs-mode nil))
+    (add-hook 'markdown-mode-hook #'yura/markdown-set-indentation)
+
+
+;;;; markdown-mode-map
     (bind-keys
      :map markdown-mode-map
      ;; Mimicking the org-export style bindings
@@ -118,6 +138,8 @@
 
 (provide 'setup-markdown)
 
+
+;;; Notes
 ;; C-c C-s C-p - `markdown-pre-region'
 ;;                Indent the selected region 4 spaces to the right
 ;;                (code block formatting used on reddit, stackexchange, etc.)

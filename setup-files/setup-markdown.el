@@ -11,6 +11,7 @@
 ;;    grip-mode
 ;;    pandoc
 ;;    My Customize
+;;    my/markdown-cleanup-heder-list-numbers-level
 ;;    markdown-mode-map
 ;;  Notes
 
@@ -125,6 +126,173 @@
             indent-tabs-mode nil))
     (add-hook 'markdown-mode-hook #'my/markdown-set-indentation)
 
+;;;; my/markdown-cleanup-heder-list-numbers-level
+    (defun my/markdown-cleanup-heder-list-numbers-level ()
+      "Renumber phase headers, multi-level numbered headers, and update task counters.
+
+Processes two header patterns in Pass 1:
+
+1. Phase headers: `# Phase N:' or `## Phase N:' etc.
+   Renumbered sequentially (1, 2, 3...) in order of appearance.
+
+2. Multi-level numbered headers: `## N.N' or `### N.N.N' etc.
+   Renumbered based on the current phase and header level.
+
+Pass 2 updates task counters (Org-mode style):
+
+3. Task counters: `[N/M done]' suffix updated hierarchically.
+   Counts DIRECT children only (exactly one level deeper).
+   - `[x]' counts as done
+   - `[ ]', `[~]', `[!]' count as not done
+   - `[N/M done]' subtask counters: done if N=M, not done otherwise
+   Headers with `[N/M done]' are processed bottom-up.
+
+Example transformation:
+  # Phase 5: intro [0/2 done]  ; becomes # Phase 1: intro [2/4 done]
+  ## 5.1 task A [x]            ; becomes ## 1.1 task A [x]        (done)
+  ## 5.2 task B [0/2 done]     ; becomes ## 1.2 task B [1/4 done] (not done)
+  ### 5.2.1 sub [x]            ; becomes ### 1.2.1 sub [x]
+  ### 5.2.2 sub [ ]            ; becomes ### 1.2.2 sub [ ]
+  ### 5.2.3 sub [ ]            ; becomes ### 1.2.3 sub [ ]
+  ### 5.2.4 sub [ ]            ; becomes ### 1.2.4 sub [ ]
+  ## 5.3 task C [ ]            ; becomes ## 1.3 task C [ ]        (not done)
+  ## 5.4 task D [0/2 done]     ; becomes ## 1.4 task D [2/2 done] (done)
+  ### 5.4.1 sub [x]            ; becomes ### 1.4.1 sub [x]
+  ### 5.4.2 sub [x]            ; becomes ### 1.4.2 sub [x]
+
+Without a preceding phase header, numbering starts from 1.
+
+Plain numbered lists (\"1. item\") are NOT modified.
+
+See also `markdown-cleanup-list-numbers'."
+      (interactive)
+      (save-excursion
+        (goto-char (point-min))
+        (let ((phase-num 0)
+              (phase-level 1)
+              (counters (make-vector 7 0))
+              (phase-positions '()))
+
+          ;; Pass 1: Renumber headers and collect phase positions
+          (while (not (eobp))
+            (cond
+             ;; Phase header: # Phase N: or ## Phase N: etc.
+             ((looking-at "^\\(#+\\)\\s-+[Pp]hase\\s-+\\([0-9]+\\)\\s-*:\\(.*?\\)\\(\\s-*\\[[-0-9]+/[-0-9]+\\s-*done\\]\\)?\\s-*$")
+              (setq phase-num (1+ phase-num))
+              (setq phase-level (length (match-string 1)))
+              (fillarray counters 0)
+              (push (cons (line-number-at-pos) phase-level) phase-positions)
+              (let ((num-start (match-beginning 2))
+                    (num-end (match-end 2)))
+                (delete-region num-start num-end)
+                (goto-char num-start)
+                (insert (number-to-string phase-num))))
+
+             ;; Multi-level numbered header: ## N.N or ### N.N.N etc.
+             ((looking-at "^\\(#+\\)\\s-+\\([0-9]+\\(?:\\.[0-9]+\\)+\\)\\s-")
+              (let* ((level (length (match-string 1)))
+                     (num-start (match-beginning 2))
+                     (num-end (match-end 2))
+                     (current-phase (if (zerop phase-num) 1 phase-num)))
+                (aset counters level (1+ (aref counters level)))
+                (cl-loop for i from (1+ level) below (length counters)
+                         do (aset counters i 0))
+                (let ((new-num (mapconcat #'number-to-string
+                                          (cons current-phase
+                                                (cl-loop for i from (1+ phase-level) to level
+                                                         collect (aref counters i)))
+                                          ".")))
+                  (delete-region num-start num-end)
+                  (goto-char num-start)
+                  (insert new-num)))))
+            (forward-line 1))
+
+          ;; Pass 2: Update task counters
+          (goto-char (point-min))
+          (let ((headers-with-counters '()))
+            ;; Collect headers with [N/M done] or Phase headers
+            (while (not (eobp))
+              (cond
+               ((looking-at "^\\(#+\\)\\s-+[Pp]hase\\s-+[0-9]+\\s-*:")
+                (push (list (line-number-at-pos)
+                            (length (match-string 1))
+                            'phase)
+                      headers-with-counters))
+               ((looking-at "^\\(#+\\)\\s-+.*\\[[0-9]+/[0-9]+\\s-*done\\]")
+                (push (list (line-number-at-pos)
+                            (length (match-string 1))
+                            'counter)
+                      headers-with-counters)))
+              (forward-line 1))
+
+            ;; Sort by level descending (process deepest first)
+            (setq headers-with-counters
+                  (sort headers-with-counters
+                        (lambda (a b) (> (nth 1 a) (nth 1 b)))))
+
+            ;; Update each header's counter based on direct children
+            (dolist (header-info headers-with-counters)
+              (let* ((header-line (nth 0 header-info))
+                     (header-level (nth 1 header-info))
+                     (child-level (1+ header-level))
+                     (done-count 0)
+                     (total-count 0))
+                ;; Go to header line and scan for direct children
+                (goto-char (point-min))
+                (forward-line (1- header-line))
+                (forward-line 1)
+                ;; Count direct children until we hit same/higher level header
+                ;; Skip content inside fenced code blocks (``` or ~~~)
+                (let ((continue-loop t)
+                      (cur-level nil)
+                      (in-code-block nil))
+                  (while (and continue-loop (not (eobp)))
+                    (cond
+                     ;; Toggle code block state on fence markers
+                     ;; Use [ \t]* instead of \s-* to avoid matching across newlines
+                     ((looking-at "^[ \t]*\\(```\\|~~~\\)")
+                      (setq in-code-block (not in-code-block))
+                      (forward-line 1))
+                     ;; Skip content inside code blocks
+                     (in-code-block
+                      (forward-line 1))
+                     ;; Check if it's a header (outside code block)
+                     ((looking-at "^\\(#+\\)\\s-")
+                      (setq cur-level (length (match-string 1)))
+                      (cond
+                       ((<= cur-level header-level)
+                        (setq continue-loop nil))
+                       ((= cur-level child-level)
+                        (cond
+                         ((looking-at "^#+\\s-+.*\\[\\([0-9]+\\)/\\([0-9]+\\)\\s-*done\\]")
+                          (setq total-count (1+ total-count))
+                          (when (= (string-to-number (match-string 1))
+                                   (string-to-number (match-string 2)))
+                            (setq done-count (1+ done-count))))
+                         ((looking-at "^#+\\s-+.*\\[\\([x~! ]\\)\\]")
+                          (setq total-count (1+ total-count))
+                          (when (string= (match-string 1) "x")
+                            (setq done-count (1+ done-count)))))
+                        (forward-line 1))
+                       (t (forward-line 1))))
+                     (t (forward-line 1)))))
+
+                ;; Update the header with task counter
+                ;; Use delete-region + insert instead of replace-match to preserve newlines
+                (when (> total-count 0)
+                  (goto-char (point-min))
+                  (forward-line (1- header-line))
+                  (let ((counter-str (format " [%d/%d done]" done-count total-count))
+                        (line-end (line-end-position)))
+                    (cond
+                     ((looking-at "^\\(#+\\s-+[Pp]hase\\s-+[0-9]+\\s-*:.*?\\)\\(\\s-*\\[[-0-9]+/[-0-9]+\\s-*done\\]\\)?\\s-*$")
+                      (let ((new-content (concat (match-string 1) counter-str)))
+                        (delete-region (point) line-end)
+                        (insert new-content)))
+                     ((looking-at "^\\(#+\\s-+.*?\\)\\s-*\\[[-0-9]+/[-0-9]+\\s-*done\\]\\s-*$")
+                      (let ((new-content (concat (match-string 1) counter-str)))
+                        (delete-region (point) line-end)
+                        (insert new-content))))))))))))
 
 ;;;; markdown-mode-map
     (bind-keys
@@ -132,6 +300,8 @@
      ;; Mimicking the org-export style bindings
      ("C-c C-e o" . gk-markdown-preview-buffer)
      ("C-c C-e t". orgtbl-send-table)
+     ("C-c C-s N" . my/markdown-cleanup-heder-list-numbers-level)
+     ("C-c C-s n" . markdown-cleanup-list-numbers)
      ("M-p" . markdown-previous-visible-heading)
      ("M-n" . markdown-next-visible-heading))))
 

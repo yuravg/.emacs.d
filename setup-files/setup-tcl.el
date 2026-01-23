@@ -17,12 +17,12 @@
   :config
   (progn
     (unbind-key "C-c C-f" tcl-mode-map) ;default: `tcl-load-file' FILE &optional
-    (defun yura/tcl-set-indentation ()
+    (defun my/tcl-set-indentation ()
       "Customize the indentation for `tcl-mode'."
       (setq tab-width 4
             tcl-indent-level 4
             indent-tabs-mode nil))
-    (add-hook 'tcl-mode-hook #'yura/tcl-set-indentation)
+    (add-hook 'tcl-mode-hook #'my/tcl-set-indentation)
 
     ;; SDC - Synopsys Design Constraints
     (defun sdc-command-refactoring ()

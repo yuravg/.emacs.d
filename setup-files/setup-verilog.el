@@ -431,7 +431,7 @@ and to have a `ctags' TAGS file pre-generated for this command to work."
                 (user-error "Ctags TAGS file `%s' was not found" tags-file)))
           (user-error "Executable `ctags' is required for this command to work")))
 
-      (defun yura/verilog-jump-to-module-at-point ()
+      (defun my/verilog-jump-to-module-at-point ()
         "Jump to tag."
         (interactive)
         (modi/verilog-jump-to-header-dwim nil)
@@ -610,7 +610,7 @@ for all the `included files."
 
 ;;;;; Verilog styles
     ;; Add an analog of style - commands to set verilog variables to different values.
-    (defun yura/verilog-set-style-4tab-autoindent ()
+    (defun my/verilog-set-style-4tab-autoindent ()
       "Set `verilog-mode' indent with tabs and 4 `tab-width', auto select indent for module and delcaration."
       (interactive)
       (let ((toggle-indent (save-excursion
@@ -638,57 +638,57 @@ for all the `included files."
         (setq-local verilog-cexp-indent              4)
         (setq-local tab-width        4)
         (setq-local indent-tabs-mode t)
-        (setq-local yura/verilog-buffer-style '4tab-autoindent)))
+        (setq-local my/verilog-buffer-style '4tab-autoindent)))
 
-    (defun yura/verilog-set-style-4tab-4indent ()
+    (defun my/verilog-set-style-4tab-4indent ()
       "Set `verilog-mode' indent with tabs and 4 `tab-width', with indent for module and declaration."
       (interactive)
-        (setq-local verilog-indent-level             4)
-        (setq-local verilog-indent-level-module      4)
-        (setq-local verilog-indent-level-declaration 4)
-        (setq-local verilog-indent-level-behavioral  4)
-        (setq-local verilog-indent-level-directive   4)
-        (setq-local verilog-case-indent              4)
-        (setq-local verilog-auto-newline             nil)
-        (setq-local verilog-auto-indent-on-newline   nil)
-        (setq-local verilog-tab-always-indent        nil)
-        (setq-local verilog-auto-endcomments         nil)
-        (setq-local verilog-minimum-comment-distance 40)
-        (setq-local verilog-indent-begin-after-if    nil)
-        (setq-local verilog-auto-lineup              nil)
-        (setq-local verilog-align-ifelse             nil)
-        (setq-local verilog-tab-to-comment           nil)
-        (setq-local verilog-highlight-p1800-keywords nil)
-        (setq-local verilog-cexp-indent              4)
-        (setq-local tab-width        4)
-        (setq-local indent-tabs-mode t)
-        (setq-local yura/verilog-buffer-style '4tab-4indent))
+      (setq-local verilog-indent-level             4)
+      (setq-local verilog-indent-level-module      4)
+      (setq-local verilog-indent-level-declaration 4)
+      (setq-local verilog-indent-level-behavioral  4)
+      (setq-local verilog-indent-level-directive   4)
+      (setq-local verilog-case-indent              4)
+      (setq-local verilog-auto-newline             nil)
+      (setq-local verilog-auto-indent-on-newline   nil)
+      (setq-local verilog-tab-always-indent        nil)
+      (setq-local verilog-auto-endcomments         nil)
+      (setq-local verilog-minimum-comment-distance 40)
+      (setq-local verilog-indent-begin-after-if    nil)
+      (setq-local verilog-auto-lineup              nil)
+      (setq-local verilog-align-ifelse             nil)
+      (setq-local verilog-tab-to-comment           nil)
+      (setq-local verilog-highlight-p1800-keywords nil)
+      (setq-local verilog-cexp-indent              4)
+      (setq-local tab-width        4)
+      (setq-local indent-tabs-mode t)
+      (setq-local my/verilog-buffer-style '4tab-4indent))
 
-    (defun yura/verilog-set-style-4tab-0indent ()
+    (defun my/verilog-set-style-4tab-0indent ()
       "Set `verilog-mode' indent with tabs and 4 `tab-width', without indent for module and declaration."
       (interactive)
-        (setq-local verilog-indent-level             4)
-        (setq-local verilog-indent-level-module      0)
-        (setq-local verilog-indent-level-declaration 0)
-        (setq-local verilog-indent-level-behavioral  4)
-        (setq-local verilog-indent-level-directive   4)
-        (setq-local verilog-case-indent              4)
-        (setq-local verilog-auto-newline             nil)
-        (setq-local verilog-auto-indent-on-newline   nil)
-        (setq-local verilog-tab-always-indent        nil)
-        (setq-local verilog-auto-endcomments         nil)
-        (setq-local verilog-minimum-comment-distance 40)
-        (setq-local verilog-indent-begin-after-if    nil)
-        (setq-local verilog-auto-lineup              nil)
-        (setq-local verilog-align-ifelse             nil)
-        (setq-local verilog-tab-to-comment           nil)
-        (setq-local verilog-highlight-p1800-keywords nil)
-        (setq-local verilog-cexp-indent              4)
-        (setq-local tab-width        4)
-        (setq-local indent-tabs-mode t)
-        (setq-local yura/verilog-buffer-style '4tab-0indent))
+      (setq-local verilog-indent-level             4)
+      (setq-local verilog-indent-level-module      0)
+      (setq-local verilog-indent-level-declaration 0)
+      (setq-local verilog-indent-level-behavioral  4)
+      (setq-local verilog-indent-level-directive   4)
+      (setq-local verilog-case-indent              4)
+      (setq-local verilog-auto-newline             nil)
+      (setq-local verilog-auto-indent-on-newline   nil)
+      (setq-local verilog-tab-always-indent        nil)
+      (setq-local verilog-auto-endcomments         nil)
+      (setq-local verilog-minimum-comment-distance 40)
+      (setq-local verilog-indent-begin-after-if    nil)
+      (setq-local verilog-auto-lineup              nil)
+      (setq-local verilog-align-ifelse             nil)
+      (setq-local verilog-tab-to-comment           nil)
+      (setq-local verilog-highlight-p1800-keywords nil)
+      (setq-local verilog-cexp-indent              4)
+      (setq-local tab-width        4)
+      (setq-local indent-tabs-mode t)
+      (setq-local my/verilog-buffer-style '4tab-0indent))
 
-    (defun yura/verilog-set-style-uvm ()
+    (defun my/verilog-set-style-uvm ()
       "Set `verilog-mode' indent with spaces and 2 `tab-width'."
       (interactive)
       (setq-local verilog-indent-level             2)
@@ -710,9 +710,9 @@ for all the `included files."
       (setq-local verilog-cexp-indent              2)
       (setq-local tab-width        2)
       (setq-local indent-tabs-mode nil)
-      (setq-local yura/verilog-buffer-style 'uvm))
+      (setq-local my/verilog-buffer-style 'uvm))
 
-    (defun yura/verilog-set-style-default ()
+    (defun my/verilog-set-style-default ()
       "Set `verilog-mode' indent with spaces and default indents from `verilog-mode'."
       (interactive)
       (setq-local verilog-indent-level             3)
@@ -733,9 +733,9 @@ for all the `included files."
       (setq-local verilog-cexp-indent              2)
       (setq-local tab-width        3)
       (setq-local indent-tabs-mode nil)
-      (setq-local yura/verilog-buffer-style 'default))
+      (setq-local my/verilog-buffer-style 'default))
 
-    (defun yura/verilog-set-style-modi ()
+    (defun my/verilog-set-style-modi ()
       (interactive)
       (setq-local verilog-indent-level             2)
       (setq-local verilog-indent-level-module      2)
@@ -755,41 +755,41 @@ for all the `included files."
       (setq-local verilog-cexp-indent              2)
       (setq-local tab-width        2)
       (setq-local indent-tabs-mode nil)
-      (setq-local yura/verilog-buffer-style 'modi))
+      (setq-local my/verilog-buffer-style 'modi))
 
     ;; Select the style depending on local variable which describe current style.
-    (defvar-local yura/verilog-buffer-style '4tab-4indent
+    (defvar-local my/verilog-buffer-style '4tab-4indent
       "Variable to store `verilog-mode' style for current buffer.
 
-If `4tab-autoindent' is selected, then `verilog-mode' style set with `yura/verilog-set-style-4tab-autoindent'.
-If `uvm' is selected, then `verilog-mode' style set with `yura/verilog-set-style-uvm'.
-If `default' is selected, then `verilog-mode' style set with `yura/verilog-set-style-default'.")
-    (put 'yura/verilog-buffer-style 'safe-local-variable
+If `4tab-autoindent' is selected, then `verilog-mode' style set with `my/verilog-set-style-4tab-autoindent'.
+If `uvm' is selected, then `verilog-mode' style set with `my/verilog-set-style-uvm'.
+If `default' is selected, then `verilog-mode' style set with `my/verilog-set-style-default'.")
+    (put 'my/verilog-buffer-style 'safe-local-variable
          '(lambda (x) (memq x '(4tab-autoindent uvm default))))
 
-    (defun yura/verilog-select-style ()
-      "Set indents for `verilog-mode' depending on `yura/verilog-buffer-style'."
-      (cl-case yura/verilog-buffer-style
-        (4tab-autoindent (yura/verilog-set-style-4tab-autoindent))
-        (uvm             (yura/verilog-set-style-uvm))
-        (4tab-4indent    (yura/verilog-set-style-4tab-4indent))
-        (4tab-0indent    (yura/verilog-set-style-4tab-0indent))
-        (default         (yura/verilog-set-style-default))
-        (otherwise       (yura/verilog-set-style-4tab-autoindent))))
+    (defun my/verilog-select-style ()
+      "Set indents for `verilog-mode' depending on `my/verilog-buffer-style'."
+      (cl-case my/verilog-buffer-style
+        (4tab-autoindent (my/verilog-set-style-4tab-autoindent))
+        (uvm             (my/verilog-set-style-uvm))
+        (4tab-4indent    (my/verilog-set-style-4tab-4indent))
+        (4tab-0indent    (my/verilog-set-style-4tab-0indent))
+        (default         (my/verilog-set-style-default))
+        (otherwise       (my/verilog-set-style-4tab-autoindent))))
 
-    (defun yura/verilog-show-style ()
-      "Inform caller of the current verilog style(`yura/verilog-buffer-style')."
+    (defun my/verilog-show-style ()
+      "Inform caller of the current verilog style(`my/verilog-buffer-style')."
       (interactive)
       (if (eq major-mode 'verilog-mode)
-          (message "Verilog style: %s" yura/verilog-buffer-style)
+          (message "Verilog style: %s" my/verilog-buffer-style)
         (message "This command available for `verilog-mode' only.")))
 
-    (defun yura/add-hook-for-verilog-set-style ()
-      (add-hook 'hack-local-variables-hook #'yura/verilog-select-style nil :local))
-    (add-hook 'verilog-mode-hook #'yura/add-hook-for-verilog-set-style)
+    (defun my/add-hook-for-verilog-set-style ()
+      (add-hook 'hack-local-variables-hook #'my/verilog-select-style nil :local))
+    (add-hook 'verilog-mode-hook #'my/add-hook-for-verilog-set-style)
 
 ;;;;; Set Indent level module/declaratioin
-    (defun yura/verilog-set-indent-module-declaration ()
+    (defun my/verilog-set-indent-module-declaration ()
       "Set module and declaration indentation for verilog mode."
       (interactive)
       (let ((indent-value (string-to-number (ido-completing-read
@@ -800,7 +800,7 @@ If `default' is selected, then `verilog-mode' style set with `yura/verilog-set-s
         (message "Set verilog indentation to: %s (for module and declaration)" indent-value)))
 
 ;;;;; Set verilog auto lineup
-    (defun yura/verilog-set-auto-lineup ()
+    (defun my/verilog-set-auto-lineup ()
       "Set auto-lineup (alignment) variable of verilog mode."
       (interactive)
       (let (lineup arg)
@@ -971,13 +971,13 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                   ("\\b$display (" . "$display(")
                   ("\\balways@"    . "always @")
                   ("\\balways_ff@" . "always_ff @")
-                  ;<instance_name>_[0-9] (  →  <instance_name>_[0-9](
+                                        ;<instance_name>_[0-9] (  →  <instance_name>_[0-9](
                   ("\\(_[0-9]\\)\\s-+\\((\\)" . "\\1\\2")
-                  ;task <name> ( → <name>(
+                                        ;task <name> ( → <name>(
                   ("\\(\\(task\\|function\\) [_a-z0-9]+\\)\\s-+\\((\\)" . "\\1\\3")
-                  ; )   begin or )begin → ) begin
+                                        ; )   begin or )begin → ) begin
                   ("\\([)]\\)\\(\\s-\\{2,\\}\\|[\t]\\)?\\(begin\\)" . "\\1 \\3")
-                  ; <name>   #( → <name>#(
+                                        ; <name>   #( → <name>#(
                   ;; FIXME: disable in class declaration
                   ("\\([_a-z0-9]+\\)\\(\\s-+\\)\\(#(\\)" . "\\1\\3")
                   ;; FIXME: disable in module declaration
@@ -1006,7 +1006,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
       ("q" nil "cancel")
       ("C-g" nil "cancel"))
 
-    (defun yura/verilog-add-or-overwrite-identifiers ()
+    (defun my/verilog-add-or-overwrite-identifiers ()
       "Add or overwrite Verilog identifiers.
 
 Add or Overwrite identifiers for Verilog:
@@ -1067,7 +1067,7 @@ Examples: endmodule                 → endmodule : module_name
                 "sequence"
                 "property"))))
 
-    (defun yura/verilog-task-func-move-from-class (arg)
+    (defun my/verilog-task-func-move-from-class (arg)
       "Move a Verilog 'task' or 'function' from class - make them 'extern'.
 
 To execute command should move point below the Verilog 'task' or 'function'.
@@ -1076,57 +1076,57 @@ If prefixed with \\[universal-argument], move to the end of page."
       (interactive "P")
       (save-excursion
         (let ((beg)
-            (end)
-            (name))
-        (move-end-of-line nil)
-        (re-search-backward "\\(\\<function \\)\\|\\(\\<task \\)")
-        (back-to-indentation)
-        (setq beg (point))
-        (re-search-backward "^\\s-*\\(virtual\\s-+\\)?\\<class \\w" nil t)
-        (re-search-forward "\\<class \\w" nil t)
-        (setq name (symbol-at-point))
-        (goto-char beg)
-        (re-search-forward "\\(\\<endfunction\\>\\)\\|\\(\\<endtask\\>\\)")
-        (move-end-of-line nil)
-        (setq end (point))
-        (copy-region-as-kill beg end)
-        (goto-char beg)
-        (insert "extern ")
-        (forward-line 1)
-        (setq beg (point))
-        (goto-char end)
-        (move-end-of-line nil)
-        (setq end (point))
-        (delete-region beg end)
-        (if arg
-            (progn (forward-page)
-                   (newline 2))
-          (progn (search-forward "endclass")
-                 (forward-line 1)
-                 (newline 2)))
-        (yank)
-        (re-search-backward "\\(\\<function \\)\\|\\(\\<task \\)")
-        (search-forward "(")
-        (backward-word 1)
-        (insert (format "%s::" name))
-        (indent-region (progn (move-beginning-of-line nil)
-                              (point))
-                       (progn (re-search-forward "\\(\\<endfunction\\>\\)\\|\\(\\<endtask\\>\\)")
-                              (move-end-of-line nil)
-                              (point))))))
+              (end)
+              (name))
+          (move-end-of-line nil)
+          (re-search-backward "\\(\\<function \\)\\|\\(\\<task \\)")
+          (back-to-indentation)
+          (setq beg (point))
+          (re-search-backward "^\\s-*\\(virtual\\s-+\\)?\\<class \\w" nil t)
+          (re-search-forward "\\<class \\w" nil t)
+          (setq name (symbol-at-point))
+          (goto-char beg)
+          (re-search-forward "\\(\\<endfunction\\>\\)\\|\\(\\<endtask\\>\\)")
+          (move-end-of-line nil)
+          (setq end (point))
+          (copy-region-as-kill beg end)
+          (goto-char beg)
+          (insert "extern ")
+          (forward-line 1)
+          (setq beg (point))
+          (goto-char end)
+          (move-end-of-line nil)
+          (setq end (point))
+          (delete-region beg end)
+          (if arg
+              (progn (forward-page)
+                     (newline 2))
+            (progn (search-forward "endclass")
+                   (forward-line 1)
+                   (newline 2)))
+          (yank)
+          (re-search-backward "\\(\\<function \\)\\|\\(\\<task \\)")
+          (search-forward "(")
+          (backward-word 1)
+          (insert (format "%s::" name))
+          (indent-region (progn (move-beginning-of-line nil)
+                                (point))
+                         (progn (re-search-forward "\\(\\<endfunction\\>\\)\\|\\(\\<endtask\\>\\)")
+                                (move-end-of-line nil)
+                                (point))))))
 
 ;;; Verilog compile
-    (defvar yura/verilog-compiler-command nil
+    (defvar my/verilog-compiler-command nil
       "Verilog lint command.")
-    (setq yura/verilog-modelsim-compile-command "vlog -incr -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
-    (setq yura/verilog-verilator-lint-command "verilator --lint-only")
-    (setq yura/verilog-compiler-command yura/verilog-modelsim-compile-command)
+    (setq my/verilog-modelsim-compile-command "vlog -incr -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
+    (setq my/verilog-verilator-lint-command "verilator --lint-only")
+    (setq my/verilog-compiler-command my/verilog-modelsim-compile-command)
 
-    (setq verilog-compiler yura/verilog-compiler-command)
-    (setq verilog-linter yura/verilog-verilator-lint-command)
+    (setq verilog-compiler my/verilog-compiler-command)
+    (setq verilog-linter my/verilog-verilator-lint-command)
 
     ;; (setq verilog-simulator (let* ((fname (file-name-nondirectory buffer-file-name)))
-    ;;                               (concat yura/verilog-modelsim-compile-command " " fname
+    ;;                               (concat my/verilog-modelsim-compile-command " " fname
     ;;                                       " && "
     ;;                                       "vsim -c "
     ;;                                       (file-name-sans-extension fname)
@@ -1142,83 +1142,83 @@ File order in the list: Verilog, System Verilog packages, interfaces, modules."
         (setq list (append list (directory-files-recursive "." 0 nil "\\.sv$" "\\(_if.sv\\|_pkg\\|\\#\\|~\\)")))
         list))
 
-    (defun yura/verilog-compile-all-files ()
-      "Execute `yura/verilog-compiler-command' for current file and files in its directory and sub-directories."
+    (defun my/verilog-compile-all-files ()
+      "Execute `my/verilog-compiler-command' for current file and files in its directory and sub-directories."
       (interactive)
       (let ((files (convert-list-to-string
                     (verilog-get-list-verilog-files-in-current-directory) " ")))
-        (compile (concat yura/verilog-compiler-command " " files))))
+        (compile (concat my/verilog-compiler-command " " files))))
 
-    (defun yura/verilog-compile-current-file ()
-      "Execute `yura/verilog-compiler-command' for current file."
+    (defun my/verilog-compile-current-file ()
+      "Execute `my/verilog-compiler-command' for current file."
       (interactive)
       (let ((fname (file-name-nondirectory buffer-file-name)))
-        (compile (concat yura/verilog-compiler-command " " fname))))
+        (compile (concat my/verilog-compiler-command " " fname))))
 
-    (defun yura/verilog-compile (arg)
+    (defun my/verilog-compile (arg)
       "Compile Verilog/SystemVerilog.
 
-Without Arg run `yura/verilog-compile-current-file'.
-If ARG is \\[universal-argument] run `yura/questasim-vsim'.
+Without Arg run `my/verilog-compile-current-file'.
+If ARG is \\[universal-argument] run `my/questasim-vsim'.
 If ARG is \\[universal-argument] \\[universal-argument] run `compiler' interactively."
       (interactive "p")
       (cl-case arg
-        (4 (yura/questasim-vsim))
+        (4 (my/questasim-vsim))
         (16 (call-interactively 'compile))
-        (t (yura/verilog-compile-current-file))))
+        (t (my/verilog-compile-current-file))))
 
     (bind-keys
      :map verilog-mode-map
-     ("C-c C-c" . yura/verilog-compile)
-     ("C-c C-a" . yura/verilog-compile-all-files))
+     ("C-c C-c" . my/verilog-compile)
+     ("C-c C-a" . my/verilog-compile-all-files))
 
 ;;; Simulation
-    (defun yura/questasim-vsim ()
+    (defun my/questasim-vsim ()
       "Run compilation and simulation with QuestaSim."
       (interactive)
-      (let* ((is-function (if (bound-and-true-p yura/compilation-finish-function) t nil))
+      (let* ((is-function (if (bound-and-true-p my/compilation-finish-function) t nil))
              (fname (file-name-nondirectory buffer-file-name))
-             (command (concat yura/verilog-modelsim-compile-command " " fname
+             (command (concat my/verilog-modelsim-compile-command " " fname
                               " && "
                               "vsim -c "
                               (file-name-sans-extension fname)
                               " -do 'run -all; quit'")))
-        (setq yura/compilation-finish-function nil) ;clean `compilation-finish-function'
+        (setq my/compilation-finish-function nil) ;clean `compilation-finish-function'
         (compile command))
-      (if is-function (yura/compilation-toggle-finish-function))) ;restore `compilation-finish-function'
+      (if is-function (my/compilation-toggle-finish-function))) ;restore `compilation-finish-function'
 
     (bind-keys
      :map verilog-mode-map
-     ("C-c M-c" . yura/questasim-vsim))
+     ("C-c M-c" . my/questasim-vsim))
 
 ;;;; Compilation after save
-    (defvar yura/verilog-compilation-after-save-enable nil
+    (defvar my/verilog-compilation-after-save-enable nil
       "The variable allows you to start compiling the current verilog buffer after saving it.
-Compilation by `yura/verilog-compilation-after-save'.")
+Compilation by `my/verilog-compilation-after-save'.")
 
-    (defun yura/verilog-compilation-after-save-toggle ()
-      "Toggle the variable `yura/verilog-compilation-after-save-enable'."
+    (defun my/verilog-compilation-after-save-toggle ()
+      "Toggle the variable `my/verilog-compilation-after-save-enable'."
       (interactive)
-      (if yura/verilog-compilation-after-save-enable
-          (progn (setq yura/verilog-compilation-after-save-enable nil)
+      (if my/verilog-compilation-after-save-enable
+          (progn (setq my/verilog-compilation-after-save-enable nil)
                  (message "Disable"))
-        (progn (setq yura/verilog-compilation-after-save-enable t)
+        (progn (setq my/verilog-compilation-after-save-enable t)
                (message "Enable"))))
 
-    (defun yura/verilog-compilation-after-save ()
+    (defun my/verilog-compilation-after-save ()
       "Starts compiling the current buffer after saving it.
-Execute `yura/verilog-compile-current-file' after saving the current buffer,
-if variable `yura/verilog-compilation-after-save-enable' is t."
+Execute `my/verilog-compile-current-file' after saving the current buffer,
+if variable `my/verilog-compilation-after-save-enable' is t."
       (add-hook 'after-save-hook
-                (lambda() (if yura/verilog-compilation-after-save-enable
-                         (progn (setq yura/compilation-buffer-single-show-time "0 sec")
-                                (yura/verilog-compile-current-file))))
+                (lambda() (if my/verilog-compilation-after-save-enable
+                              (progn (setq my/compilation-buffer-single-show-time "0 sec")
+                                     (my/verilog-compile-current-file))))
                 nil :local))
-    (add-hook 'verilog-mode-hook #'yura/verilog-compilation-after-save)
+    (add-hook 'verilog-mode-hook #'my/verilog-compilation-after-save)
 
-    ;; Mark the `yura/verilog-compilation-after-save-enable' variable as safe so that it can be
+    ;; Mark the `my/verilog-compilation-after-save-enable' variable as safe so that it can be
     ;; set in `.dir-locals.el' files or set in Local Variables.
-    (put 'yura/verilog-compilation-after-save-enable 'safe-local-variable #'booleanp)
+    (put 'my/verilog-compilation-after-save-enable 'safe-local-variable #'booleanp)
 
 ;;; hideshow
     (with-eval-after-load 'hideshow
@@ -1405,7 +1405,7 @@ _a_lways         _f_or              _g_enerate         _O_utput
      ("C-&"       . modi/verilog-jump-to-header-dwim-fwd)
      ("<f9>"      . modi/verilog-compile)
      ("<S-f9>"    . modi/verilog-simulate))
-    (bind-chord "\\\\" #'yura/verilog-jump-to-module-at-point verilog-mode-map) ;"\\"
+    (bind-chord "\\\\" #'my/verilog-jump-to-module-at-point verilog-mode-map) ;"\\"
     (when (executable-find "ag")
       (bind-chord "^^" #'modi/verilog-find-parent-module verilog-mode-map)
       (bind-chord "UU" #'modi/verilog-find-parent-module verilog-mode-map))))

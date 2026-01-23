@@ -33,7 +33,7 @@
      1
      'font-lock-warning-face
      prepend)))
-(dolist (mode yura/major-modes)
+(dolist (mode my/major-modes)
   (font-lock-add-keywords mode todo-hkeywords))
 
 ;;; Tips
@@ -41,7 +41,7 @@
   '(("\\<\\(TIPS\\)\\>"
      1 '(:inherit font-lock-comment-delimiter-face :weight bold :slant normal)
      prepend)))
-(dolist (mode yura/major-modes)
+(dolist (mode my/major-modes)
   (font-lock-add-keywords mode tips-hkeywords))
 
 ;;; Magit
@@ -306,7 +306,7 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
      . hkeywords-number-face)))
 (mapc (lambda (mode)
         (font-lock-add-keywords mode number-hkeyword))
-      yura/major-modes)
+      my/major-modes)
 
 (defvar python-bin-number-hkeyword
   '(("\\_<0[bB][0-1_]+\\_>"

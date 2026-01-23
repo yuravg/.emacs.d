@@ -46,9 +46,9 @@
   ("n"     neotree-toggle "neotree")
   ("o"     modi/toggle-one-window "one window" :color red)
   ("p"     electric-pair-local-mode "electric-pair")
-  ("r"     yura/revert-buffer-no-confirm "revert buffer(C-u: & modes)") ; C-u available for `yura/revert-buffer-no-confirm'
+  ("r"     my/revert-buffer-no-confirm "revert buffer(C-u: & modes)") ; C-u available for `my/revert-buffer-no-confirm'
   ("C-r"   (lambda () (interactive)
-             (yura/revert-buffer-no-confirm t)) "revert buffer & modes")
+             (my/revert-buffer-no-confirm t)) "revert buffer & modes")
   ("sa"    scroll-all-mode "scroll all mode")
   ("t"     (lambda (arg) (interactive "P")
              (if arg (google-translate-at-point-reverse) (google-translate-at-point))) "translate(C-u: reverse)")
@@ -60,8 +60,8 @@
   ("V"     visible-mode "visible mode") ; view all hidden text in org-mode (e.g. links)
   ("TAB"   tabify "tabify")
   ("u"     untabify "untabify")
-  ("C-w"   yura/whitespace-with-newline "whitespace mode" :color red)
-  ("w"     yura/whitespace-with-newline "whitespace mode")
+  ("C-w"   my/whitespace-with-newline "whitespace mode" :color red)
+  ("w"     my/whitespace-with-newline "whitespace mode")
   ("C-e e" modi/toggle-edebug "edebug")
   ("C-e d" modi/toggle-debug "debug on entry")
   ("C-e r" toggle-debug-on-error "debug on error")

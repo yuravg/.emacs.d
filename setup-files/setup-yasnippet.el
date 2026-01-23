@@ -79,13 +79,13 @@ _C-i_: ivy                 _?_: list snippets
       ("n" yas-new-snippet)
       ("v" yas-visit-snippet-file)
       ("r" yas-reload-all)
-      ("C-c" yura/yas-recompile-and-reload)
+      ("C-c" my/yas-recompile-and-reload)
       ("x" yas-expand)
       ("?" yas-describe-tables)
       ("q" nil "cancel")
       ("C-g" nil "cancel"))
 
-    (defun yura/yas-recompile-and-reload ()
+    (defun my/yas-recompile-and-reload ()
       "Recompile and reload YASnippet.\n
 Execute commands: `yas-recompile-all', `yas-reload-all'."
       (interactive)

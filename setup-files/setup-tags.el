@@ -223,16 +223,16 @@ function is non-nil and the tag generation process is already running."
 If USE-CTAGS is non-nil, use `ctags'.\n
 If `major-mode' is `verilog-mode' use `ctags' only(for Windows OS only)."
   (interactive "P")
-  ;; clean `yura/compilation-finish-function' to show ggtags/ctags messages
-  (let ((is-function (if (bound-and-true-p yura/compilation-finish-function) t nil)))
-    (setq yura/compilation-finish-function nil) ;clean `compilation-finish-function'
+  ;; clean `my/compilation-finish-function' to show ggtags/ctags messages
+  (let ((is-function (if (bound-and-true-p my/compilation-finish-function) t nil)))
+    (setq my/compilation-finish-function nil) ;clean `compilation-finish-function'
     (if (or use-ctags
             (not (featurep 'ggtags)))
         (progn
           (modi/update-etags-table)
           (etags-select-find-tag-at-point))
       (call-interactively #'ggtags-find-tag-dwim))
-    (if is-function (yura/compilation-toggle-finish-function)))) ;restore `compilation-finish-function'
+    (if is-function (my/compilation-toggle-finish-function)))) ;restore `compilation-finish-function'
 
 ;;; xref, semantic/symref
 ;; `xref' using `semantic-symref-detect-symref-tool' and

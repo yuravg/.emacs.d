@@ -6,8 +6,8 @@
          ("\\.com\\'" . bat-mode))
   :init
   (progn
-    (defun yura/bat-set-indentation () (setq tab-width 4 indent-tabs-mode t))
-    (add-hook 'bat-mode-hook #'yura/bat-set-indentation)))
+    (defun my/bat-set-indentation () (setq tab-width 4 indent-tabs-mode t))
+    (add-hook 'bat-mode-hook #'my/bat-set-indentation)))
 
 
 (provide 'setup-bat)

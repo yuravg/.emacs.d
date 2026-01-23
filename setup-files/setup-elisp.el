@@ -297,11 +297,11 @@ file and don't check if it's already compiled before."
 (bind-key "C-c 9" #'eval-region emacs-lisp-mode-map) ; alternative to f9
 (bind-key "C-c C-a" #'eval-region emacs-lisp-mode-map)
 
-(defun yura/elisp-set-indentation ()
+(defun my/elisp-set-indentation ()
   "Customize the indentation for `emacs-lisp-mode'."
   (setq tab-width 4
         indent-tabs-mode nil))
-(add-hook 'emacs-lisp-mode-hook #'yura/elisp-set-indentation)
+(add-hook 'emacs-lisp-mode-hook #'my/elisp-set-indentation)
 
 (defalias 'elisp-mode 'emacs-lisp-mode)
 

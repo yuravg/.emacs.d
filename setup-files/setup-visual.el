@@ -240,9 +240,9 @@ the smart-mode-line theme."
 (add-hook 'window-setup-hook (lambda () (funcall default-theme-fn)))
 
 ;;;; Leuven-gray theme
-(defvar yura/leuven-gray-package-file
+(defvar my/leuven-gray-package-file
   (expand-file-name "elisp/emacs-leuven-theme/leuven-dark-theme.el" user-emacs-directory))
-(if (file-exists-p yura/leuven-gray-package-file)
+(if (file-exists-p my/leuven-gray-package-file)
     (progn
       (add-to-list 'custom-theme-load-path
                    (concat user-emacs-directory "elisp/emacs-leuven-theme"))
@@ -589,7 +589,7 @@ Toggling off this mode reverts everything to their original states."
       (dolist (hook modi/whitespace-mode-hooks)
         (remove-hook hook #'whitespace-mode)))
 
-    (defun yura/whitespace-with-newline ()
+    (defun my/whitespace-with-newline ()
       "Launch `whitespace-mode' extended by styles: 'face', newline-mark', 'newline'.
 
 See `whitespace-style' more information."
@@ -599,7 +599,7 @@ See `whitespace-style' more information."
         (whitespace-mode 'toggle)))
 
     (defalias 'wmt 'whitespace-mode)
-    (defalias 'wm 'yura/whitespace-with-newline)
+    (defalias 'wm 'my/whitespace-with-newline)
     (defalias 'wmo 'whitespace-toggle-options)))
 
 ;;; Narrow/Widen

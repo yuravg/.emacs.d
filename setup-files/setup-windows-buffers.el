@@ -485,7 +485,7 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
   (list (car args) :noconfirm))
 (advice-add 'help-mode-revert-buffer :filter-args #'modi/revert-noconfirm-help-buffers)
 
-(defun yura/revert-buffer-no-confirm (reverse-modes)
+(defun my/revert-buffer-no-confirm (reverse-modes)
   "Refresh current buffer without confirmation, buffer modes will be preserve.
 
 Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed."
@@ -494,7 +494,7 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
   (if reverse-modes
       (message "Finished reverting buffer and reinitialize modes.")
     (message "Finished reverting buffer.")))
-(defalias 'rb 'yura/revert-buffer-no-confirm)
+(defalias 'rb 'my/revert-buffer-no-confirm)
 
 ;;; Scratch-and-Back
 ;; http://emacs.stackexchange.com/a/81/115
@@ -760,7 +760,7 @@ Repeated calls switch between the last two open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
-(defun yura/other-window-bufer ()
+(defun my/other-window-bufer ()
   "Select another window or switch between buffers.
 
 If there is only one window in frame, then switch to the last open buffer.
@@ -816,7 +816,7 @@ If DOUBLE is non-nil, the frame text width is doubled. "
          ("C-c C-\\" . transpose-frame))) ;Toggles between horz/vert splits
 
 ;;;; Resize frame
-(defun yura/resize-frame ()
+(defun my/resize-frame ()
   "Resize the current frame to the next size.
 
 Size list: default, maximized, full both, full height, full width."
@@ -829,7 +829,7 @@ Size list: default, maximized, full both, full height, full width."
      (list (cons 'fullscreen next)))))
 
 ;;;; Open at new frame
-(defun yura/buffer-to-new-frame (arg)
+(defun my/buffer-to-new-frame (arg)
   "Open current buffer at new frame.
 Perform an action based on ARG described below.
 
@@ -847,11 +847,11 @@ Prefixed with \\[universal-argument] \\[universal-argument] open at new full-scr
 ;; For example after bind `buffer-to-maximized-frame' to 'C-x 5 n'.
 (defun buffer-to-maximized-frame ()
   (interactive)
-  (yura/buffer-to-new-frame 4))
+  (my/buffer-to-new-frame 4))
 (defun buffer-to-fullscreen-frame ()
   (interactive)
-  (yura/buffer-to-new-frame 16))
-(defun yura/counsel-recentf-new-frame ()
+  (my/buffer-to-new-frame 16))
+(defun my/counsel-recentf-new-frame ()
   "Make new frame and launch `counsel-recentf'."
   (interactive)
   (select-frame (make-frame))
@@ -950,10 +950,10 @@ Undo-propose (map prefix: C-c):
 (bind-keys
  :map modi-mode-map
  ("C-c C-m" . execute-extended-command) ;using 'C-c C-m' is more handy than 'M-x'(for me)
- ("C-'" . yura/other-window-bufer)
+ ("C-'" . my/other-window-bufer)
  ("C-x M-f" . find-name-dired)
  ("C-M-'" . switch-to-recent-buffer) ;Default binding to `drag-stuff-right'
- ("<f12>" . yura/resize-frame)
+ ("<f12>" . my/resize-frame)
  ("C-x M-o" . other-frame)
  ("C-c C-o" . other-frame-next) ;Default: `org-open-at-point', rebind it in setup-org.el
  ("C-x 1" . modi/toggle-one-window) ;Default binding to `delete-other-windows'
@@ -977,8 +977,8 @@ Undo-propose (map prefix: C-c):
  ("<S-f5>" . modi/revert-all-file-buffers)
  ("C-x 5 n" . buffer-to-maximized-frame)
  ("C-x 5 C-n" . buffer-to-fullscreen-frame)
- ("C-x 5 o" . yura/counsel-recentf-new-frame) ;default binding `other-frame'
- ("C-x 5 M-o" . yura/counsel-recentf-new-frame)) ; same as: M-o - binding for `counsel-recentf'
+ ("C-x 5 o" . my/counsel-recentf-new-frame) ;default binding `other-frame'
+ ("C-x 5 M-o" . my/counsel-recentf-new-frame)) ; same as: M-o - binding for `counsel-recentf'
 
 (defalias 'arm 'auto-revert-mode)
 (defalias 'ff 'toggle-frame-fullscreen)

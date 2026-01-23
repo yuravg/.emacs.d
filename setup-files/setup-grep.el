@@ -31,11 +31,11 @@ _t_runcate line
   (bind-key "?" #'hydra-grep/body grep-mode-map))
 
 ;;; Hook
-(defun yura/grep-mode-hook ()
+(defun my/grep-mode-hook ()
   "Hook."
   (setq truncate-lines grep-truncate-lines)
   (set (make-local-variable 'truncate-partial-width-windows) nil))
-(add-hook 'grep-mode-hook #'yura/grep-mode-hook)
+(add-hook 'grep-mode-hook #'my/grep-mode-hook)
 
 (use-package grep
   :bind (:map grep-mode-map

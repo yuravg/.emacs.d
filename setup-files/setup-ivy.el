@@ -112,13 +112,13 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
 
     (bind-keys
      :map ivy-occur-grep-mode-map
-     ("C-j" . yura/ivy-occur-goto-file-line)
+     ("C-j" . my/ivy-occur-goto-file-line)
      ("q" . modi/quit-and-kill-window))
 
     (use-package ffap
       :config
       (progn
-        (defun yura/ivy-occur-goto-file-line (other-window)
+        (defun my/ivy-occur-goto-file-line (other-window)
           "Open file under point from `ivy-occur-grep-mode' and go to demanded line.
 
 Prefixed with \\[universal-argument], open file in another window."

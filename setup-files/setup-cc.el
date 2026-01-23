@@ -4,12 +4,12 @@
 (use-package cc-mode
   :config
   (progn
-    (defun yura/cc-set-indentation ()
+    (defun my/cc-set-indentation ()
       "Customize the indentation for `cc-mode'."
       (setq tab-width 4
             c-basic-offset 4
             indent-tabs-mode t))
-    (add-hook 'c-mode-common-hook #'yura/cc-set-indentation)
+    (add-hook 'c-mode-common-hook #'my/cc-set-indentation)
 
     (defun cc-refactoring-of-alignment ()
       "Refactoring of alignment for C/C++ mode.
@@ -64,13 +64,13 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
     ;; different defaults for the CC, CPPFLAGS, and CFLAGS
     ;; variables:
     ;; $(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $<
-    (defun yura/c-compile-command ()
+    (defun my/c-compile-command ()
       (unless (file-exists-p "Makefile")
         (set (make-local-variable 'compile-command)
              (let* ((file (file-name-nondirectory buffer-file-name))
                     ;; message to split compile command and script output
                     (title-message "printf \"\\n\\e[32m\\e[4m%s\\e[0m\\n\" \"Output:\"")
-                    (run-compiled (if (bound-and-true-p yura/compile-compiled-output-enable)
+                    (run-compiled (if (bound-and-true-p my/compile-compiled-output-enable)
                                       (format "&& %s && ./%s.out"
                                               title-message
                                               (file-name-sans-extension file))
@@ -83,13 +83,13 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                        file
                        run-compiled)))))
 
-    (defun yura/c++-compile-command ()
+    (defun my/c++-compile-command ()
       (unless (file-exists-p "Makefile")
         (set (make-local-variable 'compile-command)
              (let* ((file (file-name-nondirectory buffer-file-name))
                     ;; message to split compile command and script output
                     (title-message "printf \"\\n\\e[32m\\e[4m%s\\e[0m\\n\" \"Output:\"")
-                    (run-compiled (if (bound-and-true-p yura/compile-compiled-output-enable)
+                    (run-compiled (if (bound-and-true-p my/compile-compiled-output-enable)
                                       (format "&& %s && ./%s.out"
                                               title-message
                                               (file-name-sans-extension file))
@@ -102,10 +102,10 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                        file
                        run-compiled)))))
 
-    ;; (remove-hook 'c++-mode-hook #'yura/c-compile-command)
-    ;; (remove-hook 'c++-mode-hook #'yura/c++-compile-command)
-    (add-hook 'c-mode-hook #'yura/c-compile-command)
-    (add-hook 'c++-mode-hook #'yura/c++-compile-command)))
+    ;; (remove-hook 'c++-mode-hook #'my/c-compile-command)
+    ;; (remove-hook 'c++-mode-hook #'my/c++-compile-command)
+    (add-hook 'c-mode-hook #'my/c-compile-command)
+    (add-hook 'c++-mode-hook #'my/c++-compile-command)))
 
 
 (provide 'setup-cc)

@@ -177,18 +177,18 @@ The same result can also be be achieved by \\[universal-argument] \\[unhighlight
   :config
   (progn
     ;; https://github.com/nonsequitur/idle-highlight-mode/blob/master/idle-highlight-mode.el
-    (defun yura/idle-highlight-mode-enable ()
+    (defun my/idle-highlight-mode-enable ()
       "Turn on `idle-highlight-mode' for each buffer separately."
       (make-local-variable 'column-number-mode)
       (column-number-mode t)
       (if window-system (hl-line-mode t))
       (idle-highlight-mode t))
 
-    (defconst yura/idle-highlight-mode-hooks yura/major-modes-hooks
+    (defconst my/idle-highlight-mode-hooks my/major-modes-hooks
       "List of hooks of major modes in which `idle-highlight-mode' should be enabled.")
 
-    (dolist (hook yura/idle-highlight-mode-hooks)
-      (add-hook hook #'yura/idle-highlight-mode-enable))))
+    (dolist (hook my/idle-highlight-mode-hooks)
+      (add-hook hook #'my/idle-highlight-mode-enable))))
 
 ;;; Highlight
 (use-package highlight

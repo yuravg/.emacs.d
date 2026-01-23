@@ -24,7 +24,7 @@
       (progn
         (setq company-global-modes t)))
 
-    (defun yura/completion (arg)
+    (defun my/completion (arg)
       "Execute completion/expand text.
 
 If `auto-complete-mode' enable, will be execute `auto-complete'.
@@ -44,7 +44,7 @@ If disable `auto-complete-mode' execute `hippie-expand'."
 
     (bind-keys
      :map modi-mode-map
-     ("M-/" . yura/completion)  ; by default, 'M-/' is bound to `hippie-expand'
+     ("M-/" . my/completion)  ; by default, 'M-/' is bound to `hippie-expand'
      ("C-M-/" . hippie-expand)) ; by default, 'C-M-/' is bound to `dabbrev-completion'
 
     ;; http://cx4a.org/software/auto-complete/manual.html#Select_candidates_with_C-n_C-p_only_when_completion_menu_is_displayed

@@ -266,7 +266,7 @@ Else, execute `backward-kill-word'."
     (backward-kill-word 1)))
 
 ;;; Move region
-(defun yura/indent-rigidly-tab-width (&optional arg region)
+(defun my/indent-rigidly-tab-width (&optional arg region)
   "Indent the region(if selected REGION) or current line by `tab-width'.
 
 The indent direction based on ARG is described below.
@@ -285,8 +285,8 @@ With negative \\[universal-argument] is executed indent backward."
 
 (use-package modi-mode
   :chords (:map modi-mode-map
-           ("RR" . yura/indent-rigidly-tab-width)                             ;indent to the right
-           ("LL" . (lambda () (interactive) (yura/indent-rigidly-tab-width -1))))) ;indent to the left
+           ("RR" . my/indent-rigidly-tab-width)                             ;indent to the right
+           ("LL" . (lambda () (interactive) (my/indent-rigidly-tab-width -1))))) ;indent to the left
 
 ;;; Managing white spaces and empty newlines
 (setq require-final-newline t)
@@ -404,7 +404,7 @@ Do not do anything if `do-not-delete-trailing-whitespace' is non-nil."
 (add-hook 'before-save-hook #'modi/delete-trailing-whitespace-buffer)
 ;; (remove-hook 'before-save-hook #'modi/delete-trailing-whitespace-buffer)
 
-(defun yura/toggle-delete-trailing-whitespace-before-save ()
+(defun my/toggle-delete-trailing-whitespace-before-save ()
   "Toggle variable `do-not-delete-trailing-whitespace'."
   (interactive)
   (if do-not-delete-trailing-whitespace
@@ -494,13 +494,13 @@ Prefixed ARG with \\[universal-argument] also changes the indentation with `inde
 
 (bind-key "|" #'modi/align-columns region-bindings-mode-map)
 
-(defun yura/align-to-less-than-sign (begin end)
+(defun my/align-to-less-than-sign (begin end)
   "Align text to LESS-THAN SIGN (<)."
   (interactive "r")
   (align-regexp begin end "\\(\\s-*\\)<" 1 1 nil)
   (indent-region begin end))
 
-(bind-key "<" #'yura/align-to-less-than-sign region-bindings-mode-map)
+(bind-key "<" #'my/align-to-less-than-sign region-bindings-mode-map)
 
 ;;;; Align repeat
 ;; http://www.emacswiki.org/emacs/AlignCommands
@@ -545,7 +545,7 @@ Prefixed ARG with \\[universal-argument] also changes the indentation with `inde
 
 ;;; Indentation
 ;; Indent paragraph
-(defun yura/indent-paragraph-region (&optional arg)
+(defun my/indent-paragraph-region (&optional arg)
   "Indent a paragraph around point or selected region.
 
 If a region is selected then execute `indent-region' for selected region.
@@ -560,14 +560,14 @@ Then execute `indent-region'."
       (progn
         (mark-paragraph arg)
         (indent-region (region-beginning) (region-end))))))
-(defalias 'ip 'yura/indent-paragraph-region)
+(defalias 'ip 'my/indent-paragraph-region)
 (use-package modi-mode
   :chords (:map modi-mode-map
-           ("jk" . yura/indent-paragraph-region)
-           ("PP" . yura/indent-paragraph-region)))
+           ("jk" . my/indent-paragraph-region)
+           ("PP" . my/indent-paragraph-region)))
 
 ;;; Refactoring
-(defun yura/pretty-spaces-near-brackets (&optional arg region)
+(defun my/pretty-spaces-near-brackets (&optional arg region)
   "Align the number of spaces near the brackets.
 
 Delete spaces near brackets.
@@ -591,7 +591,7 @@ Align the number of spaces for selected region or for entire buffer, if no regio
                   (replace-match out-expr))))
             replace-pair)))
   (message "Deleting spaces completed."))
-(bind-key "b" #'yura/pretty-spaces-near-brackets region-bindings-mode-map)
+(bind-key "b" #'my/pretty-spaces-near-brackets region-bindings-mode-map)
 
 (defun delete-spaces-with-newline-before-brace ()
   "Delete spaces with a new line characters before the brace.
@@ -609,7 +609,7 @@ Delete for the selected region or for the entire buffer if no region is selected
     (message "Deleting completed.")))
 
 ;; https://www.emacswiki.org/emacs/SmartTabs
-(defun yura/refactoring-tabs-and-spaces ()
+(defun my/refactoring-tabs-and-spaces ()
   "Refactoring tags and spaces in the current line or selected region.
 
 Whitespace characters from the beginning of the line to the first non-whitespace
@@ -633,8 +633,8 @@ another indentation changed to spaces."
                   p2 (line-end-position))
             (untabify p1 p2)
             (forward-line 1)))))))
-(defalias 'ts 'yura/refactoring-tabs-and-spaces)
-(bind-key "t" #'yura/refactoring-tabs-and-spaces region-bindings-mode-map)
+(defalias 'ts 'my/refactoring-tabs-and-spaces)
+(bind-key "t" #'my/refactoring-tabs-and-spaces region-bindings-mode-map)
 
 ;; `hydra-refactoring/body' overwritten in some modes
 (defhydra hydra-refactoring (:color pink :hint nil)
@@ -645,9 +645,9 @@ another indentation changed to spaces."
   _t_: tabs and spaces    _c_/_|_: column/columns    _l_: double line     _C-u_: untabify       ^^                _at_: tab        _v_: verilog
   _b_: around brackets      ^^_=_: equals               ^^                     ^^               ^^                _ad_: default
 "
-  ("i" yura/indent-paragraph-region)
-  ("t" yura/refactoring-tabs-and-spaces)
-  ("b" yura/pretty-spaces-near-brackets)
+  ("i" my/indent-paragraph-region)
+  ("t" my/refactoring-tabs-and-spaces)
+  ("b" my/pretty-spaces-near-brackets)
 
   ("e" align-regexp)
   ("E" align-regexp-repeat)
@@ -661,7 +661,7 @@ another indentation changed to spaces."
   ("C-t" tabify)
   ("C-u" untabify)
 
-  ("w" yura/whitespace-with-newline)
+  ("w" my/whitespace-with-newline)
 
   ("as" set-align-regexp-with-spaces :color teal)
   ("at" set-align-regexp-with-tab :color teal)
@@ -673,7 +673,7 @@ another indentation changed to spaces."
   ("q" nil "cancel")
   ("C-g" nil "cancel"))
 
-(defun yura/select-refactoring-hydra-to-run (&optional arg)
+(defun my/select-refactoring-hydra-to-run (&optional arg)
   "Select refactoring hydra to execute it.
 
 Perform an action based on ARG described below.
@@ -690,8 +690,8 @@ Prefixex with \\[universal-argument] execute:
      ((equal major-mode 'verilog-mode) (hydra-verilog-refactoring/body))
      (t (hydra-refactoring/body)))))
 
-(bind-keys :map modi-mode-map ("C-c M-r" . yura/select-refactoring-hydra-to-run))
-(defalias 'rf 'yura/select-refactoring-hydra-to-run)
+(bind-keys :map modi-mode-map ("C-c M-r" . my/select-refactoring-hydra-to-run))
+(defalias 'rf 'my/select-refactoring-hydra-to-run)
 
 ;; Replace extend ASCII characters
 (defun replace-extended-ascii-characters ()

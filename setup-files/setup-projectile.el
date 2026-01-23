@@ -207,7 +207,7 @@ files in Fundamental mode."
       (let ((projectile-switch-project-action #'magit-status))
         (call-interactively #'projectile-switch-project)))
 
-    (defun yura/projectile-switch-open-project-magit-status ()
+    (defun my/projectile-switch-open-project-magit-status ()
       "Switch to a project which currently opened and open Magit status there."
       (interactive)
       (let ((projectile-switch-project-action #'magit-status))
@@ -229,21 +229,21 @@ files in Fundamental mode."
     ;; Compile projectile projects without prompts
     ;; NOTE: you should be very careful about opening files you do not trust,
     ;; should only use it with a trusted file
-    (defun yura/projectile-compile-project ()
+    (defun my/projectile-compile-project ()
       "Run `projectile-compile-project' without prompt.\n
 This is not a safe command, this command should only be used with trusted files."
       (interactive)
       (let ((compilation-read-command nil))
         (projectile-compile-project nil)))
 
-    (defun yura/projectile-test-project ()
+    (defun my/projectile-test-project ()
       "Run `projectile-test-project' without prompt.\n
 This is not a safe command, this command should only be used with trusted files."
       (interactive)
       (let ((compilation-read-command nil))
         (projectile-test-project nil)))
 
-    (defun yura/projectile-run-project ()
+    (defun my/projectile-run-project ()
       "Run `projectile-run-project' without prompt.\n
 This is not a safe command, this command should only be used with trusted files."
       (interactive)
@@ -251,7 +251,7 @@ This is not a safe command, this command should only be used with trusted files.
         (projectile-run-project nil)))
 
     ;; see at `modi/revert-all-file-buffers'
-    (defun yura/projectile-revert-all-file-buffers (reverse-modes)
+    (defun my/projectile-revert-all-file-buffers (reverse-modes)
       "Refresh all open projectile file buffers without confirmation.
 
 Buffers in modified (not yet saved) state in emacs will not be reverted. They
@@ -279,21 +279,21 @@ Prefixed with \\[universal-argument] REVERSE-MODES buffer modes will be reversed
       (if reverse-modes
           (message "Finished reverting buffers and reinitializing their modes.")
         (message "Finished reverting buffers.")))
-    (defalias 'rbp 'yura/projectile-revert-all-file-buffers)
+    (defalias 'rbp 'my/projectile-revert-all-file-buffers)
 
     ;; TODO: should usage current frame parameters for new frame
-    (defun yura/projectile-switch-buffer-new-frame ()
+    (defun my/projectile-switch-buffer-new-frame ()
       "Make new frame, launch `projectile-switch-to-buffer'."
       (interactive)
       (select-frame (make-frame))
       (projectile-switch-to-buffer))
-    (defun yura/projectile-find-file-new-frame ()
+    (defun my/projectile-find-file-new-frame ()
       "Make new frame, launch `projectile-find-file'."
       (interactive)
       (select-frame (make-frame))
       (projectile-find-file))
 
-    (defun yura/projectile-edit-claude-todo-locals ()
+    (defun my/projectile-edit-claude-todo-locals ()
       "Edit or create a .claude/TODO.md file of the project."
       (interactive)
       (let ((file (expand-file-name ".claude/TODO.md" (projectile-acquire-root))))
@@ -332,16 +332,16 @@ _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all  
       ("C-a" projectile-ag)
       ("O"   projectile-multi-occur)
       ("M-g" counsel-git-grep)
-      ("w"   yura/projectile-src-warning)
+      ("w"   my/projectile-src-warning)
 
       ("i"   projectile-ibuffer)
       ("b"   projectile-switch-to-buffer)
       ("C-b" projectile-switch-to-buffer-other-window)
-      ("M-b" yura/projectile-switch-buffer-new-frame)
-      ("M-f" yura/projectile-find-file-new-frame)
+      ("M-b" my/projectile-switch-buffer-new-frame)
+      ("M-f" my/projectile-find-file-new-frame)
       ("k"   projectile-kill-buffers)
-      ("C-m" yura/projectile-revert-all-file-buffers)
-      ("M-m" (yura/projectile-revert-all-file-buffers :reverse-modes))
+      ("C-m" my/projectile-revert-all-file-buffers)
+      ("M-m" (my/projectile-revert-all-file-buffers :reverse-modes))
       ("C-o" magit-list-submodules)
 
       ("c"   projectile-invalidate-cache)
@@ -351,9 +351,9 @@ _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all  
       ("U"   ggtags-create-tags)
       ("u"   ggtags-update-tags)
 
-      ("C-c" yura/projectile-compile-project)
-      ("C-t" yura/projectile-test-project)
-      ("C-r" yura/projectile-run-project)
+      ("C-c" my/projectile-compile-project)
+      ("C-t" my/projectile-test-project)
+      ("C-r" my/projectile-run-project)
 
       ("M-c" projectile-compile-project)
       ("M-t" projectile-test-project)
@@ -361,10 +361,10 @@ _C-f_: Git file        ^^        _w_: src-warnings         ^^_C-m_: revert all  
 
       ("p"   projectile-switch-open-project)
       ("P"   projectile-switch-project)
-      ("g"   yura/projectile-switch-open-project-magit-status)
+      ("g"   my/projectile-switch-open-project-magit-status)
       ("G"   modi/projectile-switch-project-magit-status)
       ("E"   projectile-edit-dir-locals)
-      ("C"   yura/projectile-edit-claude-todo-locals)
+      ("C"   my/projectile-edit-claude-todo-locals)
       ("D"   projectile-find-dir)
       ("4"   hydra-projectile-other-window/body)
       ("o"   magit-submodule)

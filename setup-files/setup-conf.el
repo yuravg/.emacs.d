@@ -14,7 +14,7 @@
          ("\\.setup.*\\'" . conf-space-mode))
   :config
   (progn
-    ;Unbind "C-c SPC" to release it for `hydra-launch/body'
+    ;; Unbind "C-c SPC" to release it for `hydra-launch/body'
     (unbind-key "C-c SPC" conf-mode-map) ;default: `conf-space-keywords'
 
     (defun modi/conf-quote-normal ()
@@ -36,10 +36,10 @@
 
   :config
   (progn
-    (defun yura/toml-set-indentation ()
+    (defun my/toml-set-indentation ()
       "Customize the indentation for `conf-toml-mode'."
       (setq-local tab-width 2))
-    (add-hook 'toml-mode-hook #'yura/toml-set-indentation)))
+    (add-hook 'toml-mode-hook #'my/toml-set-indentation)))
 
 
 (provide 'setup-conf)

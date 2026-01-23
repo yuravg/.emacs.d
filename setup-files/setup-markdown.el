@@ -119,11 +119,11 @@
     ;; Set to a non-nil value to use asymmetric header styling
     (setq markdown-asymmetric-header t)
 
-    (defun yura/markdown-set-indentation()
+    (defun my/markdown-set-indentation()
       "Customize the indentation for `markdown-mode'."
       (setq tab-width 2
             indent-tabs-mode nil))
-    (add-hook 'markdown-mode-hook #'yura/markdown-set-indentation)
+    (add-hook 'markdown-mode-hook #'my/markdown-set-indentation)
 
 
 ;;;; markdown-mode-map

@@ -32,68 +32,68 @@
     ;; http://www.emacswiki.org/emacs/CompilationMode#toc6
     ;; (compile-.el, compile+.el: Extensions to compile.el)
     (setq compilation-scroll-output t)
-    (defvar yura/compilation-truncate-lines nil
+    (defvar my/compilation-truncate-lines nil
       "Truncate lines for compilation buffer.")
 
-    (defvar yura/compile-compiled-output-enable nil
+    (defvar my/compile-compiled-output-enable nil
       "Run compiled program after compilation and display its output in the *compilation* buffer.")
-    (defun yura/compilation-toggle-compiled-output-enable ()
-      "Toggle `yura/compile-compiled-output-enable' variable."
+    (defun my/compilation-toggle-compiled-output-enable ()
+      "Toggle `my/compile-compiled-output-enable' variable."
       (interactive)
-      (toggle-logical-value yura/compile-compiled-output-enable)
-      (message "Set script output '%s'" yura/compile-compiled-output-enable))
+      (toggle-logical-value my/compile-compiled-output-enable)
+      (message "Set script output '%s'" my/compile-compiled-output-enable))
 
-    (defun yura/compilation-toggle-scroll-output ()
+    (defun my/compilation-toggle-scroll-output ()
       "Toggle `compilation-scroll-output' variable."
       (interactive)
       (toggle-logical-value compilation-scroll-output)
       (message "Set compilation scroll: '%s'" compilation-scroll-output))
 
-    (defun yura/compilation-toggle-auto-jump-to-first-error ()
+    (defun my/compilation-toggle-auto-jump-to-first-error ()
       "Toggle variable `compilation-auto-jump-to-first-error'."
       (interactive)
       (toggle-logical-value compilation-auto-jump-to-first-error)
       (message "Auto jump to first error, set: '%s'" compilation-auto-jump-to-first-error))
 
-    (defun yura/compilation-toggle-truncate-lines ()
-      "Toggle variable `yura/compilation-truncate-lines'.
+    (defun my/compilation-toggle-truncate-lines ()
+      "Toggle variable `my/compilation-truncate-lines'.
 
-`yura/compilation-truncate-lines' modify `truncate-lines' after restart
+`my/compilation-truncate-lines' modify `truncate-lines' after restart
 compilation buffer by `compilation-mode-hook'."
       (interactive)
-      (toggle-logical-value yura/compilation-truncate-lines)
-      (message "Truncate line (compile mode), set: '%s'" yura/compilation-truncate-lines))
+      (toggle-logical-value my/compilation-truncate-lines)
+      (message "Truncate line (compile mode), set: '%s'" my/compilation-truncate-lines))
 
-    (defvar yura/compilation-finish-functions nil
+    (defvar my/compilation-finish-functions nil
       "Value to override `compilation-finish-functions'.")
 
-    (defun yura/compilation-toggle-finish-function (&optional show-msg)
-      "Toggle `yura/compilation-finish-functions'.
+    (defun my/compilation-toggle-finish-function (&optional show-msg)
+      "Toggle `my/compilation-finish-functions'.
 
-`yura/compilation-finish-functions' modify `compilation-finish-functions'
+`my/compilation-finish-functions' modify `compilation-finish-functions'
 after restart compilation buffer by `compilation-mode-hook'.
 
 Available values:
 - nil
-- `yura/compilation-finish-functions-implicit-show-time'.
+- `my/compilation-finish-functions-implicit-show-time'.
 
 SHOW-MSG allows to display `compilation-finish-functions' name."
       (interactive "P")
-      (setq yura/compilation-finish-functions
-            (if (bound-and-true-p yura/compilation-finish-functions)
+      (setq my/compilation-finish-functions
+            (if (bound-and-true-p my/compilation-finish-functions)
                 nil
-              (yura/compilation-finish-functions-implicit-show-time)))
+              (my/compilation-finish-functions-implicit-show-time)))
       (if show-msg
           (let ((status-message "none"))
-            (if (bound-and-true-p yura/compilation-finish-functions)
+            (if (bound-and-true-p my/compilation-finish-functions)
                 (setq status-message "Auto hide compilation buffer"))
             (message "compilation process finishes function: %s" status-message))))
 
     ;; https://emacs.stackexchange.com/questions/62/hide-compilation-window
-    (defun yura/set-compilation-finish-functions-hide-buffer (&optional time)
-      "Edit `yura/compilation-finish-functions'.
+    (defun my/set-compilation-finish-functions-hide-buffer (&optional time)
+      "Edit `my/compilation-finish-functions'.
 
-Sets the compilation finish function by `yura/compilation-finish-functions' to:
+Sets the compilation finish function by `my/compilation-finish-functions' to:
 If compilation is successful(without errors),
 compilation buffer will be kill in a TIME seconds.
 TIME default value: \"2sec\""
@@ -101,7 +101,7 @@ TIME default value: \"2sec\""
       (let ((show-time (if time
                            time
                          "2 sec")))
-        (setq yura/compilation-finish-functions
+        (setq my/compilation-finish-functions
               `(lambda (buf str)
                  (if (null (string-match ".*exited abnormally.*" str))
                      (progn
@@ -110,56 +110,56 @@ TIME default value: \"2sec\""
                                     :kill)
                        (message "No Compilation Errors!")))))))
 
-    (defvar yura/compilation-buffer-show-time "2 sec"
+    (defvar my/compilation-buffer-show-time "2 sec"
       "Time to show *compilation* buffer after compilation.")
 
-    (defvar yura/compilation-buffer-single-show-time nil
+    (defvar my/compilation-buffer-single-show-time nil
       "Time for a single use by command to kill *compilation* buffer.
 This variable is cleared after use.")
 
-    (defun yura/compilation-finish-functions-show-time ()
+    (defun my/compilation-finish-functions-show-time ()
       "Compilation finish function to hide *compilation* buffer.
 
 If compilation is successful(without errors),
-the *compilation* buffer will be displayed for `yura/compilation-buffer-show-time' seconds."
+the *compilation* buffer will be displayed for `my/compilation-buffer-show-time' seconds."
       `(lambda (buf str)
          (if (null (string-match ".*exited abnormally.*" str))
              (progn
-               (run-at-time yura/compilation-buffer-show-time
+               (run-at-time my/compilation-buffer-show-time
                             nil 'quit-windows-on
                             (get-buffer-create "*compilation*")
                             :kill)
                (message "No Compilation Errors!")))))
 
-    (defun yura/compilation-finish-functions-implicit-show-time ()
+    (defun my/compilation-finish-functions-implicit-show-time ()
       "Compilation finish function to hide *compilation* buffer.
 
 If compilation is successful(without errors),
 the *compilation* buffer will be displayed for
-`yura/compilation-buffer-single-show-time' second if this variable not nil.
-Otherwise the variable `yura/compilation-buffer-show-time'
+`my/compilation-buffer-single-show-time' second if this variable not nil.
+Otherwise the variable `my/compilation-buffer-show-time'
 will be used to set the *compilation* buffer display time.
 
-Variable `yura/compilation-buffer-single-show-time' clear after usage."
+Variable `my/compilation-buffer-single-show-time' clear after usage."
       `(lambda (buf str)
-         (let ((time (if yura/compilation-buffer-single-show-time
-                         yura/compilation-buffer-single-show-time
+         (let ((time (if my/compilation-buffer-single-show-time
+                         my/compilation-buffer-single-show-time
                        nil))
-               (default-time yura/compilation-buffer-show-time))
+               (default-time my/compilation-buffer-show-time))
            (if time
-               (setq yura/compilation-buffer-show-time time))
+               (setq my/compilation-buffer-show-time time))
            (if (null (string-match ".*exited abnormally.*" str))
                (progn
-                 (run-at-time yura/compilation-buffer-show-time
+                 (run-at-time my/compilation-buffer-show-time
                               nil 'quit-windows-on
                               (get-buffer-create "*compilation*")
                               :kill)
                  (message "No Compilation Errors!")))
-           (setq yura/compilation-buffer-show-time default-time
-                 yura/compilation-buffer-single-show-time nil))))
+           (setq my/compilation-buffer-show-time default-time
+                 my/compilation-buffer-single-show-time nil))))
 
-    (setq yura/compilation-finish-functions
-          (yura/compilation-finish-functions-implicit-show-time))
+    (setq my/compilation-finish-functions
+          (my/compilation-finish-functions-implicit-show-time))
 
     (defhydra hydra-compilation (:color red
                                  :hint nil)
@@ -168,32 +168,32 @@ Variable `yura/compilation-buffer-single-show-time' clear after usage."
 ^^     Toggles
 --------------------------------------
   _j_: auto Jump to first error  (%(if compilation-auto-jump-to-first-error t nil))
-  _t_: Truncate line             (%(if yura/compilation-truncate-lines t nil))
-  _h_: Hide compilation buffer   (%(if (not (null yura/compilation-finish-functions)) t nil))
+  _t_: Truncate line             (%(if my/compilation-truncate-lines t nil))
+  _h_: Hide compilation buffer   (%(if (not (null my/compilation-finish-functions)) t nil))
   _s_: Scroll compilation output (%(if compilation-scroll-output t nil))
-  _o_: show Output               (%(if yura/compile-compiled-output-enable t nil)) (need to update the buffer modes for the changes to take effect)
+  _o_: show Output               (%(if my/compile-compiled-output-enable t nil)) (need to update the buffer modes for the changes to take effect)
 "
-      ("j" yura/compilation-toggle-auto-jump-to-first-error)
-      ("t" yura/compilation-toggle-truncate-lines)
-      ("h" (lambda () (interactive) (yura/compilation-toggle-finish-function t)))
-      ("s" yura/compilation-toggle-scroll-output)
-      ("o" yura/compilation-toggle-compiled-output-enable)
+      ("j" my/compilation-toggle-auto-jump-to-first-error)
+      ("t" my/compilation-toggle-truncate-lines)
+      ("h" (lambda () (interactive) (my/compilation-toggle-finish-function t)))
+      ("s" my/compilation-toggle-scroll-output)
+      ("o" my/compilation-toggle-compiled-output-enable)
       ("q" nil "cancel")
       ("C-g" nil "cancel"))
     (with-eval-after-load 'compile
       (bind-key "?" #'hydra-compilation/body compilation-mode-map))
 
-    (defun yura/compilation-mode-hook ()
+    (defun my/compilation-mode-hook ()
       "Hooks for `compilation-mode'.
 
 Replace local variables of `compilation-mode':
-`truncate-lines' with `yura/compilation-truncate-lines',
-`compilation-finish-functions' with `yura/compilation-finish-functions'."
-      (setq truncate-lines yura/compilation-truncate-lines)
-      (setq compilation-finish-functions yura/compilation-finish-functions)
+`truncate-lines' with `my/compilation-truncate-lines',
+`compilation-finish-functions' with `my/compilation-finish-functions'."
+      (setq truncate-lines my/compilation-truncate-lines)
+      (setq compilation-finish-functions my/compilation-finish-functions)
       ;; Line wrapping
       (set (make-local-variable 'truncate-partial-width-windows) nil))
-    (add-hook 'compilation-mode-hook #'yura/compilation-mode-hook)))
+    (add-hook 'compilation-mode-hook #'my/compilation-mode-hook)))
 
 ;;; Smart Compile
 ;; https://www.emacswiki.org/emacs/SmartCompile

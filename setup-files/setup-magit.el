@@ -114,7 +114,7 @@ _b_/_L_: log all/local branches     _F_: file-dispatch           ^^     _h_: che
       ("!" magit-run)
       ("$" magit-process-buffer)
       ("m" git-timemachine)
-      ("M-r" yura/git-checkout-all)
+      ("M-r" my/git-checkout-all)
       ("rc" magit-reflog-current)
       ("rh" magit-reflog-head)
       ("ro" magit-reflog-other)
@@ -147,8 +147,8 @@ _b_/_L_: log all/local branches     _F_: file-dispatch           ^^     _h_: che
                     (yas-activate-extra-mode 'git-commit-mode)))))
 
     ;; Some application are changing control characters(CRLF/LF),
-    ;; `yura/git-checkout-all' revert this change.
-    (defun yura/git-checkout-all (bool)
+    ;; `my/git-checkout-all' revert this change.
+    (defun my/git-checkout-all (bool)
       "Git checkout all files, will launch 'git checkout --'."
       (interactive
        (list (progn (magit-status)
@@ -206,39 +206,39 @@ It is assumed that the author has only one or two names."
     ;; Limit the subject line to 50 characters
     (setq git-commit-summary-max-length 50)
 
-    (defun yura/git-commit-mode-customization ()
+    (defun my/git-commit-mode-customization ()
       "Set Git message body limits to 72. https://chris.beams.io/posts/git-commit."
       (setq-local fill-column 72)
       (setq-local fci-rule-column 72))
-    (add-hook 'git-commit-mode-hook #'yura/git-commit-mode-customization)))
+    (add-hook 'git-commit-mode-hook #'my/git-commit-mode-customization)))
 
 ;;; Git-timemachine
 (use-package git-timemachine
   :config
   (progn
-    (defun yura/git-timemachine-show-commit ()
+    (defun my/git-timemachine-show-commit ()
       "Show commit for current revision, without changing the current window."
       (interactive)
       (git-timemachine-show-commit)
       (other-window -1))
-    (defun yura/git-timemachine-show-previous-revision-commit ()
+    (defun my/git-timemachine-show-previous-revision-commit ()
       "Show previous revision and commit of file, without changing the current window."
       (interactive)
       (git-timemachine-show-previous-revision)
-      (yura/git-timemachine-show-commit))
-    (defun yura/git-timemachine-show-next-revision-commit ()
+      (my/git-timemachine-show-commit))
+    (defun my/git-timemachine-show-next-revision-commit ()
       "Show next revision and commit of file, without changing the current window."
       (interactive)
       (git-timemachine-show-next-revision)
-      (yura/git-timemachine-show-commit))
+      (my/git-timemachine-show-commit))
 
     ;; The `git-timemachine-help' is defined in `git-timemachine' package.
     ;; To add commands to `git-timemachine-help' I overwrite it.
     (transient-define-prefix git-timemachine-help ()
       "Show online help."
       ["Navigate"
-       ("P" "show previous revision(show patch)" yura/git-timemachine-show-previous-revision-commit)
-       ("N" "show next revision(show patch)" yura/git-timemachine-show-next-revision-commit)
+       ("P" "show previous revision(show patch)" my/git-timemachine-show-previous-revision-commit)
+       ("N" "show next revision(show patch)" my/git-timemachine-show-next-revision-commit)
        ("p" "show previous revision" git-timemachine-show-previous-revision)
        ("n" "show next revision" git-timemachine-show-next-revision)
        ("g" "show N-th revision" git-timemachine-show-nth-revision)
@@ -248,17 +248,17 @@ It is assumed that the author has only one or two names."
        ("W" "kill revision" git-timemachine-kill-revision)]
       ["Misc"
        ("b" "blame current revision" git-timemachine-blame)
-       ("c" "show commit" yura/git-timemachine-show-commit)
+       ("c" "show commit" my/git-timemachine-show-commit)
        ("C" "show commit(and jump)" git-timemachine-show-commit)
        ("?" "show help" git-timemachine-help)
        ("q" "quit" git-timemachine-quit)])
 
     (bind-keys
      :map git-timemachine-mode-map
-     ("c" . yura/git-timemachine-show-commit)
+     ("c" . my/git-timemachine-show-commit)
      ("C" . git-timemachine-show-commit)
-     ("N" . yura/git-timemachine-show-next-revision-commit)
-     ("P" . yura/git-timemachine-show-previous-revision-commit))))
+     ("N" . my/git-timemachine-show-next-revision-commit)
+     ("P" . my/git-timemachine-show-previous-revision-commit))))
 
 ;;;; `git-timemachine' bindings
 ;; |---------+-------------------------------------------------------------------------|

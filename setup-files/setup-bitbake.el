@@ -9,10 +9,10 @@
          ("\\.bbclass\\'"  . bitbake-mode))
   :init
   (progn
-    (defun yura/bitbake-set-comment () (setq comment-start "#"))
-    (defun yura/bitbake-set-indentation () (setq tab-width 4 indent-tabs-mode nil))
-    (add-hook 'bitbake-mode-hook #'yura/bitbake-set-comment)
-    (add-hook 'bitbake-mode-hook #'yura/bitbake-set-indentation)))
+    (defun my/bitbake-set-comment () (setq comment-start "#"))
+    (defun my/bitbake-set-indentation () (setq tab-width 4 indent-tabs-mode nil))
+    (add-hook 'bitbake-mode-hook #'my/bitbake-set-comment)
+    (add-hook 'bitbake-mode-hook #'my/bitbake-set-indentation)))
 
 
 (provide 'setup-bitbake)

@@ -64,7 +64,7 @@ If NO-WHITESPACE is non-nil, ignore all white space when doing diff."
          ("C-c v" . hydra-diff-hl/body))
   :init
   (progn
-    (defconst modi/diff-hl-mode-hooks yura/major-modes-hooks
+    (defconst modi/diff-hl-mode-hooks my/major-modes-hooks
       "List of hooks of major modes in which diff-hl-mode should be enabled.")
 
     (dolist (hook modi/diff-hl-mode-hooks)

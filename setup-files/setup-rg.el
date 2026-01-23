@@ -137,22 +137,22 @@
     (bind-to-modi-map "C-r" #'rg-project))
   :config
   (progn
-    (defvar yura/rg-truncate-lines t "Variable `truncate-lines' for `rg-mode'.")
+    (defvar my/rg-truncate-lines t "Variable `truncate-lines' for `rg-mode'.")
 
-    (defun yura/rg-toggle-truncate-lines ()
-      "Toggle `yura/rg-truncate-lines'."
+    (defun my/rg-toggle-truncate-lines ()
+      "Toggle `my/rg-truncate-lines'."
       (interactive)
       (progn
-        (setq yura/rg-truncate-lines
-              (if (bound-and-true-p yura/rg-truncate-lines)
+        (setq my/rg-truncate-lines
+              (if (bound-and-true-p my/rg-truncate-lines)
                   nil t))
-        (message "Truncate line (rg-mode): %s" yura/rg-truncate-lines)))
+        (message "Truncate line (rg-mode): %s" my/rg-truncate-lines)))
 
-    (defun yura/toggle-truncate-lines-rg-mode-hook ()
-      (setq truncate-lines yura/rg-truncate-lines))
-    (add-hook 'rg-mode-hook #'yura/toggle-truncate-lines-rg-mode-hook)
+    (defun my/toggle-truncate-lines-rg-mode-hook ()
+      (setq truncate-lines my/rg-truncate-lines))
+    (add-hook 'rg-mode-hook #'my/toggle-truncate-lines-rg-mode-hook)
 
-    (defun yura/rg-toggle-hidden ()
+    (defun my/rg-toggle-hidden ()
       "Toggle --hidden flag (searches hidden files/dirs)."
       (interactive)
       (rg-rerun-toggle-flag "--hidden"))
@@ -173,8 +173,8 @@
       ("d" rg-rerun-change-dir)
       ("f" rg-rerun-change-files)
       ("i" rg-rerun-toggle-ignore)
-      ("h" yura/rg-toggle-hidden)
-      ("T" yura/rg-toggle-truncate-lines)
+      ("h" my/rg-toggle-hidden)
+      ("T" my/rg-toggle-truncate-lines)
       ("S" rg-save-search-as-name)
       ("l" rg-list-searches)
       ("q" nil "cancel")

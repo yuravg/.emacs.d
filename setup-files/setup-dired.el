@@ -42,9 +42,9 @@ Prefixed with \\[universal-argument], open single magit dired in another window.
 (use-package dired
   :after (counsel)
   :bind (:map dired-mode-map
-         ("C-M-j" . yura/dired-counsel-find-file))
+         ("C-M-j" . my/dired-counsel-find-file))
   :config
-  (defun yura/dired-counsel-find-file ()
+  (defun my/dired-counsel-find-file ()
     "Move point to the end of line and execute `counsel-find-file'.
 
 This command is handy to open file form `dired-mode'."
@@ -58,7 +58,7 @@ This command is handy to open file form `dired-mode'."
          ("C-j" . dired-find-file)
          ("M-h" . dired-omit-mode)
          ("C-M-h" . dired-omit-mode)
-         ("s" . yura/dired-sort)) ;default binding to `dired-sort-toggle-or-edit'
+         ("s" . my/dired-sort)) ;default binding to `dired-sort-toggle-or-edit'
   :commands (dired-toggle-read-only ; to toggle read-only state of any buffer
              dired-get-filename) ; called by `dired-single'
   :config
@@ -82,12 +82,12 @@ This command is handy to open file form `dired-mode'."
     ;;       '/' to directories, etc.
     ;; dired-listing-switches default: "-al"
     (if (eq system-type 'windows-nt)
-        (setq yura/dired-listing-switches "-alGhvF")
-      (setq yura/dired-listing-switches "-alGhvF --group-directories-first"))
-    (setq dired-listing-switches yura/dired-listing-switches)
+        (setq my/dired-listing-switches "-alGhvF")
+      (setq my/dired-listing-switches "-alGhvF --group-directories-first"))
+    (setq dired-listing-switches my/dired-listing-switches)
     ;; http://ergoemacs.org/emacs/dired_sort.html
     ;; https://www.emacswiki.org/emacs/dired-sort.el
-    (defun yura/dired-sort (&optional arg)
+    (defun my/dired-sort (&optional arg)
       "Sort Dired's list of files.
 
 For the reverse sorting order should usage with negative prefix ARG \\[universal-argument]."
@@ -102,17 +102,17 @@ For the reverse sorting order should usage with negative prefix ARG \\[universal
                        '("name" "time" "size" "expression" "create-time" "access-time")))
         (cond
          ((equal sort-by "name")
-          (setq switches (concat yura/dired-listing-switches order)))
+          (setq switches (concat my/dired-listing-switches order)))
          ((equal sort-by "time")
-          (setq switches (concat yura/dired-listing-switches " -t" order)))
+          (setq switches (concat my/dired-listing-switches " -t" order)))
          ((equal sort-by "size")
-          (setq switches (concat yura/dired-listing-switches " -S" order)))
+          (setq switches (concat my/dired-listing-switches " -S" order)))
          ((equal sort-by "expression")
-          (setq switches (concat yura/dired-listing-switches " -X" order)))
+          (setq switches (concat my/dired-listing-switches " -X" order)))
          ((equal sort-by "create-time")
-          (setq switches (concat yura/dired-listing-switches " -ct" order)))
+          (setq switches (concat my/dired-listing-switches " -ct" order)))
          ((equal sort-by "access-time")
-          (setq switches (concat yura/dired-listing-switches " -ut" order)))
+          (setq switches (concat my/dired-listing-switches " -ut" order)))
          (t (error "logic error")))
         (dired-sort-other switches)))
 

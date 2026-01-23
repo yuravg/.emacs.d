@@ -237,20 +237,20 @@ This value must match the `infodir' variable in the Org local.mk.")
       ;; touch `modi/one-org-agenda-file'
       (write-region "" :ignore modi/one-org-agenda-file))
 
-    (defvar yura/enable-org-agenda-file t
+    (defvar my/enable-org-agenda-file t
       "Enable `modi/one-org-agenda-file' or all files from `org-directory'.")
-    (defun yura/toggle-source-of-org-agenda-files ()
+    (defun my/toggle-source-of-org-agenda-files ()
       "Enable `modi/one-org-agenda-file' file or all files from `org-directory'.\n
-Toggle `yura/enable-org-agenda-file'."
+Toggle `my/enable-org-agenda-file'."
       (interactive)
       (progn
-        (setq yura/enable-org-agenda-file
-              (if (bound-and-true-p yura/enable-org-agenda-file)
+        (setq my/enable-org-agenda-file
+              (if (bound-and-true-p my/enable-org-agenda-file)
                   nil t))
-        (if (bound-and-true-p yura/enable-org-agenda-file)
+        (if (bound-and-true-p my/enable-org-agenda-file)
             (setq org-agenda-files modi/one-org-agenda-file)
           (setq org-agenda-files (file-expand-wildcards "~/notes/*.org")))
-        (message "org-agend-file: %s" (if (bound-and-true-p yura/enable-org-agenda-file)
+        (message "org-agend-file: %s" (if (bound-and-true-p my/enable-org-agenda-file)
                                           modi/one-org-agenda-file
                                         "ALL files"))))
 
@@ -263,7 +263,7 @@ Toggle `yura/enable-org-agenda-file'."
 
     ;; Hiding markup(emphasis) elements in org-mode
     (setq org-hide-emphasis-markers t)
-    (defun yura/org-toggle-emphasis-markers ()
+    (defun my/org-toggle-emphasis-markers ()
       "Toggle display of the emphasis-markers."
       (interactive)
       (if org-hide-emphasis-markers
@@ -275,7 +275,7 @@ Toggle `yura/enable-org-agenda-file'."
                (message "Hide org-mode emphasis markers"))))
 
     ;; https://emacs.stackexchange.com/questions/5387/show-org-mode-hyperlink-as-plain-text
-    (defun yura/org-toggle-link-display ()
+    (defun my/org-toggle-link-display ()
       "Toggle the literal or descriptive display of links."
       (interactive)
       (if org-descriptive-links
@@ -821,8 +821,8 @@ line, or if a region is selected.  Else call
      :map org-mode-map
      ("C-j" . org-open-at-point)
      ("C-c M-o" . org-open-at-point)
-     ("C-c C-x m" . yura/org-toggle-emphasis-markers)
-     ("C-c C-x l" . yura/org-toggle-link-display)
+     ("C-c C-x m" . my/org-toggle-emphasis-markers)
+     ("C-c C-x l" . my/org-toggle-link-display)
      ("C-c C-x i" . org-toggle-inline-images)
      ("C-M-<return>" . org-insert-subheading) ;may be handy, as C-<return> bind to `org-insert-heading-respect-content'
      ("C-m" . modi/org-return-no-indent)
@@ -1594,16 +1594,16 @@ returned value `entity-name' will be nil."
 
 ;;; Org Statistics cookies
 ;; Update org statistics cookies before saving the buffer
-(defun yura/org-update-statistics-cookies-current-buffer ()
+(defun my/org-update-statistics-cookies-current-buffer ()
   "Execute `org-update-statistics-cookies' for the entire current buffer."
   (interactive)
   (let ((current-prefix-arg  '(4)))
     (org-update-statistics-cookies t)))
 
-(defun yura/org-update-statistics-cookies-before-save ()
-  "Execute `yura/org-update-statistics-cookies-current-buffer' just before saving the current file."
-  (add-hook 'before-save-hook #'yura/org-update-statistics-cookies-current-buffer nil :local))
-(add-hook 'org-mode-hook #'yura/org-update-statistics-cookies-before-save)
+(defun my/org-update-statistics-cookies-before-save ()
+  "Execute `my/org-update-statistics-cookies-current-buffer' just before saving the current file."
+  (add-hook 'before-save-hook #'my/org-update-statistics-cookies-current-buffer nil :local))
+(add-hook 'org-mode-hook #'my/org-update-statistics-cookies-before-save)
 
 (defalias 'ou 'org-update-statistics-cookies)
 
@@ -1702,16 +1702,16 @@ Instead it's simpler to use bash."
 
     ;; Display PlantUML images after babel execute
     ;; https://emacs.stackexchange.com/questions/30520/org-mode-c-c-c-c-to-display-inline-image
-    (defun yura/turn-off-org-babel-execute-plantuml ()
+    (defun my/turn-off-org-babel-execute-plantuml ()
       "Tunr off display PlantUML images after babel execute."
       (interactive)
       (remove-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
 
-    (defun yura/turn-on-org-babel-execute-plantuml ()
+    (defun my/turn-on-org-babel-execute-plantuml ()
       "Turn on display PlantUML images after babel execute."
       (interactive)
       (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
-    (yura/turn-on-org-babel-execute-plantuml)))
+    (my/turn-on-org-babel-execute-plantuml)))
 
 ;;;; Python
 (use-package ob-python

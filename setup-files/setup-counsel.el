@@ -13,7 +13,7 @@
     (when (not (bound-and-true-p disable-pkg-ivy))
       (bind-keys
        :map modi-mode-map
-       ("M-i" . yura/counsel-grep-or-swiper)
+       ("M-i" . my/counsel-grep-or-swiper)
        ("ESC M-i" . swiper-isearch) ; Ivy 0.12.0: a faster swiper that's not line-based
        ("C-M-y" . counsel-yank-pop)
        ;; ("C-h F" . counsel-faces)       ;Overrides `Info-goto-emacs-command-node' ;C-h - bind backward-delete-char
@@ -170,44 +170,44 @@
     ;; I would like improve it by search in buffer's directory, search though directories,
     ;; search after select source directory. And make settings for frequently changed search
     ;; parameters.
-    (defvar yura/counsel-rg-base-command counsel-rg-base-command "Variable to store \
+    (defvar my/counsel-rg-base-command counsel-rg-base-command "Variable to store \
 default value of `counsel-rg-base-command'.")
-    (defvar yura/counsel-rg-base-command-hidden nil "Options 'Search hidden files \
+    (defvar my/counsel-rg-base-command-hidden nil "Options 'Search hidden files \
 and directories' for command `counsel-rg-base-command'.\n
 For additional information see at RipGrep help, options: --hidden.")
-    (defvar yura/counsel-rg-base-command-noignore nil "Options 'Do not respect ignore files' \
+    (defvar my/counsel-rg-base-command-noignore nil "Options 'Do not respect ignore files' \
 for command `counsel-rg-base-command'.\n
 For additional information see at RipGrep help, options: --no-ignore.")
-    (defvar yura/counsel-rg-base-command-iglob nil "Include or exclude files and directories
+    (defvar my/counsel-rg-base-command-iglob nil "Include or exclude files and directories
 for searching that match the given glob' for command `counsel-rg-base-command'.\n
 For additional information see at RipGrep help, options: --iglob.")
-    (defvar yura/counsel-rg-base-command-maxdepth nil "Limit the depth of directory traversal\
+    (defvar my/counsel-rg-base-command-maxdepth nil "Limit the depth of directory traversal\
 to NUM levels beyond the paths given,\nfor command `counsel-rg-base-command', nil - no limit.
 For additional information see at RipGrep help, options: --max-depth.")
 
-    (defun yura/counsel-rg-base-command-reinit ()
+    (defun my/counsel-rg-base-command-reinit ()
       "Set `counsel-rg-base-command' to default."
       (interactive)
-      (setq counsel-rg-base-command yura/counsel-rg-base-command
-            yura/counsel-rg-base-command-hidden nil
-            yura/counsel-rg-base-command-noignore nil
-            yura/counsel-rg-base-command-maxdepth nil
-            yura/counsel-rg-base-command-iglob nil))
+      (setq counsel-rg-base-command my/counsel-rg-base-command
+            my/counsel-rg-base-command-hidden nil
+            my/counsel-rg-base-command-noignore nil
+            my/counsel-rg-base-command-maxdepth nil
+            my/counsel-rg-base-command-iglob nil))
 
-    (defun yura/counsel-rg-base-command-setup ()
+    (defun my/counsel-rg-base-command-setup ()
       "Setup `counsel-rg-base-command'.
 
 Setup by variables:
-`yura/counsel-rg-base-command-hidden',
-`yura/counsel-rg-base-command-noignore'
-`yura/counsel-rg-base-command-maxdepth'
-`yura/counsel-rg-base-command-iglob'."
+`my/counsel-rg-base-command-hidden',
+`my/counsel-rg-base-command-noignore'
+`my/counsel-rg-base-command-maxdepth'
+`my/counsel-rg-base-command-iglob'."
       (interactive)
-      (let ((cmd yura/counsel-rg-base-command)
-            (hidden yura/counsel-rg-base-command-hidden)
-            (noignore yura/counsel-rg-base-command-noignore)
-            (maxdepth yura/counsel-rg-base-command-maxdepth)
-            (iglob yura/counsel-rg-base-command-iglob))
+      (let ((cmd my/counsel-rg-base-command)
+            (hidden my/counsel-rg-base-command-hidden)
+            (noignore my/counsel-rg-base-command-noignore)
+            (maxdepth my/counsel-rg-base-command-maxdepth)
+            (iglob my/counsel-rg-base-command-iglob))
         (if hidden
             (if (string-match " --no-heading" cmd)
                 (setq cmd (replace-regexp-in-string " --no-heading" " --hidden" cmd))
@@ -222,47 +222,47 @@ Setup by variables:
             (setq cmd (concat cmd " --iglob " iglob )))
         (setq counsel-rg-base-command cmd)))
 
-    (defun yura/counsel-rg-bcmd-hidden-toggle-update ()
-      "Toggle variable yura/counsel-rg-base-command-hidden, update variable `counsel-rg-base-command'."
+    (defun my/counsel-rg-bcmd-hidden-toggle-update ()
+      "Toggle variable my/counsel-rg-base-command-hidden, update variable `counsel-rg-base-command'."
       (interactive)
       (progn
-        (setq yura/counsel-rg-base-command-hidden
-              (if yura/counsel-rg-base-command-hidden nil t))
-        (yura/counsel-rg-base-command-setup)))
+        (setq my/counsel-rg-base-command-hidden
+              (if my/counsel-rg-base-command-hidden nil t))
+        (my/counsel-rg-base-command-setup)))
 
-    (defun yura/counsel-rg-bcmd-noignore-toggle-update ()
-      "Toggle variable yura/counsel-rg-base-command-noignore, update variable `counsel-rg-base-command'."
+    (defun my/counsel-rg-bcmd-noignore-toggle-update ()
+      "Toggle variable my/counsel-rg-base-command-noignore, update variable `counsel-rg-base-command'."
       (interactive)
       (progn
-        (setq yura/counsel-rg-base-command-noignore
-              (if yura/counsel-rg-base-command-noignore nil t))
-        (yura/counsel-rg-base-command-setup)))
+        (setq my/counsel-rg-base-command-noignore
+              (if my/counsel-rg-base-command-noignore nil t))
+        (my/counsel-rg-base-command-setup)))
 
-    (defun yura/counsel-rg-bcmd-maxdepth-set-update (depth)
-      "Set variable yura/counsel-rg-base-command-maxdepth, update variable `counsel-rg-base-command'."
+    (defun my/counsel-rg-bcmd-maxdepth-set-update (depth)
+      "Set variable my/counsel-rg-base-command-maxdepth, update variable `counsel-rg-base-command'."
       (interactive
        (list (y-or-n-p "Set depth? ")))
       (if depth
-          (setq yura/counsel-rg-base-command-maxdepth (read-string "Max-depth: "))
-        (setq yura/counsel-rg-base-command-maxdepth nil))
-      (yura/counsel-rg-base-command-setup))
+          (setq my/counsel-rg-base-command-maxdepth (read-string "Max-depth: "))
+        (setq my/counsel-rg-base-command-maxdepth nil))
+      (my/counsel-rg-base-command-setup))
 
-    (defun yura/counsel-rg-bcmd-iglob-set-update (set-mask)
-      "Set variable yura/counsel-rg-base-command-iglob, update variable `counsel-rg-base-command'."
+    (defun my/counsel-rg-bcmd-iglob-set-update (set-mask)
+      "Set variable my/counsel-rg-base-command-iglob, update variable `counsel-rg-base-command'."
       (interactive
        (list (y-or-n-p "Set mask? ")))
       (if set-mask
-          (setq yura/counsel-rg-base-command-iglob (read-string "Glob mask: "))
-        (setq yura/counsel-rg-base-command-iglob nil))
-      (yura/counsel-rg-base-command-setup))
+          (setq my/counsel-rg-base-command-iglob (read-string "Glob mask: "))
+        (setq my/counsel-rg-base-command-iglob nil))
+      (my/counsel-rg-base-command-setup))
 
-    (defun yura/counsel-rg-compare-bcmds ()
+    (defun my/counsel-rg-compare-bcmds ()
       "Returns the boolean comparison result for variables
-`counsel-rg-base-command' and `yura/counsel-rg-base-command'."
+`counsel-rg-base-command' and `my/counsel-rg-base-command'."
       (interactive)
       (if (string-match
            (replace-regexp-in-string " %s" "" counsel-rg-base-command)
-           (replace-regexp-in-string " %s" "" yura/counsel-rg-base-command))
+           (replace-regexp-in-string " %s" "" my/counsel-rg-base-command))
           t
         nil))
 
@@ -271,24 +271,24 @@ Setup by variables:
 [Customize command: counsel-rg-base-command (%(replace-regexp-in-string \" %s\" \"\" counsel-rg-base-command))]
 ^^       Options
   ----------------------------------------------
-  _h_: search hidden files and directories (%(if yura/counsel-rg-base-command-hidden t nil))
-  _i_: don't respect ignore files          (%(if yura/counsel-rg-base-command-noignore t nil))
-  _g_: iglob(no case) mask, set or clean   (%(message yura/counsel-rg-base-command-iglob))
-  _d_: max-depth                           (%(message yura/counsel-rg-base-command-maxdepth))
-  _r_: set to default                      (%(if (yura/counsel-rg-compare-bcmds) \"default\" \"changed\"))
+  _h_: search hidden files and directories (%(if my/counsel-rg-base-command-hidden t nil))
+  _i_: don't respect ignore files          (%(if my/counsel-rg-base-command-noignore t nil))
+  _g_: iglob(no case) mask, set or clean   (%(message my/counsel-rg-base-command-iglob))
+  _d_: max-depth                           (%(message my/counsel-rg-base-command-maxdepth))
+  _r_: set to default                      (%(if (my/counsel-rg-compare-bcmds) \"default\" \"changed\"))
 
 "
-      ("h" yura/counsel-rg-bcmd-hidden-toggle-update)
-      ("i" yura/counsel-rg-bcmd-noignore-toggle-update)
-      ("g" yura/counsel-rg-bcmd-iglob-set-update)
-      ("d" yura/counsel-rg-bcmd-maxdepth-set-update)
-      ("r" yura/counsel-rg-base-command-reinit)
+      ("h" my/counsel-rg-bcmd-hidden-toggle-update)
+      ("i" my/counsel-rg-bcmd-noignore-toggle-update)
+      ("g" my/counsel-rg-bcmd-iglob-set-update)
+      ("d" my/counsel-rg-bcmd-maxdepth-set-update)
+      ("r" my/counsel-rg-base-command-reinit)
       ("q" nil "cancel")
       ("C-g" nil "cancel"))
     (defalias 'rgs 'hydra-counsel-rg-base-command/body
       "Setup command `counsel-rg-base-command'")
 
-    (defun yura/counsel-grep-or-swiper (&optional arg)
+    (defun my/counsel-grep-or-swiper (&optional arg)
       "Call `counsel-grep-or-swiper' or `counsel-rg'.
 
 Without ARG call `counsel-grep-or-swiper'
@@ -302,20 +302,20 @@ If ARG is \\[universal-argument] \\[universal-argument] \\[universal-argument] \
         (4   (counsel-rg nil (file-name-directory buffer-file-name) " --maxdepth 1"))
         (16  (counsel-rg nil (file-name-directory buffer-file-name) ""))
         (64  #'lambda () (let ((dir (read-directory-name "Starting directory: " nil default-directory t)))
-                      (counsel-rg nil dir "")))
+                           (counsel-rg nil dir "")))
         (256 #'lambda () (let ((dir (read-directory-name "Starting directory: " nil default-directory t)))
-                      (counsel-rg nil dir " -uuu")))
+                           (counsel-rg nil dir " -uuu")))
         (t (counsel-grep-or-swiper))))
 
-    ;; TODO: use ivy-set-actions with yura/counsel-grep-or-swiper
-    (ivy-set-actions 'yura/counsel-grep-or-swiper nil)
+    ;; TODO: use ivy-set-actions with my/counsel-grep-or-swiper
+    (ivy-set-actions 'my/counsel-grep-or-swiper nil)
     (ivy-set-actions
-     'yura/counsel-grep-or-swiper
+     'my/counsel-grep-or-swiper
      '(("s"
         (lambda(x) (hydra-counsel-rg-base-command/body))
         "Setup")))
 
-    (defun yura/counsel-prompt-function-dir ()
+    (defun my/counsel-prompt-function-dir ()
       "Return prompt appended with the parent directory.
 
 Modified version of `counsel-prompt-function-dir'."
@@ -324,86 +324,86 @@ Modified version of `counsel-prompt-function-dir'."
              (parts (nthcdr 3 (eshell-split-path dir)))
              (dir (format " [%s]: %s"
                           (if parts (apply #'concat "..." parts) dir)
-                          (if (yura/counsel-rg-compare-bcmds)
+                          (if (my/counsel-rg-compare-bcmds)
                               ""
                             (concat
                              "(options:"
-                             (if yura/counsel-rg-base-command-hidden " hidden")
-                             (if yura/counsel-rg-base-command-noignore " noignore")
-                             (if yura/counsel-rg-base-command-iglob
-                                 (message " %s" yura/counsel-rg-base-command-iglob))
-                             (if yura/counsel-rg-base-command-maxdepth
-                                 (message " maxdepth=%s" yura/counsel-rg-base-command-maxdepth))
+                             (if my/counsel-rg-base-command-hidden " hidden")
+                             (if my/counsel-rg-base-command-noignore " noignore")
+                             (if my/counsel-rg-base-command-iglob
+                                 (message " %s" my/counsel-rg-base-command-iglob))
+                             (if my/counsel-rg-base-command-maxdepth
+                                 (message " maxdepth=%s" my/counsel-rg-base-command-maxdepth))
                              "): ")))))
         (ivy-add-prompt-count
          (replace-regexp-in-string          ; Insert dir before any trailing colon.
           "\\(?:: ?\\)?\\'" dir (ivy-state-prompt ivy-last) t t))))
 
-    (ivy-set-prompt 'counsel-rg #'yura/counsel-prompt-function-dir)
+    (ivy-set-prompt 'counsel-rg #'my/counsel-prompt-function-dir)
 
 ;;; Source code warnings navigation
-    (defvar yura/src-warning-expression "\\(FIXME\\|TODO\\)"
+    (defvar my/src-warning-expression "\\(FIXME\\|TODO\\)"
       "Expression to search for source code warnings.")
 
-    (defun yura/buffer-src-warning ()
+    (defun my/buffer-src-warning ()
       "Search for source code warnings in current buffer.
-Search for `yura/src-warning-expression' with `counsel-grep-or-swiper'."
+Search for `my/src-warning-expression' with `counsel-grep-or-swiper'."
       (interactive)
-      (counsel-grep-or-swiper yura/src-warning-expression))
+      (counsel-grep-or-swiper my/src-warning-expression))
 
-    (defun yura/buffer-dir-src-warning ()
+    (defun my/buffer-dir-src-warning ()
       "Search for source code warnings in current buffer's directory(including all subdirectories).
-Search for `yura/src-warning-expression' with `counsel-rg' in buffer's directory."
+Search for `my/src-warning-expression' with `counsel-rg' in buffer's directory."
       (interactive)
-      (counsel-rg yura/src-warning-expression
+      (counsel-rg my/src-warning-expression
                   (file-name-directory buffer-file-name)))
 
-    (defun yura/buffer-dir-only-src-warning ()
+    (defun my/buffer-dir-only-src-warning ()
       "Search for source code warnings in current buffer's directory only(with minimal depth).
-Search for `yura/src-warning-expression' with `counsel-rg' in buffer's directory."
+Search for `my/src-warning-expression' with `counsel-rg' in buffer's directory."
       (interactive)
-      (counsel-rg yura/src-warning-expression
+      (counsel-rg my/src-warning-expression
                   (file-name-directory buffer-file-name) " --maxdepth 1"))
 
-    (defun yura/projectile-src-warning ()
+    (defun my/projectile-src-warning ()
       "Search for source code warnings in projectile root directory.
-Search for `yura/src-warning-expression' with `counsel-rg' in `projectile-project-root'."
+Search for `my/src-warning-expression' with `counsel-rg' in `projectile-project-root'."
       (interactive)
-      (counsel-rg yura/src-warning-expression
+      (counsel-rg my/src-warning-expression
                   (projectile-project-root)))
 
-    (defun yura/selected-dir-only-src-warning ()
+    (defun my/selected-dir-only-src-warning ()
       "Search for source code warnings in selected directory(with minimal depth).
-Search for `yura/src-warning-expression' with `counsel-rg' in selected directory."
+Search for `my/src-warning-expression' with `counsel-rg' in selected directory."
       (interactive)
       (let ((dir (read-directory-name "In directory: "
                                       nil default-directory t)))
-        (counsel-rg yura/src-warning-expression dir " --maxdepth 1")))
+        (counsel-rg my/src-warning-expression dir " --maxdepth 1")))
 
-    (defun yura/selected-dir-src-warning ()
+    (defun my/selected-dir-src-warning ()
       "Search for source code warnings in selected directory(including all subdirectories).
-Search for `yura/src-warning-expression' with `counsel-rg' in selected directory."
+Search for `my/src-warning-expression' with `counsel-rg' in selected directory."
       (interactive)
       (let ((dir (read-directory-name "In directory: "
                                       nil default-directory t)))
-        (counsel-rg yura/src-warning-expression dir)))
+        (counsel-rg my/src-warning-expression dir)))
 
     (defhydra hydra-source-code-warnings (:color teal
                                           :hint nil)
       "
-Show source code warnings(%(message yura/src-warning-expression)) for:
+Show source code warnings(%(message my/src-warning-expression)) for:
 
       ^^_b_: buffer
     _d_/_D_: buffer's directory(only/subdir): %(file-name-directory buffer-file-name)
       ^^_p_: projectile                 root: %(if (fboundp 'projectile-project-root) (projectile-project-root) \"TBD\")
     _s_/_S_: after selecting a directory(only in/with subdir)
     "
-      ("b" yura/buffer-src-warning)
-      ("s" yura/selected-dir-only-src-warning)
-      ("S" yura/selected-dir-src-warning)
-      ("d" yura/buffer-dir-only-src-warning)
-      ("D" yura/buffer-dir-src-warning)
-      ("p" yura/projectile-src-warning)
+      ("b" my/buffer-src-warning)
+      ("s" my/selected-dir-only-src-warning)
+      ("S" my/selected-dir-src-warning)
+      ("d" my/buffer-dir-only-src-warning)
+      ("D" my/buffer-dir-src-warning)
+      ("p" my/projectile-src-warning)
       ("q" nil "cancel")
       ("C-g" nil "cancel"))
 

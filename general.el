@@ -93,7 +93,7 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
                                       "#282828" (face-background 'default))))
 
 ;;; List of major modes
-(defvar yura/major-modes
+(defvar my/major-modes
   '(bat-mode
     bitbake-mode
     c++-mode
@@ -134,10 +134,10 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
     yaml-mode)
   "List of major modes.")
 
-(defvar yura/major-modes-hooks nil
+(defvar my/major-modes-hooks nil
   "List of major modes of hooks.")
-(dolist (mode yura/major-modes)
-  (add-to-list 'yura/major-modes-hooks
+(dolist (mode my/major-modes)
+  (add-to-list 'my/major-modes-hooks
                (intern (concat (symbol-name mode) "-hook"))))
 
 ;;; Default ag arguments
@@ -192,8 +192,8 @@ packages.")
       ;;   "
       ;; (message "%S" shell-return)
       (when (not (string= "" shell-return))
-	(string-match ".*[/ ]\\([^ ]+?\\)\\s-*$" shell-return)
-	(match-string-no-properties 1 shell-return))))
+	    (string-match ".*[/ ]\\([^ ]+?\\)\\s-*$" shell-return)
+	    (match-string-no-properties 1 shell-return))))
   "Name of git branch from which the current emacs is built.")
 
 (defun emacs-version-dev (here)
@@ -238,8 +238,8 @@ Example usage:
                               (file-name-as-directory (expand-file-name elpa-dir-name user-emacs-directory))))
      (let (archive pkgs)
        (dolist (archive-alist ,pkg-alist)
-	 (setq archive (car archive-alist))
-	 (when archive
+	     (setq archive (car archive-alist))
+	     (when archive
            (add-to-list 'package-archives archive :append))
          (setq pkgs (append pkgs (cdr archive-alist))))
        (package-initialize)

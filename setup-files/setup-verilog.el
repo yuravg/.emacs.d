@@ -934,7 +934,7 @@ VARIABLE-INDENT(default 1) set indentation to variable name,
     (bind-key "v" #'verilog-alignment-of-variables-declaration-in-region region-bindings-mode-map)
 
 ;;;; Refactoring
-    (defun verilog-refactoring-of-alignment ()
+    (defun my/verilog-refactoring-of-alignment ()
       "Refactoring of alignment for Verilog mode.
 
 Refactoring of alignment for selected region, or for whole buffer if region don't selected."
@@ -983,7 +983,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
                   ;; FIXME: disable in module declaration
                   ("\\(reg\\|logic\\|wire\\|bit\\|input\\|output\\|inout\\)\\[" . "\\1 ["))))
         (message "Refactoring of alignment is complete.")))
-    (bind-key "i" #'verilog-refactoring-of-alignment region-bindings-mode-map)
+    (bind-key "i" #'my/verilog-refactoring-of-alignment region-bindings-mode-map)
 
     ;; extended version of `hydra-refactoring/body'
     (defhydra hydra-verilog-refactoring (:color pink :hint nil)
@@ -998,7 +998,7 @@ Refactoring of alignment for selected region, or for whole buffer if region don'
       ("p" verilog-port-alignment-when-declaring-module)
       ("i" verilog-port-alignmet-for-module-instance)
       ("d" verilog-alignment-of-variables-declaration-in-region)
-      ("a" verilog-refactoring-of-alignment)
+      ("a" my/verilog-refactoring-of-alignment)
 
       ("r" hydra-refactoring/body :color teal)
       ("v" hydra-refactoring/body :color teal)

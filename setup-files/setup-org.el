@@ -40,19 +40,17 @@
 ;;    Python
 ;;    Perl
 ;;    Shell-script
-;;  Other Org Packages
-;;  org-babel-import-dir
-;;    Org Tree Slide
-;;    Org Cliplink
-;;    Sticky Header Line
-;;    Org Link Ref
-;;    Htmlize Region→File
-;;    Include Src lines
-;;    Org TOC
-;;    Citations
-;;    org-make-toc
-;;  Other
-;;    Markdown to Org-mode
+;;    org-babel-import-dir
+;;  Org Tree Slide
+;;  Org Cliplink
+;;  Sticky Header Line
+;;  Org Link Ref
+;;  Htmlize Region→File
+;;  Include Src lines
+;;  Org TOC
+;;  Citations
+;;  org-make-toc
+;;  Markdown to Org-mode
 ;;  Provide
 ;;  Notes
 
@@ -271,7 +269,7 @@ Toggle `my/enable-org-agenda-file'."
                  (org-restart-font-lock)
                  (message "Show org-mode emphasis markers"))
         (progn (setq org-hide-emphasis-markers t)
-                 (org-restart-font-lock)
+               (org-restart-font-lock)
                (message "Hide org-mode emphasis markers"))))
 
     ;; https://emacs.stackexchange.com/questions/5387/show-org-mode-hyperlink-as-plain-text
@@ -1668,90 +1666,89 @@ the languages in `modi/ob-enabled-languages'."
     ;; Trailing whitespace management
     ;; Delete trailing whitespace in tangled buffer and save it.
     (add-hook 'org-babel-post-tangle-hook #'delete-trailing-whitespace)
-    (add-hook 'org-babel-post-tangle-hook #'save-buffer :append)))
+    (add-hook 'org-babel-post-tangle-hook #'save-buffer :append)
 
 ;;;; Diagrams
-(use-package ob-ditaa
-  :defer t
-  :config
-  (progn
-    ;; http://pages.sachachua.com/.emacs.d/Sacha.html
-    (setq org-ditaa-jar-path (expand-file-name
-                              "ditaa.jar"
-                              (concat user-emacs-directory "software/")))))
+    (use-package ob-ditaa
+      :defer t
+      :config
+      (progn
+        ;; http://pages.sachachua.com/.emacs.d/Sacha.html
+        (setq org-ditaa-jar-path (expand-file-name
+                                  "ditaa.jar"
+                                  (concat user-emacs-directory "software/")))))
 
-(use-package ob-plantuml
-  :defer t
-  :config
-  (progn
-    (setq org-plantuml-jar-path (expand-file-name
-                                 "plantuml.jar"
-                                 (concat user-emacs-directory "software/")))
+    (use-package ob-plantuml
+      :defer t
+      :config
+      (progn
+        (setq org-plantuml-jar-path (expand-file-name
+                                     "plantuml.jar"
+                                     (concat user-emacs-directory "software/")))
 
-    (defun modi/advice-org-babel-execute:plantuml (orig-fun &rest args)
-      "Force `shell-file-name' to be bash as the \">\" operator is used for redirection.
+        (defun modi/advice-org-babel-execute:plantuml (orig-fun &rest args)
+          "Force `shell-file-name' to be bash as the \">\" operator is used for redirection.
 
 If this forcing is not done, and if `shell-file-name' is tcsh,
 \">\" does not work.  When trying to overwrite files, we get a
 \"File exists\" error, and \">!\" would need to be used instead.
 
 Instead it's simpler to use bash."
-      (let ((shell-file-name (executable-find "bash")))
-        (apply orig-fun args)))
-    (advice-add 'org-babel-execute:plantuml :around #'modi/advice-org-babel-execute:plantuml)
+          (let ((shell-file-name (executable-find "bash")))
+            (apply orig-fun args)))
+        (advice-add 'org-babel-execute:plantuml :around #'modi/advice-org-babel-execute:plantuml)
 
-    ;; Display PlantUML images after babel execute
-    ;; https://emacs.stackexchange.com/questions/30520/org-mode-c-c-c-c-to-display-inline-image
-    (defun my/turn-off-org-babel-execute-plantuml ()
-      "Tunr off display PlantUML images after babel execute."
-      (interactive)
-      (remove-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
+        ;; Display PlantUML images after babel execute
+        ;; https://emacs.stackexchange.com/questions/30520/org-mode-c-c-c-c-to-display-inline-image
+        (defun my/turn-off-org-babel-execute-plantuml ()
+          "Tunr off display PlantUML images after babel execute."
+          (interactive)
+          (remove-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
 
-    (defun my/turn-on-org-babel-execute-plantuml ()
-      "Turn on display PlantUML images after babel execute."
-      (interactive)
-      (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
-    (my/turn-on-org-babel-execute-plantuml)))
+        (defun my/turn-on-org-babel-execute-plantuml ()
+          "Turn on display PlantUML images after babel execute."
+          (interactive)
+          (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images))
+        (my/turn-on-org-babel-execute-plantuml)))
 
 ;;;; Python
-(use-package ob-python
-  :defer t
-  :config
-  (progn
-    (setq org-babel-python-command "python3"))) ;Default to python 3.x
+    (use-package ob-python
+      :defer t
+      :config
+      (progn
+        (setq org-babel-python-command "python3"))) ;Default to python 3.x
 
 ;;;; Perl
-(use-package ob-perl
-  :config
-  (progn
-    ;; Use `org-babel-execute' for Perl
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((perl . t)))
-    ;; Support CPerl (`cperl-mode') for `org-babel-execute'
-    (defalias 'org-babel-execute:cperl 'org-babel-execute:perl)))
+    (use-package ob-perl
+      :config
+      (progn
+        ;; Use `org-babel-execute' for Perl
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((perl . t)))
+        ;; Support CPerl (`cperl-mode') for `org-babel-execute'
+        (defalias 'org-babel-execute:cperl 'org-babel-execute:perl)))
 
 ;;;; Shell-script
-(use-package ob-shell
-  :config
-  (progn
-    ;; Use `org-babel-execute' for Shell-script
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((shell . t)))
-    ;; Support Shell-script (`sh-mode') for `org-babel-execute', by default 'shell'.
-    (defalias 'org-babel-execute:shell-script 'org-babel-execute:shell)))
+    (use-package ob-shell
+      :config
+      (progn
+        ;; Use `org-babel-execute' for Shell-script
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((shell . t)))
+        ;; Support Shell-script (`sh-mode') for `org-babel-execute', by default 'shell'.
+        (defalias 'org-babel-execute:shell-script 'org-babel-execute:shell)))
 
-;;; Other Org Packages
+;;;; org-babel-import-dir
+    (use-package org-directory-importer
+      :vc (:url "https://github.com/yuravg/org-directory-importer" :rev :newest)
+      :config
+      (progn
+        (setq org-directory-importer-max-file-size (* 2 1024 2048))))))
 
-;;; org-babel-import-dir
-(use-package org-directory-importer
-  :vc (:url "https://github.com/yuravg/org-directory-importer" :rev :newest)
-  :config
-  (progn
-    (setq org-directory-importer-max-file-size (* 2 1024 2048))))
 
-;;;; Org Tree Slide
+;;; Org Tree Slide
 ;; https://github.com/takaxp/org-tree-slide
 (use-package org-tree-slide
   :bind (:map modi-mode-map
@@ -1852,7 +1849,7 @@ Instead it's simpler to use bash."
      ("C-3" . org-tree-slide-simple-profile)
      ("C-4" . org-tree-slide-presentation-profile))))
 
-;;;; Org Cliplink
+;;; Org Cliplink
 ;; https://github.com/rexim/org-cliplink
 (use-package org-cliplink
   :bind (:map org-mode-map
@@ -1860,7 +1857,7 @@ Instead it's simpler to use bash."
          ;; "C-c C-L" is bound to `org-cliplink'.
          ("C-c C-S-l" . org-cliplink)))
 
-;;;; Sticky Header Line
+;;; Sticky Header Line
 ;; https://github.com/alphapapa/org-sticky-header
 (use-package org-sticky-header
   :ensure t
@@ -1912,12 +1909,12 @@ Instead it's simpler to use bash."
               (t "")))))))
     (add-hook 'org-mode-hook #'org-sticky-header-mode)))
 
-;;;; Org Link Ref
+;;; Org Link Ref
 ;; Support markdown-style link id references
 (use-package org-link-ref
   :load-path "elisp/org-link-ref")
 
-;;;; Htmlize Region→File
+;;; Htmlize Region→File
 (use-package htmlize-r2f
   :load-path "elisp/htmlize-r2f"
   :bind (:map region-bindings-mode-map
@@ -1925,7 +1922,7 @@ Instead it's simpler to use bash."
   :bind (:map modi-mode-map
          ("C-c H" . htmlize-r2f)))
 
-;;;; Include Src lines
+;;; Include Src lines
 ;; Auto-update line numbers for source code includes when saving Org files.
 (use-package org-include-src-lines
   :load-path "elisp/org-include-src-lines"
@@ -1937,19 +1934,19 @@ Instead it's simpler to use bash."
       (add-hook 'before-save-hook #'endless/org-include-update nil :local))
     (add-hook 'org-mode-hook #'modi/org-include-update-before-save)))
 
-;;;; Org TOC
+;;; Org TOC
 ;; https://github.com/snosov1/toc-org
 ;; Used in https://github.com/kaushalmodi/ox-hugo/blob/master/doc/export-gh-doc.el
 (use-package toc-org
   :ensure t)
 
-;;;; Citations
+;;; Citations
 ;; https://github.com/andras-simonyi/citeproc-el
 (use-package citeproc
   :ensure t
   :defer t)
 
-;;;; org-make-toc
+;;; org-make-toc
 ;; https://github.com/alphapapa/org-make-toc
 (use-package org-make-toc
   :ensure t
@@ -1958,9 +1955,7 @@ Instead it's simpler to use bash."
   (progn
     (add-hook 'org-mode-hook #'org-make-toc-mode)))
 
-;;; Other
-
-;;;; Markdown to Org-mode
+;;; Markdown to Org-mode
 ;; https://emacs.stackexchange.com/questions/5465/how-to-migrate-markdown-files-to-emacs-org-mode-format
 
 (defun my/markdown-convert-buffer-to-org ()

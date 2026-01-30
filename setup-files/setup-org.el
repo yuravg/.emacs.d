@@ -41,6 +41,7 @@
 ;;    Perl
 ;;    Shell-script
 ;;    org-babel-import-dir
+;;    Preserve blank lines in org-babel tangled output
 ;;  Org Tree Slide
 ;;  Org Cliplink
 ;;  Sticky Header Line
@@ -1745,7 +1746,94 @@ Instead it's simpler to use bash."
       :vc (:url "https://github.com/yuravg/org-directory-importer" :rev :newest)
       :config
       (progn
-        (setq org-directory-importer-max-file-size (* 2 1024 2048))))))
+        (setq org-directory-importer-max-file-size (* 2 1024 2048))))
+
+;;;; Preserve blank lines in org-babel tangled output
+    (defconst my-org-babel-max-blank-lines 100
+      "Maximum number of blank lines to preserve (safety cap).")
+
+    (defun my-org-babel--count-leading-blank-lines (str)
+      "Count leading blank lines in STR.
+A leading blank line is a line containing only whitespace at the start."
+      (let ((count 0)
+            (pos 0)
+            (len (length str)))
+        (while (and (< pos len)
+                    (< count my-org-babel-max-blank-lines))
+          (let ((line-end (or (cl-position ?\n str :start pos) len)))
+            (if (string-match-p "\\`[[:space:]]*\\'" (substring str pos line-end))
+                (progn
+                  (setq count (1+ count))
+                  (setq pos (min (1+ line-end) len)))
+              ;; Found non-blank line, stop counting
+              (setq pos len))))
+        count))
+
+    (defun my-org-babel--count-trailing-newlines (str)
+      "Count consecutive trailing newlines in STR.
+org-babel strips one trailing newline from the body, so the count
+of trailing newlines equals the count of blank lines to preserve."
+      (let ((count 0)
+            (pos (1- (length str))))
+        (while (and (>= pos 0)
+                    (< count my-org-babel-max-blank-lines)
+                    (eq (aref str pos) ?\n))
+          (setq count (1+ count)
+                pos (1- pos)))
+        count))
+
+    (defun my-org-babel--collect-blank-line-info ()
+      "Collect blank line info for all tangleable source blocks in current buffer.
+Returns a hash table mapping file paths to (leading . trailing) cons cells."
+      (let ((info-table (make-hash-table :test 'equal)))
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward org-babel-src-block-regexp nil t)
+            (let* ((block-info (org-babel-get-src-block-info))
+                   (body (nth 1 block-info))
+                   (params (nth 2 block-info))
+                   (tangle-file (cdr (assq :tangle params))))
+              (when (and tangle-file
+                         (not (string= tangle-file "no"))
+                         (> (length body) 0))
+                (let ((full-path (expand-file-name tangle-file))
+                      (leading (my-org-babel--count-leading-blank-lines body))
+                      (trailing (my-org-babel--count-trailing-newlines body)))
+                  (puthash full-path (cons leading trailing) info-table))))))
+        info-table))
+
+    (defun my-org-babel--apply-blank-lines (file leading trailing)
+      "Add LEADING blank lines at start and TRAILING at end of FILE."
+      (when (and file (file-exists-p file))
+        (with-temp-buffer
+          (insert-file-contents file)
+          (when (> leading 0)
+            (goto-char (point-min))
+            (insert (make-string leading ?\n)))
+          (when (> trailing 0)
+            (goto-char (point-max))
+            (insert (make-string trailing ?\n)))
+          (write-region (point-min) (point-max) file nil 'quiet))))
+
+    (defun my-org-babel-preserve-blank-lines (files)
+      "Preserve blank lines from org source blocks in tangled FILES.
+
+This function is used as :filter-return advice on `org-babel-tangle'.
+It analyzes the source blocks in the current org buffer, counts the
+leading and trailing blank lines, and ensures the tangled output files
+have the same number of blank lines.
+
+Leading blank lines: Empty lines before the first non-blank line
+Trailing blank lines: Empty lines after the last non-blank line"
+      (let ((blank-info (my-org-babel--collect-blank-line-info)))
+        (dolist (file files)
+          (let ((info (gethash (expand-file-name file) blank-info)))
+            (when info
+              (my-org-babel--apply-blank-lines file (car info) (cdr info))))))
+      files)
+
+    ;; Install the advice
+    (advice-add 'org-babel-tangle :filter-return #'my-org-babel-preserve-blank-lines)))
 
 
 ;;; Org Tree Slide

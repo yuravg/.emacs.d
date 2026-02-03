@@ -40,7 +40,7 @@
 ;;    Python
 ;;    Perl
 ;;    Shell-script
-;;    org-babel-import-dir
+;;    org-directory-importer
 ;;    Preserve blank lines in org-babel tangled output
 ;;  Org Tree Slide
 ;;  Org Cliplink
@@ -1741,7 +1741,8 @@ Instead it's simpler to use bash."
         ;; Support Shell-script (`sh-mode') for `org-babel-execute', by default 'shell'.
         (defalias 'org-babel-execute:shell-script 'org-babel-execute:shell)))
 
-;;;; org-babel-import-dir
+;;;; org-directory-importer
+    ;; Import directory structures as Org Babel source blocks
     (use-package org-directory-importer
       :vc (:url "https://github.com/yuravg/org-directory-importer" :rev :newest)
       :config

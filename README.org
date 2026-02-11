@@ -117,6 +117,12 @@ packages in the =my-packages= list defined in the =init.el=.
   pacman -S mingw-w64-x86_64-hunspell mingw-w64-x86_64-hunspell-en
   #+end_src
 
+- Typst
+
+#+begin_src shell-script
+winget install Typst.Typst
+#+end_src
+
 * Feedback
 I am looking forward to suggestions, corrections.
 

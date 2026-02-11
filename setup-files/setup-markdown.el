@@ -294,6 +294,33 @@ See also `markdown-cleanup-list-numbers'."
                         (delete-region (point) line-end)
                         (insert new-content))))))))))))
 
+    ;; Run header number cleanup before save
+    (defcustom my/markdown-cleanup-header-numbers-files nil
+      "List of file name patterns for auto-cleanup of header numbers before save.
+Each element is a regexp matched against `buffer-file-name'.
+When a matching markdown buffer is saved,
+`my/markdown-cleanup-heder-list-numbers-level' runs automatically.
+
+Example:
+  (setq my/markdown-cleanup-header-numbers-files
+        \\='(\"TODO\\\\.md\" \"PLAN\\\\.md\" \"project-.*\\\\.md\"))"
+      :type '(repeat regexp)
+      :group 'markdown)
+
+    (setq my/markdown-cleanup-header-numbers-files
+          '("TODO\\.md"))
+
+    (defun my/markdown-cleanup-header-numbers-before-save ()
+      "Run header number cleanup before save if file matches configured patterns."
+      (when (and (derived-mode-p 'markdown-mode)
+                 buffer-file-name
+                 my/markdown-cleanup-header-numbers-files
+                 (cl-some (lambda (pattern)
+                            (string-match-p pattern buffer-file-name))
+                          my/markdown-cleanup-header-numbers-files))
+        (my/markdown-cleanup-heder-list-numbers-level)))
+    (add-hook 'before-save-hook #'my/markdown-cleanup-header-numbers-before-save)
+
 ;;;; markdown-mode-map
     (bind-keys
      :map markdown-mode-map

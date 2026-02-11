@@ -151,6 +151,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
      toml
      transpose-frame ; for the priceless `rotate-frame' and `transpose-frame'
      try
+     ;;typst-ts-mode
      ;; undo-propose
      undo-tree ; supercool undo visualization
      use-package use-package-chords ; optimize package loading
@@ -347,6 +348,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
   (require 'setup-go))
 (require 'setup-gujarati)
 (require 'setup-latex)
+(require 'setup-typst)
 (require 'setup-markdown)
 (when (executable-find "matlab")
   (require 'setup-matlab))

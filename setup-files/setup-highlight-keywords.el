@@ -511,7 +511,7 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
 
 ;;; PlantUML
 (defvar plantuml-elements-keywords
-  '(("\\_<abstract\\|abstract class\\|annotation circle\\|()\\|class\\|diamond\\|<>\\|entity\\|enum\\|interface\\|\\
+  '(("\\_<static\\|abstract\\|abstract class\\|annotation circle\\|()\\|class\\|diamond\\|<>\\|entity\\|enum\\|interface\\|\\
 protocol\\|struct\\|package\\_>"
      . font-lock-builtin-face)))
 (font-lock-add-keywords 'plantuml-mode plantuml-elements-keywords)

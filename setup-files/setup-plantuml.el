@@ -18,7 +18,9 @@
   (plantuml-jar-path org-plantuml-jar-path "Reuse org-babel's JAR path")
   :bind
   (:map plantuml-mode-map
-   ("C-c C-h" . my/plantuml-toggle-source-diagram))
+   ("C-c C-h" . my/plantuml-toggle-source-diagram)
+   ("C-c C-b" . plantuml-preview-region)
+   ("C-c C-e" . my/plantuml-export))
   :hook
   (plantuml-mode . my/plantuml-set-indentation)
   :config
@@ -52,6 +54,45 @@ corresponding .svg or .png, and vice versa."
             (find-file target)
           (message "No corresponding file found for %s"
                    (file-name-nondirectory file)))))
+
+    (defun my/plantuml-export (&optional open)
+      "Export current PlantUML buffer to a file.
+The output format is determined by `plantuml-output-type' (svg, png, txt, etc.).
+If the output file is already open in a buffer, that buffer is auto-reverted.
+With a prefix argument (\\[universal-argument]), open the output file after export."
+      (interactive "P")
+      (unless (buffer-file-name)
+        (user-error "Buffer is not visiting a file"))
+      (let* ((input-file (buffer-file-name))
+             (jar-path   plantuml-jar-path)
+             (out-type   plantuml-output-type)
+             (out-ext    (cond ((string= out-type "txt")  "atxt")
+                               ((string= out-type "utxt") "utxt")
+                               (t out-type)))
+             (out-file   (concat (file-name-sans-extension input-file) "." out-ext))
+             (err-buf    (get-buffer-create "*plantuml-export*")))
+        (unless (file-exists-p jar-path)
+          (user-error "PlantUML JAR not found at %s" jar-path))
+        (save-buffer)
+        (with-current-buffer err-buf (erase-buffer))
+        (message "Exporting %s to %s..." (file-name-nondirectory input-file) out-type)
+        (let ((exit-code (call-process "java" nil err-buf nil
+                                       "-jar" jar-path
+                                       (concat "-t" out-type)
+                                       input-file)))
+          (if (= exit-code 0)
+              (if (file-exists-p out-file)
+                  (progn
+                    ;; Auto-revert if the output file is already open
+                    (let ((buf (find-buffer-visiting out-file)))
+                      (when buf
+                        (with-current-buffer buf (revert-buffer t t t))))
+                    (message "Exported to %s" (abbreviate-file-name out-file))
+                    (when open (find-file out-file)))
+                (message "Command succeeded but %s not found" out-ext))
+            (display-buffer err-buf)
+            (message "Export failed (exit code %d). See *plantuml-export* buffer."
+                     exit-code)))))
 
     (defun my/plantuml-set-indentation ()
       "Customize the indentation for `plantuml-mode'."

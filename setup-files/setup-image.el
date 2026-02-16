@@ -1,8 +1,11 @@
 ;; Time-stamp: <2019-07-30 14:45:04 kmodi>
 
 (use-package image-mode
-  :config
   :defer t
+  :bind
+  (:map image-mode-map
+   ("C-c C-h" . my/plantuml-toggle-source-diagram))
+  :config
 
   ;; Tue Jul 30 14:44:07 EDT 2019 - kmodi
   ;; Below messing with `image-type-header-regexps' made the preview

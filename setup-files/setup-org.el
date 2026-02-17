@@ -42,17 +42,18 @@
 ;;    Shell-script
 ;;    org-directory-importer
 ;;    Preserve blank lines in org-babel tangled output
-;;  Org Tree Slide
-;;  Org Cliplink
-;;  Sticky Header Line
-;;  Org Link Ref
-;;  Htmlize Region→File
-;;  Include Src lines
-;;  Org TOC
-;;  Citations
-;;  org-make-toc
-;;  Markdown to Org-mode
-;;  Denote
+;;  Other Org Packages
+;;    Org Tree Slide
+;;    Org Cliplink
+;;    Sticky Header Line
+;;    Org Link Ref
+;;    Htmlize Region→File
+;;    Include Src lines
+;;    Org TOC
+;;    Citations
+;;    org-make-toc
+;;    Markdown to Org-mode
+;;    Denote
 ;;  Provide
 ;;  Notes
 
@@ -1838,7 +1839,9 @@ Trailing blank lines: Empty lines after the last non-blank line"
     (advice-add 'org-babel-tangle :filter-return #'my-org-babel-preserve-blank-lines)))
 
 
-;;; Org Tree Slide
+;;; Other Org Packages
+
+;;;; Org Tree Slide
 ;; https://github.com/takaxp/org-tree-slide
 (use-package org-tree-slide
   :bind (:map modi-mode-map
@@ -1939,7 +1942,7 @@ Trailing blank lines: Empty lines after the last non-blank line"
      ("C-3" . org-tree-slide-simple-profile)
      ("C-4" . org-tree-slide-presentation-profile))))
 
-;;; Org Cliplink
+;;;; Org Cliplink
 ;; https://github.com/rexim/org-cliplink
 (use-package org-cliplink
   :bind (:map org-mode-map
@@ -1947,7 +1950,7 @@ Trailing blank lines: Empty lines after the last non-blank line"
          ;; "C-c C-L" is bound to `org-cliplink'.
          ("C-c C-S-l" . org-cliplink)))
 
-;;; Sticky Header Line
+;;;; Sticky Header Line
 ;; https://github.com/alphapapa/org-sticky-header
 (use-package org-sticky-header
   :ensure t
@@ -1999,12 +2002,12 @@ Trailing blank lines: Empty lines after the last non-blank line"
               (t "")))))))
     (add-hook 'org-mode-hook #'org-sticky-header-mode)))
 
-;;; Org Link Ref
+;;;; Org Link Ref
 ;; Support markdown-style link id references
 (use-package org-link-ref
   :load-path "elisp/org-link-ref")
 
-;;; Htmlize Region→File
+;;;; Htmlize Region→File
 (use-package htmlize-r2f
   :load-path "elisp/htmlize-r2f"
   :bind (:map region-bindings-mode-map
@@ -2012,7 +2015,7 @@ Trailing blank lines: Empty lines after the last non-blank line"
   :bind (:map modi-mode-map
          ("C-c H" . htmlize-r2f)))
 
-;;; Include Src lines
+;;;; Include Src lines
 ;; Auto-update line numbers for source code includes when saving Org files.
 (use-package org-include-src-lines
   :load-path "elisp/org-include-src-lines"
@@ -2024,19 +2027,19 @@ Trailing blank lines: Empty lines after the last non-blank line"
       (add-hook 'before-save-hook #'endless/org-include-update nil :local))
     (add-hook 'org-mode-hook #'modi/org-include-update-before-save)))
 
-;;; Org TOC
+;;;; Org TOC
 ;; https://github.com/snosov1/toc-org
 ;; Used in https://github.com/kaushalmodi/ox-hugo/blob/master/doc/export-gh-doc.el
 (use-package toc-org
   :ensure t)
 
-;;; Citations
+;;;; Citations
 ;; https://github.com/andras-simonyi/citeproc-el
 (use-package citeproc
   :ensure t
   :defer t)
 
-;;; org-make-toc
+;;;; org-make-toc
 ;; https://github.com/alphapapa/org-make-toc
 (use-package org-make-toc
   :ensure t
@@ -2045,7 +2048,7 @@ Trailing blank lines: Empty lines after the last non-blank line"
   (progn
     (add-hook 'org-mode-hook #'org-make-toc-mode)))
 
-;;; Markdown to Org-mode
+;;;; Markdown to Org-mode
 ;; https://emacs.stackexchange.com/questions/5465/how-to-migrate-markdown-files-to-emacs-org-mode-format
 
 (defun my/markdown-convert-buffer-to-org ()
@@ -2058,7 +2061,7 @@ current buffer's file name but with .org extension."
                                    (concat (file-name-sans-extension (buffer-file-name))
                                            ".org"))))
 
-;;; Denote
+;;;; Denote
 ;; https://protesilaos.com/codelog/2022-06-07-denote-introduction/
 ;; https://git.sr.ht/~protesilaos/denote
 (use-package denote

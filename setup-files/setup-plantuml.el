@@ -1,7 +1,16 @@
 
 ;; PlantUML
-
 ;; https://plantuml.com/
+
+;; Contents:
+;;
+;;  Variables
+;;  Functions
+;;    my/plantuml-set-indentation
+;;    my/plantuml-toggle-source-diagram
+;;    my/plantuml-export
+;;  Key bindings
+
 
 (use-package plantuml-mode
   ;; Default: *.plantuml, *.pum, *.plu
@@ -13,21 +22,29 @@
    ("\\.iuml\\'"     . plantuml-mode))
   :after
   (org ob ob-plantuml)
-  :custom
-  (plantuml-default-exec-mode 'jar "Use local plantuml.jar")
-  (plantuml-jar-path org-plantuml-jar-path "Reuse org-babel's JAR path")
-  :bind
-  (:map plantuml-mode-map
-   ("C-c C-h" . my/plantuml-toggle-source-diagram)
-   ("C-c C-b" . plantuml-preview-region)
-   ("C-c C-e" . my/plantuml-export))
-  :hook
-  (plantuml-mode . my/plantuml-set-indentation)
   :config
   (progn
+
+;;; Variables
+    ;; Use my local plantuml.jar file
+    (setq plantuml-default-exec-mode 'jar)
+    ;; Set path to my local plantuml.jar file
+    (setq plantuml-jar-path org-plantuml-jar-path)
+
     (unless (and plantuml-jar-path (file-exists-p plantuml-jar-path))
       (warn "PlantUML JAR not found at %s" plantuml-jar-path))
 
+;;; Functions
+
+;;;; my/plantuml-set-indentation
+    (defun my/plantuml-set-indentation ()
+      "Customize the indentation for `plantuml-mode'."
+      (setq-local tab-width 2
+                  plantuml-indent-level 2
+                  indent-tabs-mode nil))
+    (add-hook 'plantuml-mode-hook #'my/plantuml-set-indentation)
+
+;;;; my/plantuml-toggle-source-diagram
     (defun my/plantuml-toggle-source-diagram ()
       "Toggle between a PlantUML source file and its rendered output.
 Switch from source (.puml, .pu, .wsd, .plantuml, .iuml) to the
@@ -55,6 +72,7 @@ corresponding .svg or .png, and vice versa."
           (message "No corresponding file found for %s"
                    (file-name-nondirectory file)))))
 
+;;;; my/plantuml-export
     (defun my/plantuml-export (&optional open)
       "Export current PlantUML buffer to a file.
 The output format is determined by `plantuml-output-type' (svg, png, txt, etc.).
@@ -94,11 +112,11 @@ With a prefix argument (\\[universal-argument]), open the output file after expo
             (message "Export failed (exit code %d). See *plantuml-export* buffer."
                      exit-code)))))
 
-    (defun my/plantuml-set-indentation ()
-      "Customize the indentation for `plantuml-mode'."
-      (setq-local tab-width 2
-                  plantuml-indent-level 2
-                  indent-tabs-mode nil))))
+;;; Key bindings
+    (bind-keys
+     ("C-c C-h" . my/plantuml-toggle-source-diagram)
+     ("C-c C-b" . plantuml-preview-region)
+     ("C-c C-e" . my/plantuml-export))))
 
 
 (provide 'setup-plantuml)

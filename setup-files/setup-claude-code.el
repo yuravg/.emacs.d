@@ -64,9 +64,11 @@ When nil, falls back to eat terminal emulator.")
   ;; Display Claude Code window on right side (50% width) instead of bottom
   (setq claude-code-display-window-fn
         (lambda (buffer)
-          (display-buffer buffer '((display-buffer-in-side-window)
-                                   (side . right)
-                                   (window-width . 0.5)))))
+          (let ((window (display-buffer buffer '((display-buffer-in-side-window)
+                                                 (side . right)
+                                                 (window-width . 0.5)))))
+            (when window
+              (select-window window)))))
 
   ;; Enable IDE protocol integration via monet
   ;; This allows Claude to interact with your Emacs environment

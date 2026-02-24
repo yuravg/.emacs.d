@@ -24,8 +24,8 @@
 ;;      Set verilog auto lineup
 ;;    Alignment
 ;;    Refactoring
-;;  Verilog compile
-;;  Simulation
+;;    Verilog compile
+;;    Simulation
 ;;    Compilation after save
 ;;  hideshow
 ;;  hydra-verilog-template
@@ -1115,7 +1115,7 @@ If prefixed with \\[universal-argument], move to the end of page."
                                 (move-end-of-line nil)
                                 (point))))))
 
-;;; Verilog compile
+;;;; Verilog compile
     (defvar my/verilog-compiler-command nil
       "Verilog lint command.")
     (setq my/verilog-modelsim-compile-command "vlog -incr -lint -sv +acc -timescale 1ns/1ps -quiet -mfcu")
@@ -1172,7 +1172,7 @@ If ARG is \\[universal-argument] \\[universal-argument] run `compiler' interacti
      ("C-c C-c" . my/verilog-compile)
      ("C-c C-a" . my/verilog-compile-all-files))
 
-;;; Simulation
+;;;; Simulation
     (defun my/questasim-vsim ()
       "Run compilation and simulation with QuestaSim."
       (interactive)

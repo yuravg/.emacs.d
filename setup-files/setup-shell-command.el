@@ -52,7 +52,7 @@
 (use-package comint
   :config (put 'erase-buffer 'disabled nil)
   :bind (:map comint-mode-map
-         ("C-c C-l" . erase-buffer)
+         ("C-c C-l" . comint-clear-buffer)
          ("C-j" . comint-send-input)))
 
 

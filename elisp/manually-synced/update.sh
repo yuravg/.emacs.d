@@ -23,3 +23,6 @@ wget -O - https://www.emacswiki.org/emacs/download/hl-line%2b.el > \
 
 wget -O - https://www.emacswiki.org/emacs/download/info%2b.el > \
      info-plus/info+.el
+
+wget -O - https://raw.githubusercontent.com/yuravg/gowin-cst-mode/refs/heads/master/gowin-cst-mode.el > \
+     gowin-cst-mode/gowin-cst-mode.el

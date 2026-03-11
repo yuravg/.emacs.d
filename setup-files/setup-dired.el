@@ -46,11 +46,10 @@ Prefixed with \\[universal-argument], open single magic dired in another window.
   (defun my/dired-counsel-find-file ()
     "Move point to the end of line and execute `counsel-find-file'.
 
-This command is handy to open file form `dired-mode'."
+This command is handy to open file from `dired-mode'."
     (interactive)
-    (progn
-      (move-end-of-line nil)
-      (counsel-find-file))))
+    (move-end-of-line nil)
+    (counsel-find-file)))
 
 (use-package dired
   :bind (:map dired-mode-map
@@ -213,5 +212,9 @@ It added extra strings at the front and back of the default dired buffer name."
 ;; (4) Enable wdired mode in dired to edit the file names by hitting C-x C-q
 ;;     which is bound to `dired-toggle-read-only' by default. That's a wrapper
 ;;     function which calls `wdired-change-to-wdired-mode' in `dired-mode'.
+
+;; (5) Open a new dired buffer
+;;     C-u M-x dired - Prompts for a directory and opens a fresh dired buffer,
+;;     even if one already exists for that directory.
 
 ;; http://truongtx.me/2013/04/24/dired-as-default-file-manager-1-introduction

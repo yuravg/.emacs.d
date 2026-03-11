@@ -17,14 +17,12 @@
     (defun dired-single-magic-buffer-current-dir (next-window)
       "Open a single magic dired buffer for the current buffer directory.
 
-Prefixed with \\[universal-argument], open single magit dired in another window."
+Prefixed with \\[universal-argument], open single magic dired in another window."
       (interactive "P")
-      (if next-window
-          ;; TODO: 1. save windows to restore; 2. open the dired at the left if current buffer is at the right
-          (progn
-            (delete-other-windows)
-            (split-window-right)
-            (other-window 1)))
+      (when next-window
+        (delete-other-windows)
+        (split-window-right)
+        (other-window 1))
       (dired-single-magic-buffer default-directory))
 
     (defun dired-single-up-directory ()

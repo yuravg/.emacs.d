@@ -23,7 +23,7 @@
 (key-chord-define-global "CC" #'run-buffer-in-shell)
 
 ;;;; Repeat last shell command
-(defun yura-repeat-last-shell-command ()
+(defun my-repeat-last-shell-command ()
   (interactive)
   (let ((cmd (cadr (assoc 'shell-command
                           command-history))))

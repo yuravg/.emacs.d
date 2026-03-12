@@ -871,7 +871,9 @@ Prefixed with \\[universal-argument] will be selected next frame in the forward 
 ;;; Temporary buffer for read-only
 ;; new temporary buffer, which is read-only
 ;; https://github.com/jackkamm/undo-propose-el
+;; https://github.com/yuravg/undo-propose-el (the fork with my unaccepted changes)
 (use-package undo-propose
+  :vc (:url "https://github.com/yuravg/undo-propose-el" :rev :newest)
   :defer 10
   :commands undo-propose
   :bind

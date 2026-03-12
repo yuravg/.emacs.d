@@ -151,7 +151,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
      toml
      transpose-frame ; for the priceless `rotate-frame' and `transpose-frame'
      try
-     undo-propose
+     ;; undo-propose
      undo-tree ; supercool undo visualization
      use-package use-package-chords ; optimize package loading
      visual-regexp

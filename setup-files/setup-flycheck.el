@@ -4,6 +4,21 @@
 ;; https://github.com/flycheck/flycheck
 ;; http://www.flycheck.org/en/latest/index.html
 
+;; Contents:
+;;
+;;  Flycheck
+;;    Flycheck Variables
+;;    Hydra-flycheck
+;;    Flycheck-pos-tip
+;;  Checkers
+;;    Python checkers
+;;    C/C++ checkers
+;;      Google-cpplint (Google C++ Style checker), Clang
+;;      Cppcheck
+;;      Clang:
+;;  Notes
+
+;;; Flycheck
 (use-package flycheck
   :bind (:map modi-mode-map
          ("C-c e". hydra-flycheck/body))
@@ -43,7 +58,7 @@
     ;;     (setq-default flycheck-disabled-checkers
     ;;                   (append flycheck-disabled-checkers '(verilog-verilator))))
 
-    ;;; Flycheck Variables
+;;;; Flycheck Variables
     (setq flycheck-flake8-maximum-line-length 99)
     (setq flycheck-checker-error-threshold 400)
     (setq flycheck-display-errors-delay 2)
@@ -53,7 +68,31 @@
     ;; Enable C++ exceptions
     (add-to-list 'flycheck-clang-args "-fcxx-exceptions")
 
-    ;;; Python checkers
+;;;; Hydra-flycheck
+    (defhydra hydra-flycheck (:color amaranth
+                              :columns 4)
+      "Flycheck"
+      ("l" flycheck-list-errors "list error")
+      ("n" flycheck-next-error "next error")
+      ("s" flycheck-select-checker "select checker")
+      ("P" flycheck-pos-tip-mode "toggle error tip pop-up")
+      ("t" flycheck-mode "toggle flycheck mode")
+      ("p" flycheck-previous-error "previous error")
+      ("d" flycheck-disable-checker "disable checker")
+      ("v" flycheck-verify-setup "verify setup")
+      ("q" nil "cancel")
+      ("C-g" nil "cancel"))
+
+    (defalias 'fm 'flycheck-mode)
+    (defalias 'fl 'flycheck-list-errors)
+
+;;;; Flycheck-pos-tip
+    ;; https://github.com/flycheck/flycheck-pos-tip
+    (use-package flycheck-pos-tip)
+
+;;; Checkers
+
+;;;; Python checkers
     (use-package pylint
       :config
       ;; Messages:
@@ -71,8 +110,9 @@
         ;; https://github.com/flycheck/flycheck/issues/186
         (flycheck-add-next-checker 'python-flake8 'python-pylint)))
 
-    ;;; C/C++ checkers
-    ;;;; Google-cpplint (Google C++ Style checker), Clang
+;;;; C/C++ checkers
+
+;;;;; Google-cpplint (Google C++ Style checker), Clang
     ;; flycheck-google-cpplint - Google C++ Style checker for Flycheck.
     ;; https://github.com/flycheck/flycheck-google-cpplint/
     ;; http://google.github.io/styleguide/cppguide.html -- Google C++ Style Guide
@@ -83,14 +123,14 @@
     ;;  pip install cpplint
     ;;  for checking installation you may run Lisp function: (executable-find "cpplint")
     ;;
-    ;;;; Cppcheck
+;;;;; Cppcheck
     ;; http://cppcheck.sourceforge.net/
     ;; Installation:
     ;;  - for Linux: something like 'sudo aptitude install cppcheck'
     ;;  - for Windows: download and install from http://cppcheck.sourceforge.net/
     ;; for checking installation you may run Lisp function: (executable-find "cppcheck")
     ;;
-    ;;;; Clang:
+;;;;; Clang:
     ;; Clang Compiler is an open-source compiler
     ;; http://clang.llvm.org/docs/UsersManual.html
     ;; Installation:
@@ -153,28 +193,7 @@ Non-nil if all C/C++ checkers installed.
 -build/include,
 -readability/todo")
              '(flycheck-googlelint-root "project/src")
-             '(flycheck-googlelint-linelength "99")))))
-
-    (defhydra hydra-flycheck (:color amaranth
-                              :columns 4)
-      "Flycheck"
-      ("l" flycheck-list-errors "list error")
-      ("n" flycheck-next-error "next error")
-      ("s" flycheck-select-checker "select checker")
-      ("P" flycheck-pos-tip-mode "toggle error tip pop-up")
-      ("t" flycheck-mode "toggle flycheck mode")
-      ("p" flycheck-previous-error "previous error")
-      ("d" flycheck-disable-checker "disable checker")
-      ("v" flycheck-verify-setup "verify setup")
-      ("q" nil "cancel")
-      ("C-g" nil "cancel"))
-
-    (defalias 'fm 'flycheck-mode)
-    (defalias 'fl 'flycheck-list-errors)
-
-    ;;; Flycheck-pos-tip
-    ;; https://github.com/flycheck/flycheck-pos-tip
-    (use-package flycheck-pos-tip)))
+             '(flycheck-googlelint-linelength "99")))))))
 
 
 (provide 'setup-flycheck)

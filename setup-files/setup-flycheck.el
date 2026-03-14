@@ -15,7 +15,10 @@
 ;;    C/C++ checkers
 ;;      Google-cpplint (Google C++ Style checker), Clang
 ;;      Cppcheck
-;;      Clang:
+;;      Clang
+;;    TOML checker (taplo)
+;;    YAML checker (yamllint)
+;;  End
 ;;  Notes
 
 ;;; Flycheck
@@ -34,7 +37,10 @@
                                          emacs-lisp-mode-hook
                                          ;; nim-mode-hook
                                          python-mode-hook
-                                         sh-mode-hook)
+                                         sh-mode-hook
+                                         toml-mode-hook
+                                         conf-toml-mode-hook
+                                         yaml-mode-hook)
       "List of hooks of major modes in which flycheck mode should be enabled.")
 
     (defun modi/turn-on-flycheck-mode ()
@@ -130,7 +136,7 @@
     ;;  - for Windows: download and install from http://cppcheck.sourceforge.net/
     ;; for checking installation you may run Lisp function: (executable-find "cppcheck")
     ;;
-;;;;; Clang:
+;;;;; Clang
     ;; Clang Compiler is an open-source compiler
     ;; http://clang.llvm.org/docs/UsersManual.html
     ;; Installation:
@@ -193,7 +199,59 @@ Non-nil if all C/C++ checkers installed.
 -build/include,
 -readability/todo")
              '(flycheck-googlelint-root "project/src")
-             '(flycheck-googlelint-linelength "99")))))))
+             '(flycheck-googlelint-linelength "99")))))
+
+;;;; TOML checker (taplo)
+    ;; https://taplo.tamasfe.dev/
+    ;; Installation:
+    ;;  Linux:   npm install -g @taplo/cli
+    ;;  Windows: scoop install taplo
+    (when (executable-find "taplo")
+      (defun my/flycheck-parse-taplo (output checker buffer)
+        "Parse taplo lint OUTPUT for CHECKER in BUFFER.
+Taplo uses a codespan diagnostic format:
+  ┌─ FILE:LINE:COL
+  │
+N │ source line
+  │      ^^^^ message"
+        (let (errors file line column)
+          (dolist (text-line (split-string output "\n"))
+            (cond
+             ;; Location line: ┌─ FILE:LINE:COL
+             ((string-match "┌─ \\(.+\\):\\([0-9]+\\):\\([0-9]+\\)" text-line)
+              (setq file (match-string 1 text-line)
+                    line (string-to-number (match-string 2 text-line))
+                    column (string-to-number (match-string 3 text-line))))
+             ;; Message line: │ ^^^^ message  OR  │ ╰^ message (multiline span)
+             ((and line (string-match "│[[:space:]]+[╰]*\\^+[[:space:]]+\\(.*\\)" text-line))
+              (push (flycheck-error-new-at
+                     line column 'error
+                     (match-string 1 text-line)
+                     :checker checker
+                     :buffer buffer
+                     :filename file)
+                    errors)
+              (setq file nil line nil column nil))))
+          (nreverse errors)))
+
+      (flycheck-define-checker toml-taplo
+        "TOML syntax checker using taplo.
+See https://taplo.tamasfe.dev/"
+        :command ("bash" "-c" "taplo lint --colors never -- \"$1\" 2>&1" "--" source)
+        :error-parser my/flycheck-parse-taplo
+        :predicate (lambda () (buffer-file-name))
+        :modes (toml-mode toml-ts-mode conf-toml-mode))
+
+      (add-to-list 'flycheck-checkers 'toml-taplo))
+
+;;;; YAML checker (yamllint)
+    ;; https://github.com/adrienverge/yamllint
+    ;; Installation:
+    ;;  pipx install yamllint
+    ;; Flycheck built-in checker: yaml-yamllint (no custom config needed)
+
+;;; End
+    ))
 
 
 (provide 'setup-flycheck)

@@ -17,7 +17,7 @@
   "A temporary minor mode used to set buffer-specific key bindings."
   nil
   :lighter " Temp"
-  temp-mode-map)
+  :keymap temp-mode-map)
 
 
 (provide 'temp-mode)

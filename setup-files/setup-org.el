@@ -1754,7 +1754,12 @@ Instead it's simpler to use bash."
       :load-path "elisp/org-directory-importer"
       :config
       (progn
-        (setq org-directory-importer-max-file-size (* 2 1024 2048))))
+
+        ;; Maximum file size in bytes to import
+        (setq org-directory-importer-max-file-size (* 2 1024 2048))
+
+        (defalias 'odi 'org-directory-importer-mode
+          "Activates the minor mode keymap in Org buffers")))
 
 ;;;; Preserve blank lines in org-babel tangled output
     (defconst my-org-babel-max-blank-lines 100

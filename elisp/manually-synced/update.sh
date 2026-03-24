@@ -26,3 +26,6 @@ wget -O - https://www.emacswiki.org/emacs/download/info%2b.el > \
 
 wget -O - https://raw.githubusercontent.com/yuravg/gowin-cst-mode/refs/heads/master/gowin-cst-mode.el > \
      gowin-cst-mode/gowin-cst-mode.el
+
+wget -O - https://raw.githubusercontent.com/yuravg/undo-propose-el/refs/heads/master/undo-propose.el > \
+     undo-propose/undo-propose.el

@@ -873,34 +873,16 @@ Prefixed with \\[universal-argument] will be selected next frame in the forward 
 ;; https://github.com/jackkamm/undo-propose-el
 ;; https://github.com/yuravg/undo-propose-el (the fork with my unaccepted changes)
 (use-package undo-propose
-  :vc (:url "https://github.com/yuravg/undo-propose-el" :rev :newest)
+  :load-path "elisp/manually-synced/undo-propose-el"
   :defer 10
   :commands undo-propose
-  :bind
-  (:map undo-propose-mode-map
-   ("?" . hydra-undo-propose/body))
-  :init
-  (progn
-    (defalias 'tb 'undo-propose)  ;Temp Buffer
-    (defalias 'up 'undo-propose)) ;Undo-Propose
   :config
   (progn
     ;; Open undo-propose buffer in a new window
     (setq undo-propose-pop-to-buffer t)
-    (defhydra hydra-undo-propose (:color teal :hint nil)
-      "
-Undo-propose (map prefix: C-c):
-  _C-c_: commit
-  _C-s_: squash commit
-  _C-d_: diff
-  _C-k_: cancel
-"
-      ("C-c" undo-propose-commit)
-      ("C-s" undo-propose-squash-commit)
-      ("C-d" undo-propose-diff)
-      ("C-k" undo-propose-cancel)
-      ("q"   nil "cancel")
-      ("C-g" nil "cancel"))))
+
+    (defalias 'up 'undo-propose)    ;Undo-Propose
+    (defalias 'tb 'undo-propose)))  ;Temp Buffer
 
 ;;; Help mode
 (bind-keys

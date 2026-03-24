@@ -1751,7 +1751,7 @@ Instead it's simpler to use bash."
 ;;;; org-directory-importer
     ;; Import directory structures as Org Babel source blocks
     (use-package org-directory-importer
-      :vc (:url "https://github.com/yuravg/org-directory-importer" :rev :newest)
+      :load-path "elisp/org-directory-importer"
       :config
       (progn
         (setq org-directory-importer-max-file-size (* 2 1024 2048))))

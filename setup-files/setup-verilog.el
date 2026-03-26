@@ -1174,8 +1174,30 @@ If ARG is \\[universal-argument] \\[universal-argument] run `compiler' interacti
      ("C-c C-a" . my/verilog-compile-all-files))
 
 ;;;; Simulation
+    (defvar my/verilog-update-output-after-vsim nil
+      "When non-nil, automatically call `my/verilog-update-simulation-output'
+after `my/questasim-vsim' finishes successfully.")
+
+    (defvar my/verilog-update-output-keep-hash nil
+      "When non-nil, keep `# ' prefix in output lines (result: `// # ...').")
+
+    (defvar my/verilog--vsim-source-buffer nil
+      "Source buffer to update after vsim finishes.  Internal use.")
+
+    (defun my/verilog--vsim-finish-callback (_buf msg)
+      "One-shot callback: update source buffer after successful vsim.
+Removes itself from `compilation-finish-functions' after firing."
+      (setq compilation-finish-functions
+            (delq #'my/verilog--vsim-finish-callback compilation-finish-functions))
+      (when (and (string= "finished\n" msg)
+                 (buffer-live-p my/verilog--vsim-source-buffer))
+        (with-current-buffer my/verilog--vsim-source-buffer
+          (my/verilog-update-simulation-output my/verilog-update-output-keep-hash))))
+
     (defun my/questasim-vsim ()
-      "Run compilation and simulation with QuestaSim."
+      "Run compilation and simulation with QuestaSim.
+When `my/verilog-update-output-after-vsim' is non-nil, automatically
+update the `// OUTPUT:' section in the source buffer on success."
       (interactive)
       (let* ((is-function (if (bound-and-true-p my/compilation-finish-function) t nil))
              (fname (file-name-nondirectory buffer-file-name))
@@ -1185,8 +1207,12 @@ If ARG is \\[universal-argument] \\[universal-argument] run `compiler' interacti
                               (file-name-sans-extension fname)
                               " -do 'run -all; quit'")))
         (setq my/compilation-finish-function nil) ;clean `compilation-finish-function'
-        (compile command))
-      (if is-function (my/compilation-toggle-finish-function))) ;restore `compilation-finish-function'
+        (compile command)
+        ;; Push AFTER `compile' — `compilation-mode-hook' resets the list.
+        (when my/verilog-update-output-after-vsim
+          (setq my/verilog--vsim-source-buffer (current-buffer))
+          (push #'my/verilog--vsim-finish-callback compilation-finish-functions))
+        (if is-function (my/compilation-toggle-finish-function)))) ;restore `compilation-finish-function'
 
     (bind-keys
      :map verilog-mode-map
@@ -1217,9 +1243,11 @@ if variable `my/verilog-compilation-after-save-enable' is t."
                 nil :local))
     (add-hook 'verilog-mode-hook #'my/verilog-compilation-after-save)
 
-    ;; Mark the `my/verilog-compilation-after-save-enable' variable as safe so that it can be
-    ;; set in `.dir-locals.el' files or set in Local Variables.
+    ;; Mark variables as safe so that they can be set in `.dir-locals.el' files
+    ;; or set in Local Variables.
     (put 'my/verilog-compilation-after-save-enable 'safe-local-variable #'booleanp)
+    (put 'my/verilog-update-output-after-vsim 'safe-local-variable #'booleanp)
+    (put 'my/verilog-update-output-keep-hash 'safe-local-variable #'booleanp)
 
 ;;;; Update simulation output in source
     (defun my/verilog--extract-vsim-transcript ()

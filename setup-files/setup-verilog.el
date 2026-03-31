@@ -27,6 +27,7 @@
 ;;    Verilog compile
 ;;    Simulation
 ;;    Compilation after save
+;;    Update simulation output in source
 ;;  hideshow
 ;;  hydra-verilog-template
 ;;  imenu + outshine
@@ -1219,6 +1220,66 @@ if variable `my/verilog-compilation-after-save-enable' is t."
     ;; Mark the `my/verilog-compilation-after-save-enable' variable as safe so that it can be
     ;; set in `.dir-locals.el' files or set in Local Variables.
     (put 'my/verilog-compilation-after-save-enable 'safe-local-variable #'booleanp)
+
+;;;; Update simulation output in source
+    (defun my/verilog--extract-vsim-transcript ()
+      "Extract simulation output lines from vsim transcript.
+Parse the `*compilation*' buffer and return lines between
+`# run -all' and `# quit' (exclusive) as a list of strings."
+      (let ((buf (get-buffer "*compilation*")))
+        (unless buf
+          (user-error "No *compilation* buffer found.  Run `my/questasim-vsim' first"))
+        (let ((transcript-text (with-current-buffer buf (buffer-string)))
+              (lines '())
+              (collecting nil))
+          (with-temp-buffer
+            (insert transcript-text)
+            (goto-char (point-min))
+            (while (not (eobp))
+              (let ((line (buffer-substring-no-properties
+                           (line-beginning-position) (line-end-position))))
+                (cond
+                 ((string-match-p "^# +quit" line)
+                  (setq collecting nil))
+                 (collecting
+                  (push line lines))
+                 ((string-match-p "^# run -all" line)
+                  (setq collecting t))))
+              (forward-line 1)))
+          (nreverse lines))))
+
+    (defun my/verilog-update-simulation-output (&optional keep-hash-prefix)
+      "Update the `// OUTPUT:' section with simulation transcript.
+Parse the `*compilation*' buffer for vsim output (between `# run -all'
+and `# quit'), then replace the commented lines after `// OUTPUT:'
+in the current buffer.
+
+By default, strips the `# ' prefix from transcript lines.
+With prefix argument KEEP-HASH-PREFIX (\\[universal-argument]),
+keeps the `# ' prefix (result: `// # ...')."
+      (interactive "P")
+      (let ((transcript-lines (my/verilog--extract-vsim-transcript)))
+        (save-excursion
+          (goto-char (point-min))
+          (unless (re-search-forward "^// OUTPUT:[ \t]*$" nil t)
+            (user-error "No `// OUTPUT:' marker found in current buffer"))
+          (let ((delete-start (line-beginning-position 2))
+                (delete-end nil))
+            (goto-char delete-start)
+            (while (and (not (eobp))
+                        (looking-at "^//"))
+              (forward-line 1))
+            (setq delete-end (point))
+            (delete-region delete-start delete-end)
+            (goto-char delete-start)
+            (dolist (line transcript-lines)
+              (insert (if keep-hash-prefix
+                         (concat "// " line)
+                       (concat "// "
+                               (if (string-match "^# ?" line)
+                                   (substring line (match-end 0))
+                                 line)))
+                      "\n"))))))
 
 ;;; hideshow
     (with-eval-after-load 'hideshow

@@ -341,7 +341,6 @@ When set to `emacs', the Org version shipped with Emacs is used.")
 (require 'setup-yasnippet)
 
 ;; Languages
-(require 'setup-conf)
 (require 'setup-elisp)
 (when (executable-find "go")
   (require 'setup-go))
@@ -418,7 +417,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
 (require 'setup-gpt)
 (unless (memq system-type '(windows-nt ms-dos))
   (require 'setup-claude-code))
-(require 'setup-data-format)
+(require 'setup-config-files)
 (>=e "29.1"
     (require 'setup-wavedrom))
 

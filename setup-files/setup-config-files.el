@@ -45,8 +45,10 @@
     (defun my/toml-to-json-string (toml-string)
       "Convert TOML-STRING to JSON using Python.
 Requires Python 3.11+ (tomllib) or the tomli package."
-      (let ((python (or (executable-find "python3")
-                        (executable-find "python"))))
+      (let ((python (if (eq system-type 'windows-nt)
+                        (executable-find "python")    ; Only this path has necessary 'toml' on my Windows OS
+                      (or (executable-find "python3")
+                          (executable-find "python")))))
         (unless python
           (user-error "Python not found; install Python 3.11+ for TOML conversion"))
         (with-temp-buffer
@@ -56,11 +58,10 @@ Requires Python 3.11+ (tomllib) or the tomli package."
                   (point-min) (point-max) python
                   t t nil  ;delete input, output to current buffer, no stderr buffer
                   "-c"
-                  (concat "import sys, json\n"
-                          "try:\n"
-                          "    import tomllib\n"
-                          "except ImportError:\n"
-                          "    import tomli as tomllib\n"
+                  ;; Single-line script: newlines in `-c' args
+                  ;; break on Windows (CreateProcess flattens them).
+                  (concat "import sys, json; "
+                          "tomllib = __import__('tomllib') if sys.version_info >= (3, 11) else __import__('tomli'); "
                           "print(json.dumps(tomllib.loads(sys.stdin.read()), indent=2))"))))
             (unless (eq exit-code 0)
               (user-error "TOML to JSON conversion failed:\n%s"

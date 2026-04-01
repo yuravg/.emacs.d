@@ -28,4 +28,4 @@ wget -O - https://raw.githubusercontent.com/yuravg/gowin-cst-mode/refs/heads/mas
      gowin-cst-mode/gowin-cst-mode.el
 
 wget -O - https://raw.githubusercontent.com/yuravg/undo-propose-el/refs/heads/master/undo-propose.el > \
-     undo-propose/undo-propose.el
+     undo-propose-el/undo-propose.el

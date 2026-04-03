@@ -243,7 +243,7 @@
 ;;;; Identifier
 (font-lock-add-keywords
  'verilog-mode
- '(("\\(^\\s-*\\)\
+ '(("\\(\\s-*\\)\
 \\<\\(begin\\|end\\|fork\\|join\\|join_any\\|join_none\\|endfunction\\|endtask\\|endclocking\\|endchecker\\|endgroup\\|endmodule\\|\
 endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\|endsequence\\|endproperty\\)\\>\
 \\([ ]?: \\<\\w+\\>\\)"

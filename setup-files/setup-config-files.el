@@ -70,10 +70,10 @@ Requires Python 3.11+ (tomllib) or the tomli package."
     (use-package plantuml-mode
       :bind
       (:map toml-mode-map
-       ("C-c C-c" . my/plantuml-preview-buffer-toml))
+       ("C-c C-c" . my/plantuml-preview-toml-buffer))
       :config
       (progn
-        (defun my/plantuml-preview-region-toml (prefix begin end)
+        (defun my/plantuml-preview-toml-region (prefix begin end)
           "Preview PlantUML JSON diagram from TOML sources in region BEGIN to END.
 Converts TOML to JSON via Python, then previews with PlantUML.
 Uses prefix (as PREFIX) to choose where to display it:
@@ -87,7 +87,7 @@ Uses prefix (as PREFIX) to choose where to display it:
                                                     json
                                                     "\n@endjson"))))
 
-        (defun my/plantuml-preview-buffer-toml (prefix)
+        (defun my/plantuml-preview-toml-buffer (prefix)
           "Preview PlantUML JSON diagram from TOML sources in buffer or region.
 If a region is active, convert only the selected TOML to JSON.
 Otherwise, convert the entire buffer.
@@ -97,9 +97,9 @@ Uses prefix (as PREFIX) to choose where to display it:
 - else -> new buffer"
           (interactive "p")
           (if (use-region-p)
-              (my/plantuml-preview-region-toml
+              (my/plantuml-preview-toml-region
                prefix (region-beginning) (region-end))
-            (my/plantuml-preview-region-toml
+            (my/plantuml-preview-toml-region
              prefix (point-min) (point-max))))))))
 
 
@@ -116,11 +116,11 @@ Uses prefix (as PREFIX) to choose where to display it:
 
     (use-package plantuml-mode
       :bind
-      (("C-c C-c" . my/plantuml-preview-buffer-json))
+      (("C-c C-c" . my/plantuml-preview-json-buffer))
       :config
       (progn
 
-        (defun my/plantuml-preview-region-json (prefix begin end)
+        (defun my/plantuml-preview-json-region (prefix begin end)
           "Preview diagram from the PlantUML json sources in from BEGIN to END.
 Uses the current region when called interactively.
 Uses prefix (as PREFIX) to choose where to display it:
@@ -133,7 +133,7 @@ Uses prefix (as PREFIX) to choose where to display it:
                                                    begin end)
                                                   "\n@endjson")))
 
-        (defun my/plantuml-preview-buffer-json (prefix)
+        (defun my/plantuml-preview-json-buffer (prefix)
           "Preview diagram from the PlantUML json sources in the current buffer.
 Uses prefix (as PREFIX) to choose where to display it:
 - 4  (when prefixing the command with C-u) -> new window

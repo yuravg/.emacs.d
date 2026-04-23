@@ -48,6 +48,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
   (append
    '(ace-window
      adaptive-wrap ; indented line wrapping
+     adoc-mode
      ag wgrep wgrep-ag s ; ag > ack > grep; wgrep+wgrep-ag allow editing files; directly in ag buffer
      aggressive-indent
      all all-ext ; edit ALL lines matching regex
@@ -362,6 +363,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
 (require 'setup-verilog)
 (require 'setup-web-mode)
 (require 'setup-yaml-mode)
+(require 'setup-adoc)
 
 (>=e "25.1"
     nil       ; Emacs 25.1 has `M-.' bound to `xref-find-definitions' by default

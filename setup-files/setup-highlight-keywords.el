@@ -19,7 +19,7 @@
 ;;    Formal verification
 ;;    UVM
 ;;  Number
-;;  Make file
+;;  Make-file
 ;;  Tcl
 ;;  Perl
 ;;  Markdown
@@ -353,10 +353,10 @@ uvm_analysis_port\\|uvm_analysis_export\\|uvm_analysis_imp\\w\\{0,20\\}\\)\\>"
      . hkeywords-number-face)))
 (font-lock-add-keywords 'cperl-mode perl-number-hkeyword)
 
-;;; Make file
+;;; Make-file
 ;; Highlight conditions
 (defvar make-file-hkeywords
-  '(("\\<\\(ifeq\\|ifneq\\|else\\|endif\\|define\\|endef\\|ifndef\\)\\>"
+  '(("\\<\\(ifeq\\|ifneq\\|else\\|endif\\|define\\|endef\\|ifdef\\|ifndef\\)\\>"
      . font-lock-keyword-face)))
 (font-lock-add-keywords 'makefile-mode make-file-hkeywords)
 (font-lock-add-keywords 'makefile-gmake-mode make-file-hkeywords)

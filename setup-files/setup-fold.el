@@ -53,7 +53,8 @@
   :config
   (progn
     (setq yafolding-ellipsis-content " «...» ")
-    (set-face-attribute 'yafolding-ellipsis-face nil :inherit 'modi/fold-face)))
+    (set-face-attribute 'yafolding-ellipsis-face nil :inherit 'modi/fold-face))
+  (defalias 'yfm 'yafolding-mode "Toggle yafolding mode."))
 
 ;;; Hide-show
 (use-package hideshow

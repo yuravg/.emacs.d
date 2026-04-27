@@ -30,7 +30,7 @@
         (overlay-put o 'keymap fold-this-keymap)
         (overlay-put o 'face '(:foreground "gray30" :background "gray96" :weight bold))
         (overlay-put o 'modification-hooks '(fold-this--unfold-overlay))
-        (overlay-put o 'display (propertize " ̅̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅  " 'face '(:foreground "gray30" :background "gray96" :weight bold)))
+        (overlay-put o 'display (propertize " « ···   ···   ··· » " 'face '(:foreground "gray30" :background "gray96" :weight bold)))
         (overlay-put o 'evaporate t)
         (setq modi/fold-this--last-overlay o))
       (deactivate-mark))

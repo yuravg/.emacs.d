@@ -131,6 +131,7 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
     snippet-mode
     tcl-mode
     text-mode
+    toml-mode
     verilog-mode
     web-mode
     yaml-mode)

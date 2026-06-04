@@ -21,16 +21,31 @@
 
     ;; Patch the original `fold-this' command to save the overlay to the var
     ;; `modi/fold-this--last-overlay' and tweak the 'display property of the
-    ;; overlay
-    (defun fold-this (beg end)
-      (interactive "r")
-      (let ((o (make-overlay beg end nil t nil)))
+    ;; overlay.
+    ;; With a prefix argument, prompt for LABEL and display it as
+    ;; " « ··· LABEL ··· » " instead of the default " « ···   ···   ··· » "
+    ;; to improve the readability of folded regions.
+    (defun fold-this (beg end &optional label)
+      "Fold the region between BEG and END.
+With a prefix argument, prompt for LABEL and show it in the
+ellipsis as \" « ··· LABEL ··· » \" to improve readability."
+      (interactive
+       (list (region-beginning)
+             (region-end)
+             (when current-prefix-arg
+               (read-string "Fold label: "))))
+      (let* ((face '(:foreground "gray30" :background "gray96" :weight bold))
+             (ellipsis (if (and (stringp label)
+                                (not (string= "" label)))
+                           (format " « ··· %s ··· » " label)
+                         " « ···   ···   ··· » "))
+             (o (make-overlay beg end nil t nil)))
         (overlay-put o 'type 'fold-this)
         (overlay-put o 'invisible t)
         (overlay-put o 'keymap fold-this-keymap)
-        (overlay-put o 'face '(:foreground "gray30" :background "gray96" :weight bold))
+        (overlay-put o 'face face)
         (overlay-put o 'modification-hooks '(fold-this--unfold-overlay))
-        (overlay-put o 'display (propertize " « ···   ···   ··· » " 'face '(:foreground "gray30" :background "gray96" :weight bold)))
+        (overlay-put o 'display (propertize ellipsis 'face face))
         (overlay-put o 'evaporate t)
         (setq modi/fold-this--last-overlay o))
       (deactivate-mark))
@@ -168,8 +183,9 @@ If prefix argument is used, `set-selective-display' to the current column."
   (interactive "r")
   (let ((message-log-max nil))
     (if (region-active-p)
-        (progn
-          (fold-this beg end)
+        (let ((label (when current-prefix-arg
+                       (read-string "Fold label: "))))
+          (fold-this beg end label)
           (setq modi/fold-dwim--last-fn #'fold-this)
           (message "Folded the selected region using %s."
                    (propertize

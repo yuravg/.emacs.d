@@ -12,6 +12,10 @@
   :init
   (progn
     (setq fold-this-persistent-folds-file (locate-user-emacs-file "folds-saved")))
+  :chords (:map modi-mode-map
+           ("JK" . fold-this)
+           ("js" . fold-this-unfold-at-point))
+
   :config
   (progn
     (setq fold-this-persistent-folds t)

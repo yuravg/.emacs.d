@@ -5,6 +5,8 @@
 
 (use-package imenu-list
   :commands (modi/imenu-list-display-toggle)
+  :chords (:map modi-mode-map
+           ("jl" . imenu-list))
   :config
   (progn
     (setq imenu-list-size     0.2)
@@ -89,7 +91,9 @@ _M-j_/_M-C-j_: jump & quit-imenu                 _n_/_p_: navigation
         (when (modi/imenu-list-visible-p)
           (imenu-list-update-safe)))) ; update `imenu-list' buffer
     (advice-add 'switch-to-buffer :around #'modi/imenu-auto-update)
-    (advice-add 'revert-buffer    :around #'modi/imenu-auto-update)))
+    (advice-add 'revert-buffer    :around #'modi/imenu-auto-update)
+
+    (defalias 'il 'imenu-list "Activation imenu-list-minor-mode")))
 
 
 (provide 'setup-imenu-list)

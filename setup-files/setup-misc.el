@@ -244,9 +244,20 @@ to depth MAXDEPTH. If zero or negative, then do not recursion."
 (use-package elec-pair
   :config
   (progn
-    ;; Global enable Electric Pair mode
-    (electric-pair-mode t)
-    (defalias 'ep 'electric-pair-local-mode)))
+
+    (defun my/turn-on-elec-pair-local-mode ()
+      "Turn on `electric-pair-local-mode' in `my/major-modes-hooks'."
+      (interactive)
+      (dolist (hook my/major-modes-hooks)
+        (add-hook hook #'electric-pair-local-mode)))
+
+    (defun my/turn-off-elec-pair-local-mode ()
+      "Turn off `electric-pair-local-mode' in `my/major-modes-hooks'."
+      (interactive)
+      (dolist (hook my/major-modes-hooks)
+        (remove-hook hook #'electric-pair-local-mode)))
+
+    (my/turn-on-elec-pair-local-mode)))
 
 (use-package esh-mode
   :bind

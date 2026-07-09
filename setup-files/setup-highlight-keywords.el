@@ -255,6 +255,12 @@ endprogram\\|endinterface\\|endpackage\\|endprimitive\\|endconfig\\|endclass\\|e
  '(("\\( \\<begin\\>\\)\\( : \\<\\w+\\>\\)"
     2 'font-lock-comment-delimiter-face)))
 
+;; cover_point_identifier
+(font-lock-add-keywords
+ 'verilog-mode
+ '(("^\\(\\s-*\\)\\(\\<\\w+\\>:\\)\\(\\s-*\\)\\(\\<\\(coverpoint\\|cross\\)\\>\\)"
+    2 'font-lock-comment-delimiter-face)))
+
 ;;;; Class name
 ;; Highlight <class_name> (now there is no highlighting for 'void' or user type)
 ;; verilog code example: function <type> <class_name>::<method>(variables)

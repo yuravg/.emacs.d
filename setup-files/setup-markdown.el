@@ -374,13 +374,14 @@ Example:
      :map markdown-mode-map
      ;; Mimicking the org-export style bindings
      ("C-c C-e o" . gk-markdown-preview-buffer)
-     ("C-c C-e t". orgtbl-send-table)
+     ("C-c C-e t" . orgtbl-send-table)
      ("C-c C-s N" . my/markdown-cleanup-heder-list-numbers-level)
      ("C-c C-s n" . markdown-cleanup-list-numbers)
-     ("M-p" . markdown-previous-visible-heading)
-     ("M-n" . markdown-next-visible-heading)
-     ("M-}" . modi/markdown-next-table)
-     ("M-{" . modi/markdown-prev-table))))
+     ("M-p"       . markdown-previous-visible-heading)
+     ("M-n"       . markdown-next-visible-heading)
+     ("M-}"       . modi/markdown-next-table)
+     ("M-{"       . modi/markdown-prev-table)
+     ("C-c C-x |" . my/table-align-buffer))))
 
 
 (provide 'setup-markdown)

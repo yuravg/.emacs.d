@@ -32,6 +32,7 @@
 ;;  Org Table
 ;;    Table Recalculation
 ;;    Table Field Marking
+;;    Table Alignment
 ;;  Org Entities
 ;;  Org Statistics cookies
 ;;  Org Babel
@@ -1540,7 +1541,54 @@ function is ever added to that hook."
     (bind-keys
      :map org-mode-map
      :filter (org-at-table-p)
-     ("S-SPC" . hydra-org-table-mark-field/body))))
+      ("S-SPC" . hydra-org-table-mark-field/body)))
+
+;;;; Table Alignment
+  (defun my/table-align-buffer (&optional recalculate)
+    "Align every table in the current buffer.
+
+The aligner is picked from the major mode: `org-table-align' in Org
+mode, `markdown-table-align' in Markdown mode.  Tables inside example,
+source and fenced code blocks are left alone.
+
+With prefix argument RECALCULATE, Org tables also have their formulas
+re-evaluated before being aligned; the argument has no effect in
+Markdown mode.
+
+Return the number of tables that were aligned."
+    (interactive "P")
+    (let ((count 0))
+      (cond
+       ((derived-mode-p 'org-mode)
+        (org-table-map-tables
+         (lambda ()
+           (when recalculate
+             (org-table-recalculate :all :no-align))
+           (org-table-align)
+           (setq count (1+ count)))
+         :quietly))
+       ((derived-mode-p 'markdown-mode)
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward markdown-table-line-regexp nil :noerror)
+            (if (markdown-table-at-point-p)
+                ;; Aligning shifts the text, so hold the end in a marker.
+                (let ((end (copy-marker (markdown-table-end))))
+                  (goto-char (markdown-table-begin))
+                  (markdown-table-align)
+                  (setq count (1+ count))
+                  (goto-char end)
+                  (set-marker end nil))
+              (forward-line 1)))))
+       (t
+        (user-error "`%s' has no table support" major-mode)))
+      (when (called-interactively-p 'interactive)
+        (message "Aligned %d table%s" count (if (= count 1) "" "s")))
+      count))
+
+  (bind-keys
+   :map org-mode-map
+   ("C-c C-x |" . my/table-align-buffer)))
 
 ;;; Org Entities
 (use-package org-entities

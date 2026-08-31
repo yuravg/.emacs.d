@@ -118,6 +118,7 @@ If SKIP-DESKTOP-SAVE is non-nil, do not save the desktop. "
     makefile-mode
     markdown-mode
     nim-mode
+    nix-mode
     org-mode
     org-src-mode
     plantuml-mode

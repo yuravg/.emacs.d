@@ -118,6 +118,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
      markdown-mode
      minibuffer-line
      multiple-cursors
+     nix-mode
      nov    ;Ebook (.epub) reader
      org-cliplink ; paste copied links as well-formatted org-mode links with desc
      org-make-toc
@@ -304,6 +305,7 @@ When set to `emacs', the Org version shipped with Emacs is used.")
 (require 'setup-manage-minor-mode)
 (require 'setup-mastodon)
 (require 'setup-multiple-cursors)
+(require 'setup-nix)
 (require 'setup-news)
 (require 'setup-nov)
 (require 'setup-org)

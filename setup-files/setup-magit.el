@@ -5,6 +5,7 @@
 ;;  Magit
 ;;  Magit-log
 ;;  Git-timemachine
+;;    Revision diff highlighting
 ;;    `git-timemachine' bindings
 ;;  `magit-blame' bindings
 ;;  Git-modes
@@ -276,6 +277,117 @@ It is assumed that the author has only one or two names."
       (interactive)
       (git-timemachine-show-next-revision)
       (my/git-timemachine-show-commit))
+
+;;;; Revision diff highlighting
+    ;; `git-timemachine' inserts the plain file content of a revision, so the
+    ;; buffer shows no trace of what that revision actually changed.  Feed
+    ;; `diff-hl' the diff between the shown revision and its parent so the
+    ;; changed lines get the same fringe/margin indicators as uncommitted
+    ;; changes.
+    (defvar my/git-timemachine-diff-hl t
+      "When non-nil, highlight the changes of the revision shown by `git-timemachine'.")
+
+    (defvar my/git-timemachine-highlight-lines t
+      "When non-nil, colorize whole changed lines, as `git diff' does.
+When nil, changes are only marked in the fringe or margin, the way
+`diff-hl' marks uncommitted changes.")
+
+    (defface my/git-timemachine-added-face
+      '((t :inherit diff-added))
+      "Face for lines added by the revision shown by `git-timemachine'."
+      :group 'git-timemachine)
+
+    (defface my/git-timemachine-changed-face
+      '((t :inherit diff-added))
+      "Face for lines changed by the revision shown by `git-timemachine'.
+The buffer holds the new content of those lines, which is the \"+\" side of
+the diff, hence the same default as `my/git-timemachine-added-face'.
+Customize this face to tell a line that replaced something from a new one."
+      :group 'git-timemachine)
+
+    (defvar my/git-timemachine-line-faces
+      '((insert . my/git-timemachine-added-face)
+        (change . my/git-timemachine-changed-face))
+      "Alist mapping a `diff-hl' change type to a whole-line face.
+A type absent from this alist gets no face.  `delete' is absent because
+removed lines are not in the buffer to be colorized; those keep the fringe
+or margin marker instead.")
+
+    (defun my/git-timemachine-highlight-line (ovl type shape)
+      "Colorize the whole line of OVL according to TYPE.
+Draw the usual `diff-hl' marker for TYPE and SHAPE as well, so that
+deletions, which have no line of their own, stay visible."
+      (funcall (default-value 'diff-hl-highlight-function) ovl type shape)
+      (let ((face (cdr (assq type my/git-timemachine-line-faces)))
+            (beg (overlay-start ovl)))
+        (if face
+            (progn
+              ;; Cover the newline too, so that the face reaches the window edge.
+              (move-overlay ovl beg (save-excursion
+                                      (goto-char beg)
+                                      (min (point-max) (1+ (line-end-position)))))
+              (overlay-put ovl 'face face))
+          ;; Overlays are reused between updates; undo any earlier highlight.
+          (move-overlay ovl beg beg)
+          (overlay-put ovl 'face nil))))
+
+    (defun my/git-timemachine--parent-file (commit file)
+      "Return the name FILE was known by before COMMIT.
+`git-timemachine' follows renames, so the name recorded for the next older
+revision is the one the parent commit knows.  Fall back to FILE."
+      (let ((revisions (git-timemachine--revisions)))
+        (while (and revisions
+                    (not (string= (car (car revisions)) commit)))
+          (setq revisions (cdr revisions)))
+        (or (nth 1 (cadr revisions)) file)))
+
+    (defun my/git-timemachine--diff-hl-changes ()
+      "Return `diff-hl' changes made by the revision shown by `git-timemachine'.
+`--root' makes git diff a root commit against the empty tree, so the initial
+revision of a file needs no special case.  Both the old and the new file name
+are passed, so that a revision which renames the file is still diffed by
+content rather than reported as one big addition.  A merge commit produces no
+output, and so no highlighting, just as `git log -p' shows no patch for one."
+      (let* ((commit (car git-timemachine-revision))
+             (file (nth 1 git-timemachine-revision))
+             (parent-file (my/git-timemachine--parent-file commit file))
+             (default-directory git-timemachine-directory)
+             (buf (get-buffer-create " *git-timemachine-diff-hl*")))
+        (with-current-buffer buf
+          (erase-buffer))
+        (when (zerop (apply #'process-file vc-git-program nil buf nil
+                            "--no-pager" "diff-tree" "--no-commit-id" "--root"
+                            "--find-renames" "-U0" "-p" commit "--"
+                            (if (string= parent-file file)
+                                (list file)
+                              (list parent-file file))))
+          `((:working . ,(diff-hl-changes-from-buffer buf))))))
+
+    (defun my/git-timemachine-diff-hl-changes (orig-fn)
+      "Diff a `git-timemachine' revision against its parent.
+In any other buffer call ORIG-FN, the advised `diff-hl-changes'."
+      (if (and my/git-timemachine-diff-hl
+               git-timemachine-revision)
+          (my/git-timemachine--diff-hl-changes)
+        (funcall orig-fn)))
+
+    (defun my/git-timemachine-diff-hl-update (&rest _)
+      "Refresh `diff-hl' highlighting for the revision now shown."
+      (when (and my/git-timemachine-diff-hl
+                 git-timemachine-revision
+                 (require 'diff-hl nil :noerror))
+        (unless (bound-and-true-p diff-hl-mode)
+          ;; `git-timemachine' sets the major mode with `delay-mode-hooks', so
+          ;; the hooks that normally turn on `diff-hl-mode' never run here.
+          (diff-hl-mode 1))
+        (when my/git-timemachine-highlight-lines
+          (setq-local diff-hl-highlight-function #'my/git-timemachine-highlight-line))
+        (diff-hl-update)))
+
+    (with-eval-after-load 'diff-hl
+      (advice-add 'diff-hl-changes :around #'my/git-timemachine-diff-hl-changes))
+    ;; Every navigation command goes through `git-timemachine-show-revision'.
+    (advice-add 'git-timemachine-show-revision :after #'my/git-timemachine-diff-hl-update)
 
     ;; The `git-timemachine-help' is defined in `git-timemachine' package.
     ;; To add commands to `git-timemachine-help' I overwrite it.

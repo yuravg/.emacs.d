@@ -106,6 +106,8 @@ Uses prefix (as PREFIX) to choose where to display it:
 
 ;;; JSON
 (use-package js
+  :mode (("\\.json\\'"  . js-json-mode)
+         ("\\.jsonl\\'" . js-json-mode)) ; JSON Lines
   :config
   (progn
     (defun my/js-set-indentation ()

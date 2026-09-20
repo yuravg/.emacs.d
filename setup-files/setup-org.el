@@ -17,6 +17,7 @@
 ;;    Org Export Customization
 ;;    Inbuilt Exporters
 ;;      ox-latex - LaTeX export
+;;      my/org-latex-fit-tables
 ;;      ox-html - HTML export
 ;;      ox-beamer - Beamer export
 ;;      ox-odt - ODT, doc export
@@ -1112,7 +1113,191 @@ See `org-latex-format-headline-function' for details."
            (and tags
                 (format "\\hfill{}\\textsc{%s}"
                         (mapconcat (lambda (tag) (org-latex-plain-text tag info))
-                                   tags ":")))))))
+                                   tags ":")))))
+
+;;;;; my/org-latex-fit-tables
+        ;; Fit wide and tall tables onto the page: on LaTeX export, give every
+        ;; table lacking #+ATTR_LATEX wrapping p{} columns sized from its cell
+        ;; widths, a smaller font past the width thresholds, and longtable when
+        ;; it is taller than a page.  Only the export copy is changed.
+        (defgroup my/org-latex-fit-tables nil
+          "Fit wide Org tables onto the page on LaTeX export."
+          :group 'org-export-latex
+          :prefix "my/org-latex-fit-tables-")
+
+        (defcustom my/org-latex-fit-tables-threshold 90
+          "Aligned width in characters above which a table gets an ATTR_LATEX line.
+        The aligned width is 1 plus the sum over columns of (longest cell + 3),
+        which is the width of the table after `org-table-align'."
+          :type 'natnum
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-cell-cap 60
+          "Longest cell width that still counts when weighting a column.
+        A column's weight is the width of its longest cell capped at this value,
+        so one huge cell cannot starve the other columns."
+          :type 'natnum
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-fixed-max 12
+          "Longest cell width for which a column stays an `l' column.
+        Such columns never wrap; wider columns become `p{}' columns."
+          :type 'natnum
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-line-budget 0.95
+          "Fraction of \\linewidth the whole table may use.
+        The `l' columns take their estimated share first, the `p{}' columns
+        share the rest in proportion to their weights."
+          :type 'float
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-chars-per-line 110
+          "Estimated characters per \\linewidth, used to cost the `l' columns.
+        An `l' column of width W is estimated to take (W + 2) / this fraction."
+          :type 'natnum
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-colsep-share 0.03
+          "Fraction of \\linewidth each column costs in separation (2\\tabcolsep).
+        The `p{}' widths must leave this much per column, or a table without
+        `l' columns overflows the line by exactly that amount."
+          :type 'float
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-longtable-rows 25
+          "Row count above which a table is exported as a longtable.
+        Longtables break across pages; applies to narrow tables too."
+          :type 'natnum
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-small-threshold 150
+          "Aligned width above which the table is set in \\small."
+          :type 'natnum
+          :group 'my/org-latex-fit-tables)
+
+        (defcustom my/org-latex-fit-tables-footnote-threshold 250
+          "Aligned width above which the table is set in \\footnotesize."
+          :type 'natnum
+          :group 'my/org-latex-fit-tables)
+
+        (defconst my/org-latex-fit-tables--cookie-re "\\`<[lrc]?[0-9]*>\\'"
+          "Regexp matching one alignment or width cookie cell such as <l>, <40>, <r12>.")
+
+        (defun my/org-latex-fit-tables--cookie-row-p (row)
+          "Return non-nil when ROW holds only cookies and is therefore never exported."
+          (let ((cells (delete "" (mapcar #'string-trim row))))
+            (and cells
+                 (seq-every-p (lambda (cell)
+                                (string-match-p my/org-latex-fit-tables--cookie-re cell))
+                              cells))))
+
+        (defun my/org-latex-fit-tables--cell-width (cell)
+          "Return the display width of CELL.
+        The Org entities \\vert{} and \\backslash{} count as one character each."
+          (string-width
+           (replace-regexp-in-string "\\\\\\(?:vert\\|backslash\\){}" "x"
+                                     (string-trim cell))))
+
+        (defun my/org-table-column-widths (table)
+          "Return the display width of the longest cell in each column of TABLE.
+        TABLE is the list returned by `org-table-to-lisp': one list of strings
+        per row, or the symbol `hline'.  Rows made only of alignment or width
+        cookies such as <l> or <40> are skipped, as they never export.  The Org
+        entities \\vert{} and \\backslash{} count as one character each.
+
+        Return a list with one integer per column, an empty list for a table
+        without data rows."
+          (let ((widths (make-vector
+                         (apply #'max 0 (mapcar (lambda (row) (if (listp row) (length row) 0))
+                                                table))
+                         0)))
+            (dolist (row table)
+              (when (and (listp row) (not (my/org-latex-fit-tables--cookie-row-p row)))
+                (seq-do-indexed
+                 (lambda (cell col)
+                   (aset widths col (max (aref widths col)
+                                         (my/org-latex-fit-tables--cell-width cell))))
+                 row)))
+            (append widths nil)))
+
+        (defun my/org-latex-fit-tables--row-count (table)
+          "Return the number of exported rows in TABLE, ignoring hlines and cookie rows."
+          (seq-count (lambda (row)
+                       (and (listp row) (not (my/org-latex-fit-tables--cookie-row-p row))))
+                     table))
+
+(defun my/org-latex-fit-tables--align (widths)
+  "Return the LaTeX column specification fitting columns of WIDTHS.
+Columns no wider than `my/org-latex-fit-tables-fixed-max' stay `l'; the
+others become `p{F\\linewidth}' with F proportional to their capped width,
+after the `l' columns and every column's separation took their share.
+Return nil when no column needs wrapping or no room is left for it."
+  (let* ((fixed-max my/org-latex-fit-tables-fixed-max)
+         (weights (mapcar (lambda (w)
+                            (and (> w fixed-max)
+                                 (max 3 (min w my/org-latex-fit-tables-cell-cap))))
+                          widths))
+         (fixed-share (apply #'+ (mapcar (lambda (w)
+                                           (if (> w fixed-max)
+                                               0.0
+                                             (/ (+ w 2.0)
+                                                my/org-latex-fit-tables-chars-per-line)))
+                                         widths)))
+         (budget (- my/org-latex-fit-tables-line-budget
+                    fixed-share
+                    (* my/org-latex-fit-tables-colsep-share (length widths))))
+         (sum (apply #'+ (delq nil (copy-sequence weights)))))
+    (when (and (> sum 0) (> budget 0))
+      (mapconcat (lambda (w)
+                   (if w
+                       (format "p{%.2f\\linewidth}" (* budget (/ (float w) sum)))
+                     "l"))
+                 weights ""))))
+
+        (defun my/org-latex-fit-tables-attributes (widths nrows)
+          "Return the ATTR_LATEX value that fits a table, or nil when it needs none.
+        WIDTHS is the list from `my/org-table-column-widths', NROWS the number of
+        exported rows.  A table wider than `my/org-latex-fit-tables-threshold'
+        gets an `:align' with wrapping columns and, past the font thresholds, a
+        `:font'; a table taller than `my/org-latex-fit-tables-longtable-rows'
+        gets `:environment longtable'."
+          (let* ((total (1+ (apply #'+ (mapcar (lambda (w) (+ w 3)) widths))))
+                 (wide (> total my/org-latex-fit-tables-threshold))
+                 (tall (> nrows my/org-latex-fit-tables-longtable-rows))
+                 (align (and wide (my/org-latex-fit-tables--align widths)))
+                 (font (cond ((not wide) nil)
+                             ((> total my/org-latex-fit-tables-footnote-threshold) "\\footnotesize")
+                             ((> total my/org-latex-fit-tables-small-threshold) "\\small")))
+                 (parts (delq nil (list (and tall ":environment longtable")
+                                        (and align (concat ":align " align))
+                                        (and font (concat ":font " font))))))
+            (and parts (string-join parts " "))))
+
+        (defun my/org-latex-fit-tables (backend)
+          "Add an ATTR_LATEX line to every wide or tall table that lacks one.
+        Meant for `org-export-before-parsing-functions'; does nothing unless
+        BACKEND derives from `latex'.  Tables that already carry ATTR_LATEX are
+        left alone, as are tables inside example and source blocks, which the
+        parser never sees as tables.  Only the export copy of the buffer is
+        modified, never the file."
+          (when (org-export-derived-backend-p backend 'latex)
+            (let ((starts (org-element-map (org-element-parse-buffer) 'table
+                            (lambda (table)
+                              (and (eq (org-element-property :type table) 'org)
+                                   (not (org-element-property :attr_latex table))
+                                   (org-element-property :post-affiliated table))))))
+              ;; Walk from the last table up so insertions never shift a pending position.
+              (dolist (start (sort starts #'>))
+                (goto-char start)
+                (let* ((table (org-table-to-lisp))
+                       (attr (my/org-latex-fit-tables-attributes
+                              (my/org-table-column-widths table)
+                              (my/org-latex-fit-tables--row-count table))))
+                  (when attr
+                    (insert "#+ATTR_LATEX: " attr "\n")))))))
+
+        (add-hook 'org-export-before-parsing-functions #'my/org-latex-fit-tables)))
 
 ;;;;; ox-html - HTML export
     (use-package ox-html

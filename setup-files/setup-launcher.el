@@ -29,7 +29,7 @@
   ("K"       modi/keep-lines-force "keep lines")
   ("l"        modi/run-current-file "load current file")
   ("L"       (modi/run-current-file 4) "load emacs init")
-  ("m"       woman "man/woman")
+  ("M"       woman "man/woman")
   ("o"       org-capture "org capture")
   ("p"       (call-interactively (if (package-installed-p 'paradox)
                                      #'paradox-list-packages ;Launch paradox if installed
@@ -48,6 +48,7 @@
   ("<SPC>"   hydra-launch-freq/body "launch freq")
   ("<s-SPC>" hydra-launch-freq/body nil)
   (":"       eval-expression "eval")
+  ("m"       hydra-markdown-style/body "hydra-markdown")
   ("C-g"     nil "cancel"))
 
 (defhydra hydra-launch-freq (:color teal
